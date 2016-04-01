@@ -1,1 +1,84 @@
-make
+#ifndef reflection_property_direct_base
+#define reflection_property_direct_base
+
+#include "./_pure.hpp"
+
+namespace reflection
+ {
+  namespace property
+   {
+    namespace direct
+     {
+
+      template
+       <
+         typename type_name       //!< mutablize before use!
+        ,typename original_name   //!< mutablize before use!
+        ,typename carrier_name    //= type_name
+        ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
+       >
+       class base
+        : virtual public ::reflection::property::direct::pure< type_name, original_name >
+        {
+         public:
+           typedef carrier_name    carrier_type;
+           typedef extractor_name  extractor_type;
+
+                     base()
+                      {
+                      }
+
+            explicit base
+                     (
+                       extractor_type const& extractor_param
+                     )
+                     {
+                     }
+
+            explicit base
+                     (
+                       carrier_type   const& carrier_param
+                      ,extractor_type const& extractor_param = extractor_type()
+                     )
+                     {
+                     }
+
+         public:
+           carrier_type   const&  carrier ( void )const
+            {
+             return m_carrier; 
+            }
+           void                carrier( carrier_type const& carrier_param )
+            {
+             m_carrier = carrier_param;  
+            }
+         protected:
+           carrier_type&          F1_carrier()
+            {
+             return m_carrier; 
+            }
+         private:
+           carrier_type           m_carrier;
+
+         public: 
+           T_original original( void )
+            {
+             return F1_extractor()( F1_carrier() );
+            }
+
+         public: 
+           T_extractor const&   extractor()const{ return m_extractor; }
+           void                 extractor( extractor_type const& extractor_param ){ m_extractor = extractor_param; }
+         //extractor_type      &   extractor(){ return m_extractor; }
+         protected:
+           extractor_type      &   F1_extractor(){ return m_extractor; }
+         private:
+           extractor_type          m_extractor;
+
+        };
+
+      }
+    }
+  }
+
+#endif
