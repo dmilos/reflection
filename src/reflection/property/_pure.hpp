@@ -7,11 +7,11 @@ namespace reflection
   namespace  property
    {
 
-    class pure
+    class pure_class
      {
       public:
-       pure(){}
-       virtual ~pure(){}
+       pure_class(){}
+       virtual ~pure_class(){}
      };
 
    }

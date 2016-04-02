@@ -11,33 +11,33 @@ namespace reflection
      {
 
       template< typename type_name, typename report_name = bool, typename model_name = type_name const& >
-       class pure
-        : public ::reflection::property::pure
+       class pure_class
+        : public ::reflection::property::pure_class
         {
          public:
            typedef type_name   type_type;
            typedef report_name report_type;
            typedef model_name model_type;
 
-                    pure(){}
-           virtual ~pure(){}
+                    pure_class(){}
+           virtual ~pure_class(){}
 
            void process( model_type m )=0;
         };
 
       template< typename type_name, typename report_name = bool, typename model_name = type_name const& >
-       inline bool check( ::reflection::property::pure const& property_param )
+       inline bool check( ::reflection::property::pure_class const& property_param )
         {
-         typedef ::reflection::property::set::pure<type_name,report_name, model_name> set_type;
+         typedef ::reflection::property::set::pure_class<type_name,report_name, model_name> set_type;
          return nullptr != dynamic_cast< set_type const*>( &property_param );
         }
 
       template< typename type_name, typename report_name = bool, typename model_name = type_name const& >
        inline
        report_name
-       process( ::reflection::property::pure const& property_param, model_name model_param )
+       process( ::reflection::property::pure_class const& property_param, model_name model_param )
         {
-         typedef ::reflection::property::set::pure<type_name,report_name, model_name> set_type;
+         typedef ::reflection::property::set::pure_class<type_name,report_name, model_name> set_type;
          return dynamic_cast< set_type &>( property_param ).process( model_param );
         }
 

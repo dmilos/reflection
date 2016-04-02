@@ -17,6 +17,11 @@ namespace reflection
 
       typedef std::map<string_type, item_type> container_type;
 
+      object(){}
+      object( object const& that ){ *this = that; }
+      object & operator=( object const& that ){ /* empty */ }
+
+      bool                 exists( string_type const& name );
       void                 insert( string_type const& name, item_type const& property );
       property_type const& get(    string_type const& name )const;
       property_type      & get(    string_type const& name );

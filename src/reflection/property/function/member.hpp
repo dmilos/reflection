@@ -20,8 +20,8 @@ namespace reflection
         ,typename fourth_name
         ,typename fifth_name
         >
-       class member
-        : public ::reflection::property::function::pure<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
+       class member_class
+        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
         {
          public:
            typedef  class_name     class_type;
@@ -34,8 +34,8 @@ namespace reflection
 
            typedef return_type (class_name::*function_type)( first_type, second_type , third_type , fourth_type , fifth_type );
 
-                    member( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member( );
+                    member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
+           virtual ~member_class( );
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param, fifth_type fifth_param )
             {
@@ -49,8 +49,8 @@ namespace reflection
 
 
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
-       class member< class_name,return_name,first_name,second_name,third_name,fourth_name,void>
-        : public ::reflection::property::function::pure<return_name,first_name,second_name,third_name,fourth_name,void>
+       class member_class< class_name,return_name,first_name,second_name,third_name,fourth_name,void>
+        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>
         {
          public:
            typedef  class_name     class_type;
@@ -62,8 +62,8 @@ namespace reflection
 
            typedef return_type (class_name::*function_type)( first_type, second_type , third_type , fourth_type );
 
-                    member( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member( );
+                    member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
+           virtual ~member_class( );
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param )
             {
@@ -75,8 +75,8 @@ namespace reflection
         };
 
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name >
-       class member< class_name,return_name,first_name,second_name,third_name,void,void>
-        : public ::reflection::property::function::pure<return_name,first_name,second_name,third_name,void,void>
+       class member_class< class_name,return_name,first_name,second_name,third_name,void,void>
+        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>
         {
          public:
            typedef  class_name     class_type;
@@ -87,8 +87,8 @@ namespace reflection
 
            typedef return_type (class_name::*function_type)( first_type, second_type , third_type );
 
-                    member( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member( );
+                    member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
+           virtual ~member_class( );
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param )
             {
@@ -100,8 +100,8 @@ namespace reflection
         };
 
       template< typename class_name, typename return_name, typename first_name, typename second_name >
-       class member< class_name,return_name,first_name,second_name,void,void,void>
-        : public ::reflection::property::function::pure<return_name,first_name,second_name,void,void,void>
+       class member_class< class_name,return_name,first_name,second_name,void,void,void>
+        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>
         {
          public:
            typedef  class_name     class_type;
@@ -111,8 +111,8 @@ namespace reflection
 
            typedef return_type (class_name::*function_type)( first_type, second_type );
 
-                    member( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member( );
+                    member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
+           virtual ~member_class( );
 
            return_type execute( first_type first_param, second_type second_param )
             {
@@ -125,8 +125,8 @@ namespace reflection
 
 
       template< typename class_name, typename return_name, typename first_name >
-       class member< class_name,return_name,first_name,void,void,void,void>
-        : public ::reflection::property::function::pure<return_name,first_name,void,void,void,void>
+       class member_class< class_name,return_name,first_name,void,void,void,void>
+        : public ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>
         {
          public:
            typedef  class_name     class_type;
@@ -135,8 +135,8 @@ namespace reflection
 
            typedef return_type (class_name::*function_type)( first_type );
 
-                    member( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member( );
+                    member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
+           virtual ~member_class( );
 
            return_type execute( first_type first_param )
             {
@@ -148,8 +148,8 @@ namespace reflection
         };
 
       template< typename class_name, typename return_name >
-       class member< class_name,return_name,void,void,void,void,void>
-        : public ::reflection::property::function::pure<return_name,void,void,void,void,void>
+       class member_class< class_name,return_name,void,void,void,void,void>
+        : public ::reflection::property::function::pure_class<return_name,void,void,void,void,void>
         {
          public:
            typedef  class_name     class_type;
@@ -157,8 +157,8 @@ namespace reflection
 
            typedef return_type (class_name::*function_type)();
 
-                    member( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member( );
+                    member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
+           virtual ~member_class( );
 
            return_type execute( )
             {
@@ -171,84 +171,84 @@ namespace reflection
 
       template< typename class_name, typename return_name >
        inline
-       ::reflection::property::function::member<class_name,return_name,void,void,void,void,void>
+       ::reflection::property::function::member_class<class_name,return_name,void,void,void,void,void>
        make
         (
           class_name * class_param
          ,return_name (class_name::*function_param)()
         )
         {
-         typedef ::reflection::property::function::member<class_name,return_name, void, void, void, void, void > member_type;
+         typedef ::reflection::property::function::member_class<class_name,return_name, void, void, void, void, void > member_type;
 
          return member_type( class_param, function_param );
         }
 
       template< typename class_name, typename return_name, typename first_name >
        inline
-       ::reflection::property::function::member<class_name, return_name, first_name,void,void,void,void >
+       ::reflection::property::function::member_class<class_name, return_name, first_name,void,void,void,void >
        make
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name )
         )
         {
-         typedef ::reflection::property::function::member<class_name, return_name, first_name, void, void, void, void > member_type;
+         typedef ::reflection::property::function::member_class<class_name, return_name, first_name, void, void, void, void > member_type;
 
          return member_type( class_param, function_param );
         }
 
       template< typename class_name, typename return_name, typename first_name, typename second_name >
        inline
-       ::reflection::property::function::member<class_name, return_name, first_name, second_name,void,void,void>
+       ::reflection::property::function::member_class<class_name, return_name, first_name, second_name,void,void,void>
        make
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name, second_name )
         )
         {
-         typedef ::reflection::property::function::member<class_name, return_name, first_name, second_name, void, void, void > member_type;
+         typedef ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, void, void, void > member_type;
 
          return member_type( class_param, function_param );
         }
 
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name >
        inline
-       ::reflection::property::function::member<class_name, return_name, first_name, second_name, third_name,void,void>
+       ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name,void,void>
        make
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name, second_name, third_name )
         )
         {
-         typedef ::reflection::property::function::member<class_name, return_name, first_name, second_name, third_name, void, void > member_type;
+         typedef ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name, void, void > member_type;
 
          return member_type( class_param, function_param );
         }
 
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
        inline
-       ::reflection::property::function::member<class_name, return_name, first_name, second_name, third_name, fourth_name,void>
+       ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name, fourth_name,void>
        make
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name, second_name, third_name, fourth_name )
         )
         {
-         typedef ::reflection::property::function::member<class_name, return_name, first_name, second_name, third_name, fourth_name, void > member_type;
+         typedef ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name, fourth_name, void > member_type;
 
          return member_type( class_param, function_param );
         }
 
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name, typename fifth_name >
        inline
-       ::reflection::property::function::member<class_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name >
+       ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name >
        make
         (
           class_name * class_param
          ,return_name (class_name::*function_param)( first_name, second_name, third_name, fourth_name, fifth_name )
         )
         {
-         typedef ::reflection::property::function::member<class_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name > member_type;
+         typedef ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name > member_type;
 
          return member_type( class_param, function_param );
         }

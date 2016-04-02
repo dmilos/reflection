@@ -17,29 +17,19 @@ namespace reflection
         ,typename carrier_name    //= type_name
         ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
        >
-       class base
+       class base_class
         : virtual public ::reflection::property::direct::pure< type_name, original_name >
         {
          public:
+           typedef type_name       type_type;
+           typedef original_name   original_type;
            typedef carrier_name    carrier_type;
            typedef extractor_name  extractor_type;
 
-                     base()
-                      {
-                      }
+                     base_class(){ }
 
-            explicit base
-                     (
-                       extractor_type const& extractor_param
-                     )
-                     {
-                     }
-
-            explicit base
-                     (
-                       carrier_type   const& carrier_param
-                      ,extractor_type const& extractor_param = extractor_type()
-                     )
+            explicit base_class( carrier_type   const& carrier_param, extractor_type const& extractor_param = extractor_type() )
+              : m_carrier( carrier_param ), m_extractor( extractor_param )
                      {
                      }
 
@@ -61,7 +51,7 @@ namespace reflection
            carrier_type           m_carrier;
 
          public: 
-           T_original original( void )
+           original_type get( void )
             {
              return F1_extractor()( F1_carrier() );
             }
@@ -69,7 +59,7 @@ namespace reflection
          public: 
            T_extractor const&   extractor()const{ return m_extractor; }
            void                 extractor( extractor_type const& extractor_param ){ m_extractor = extractor_param; }
-         //extractor_type      &   extractor(){ return m_extractor; }
+         //extractor_type   &   extractor(){ return m_extractor; }
          protected:
            extractor_type      &   F1_extractor(){ return m_extractor; }
          private:
