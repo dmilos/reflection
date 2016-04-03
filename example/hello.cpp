@@ -43,6 +43,7 @@ class MyClass
        ::reflection::property::direct::get<int&>( ::reflection::property::direct::member( this, &MyClass::traitor ) );
        ::reflection::property::inspect::get<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
        ::reflection::property::mutate::process<int const&>( ::reflection::property::mutate::member( this, &MyClass::mutator ), 10 );
+       //::reflection::property::mutate::pretend<std::string>( this, &MyClass::mutator );
 
        //::reflection::object::execute<void,int>( this, "asd", 1 );
        //::reflection::object::inspect<int>(      this, "asd" );

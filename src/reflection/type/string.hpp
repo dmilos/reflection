@@ -1,5 +1,6 @@
 #ifndef reflection_type_string
 #define reflection_type_string
+// ::reflection::type::string
 
 namespace reflection
  {
