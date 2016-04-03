@@ -34,7 +34,7 @@ namespace reflection
         }
 
       template< typename original_name >
-       inline original_name get( ::reflection::property::pure_class const& property_param )
+       inline original_name get( ::reflection::property::pure_class & property_param )
         {
          typedef ::reflection::property::direct::pure_class<original_name> direct_type;
          return dynamic_cast< direct_type &>( property_param ).get();

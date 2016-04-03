@@ -34,7 +34,7 @@ namespace reflection
       template< typename model_name, typename report_name = bool >
        inline
        report_name
-       process( ::reflection::property::pure_class const& property_param, model_name model_param )
+       process( ::reflection::property::pure_class & property_param, model_name model_param )
         {
          typedef ::reflection::property::mutate::pure_class<model_name,report_name> mutate_type;
          return dynamic_cast< mutate_type &>( property_param ).process( model_param );

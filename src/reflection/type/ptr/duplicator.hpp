@@ -41,7 +41,7 @@
          template< typename derive_type, typename allocator_type >
           void operator()( void )const
            {
-            m_raw = &GF_general< base_type, derive_type, allocator_type, bool >;
+            // TODO m_raw = &GF_general< base_type, derive_type, allocator_type, bool >;
            }
 
          template< typename derive_type >
@@ -70,7 +70,7 @@
              return bool( true );
             }
 
-           //this->TEMPLATE operator()<base_type, std::allocator<base_type > >( ); zbog cisto virtuelnih klasa
+           //this->TEMPLATE operator()< base_type, std::allocator<base_type > >( ); zbog cisto virtuelnih klasa
            return bool( false );
           }
 

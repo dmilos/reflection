@@ -35,7 +35,7 @@ namespace reflection
        inline reset_name process( ::reflection::property::pure_class const& property_param )
         {
          typedef ::reflection::property::reset::pure_class<type_name,reset_name> reset_type;
-         return dynamic_cast< reset_type &>( property_param ).get();
+         return dynamic_cast< reset_type &>( property_param ).process();
         }
 
      }

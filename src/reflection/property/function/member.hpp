@@ -35,7 +35,7 @@ namespace reflection
            typedef return_type (class_name::*function_type)( first_type, second_type , third_type , fourth_type , fifth_type );
 
                     member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member_class( );
+           virtual ~member_class( ){}
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param, fifth_type fifth_param )
             {
@@ -63,7 +63,7 @@ namespace reflection
            typedef return_type (class_name::*function_type)( first_type, second_type , third_type , fourth_type );
 
                     member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member_class( );
+           virtual ~member_class( ){}
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param )
             {
@@ -88,7 +88,7 @@ namespace reflection
            typedef return_type (class_name::*function_type)( first_type, second_type , third_type );
 
                     member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member_class( );
+           virtual ~member_class( ){}
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param )
             {
@@ -112,7 +112,7 @@ namespace reflection
            typedef return_type (class_name::*function_type)( first_type, second_type );
 
                     member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member_class( );
+           virtual ~member_class( ){}
 
            return_type execute( first_type first_param, second_type second_param )
             {
@@ -136,7 +136,7 @@ namespace reflection
            typedef return_type (class_name::*function_type)( first_type );
 
                     member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member_class( );
+           virtual ~member_class( ){}
 
            return_type execute( first_type first_param )
             {
@@ -158,7 +158,7 @@ namespace reflection
            typedef return_type (class_name::*function_type)();
 
                     member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
-           virtual ~member_class( );
+           virtual ~member_class( ){}
 
            return_type execute( )
             {
