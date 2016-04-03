@@ -17,7 +17,6 @@ namespace reflection
         ,typename carrier_name
        >
        struct member_class
-        : S_DDMRM::S_type::GC_nothing
         {
          typedef original_name original_type;
          typedef class_name    class_type;
@@ -32,7 +31,7 @@ namespace reflection
              :m_traitor( traitor_param )
              {
              }
-            original_type operator()( carrier_type & P_carrier )const
+            original_type operator()( carrier_type & carrier_param )const
              {
               return  ((*carrier_param).* m_traitor)( );
              }
@@ -40,7 +39,7 @@ namespace reflection
            traitor_type  m_traitor;
           } extractor_type;
 
-         typedef ::reflection::property::direct::base< original_name, carrier_name, extractor_type>      typedef_type;
+         typedef ::reflection::property::direct::base_class< original_name, carrier_name, extractor_type>      typedef_type;
 
          static typedef_type make(  carrier_type const& carrier_param, traitor_type const& traitor_param )
           {
@@ -63,7 +62,7 @@ namespace reflection
         , original_name (class_name::*traitor_param )( void )
         )
         {
-         typedef ::reflection::property::direct::member_class::<original_name,class_name,carrier_name> member_type;
+         typedef ::reflection::property::direct::member_class<original_name,class_name,carrier_name> member_type;
          return member_type::make( carrier_param, traitor_param );
         }
 

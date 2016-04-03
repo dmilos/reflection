@@ -24,7 +24,7 @@ namespace reflection
 
          //typedef std::asterisk< original_type, carrier_name & >          extractor_type;
 
-         typedef ::reflection::property::direct::base< original_name, carrier_name, extractor_type>      typedef_type;
+         typedef ::reflection::property::direct::base< original_type, carrier_name, extractor_type>      typedef_type;
 
          static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( carrier_name const& carrier_param ){ return typedef_type( carrier_param ); }

@@ -12,16 +12,14 @@ namespace reflection
 
       template
        <
-         typename type_name       //!< mutablize before use!
-        ,typename original_name   //!< mutablize before use!
+         typename original_name   //!< mutablize before use!
         ,typename carrier_name    //= type_name
         ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
        >
        class base_class
-        : virtual public ::reflection::property::direct::pure< type_name, original_name >
+        : virtual public ::reflection::property::direct::pure_class< original_name >
         {
          public:
-           typedef type_name       type_type;
            typedef original_name   original_type;
            typedef carrier_name    carrier_type;
            typedef extractor_name  extractor_type;
@@ -57,7 +55,7 @@ namespace reflection
             }
 
          public: 
-           T_extractor const&   extractor()const{ return m_extractor; }
+           extractor_type const&   extractor()const{ return m_extractor; }
            void                 extractor( extractor_type const& extractor_param ){ m_extractor = extractor_param; }
          //extractor_type   &   extractor(){ return m_extractor; }
          protected:

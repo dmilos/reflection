@@ -172,7 +172,7 @@ namespace reflection
       template< typename class_name, typename return_name >
        inline
        ::reflection::property::function::member_class<class_name,return_name,void,void,void,void,void>
-       make
+       member
         (
           class_name * class_param
          ,return_name (class_name::*function_param)()
@@ -186,7 +186,7 @@ namespace reflection
       template< typename class_name, typename return_name, typename first_name >
        inline
        ::reflection::property::function::member_class<class_name, return_name, first_name,void,void,void,void >
-       make
+       member
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name )
@@ -200,7 +200,7 @@ namespace reflection
       template< typename class_name, typename return_name, typename first_name, typename second_name >
        inline
        ::reflection::property::function::member_class<class_name, return_name, first_name, second_name,void,void,void>
-       make
+       member
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name, second_name )
@@ -214,7 +214,7 @@ namespace reflection
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name >
        inline
        ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name,void,void>
-       make
+       member
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name, second_name, third_name )
@@ -228,7 +228,7 @@ namespace reflection
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
        inline
        ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name, fourth_name,void>
-       make
+       member
         (
           class_name * class_param
          ,return_name  (class_name::*function_param)( first_name, second_name, third_name, fourth_name )
@@ -242,7 +242,7 @@ namespace reflection
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name, typename fifth_name >
        inline
        ::reflection::property::function::member_class<class_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name >
-       make
+       member
         (
           class_name * class_param
          ,return_name (class_name::*function_param)( first_name, second_name, third_name, fourth_name, fifth_name )
