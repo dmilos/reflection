@@ -24,7 +24,14 @@ class MyClass
       std::cout << __FUNCTION__ << std::endl;
       return m_int;
       }
+
     bool        mutator( int const& a )
+     {
+      std::cout << __FUNCTION__ << std::endl;
+      return true;
+     }
+
+    bool        executor( )
      {
       std::cout << __FUNCTION__ << std::endl;
       return true;
@@ -39,10 +46,12 @@ class MyClass
        ::reflection::property::inspect::member( this, &MyClass::inspector );
        ::reflection::property::mutate::member( this, &MyClass::mutator );
        ::reflection::property::function::member( this, &MyClass::a );
+       ::reflection::property::function::member( this, &MyClass::executor );
 
        std::cout << ::reflection::property::direct::check<int&>(         ::reflection::property::direct::member(   this, &MyClass::traitor   ) ) << std::endl;
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;
        std::cout << ::reflection::property::mutate::check<int const&>(   ::reflection::property::mutate::member(   this, &MyClass::mutator   ) ) << std::endl;
+
        std::cout << ::reflection::property::function::check<>(           ::reflection::property::function::member( this, &MyClass::a         ) ) << std::endl;
        std::cout << ::reflection::property::function::check<int>(        ::reflection::property::function::member( this, &MyClass::a         ) ) << std::endl;
 
@@ -51,13 +60,12 @@ class MyClass
         auto f2 = ::reflection::property::function::member( this, &MyClass::c ); ::reflection::property::function::execute<void,int>(    f2  , 1  );
         auto f3 = ::reflection::property::function::member( this, &MyClass::d ); ::reflection::property::function::execute<int,int,int>( f3 , 1, 1 );
 
-        auto x0 = ::reflection::property::direct::member( this, &MyClass::traitor );
-        ::reflection::property::direct::get<int&>( x0 ) = 6;
+        auto x0 = ::reflection::property::direct::member( this, &MyClass::traitor );       ::reflection::property::direct::get<int&>( x0 ) = 6;
 
         ::reflection::property::inspect::get<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
 
-        auto x1 = ::reflection::property::mutate::member( this, &MyClass::mutator );
-        ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
+        auto x1 = ::reflection::property::mutate::member( this, &MyClass::mutator );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
+        auto x2 = ::reflection::property::reset::member( this, &MyClass::executor );  ::reflection::property::reset::process<bool>(  x2 );
 
        //::reflection::property::mutate::pretend<std::string>( this, &MyClass::mutator );
 
