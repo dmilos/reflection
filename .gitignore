@@ -1,3 +1,4 @@
-example/hello
+*.bak
+/example/hello
 /example/test/out
 /example/test/*.dblite

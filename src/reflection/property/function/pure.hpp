@@ -112,7 +112,7 @@ namespace reflection
            virtual return_name execute()=0;
         };
 
-      template< typename return_name, typename first_name=void, typename second_name=void, typename third_name=void, typename fourth_name=void, typename fifth_name=void >
+      template< typename return_name=void, typename first_name=void, typename second_name=void, typename third_name=void, typename fourth_name=void, typename fifth_name=void >
        inline bool check( ::reflection::property::pure_class const& property_param )
         {
          typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name > function_type;

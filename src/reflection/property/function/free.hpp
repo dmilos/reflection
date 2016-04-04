@@ -37,7 +37,7 @@ namespace reflection
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param, fifth_type fifth_param )
             {
-             return (m_class->*m_function)( first_param, second_param, third_param, fourth_param, fifth_param );
+             return (*m_function)( first_param, second_param, third_param, fourth_param, fifth_param );
             }
           private:
              function_type m_function;
@@ -64,7 +64,7 @@ namespace reflection
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param )
             {
-             return (m_class->*m_function)( first_param, second_param, third_param, fourth_param );
+             return (*m_function)( first_param, second_param, third_param, fourth_param );
             }
           private:
 
@@ -89,7 +89,7 @@ namespace reflection
 
            return_type execute( first_type first_param, second_type second_param, third_type third_param )
             {
-             return (m_class->*m_function)( first_param, second_param, third_param);
+             return (*m_function)( first_param, second_param, third_param);
             }
           private:
 
@@ -113,7 +113,7 @@ namespace reflection
 
            return_type execute( first_type first_param, second_type second_param )
             {
-             return (m_class->*m_function)( first_param, second_param);
+             return (*m_function)( first_param, second_param);
             }
           private:
 
@@ -137,7 +137,7 @@ namespace reflection
 
            return_type execute( first_type first_param )
             {
-             return (m_class->*m_function)( first_param );
+             return (*m_function)( first_param );
             }
           private:
 
@@ -159,7 +159,7 @@ namespace reflection
 
            return_type execute( )
             {
-             return (m_class->*m_function)();
+             return (*m_function)();
             }
           private:
 
@@ -176,7 +176,7 @@ namespace reflection
         {
          typedef ::reflection::property::function::free_class<return_name, void, void, void, void, void > free_type;
 
-         return free_type( class_param, function_param );
+         return free_type( function_param );
         }
 
       template< typename return_name, typename first_name >
@@ -189,7 +189,7 @@ namespace reflection
         {
          typedef ::reflection::property::function::free_class< return_name, first_name, void, void, void, void > free_type;
 
-         return free_type( class_param, function_param );
+         return free_type( function_param );
         }
 
       template< typename return_name, typename first_name, typename second_name >
@@ -202,7 +202,7 @@ namespace reflection
         {
          typedef ::reflection::property::function::free_class< return_name, first_name, second_name, void, void, void > free_type;
 
-         return free_type( class_param, function_param );
+         return free_type( function_param );
         }
 
       template< typename return_name, typename first_name, typename second_name, typename third_name >
@@ -215,7 +215,7 @@ namespace reflection
         {
          typedef ::reflection::property::function::free_class< return_name, first_name, second_name, third_name, void, void > free_type;
 
-         return free_type( class_param, function_param );
+         return free_type( function_param );
         }
 
       template< typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
@@ -228,7 +228,7 @@ namespace reflection
         {
          typedef ::reflection::property::function::free_class< return_name, first_name, second_name, third_name, fourth_name, void > free_type;
 
-         return free_type( class_param, function_param );
+         return free_type( function_param );
         }
 
       template< typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name, typename fifth_name >
@@ -241,7 +241,7 @@ namespace reflection
         {
          typedef ::reflection::property::function::free_class< return_name, first_name, second_name, third_name, fourth_name, fifth_name > free_type;
 
-         return free_type( class_param, function_param );
+         return free_type( function_param );
         }
 
      }

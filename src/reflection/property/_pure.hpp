@@ -10,8 +10,8 @@ namespace reflection
     class pure_class
      {
       public:
-       pure_class(){}
-       virtual ~pure_class(){}
+        pure_class(){}
+        virtual ~pure_class(){}
      };
 
    }

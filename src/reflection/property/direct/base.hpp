@@ -12,7 +12,7 @@ namespace reflection
 
       template
        <
-         typename original_name   //!< mutablize before use!
+         typename original_name
         ,typename carrier_name    //= type_name
         ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
        >

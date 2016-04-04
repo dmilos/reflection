@@ -1,6 +1,10 @@
 #ifndef reflection_property_inspect_pure
 #define reflection_property_inspect_pure
 
+// reflection::property::inspect::pure_class<original_name>
+// reflection::property::inspect::get
+// reflection::property::inspect::check
+
 #include "../_pure.hpp"
 
 namespace reflection
@@ -10,7 +14,10 @@ namespace reflection
     namespace inspect
      {
 
-      template< typename image_name >
+      template
+       <
+        typename image_name 
+       >
        class pure_class
         : public ::reflection::property::pure_class
         {
