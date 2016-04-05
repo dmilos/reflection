@@ -6,9 +6,9 @@
 
 
 #if defined REFLECTION_USE_PP2FILE
-#include "reflection.pp2f.hpp"
+#include "./reflection.pp2f.hpp"
 #else
-#include "reflection.body.hpp"
+#include "./reflection.body.hpp"
 #endif
 
 #endif

@@ -4,7 +4,7 @@
 #include "reflection/reflection.hpp"
 
 class MyClass
-: public ::reflection::object_class
+: public ::reflection::object::structure_class
  {
   public:
     MyClass(){ init(); }
