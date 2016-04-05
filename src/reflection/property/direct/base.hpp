@@ -2,6 +2,7 @@
 #define reflection_property_direct_base
 
 #include "./_pure.hpp"
+#include "../_carrier.hpp"
 
 namespace reflection
  {
@@ -13,45 +14,31 @@ namespace reflection
       template
        <
          typename original_name
-        ,typename carrier_name    //= type_name
+        ,typename storage_name    //= type_name
         ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
        >
        class base_class
         : virtual public ::reflection::property::direct::pure_class< original_name >
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef original_name   original_type;
-           typedef carrier_name    carrier_type;
+           typedef storage_name    storage_type;
            typedef extractor_name  extractor_type;
+
+           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
                      base_class(){ }
 
-            explicit base_class( carrier_type   const& carrier_param, extractor_type const& extractor_param = extractor_type() )
-              : m_carrier( carrier_param ), m_extractor( extractor_param )
-                     {
-                     }
-
-         public:
-           carrier_type   const&  carrier ( void )const
-            {
-             return m_carrier; 
-            }
-           void                carrier( carrier_type const& carrier_param )
-            {
-             m_carrier = carrier_param;  
-            }
-         protected:
-           carrier_type&          F1_carrier()
-            {
-             return m_carrier; 
-            }
-         private:
-           carrier_type           m_carrier;
+            explicit base_class( storage_type   const& storage_param, extractor_type const& extractor_param = extractor_type() )
+              : carrier_type( storage_param ), m_extractor( extractor_param )
+              {
+              }
 
          public: 
-           original_type get( void )
+           original_type disclose( void )
             {
-             return F1_extractor()( F1_carrier() );
+             return this->F1_extractor()( this->carrier_type::F1_carrier() );
             }
 
          public: 

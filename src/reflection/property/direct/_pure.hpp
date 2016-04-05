@@ -2,7 +2,7 @@
 #define reflection_property_direct_pure
 
 // reflection::property::direct::pure_class<original_name>
-// reflection::property::direct::get
+// reflection::property::direct::disclose
 // reflection::property::direct::check
 
 #include "../_pure.hpp"
@@ -27,7 +27,7 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
-           virtual original_type get()=0;
+           virtual original_type disclose()=0;
         };
 
       template< typename original_name >
@@ -38,10 +38,10 @@ namespace reflection
         }
 
       template< typename original_name >
-       inline original_name get( ::reflection::property::pure_class & property_param )
+       inline original_name disclose( ::reflection::property::pure_class & property_param )
         {
          typedef ::reflection::property::direct::pure_class<original_name> direct_type;
-         return dynamic_cast< direct_type &>( property_param ).get();
+         return dynamic_cast< direct_type &>( property_param ).disclose();
         }
 
      }

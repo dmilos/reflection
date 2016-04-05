@@ -1,6 +1,6 @@
 #ifndef reflection_property__pure
 #define reflection_property__pure
-
+// reflection::property::pure_class
 
 namespace reflection
  {

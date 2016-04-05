@@ -35,7 +35,7 @@
 
                     ~base()
                      {
-                      this->F1_reset( NULL ); 
+                      this->F1_reset( nullptr ); 
                      }
 
             class_type const * get( void ) const
@@ -51,7 +51,7 @@
             class_type* release( void )
              {
               class_type* I_tmp = this->get();
-                               this->F1_reset( NULL );
+                                  this->F1_reset( nullptr );
               return I_tmp;
              }
 

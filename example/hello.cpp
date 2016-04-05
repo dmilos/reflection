@@ -60,9 +60,9 @@ class MyClass
         auto f2 = ::reflection::property::function::member( this, &MyClass::c ); ::reflection::property::function::execute<void,int>(    f2  , 1  );
         auto f3 = ::reflection::property::function::member( this, &MyClass::d ); ::reflection::property::function::execute<int,int,int>( f3 , 1, 1 );
 
-        auto x0 = ::reflection::property::direct::member( this, &MyClass::traitor );       ::reflection::property::direct::get<int&>( x0 ) = 6;
+        auto x0 = ::reflection::property::direct::member( this, &MyClass::traitor );       ::reflection::property::direct::disclose<int&>( x0 ) = 6;
 
-        ::reflection::property::inspect::get<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
+        ::reflection::property::inspect::present<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
 
         auto x1 = ::reflection::property::mutate::member( this, &MyClass::mutator );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
         auto x2 = ::reflection::property::reset::member( this, &MyClass::executor );  ::reflection::property::reset::process<bool>(  x2 );
@@ -75,25 +75,25 @@ class MyClass
        //::reflection::object::reset<int>(        this, "asd" );
        //::reflection::object::set<int>(          this, "asd", 20 );
 
-       // return;
-       // insert(  "f0", item_type( ::reflection::property::function::member( this, &MyClass::a ) ) );
-       // insert(  "f1", item_type( ::reflection::property::function::member( this, &MyClass::b ) ) );
-       // insert(  "f2", item_type( ::reflection::property::function::member( this, &MyClass::c ) ) );
-       // insert(  "f3", item_type( ::reflection::property::function::member( this, &MyClass::d ) ) );
+        return;
+        insert(  "f0", item_type( ::reflection::property::function::member( this, &MyClass::a ) ) );
+        insert(  "f1", item_type( ::reflection::property::function::member( this, &MyClass::b ) ) );
+        insert(  "f2", item_type( ::reflection::property::function::member( this, &MyClass::c ) ) );
+        insert(  "f3", item_type( ::reflection::property::function::member( this, &MyClass::d ) ) );
 
-       // insert(  "m1", item_type( ::reflection::property::direct::member( this, &MyClass::traitor )    ) );
-       // insert(  "m2", item_type( ::reflection::property::inspect::member( this, &MyClass::inspector ) ) );
-       // insert(  "m3", item_type( ::reflection::property::mutate::member( this, &MyClass::mutator )    ) );
+        insert(  "m1", item_type( ::reflection::property::direct::member(  this, &MyClass::traitor   ) ) );
+        insert(  "m2", item_type( ::reflection::property::inspect::member( this, &MyClass::inspector ) ) );
+        insert(  "m3", item_type( ::reflection::property::mutate::member(  this, &MyClass::mutator   ) ) );
 
-       //insert(  "extra2", item_type( ::reflection::property::direct::simple<int>( 10 ) );
+        //insert(  "extra2", item_type( ::reflection::property::direct::simple<int>( 10 ) );
 
-       // exists(  "asd" );
-       // remove(  "asd" );
-       // clear();
-       // container();
+       exists(  "asd" );
+       remove(  "asd" );
+       clear();
+       container();
 
-       // ::reflection::property::function::check<void>( get( "f0" ) );
-       // ::reflection::property::function::execute<void>( get( "f0" ) );
+       ::reflection::property::function::check<void>(   get( "f0" ) );
+       ::reflection::property::function::execute<void>( get( "f0" ) );
       }
 
  };

@@ -2,6 +2,7 @@
 #define reflection_property_inspect_base
 
 #include "./_pure.hpp"
+#include "../_carrier.hpp"
 
 namespace reflection
  {
@@ -13,45 +14,31 @@ namespace reflection
       template
        <
          typename image_name
-        ,typename carrier_name    //= type_name
-        ,typename convertor_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
+        ,typename storage_name    //= type_name
+        ,typename convertor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
        class base_class
         : virtual public ::reflection::property::inspect::pure_class< image_name >
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef image_name        image_type;
-           typedef carrier_name    carrier_type;
+           typedef storage_name    storage_type;
            typedef convertor_name  convertor_type;
+
+           typedef ::reflection::property::_internal::carrier_class<storage_name>  carrier_type;
 
                      base_class(){ }
 
-            explicit base_class( carrier_type   const& carrier_param, convertor_type const& convertor_param = convertor_type() )
-              : m_carrier( carrier_param ), m_convertor( convertor_param )
+            explicit base_class( storage_type   const& carrier_param, convertor_type const& convertor_param = convertor_type() )
+              : carrier_type( carrier_param ), m_convertor( convertor_param )
                      {
                      }
 
-         public:
-           carrier_type   const&  carrier ( void )const
-            {
-             return m_carrier; 
-            }
-           void                carrier( carrier_type const& carrier_param )
-            {
-             m_carrier = carrier_param;  
-            }
-         protected:
-           carrier_type&          F1_carrier()
-            {
-             return m_carrier; 
-            }
-         private:
-           carrier_type           m_carrier;
-
          public: 
-           image_type get( void )const
+           image_type present( void )const
             {
-             return convertor()( carrier() );
+             return this->convertor()( this->carrier_type::carrier() );
             }
 
          public: 

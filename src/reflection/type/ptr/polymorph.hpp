@@ -40,19 +40,19 @@
             using base_type::release;
 
             polymorph( void )
-             :base_type( NULL )
+             :base_type( nullptr )
              {
              }
 
             polymorph( polymorph_type const& original_param )
              //: m_duplicator( original_param.m_duplicator )
-             :base_type( NULL )
+             :base_type( nullptr )
              {
-              //m_duplicator.Fv_process( &F1_get(), original_param.Fv_get() );
+              //m_duplicator( &F1_get(), original_param.Fv_get() );
              }
 
             explicit polymorph( void * P_void )
-             :base_type( NULL )
+             :base_type( nullptr )
              {
              }
 
@@ -60,12 +60,12 @@
              explicit polymorph( derive_name * derive_param )
               :base_type( derive_param )
               {
-               //m_duplicator.TEMPLATE operator()<derive_name>( NULL , reinterpret_cast<derive_name*>( NULL ) ); //! reconfiguration request
+               //m_duplicator.TEMPLATE operator()<derive_name>( nullptr , reinterpret_cast<derive_name*>( nullptr ) ); //! reconfiguration request
               }
 
             template< typename derive_name >
              explicit polymorph( derive_name const& derive_param )
-              :base_type( NULL )
+              :base_type( nullptr )
               {
                this->F_reset( derive_param );
               }
@@ -96,17 +96,17 @@
 
             void     destroy( void )
               {
-               this->F2_assign( &F1_get(), NULL );
-               this->F1_reset( NULL );
+               this->F2_assign( &F1_get(), nullptr );
+               this->F1_reset( nullptr );
               }
 
-            void     reset( type_type *      P_ptr = NULL )
+            void     reset( type_type *      P_ptr = nullptr )
               {
                this->destroy();
                F1_reset( P_ptr );
               }
 
-            bool F_reset( type_type *      P_ptr = NULL )
+            bool F_reset( type_type *      P_ptr = nullptr )
              {
               this->reset( P_ptr );
               return bool( true );
@@ -116,7 +116,7 @@
              bool F_reset( derive_name *derive_param )
               {
                this->destroy(); //! ako ovaj vrati false to je internal
-               //m_duplicator.TEMPLATE operator()<derive_name>( NULL, reinterpret_cast< derive_name *>( NULL ) ); //! reconfiguration request
+               //m_duplicator.TEMPLATE operator()<derive_name>( NULL, reinterpret_cast< derive_name *>( nullptr ) ); //! reconfiguration request
                F1_reset( derive_param );
                return bool( true );
              }
@@ -129,7 +129,7 @@
                  return bool( true );
                 }
                this->destroy();
-               //m_duplicator.TEMPLATE operator()<derive_name>( NULL, reinterpret_cast< derive_name *>( NULL ) ); //! reconfiguration request
+               //m_duplicator.TEMPLATE operator()<derive_name>( NULL, reinterpret_cast< derive_name *>( nullptr ) ); //! reconfiguration request
                return F2_assign( &F1_get(), &derive_param ); //! druga i zadnja prilika. raport ignorisan;
               }
 

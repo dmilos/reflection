@@ -9,6 +9,7 @@ namespace reflection
  {
 
   class object_class
+   : public virtual reflection::property::pure_class
    {
     public:
       typedef std::string string_type;
@@ -23,6 +24,8 @@ namespace reflection
        {
         // EMPTY!!!
        }
+
+      ~object_class(){}
 
       bool                 exists( string_type const& name )
        {
