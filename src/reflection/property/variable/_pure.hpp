@@ -1,11 +1,12 @@
-#ifndef reflection_property_direct_pure
-#define reflection_property_direct_pure
+#ifndef reflection_property_variable_pure
+#define reflection_property_variable_pure
 
-// reflection::property::direct::pure_class<original_name>
-// reflection::property::direct::get
-// reflection::property::direct::check
+// reflection::property::variable::pure_class<original_name>
+// reflection::property::variable::get
+// reflection::property::variable::check
 
-#include "../_pure.hpp"
+#include "../direct/_pure.hpp"
+#include "../inspect/_pure.hpp"
 
 namespace reflection
  {
@@ -41,8 +42,8 @@ namespace reflection
       template< typename original_name, typename image_name >
        inline bool check( ::reflection::property::pure_class const& property_param )
         {
-         typedef ::reflection::property::direct::pure_class<original_name,image_name> variable_type;
-         return nullptr != dynamic_cast< direct_type const*>( &property_param );
+         typedef ::reflection::property::variable::pure_class<original_name,image_name> variable_type;
+         return nullptr != dynamic_cast< variable_type const*>( &property_param );
         }
 
      }

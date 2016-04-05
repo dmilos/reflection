@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="reflection" />
+		<Option makefile="Sconstruct" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="lib/;lib/property/;lib/type/;lib/property/direct/;lib/property/function/;lib/property/inspect;lib/property/mutate;lib/property/reset;lib/property/variable;lib/property/variable/;lib/property/mutate/;lib/property/inspect/;lib/property/reset/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="out/test1" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command="scons" />
+					<CompileFile command="" />
+					<Clean command="scons -c" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="" />
+					<SilentBuild command="scons &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="../../src/reflection/object.hpp">
+			<Option virtualFolder="lib/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/_carrier.hpp">
+			<Option virtualFolder="lib/property/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/_pure.hpp">
+			<Option virtualFolder="lib/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/direct/_pure.hpp">
+			<Option virtualFolder="lib/property/direct/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/direct/base.hpp">
+			<Option virtualFolder="lib/property/direct/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/direct/direct.hpp">
+			<Option virtualFolder="lib/property/direct/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/direct/member.hpp">
+			<Option virtualFolder="lib/property/direct/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/direct/reference.hpp">
+			<Option virtualFolder="lib/property/direct/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/direct/simple.hpp">
+			<Option virtualFolder="lib/property/direct/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/function/free.hpp">
+			<Option virtualFolder="lib/property/function/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/function/function.hpp">
+			<Option virtualFolder="lib/property/function/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/function/member.hpp">
+			<Option virtualFolder="lib/property/function/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/function/pure.hpp">
+			<Option virtualFolder="lib/property/function/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/inspect/_pure.hpp">
+			<Option virtualFolder="lib/property/inspect/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/inspect/base.hpp">
+			<Option virtualFolder="lib/property/inspect/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/inspect/inspect.hpp">
+			<Option virtualFolder="lib/property/inspect/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/inspect/member.hpp">
+			<Option virtualFolder="lib/property/inspect/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/inspect/simple.hpp">
+			<Option virtualFolder="lib/property/inspect/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/mutate/_pure.hpp">
+			<Option virtualFolder="lib/property/mutate/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/mutate/base.hpp">
+			<Option virtualFolder="lib/property/mutate/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/mutate/member.hpp">
+			<Option virtualFolder="lib/property/mutate/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/mutate/mutate.hpp">
+			<Option virtualFolder="lib/property/mutate/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/mutate/pretend.hpp">
+			<Option virtualFolder="lib/property/mutate/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/property.hpp">
+			<Option virtualFolder="lib/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/reset/_pure.hpp">
+			<Option virtualFolder="lib/property/reset/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/reset/base.hpp">
+			<Option virtualFolder="lib/property/reset/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/reset/member.hpp">
+			<Option virtualFolder="lib/property/reset/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/reset/reset.hpp">
+			<Option virtualFolder="lib/property/reset/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/variable/_pure.hpp">
+			<Option virtualFolder="lib/property/variable/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/variable/base.hpp">
+			<Option virtualFolder="lib/property/variable/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/variable/member.hpp">
+			<Option virtualFolder="lib/property/variable/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/variable/simple.hpp">
+			<Option virtualFolder="lib/property/variable/" />
+		</Unit>
+		<Unit filename="../../src/reflection/property/variable/variable.hpp">
+			<Option virtualFolder="lib/property/variable/" />
+		</Unit>
+		<Unit filename="../../src/reflection/reflection.body.hpp">
+			<Option virtualFolder="lib/" />
+		</Unit>
+		<Unit filename="../../src/reflection/reflection.hpp">
+			<Option virtualFolder="lib/" />
+		</Unit>
+		<Unit filename="../../src/reflection/type/string.hpp">
+			<Option virtualFolder="lib/type/" />
+		</Unit>
+		<Unit filename="../hello.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

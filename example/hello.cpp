@@ -41,7 +41,6 @@ class MyClass
     int m_int;
      void init()
       {
-
        ::reflection::property::direct::member( this, &MyClass::traitor );
        ::reflection::property::inspect::member( this, &MyClass::inspector );
        ::reflection::property::mutate::member( this, &MyClass::mutator );
@@ -65,7 +64,7 @@ class MyClass
         ::reflection::property::inspect::present<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
 
         auto x1 = ::reflection::property::mutate::member( this, &MyClass::mutator );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
-        auto x2 = ::reflection::property::reset::member( this, &MyClass::executor );  ::reflection::property::reset::process<bool>(  x2 );
+        auto x2 = ::reflection::property::reset::member(  this, &MyClass::executor );  ::reflection::property::reset::process<bool>(  x2 );
 
        //::reflection::property::mutate::pretend<std::string>( this, &MyClass::mutator );
 
