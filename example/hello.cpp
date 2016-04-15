@@ -72,15 +72,25 @@ class MyClass
 
        ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator ).process( 10 );
 
+       ::reflection::property::inspect::pretend::member< bool, ::type::convert::identity< bool, int > >( this, &MyClass::inspector ).present();
 
        {
         auto ts =[]( std::string const& s )-> int
          {
           return std::stoi( s ); 
          }; 
+
         ::reflection::property::mutate::pretend::member< std::string, std::pointer_to_unary_function <std::string const&, int > >( this, &MyClass::mutator, std::pointer_to_unary_function <std::string const&, int>( ts ) ).process( "42" );
        }
        
+       {
+        auto st =[]( int const& i )-> std::string
+         {
+          return std::to_string( i ); 
+         }; 
+
+        std::cout << "Inspect::pretend = " <<  ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function <int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( st ) ).present() << std::endl;
+       }
 
        //::reflection::object::execute<void,int>( this, "asd", 1 );
        //::reflection::object::inspect<int>(      this, "asd" );
@@ -118,5 +128,6 @@ int main( int argc, char *argv[] )
 
   MyClass m;
 
+  std::cin.get();
   return EXIT_SUCCESS;
  }
