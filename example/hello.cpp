@@ -1,7 +1,10 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
+#include <functional>
 
 #include "reflection/reflection.hpp"
+#include "reflection/type/convert/convert.hpp"
 
 class MyClass
 : public ::reflection::object::structure_class
@@ -27,7 +30,8 @@ class MyClass
 
     bool        mutator( int const& a )
      {
-      std::cout << __FUNCTION__ << std::endl;
+      std::cout << __FUNCTION__ << "a = " << a <<std::endl;
+      m_int = a;
       return true;
      }
 
@@ -66,7 +70,17 @@ class MyClass
         auto x1 = ::reflection::property::mutate::member( this, &MyClass::mutator );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
         auto x2 = ::reflection::property::reset::member(  this, &MyClass::executor );  ::reflection::property::reset::process<bool>(  x2 );
 
-       //::reflection::property::mutate::pretend<std::string>( this, &MyClass::mutator );
+       ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator ).process( 10 );
+
+
+       {
+        auto ts =[]( std::string const& s )-> int
+         {
+          return std::stoi( s ); 
+         }; 
+        ::reflection::property::mutate::pretend::member< std::string, std::pointer_to_unary_function <std::string const&, int > >( this, &MyClass::mutator, std::pointer_to_unary_function <std::string const&, int>( ts ) ).process( "42" );
+       }
+       
 
        //::reflection::object::execute<void,int>( this, "asd", 1 );
        //::reflection::object::inspect<int>(      this, "asd" );

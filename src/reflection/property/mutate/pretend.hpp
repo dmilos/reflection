@@ -43,15 +43,15 @@
                   return  this->m_writter( storage_param, this->m_convert( pretend_param ) );
                  }
               private:
-                writter_type  m_writter;
-                convert_type  m_convert;
+                mutable writter_type  m_writter;
+                mutable convert_type  m_convert;
              } assigner_class;
 
             typedef ::reflection::property::mutate::base_class<pretend_name,storage_name,assigner_class,report_name>      typedef_type;
 
             static typedef_type make( storage_type const& storage_param, writter_type const& writter_param, convert_type const& convert_param )
                    {
-                    return typedef_type( storage_param, proxy_class( writter_param, convert_param ) );
+                    return typedef_type( storage_param, assigner_class( writter_param, convert_param ) );
                    }
 
            };
@@ -83,8 +83,7 @@
                 typedef storage_name  storage_type;
                 typedef report_name   report_type,   T_0th;
 
-
-                writter_class( method_type const& method_param /*= std::nullptr_t()*/ )
+                explicit writter_class( method_type const& method_param /*= std::nullptr_t()*/ )
                  :m_method( method_param )
                  {
                  }
@@ -96,11 +95,12 @@
                method_type  m_method;
              } writter_type;
 
+            typedef ::reflection::property::mutate::pretend::base_class<pretend_name,convert_name,storage_name,writter_type,report_type> base_type;
             typedef typename ::reflection::property::mutate::pretend::base_class<pretend_name,convert_name,storage_name,writter_type,report_type>::typedef_type typedef_type;
 
             static typedef_type make( storage_type const& storage_param, method_type const& method_param, convert_type const& convert_param = convert_type() )
              {
-              return typedef_type::make( storage_param, writter_type( method_param ), convert_param );
+              return base_type::make( storage_param, writter_type( method_param ), convert_param );
              }
            };
 
@@ -123,7 +123,7 @@
            )
            {
             typedef ::reflection::property::mutate::pretend::member_class<pretend_name,convert_name,model_name,class_name,storage_name,report_name>  member_type;
-            return  member_type::make( storage_param, method_param );
+            return  member_type::make( storage_param, method_param, convert_param );
            }
 
        }

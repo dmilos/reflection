@@ -2,3 +2,6 @@
 /example/hello
 /example/test/out
 /example/test/*.dblite
+/example/test/Debug
+/example/test/reflection2013.sdf
+/example/test/reflection2013.v12.suo
