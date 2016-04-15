@@ -16,7 +16,7 @@ namespace reflection
         {
          public:
            typedef report_name report_type;
-           typedef model_name model_type;
+           typedef model_name   model_type;
 
                     pure_class(){}
            virtual ~pure_class(){}

@@ -36,7 +36,7 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
-           using mutate_type::process;
+           using  mutate_type::process;
            using inspect_type::present;
         };
 
