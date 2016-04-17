@@ -75,6 +75,10 @@ class MyClass
 
        ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
 
+
+       ::reflection::property::variable::member( this, &MyClass::traitor, &MyClass::inspector ).disclose() = 44;
+
+
        std::cout << "Inspect::guardedpretend = " <<   ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector ).present()  << std::endl;
        ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector ).process( 46 );
 
