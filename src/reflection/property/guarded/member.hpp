@@ -1,0 +1,75 @@
+#ifndef reflection_property_guarded_member
+#define reflection_property_guarded_member
+// ::reflection::property::guarded::member_class<model_name,class_name,carrier_name,report_name>
+
+ #include "./base.hpp"
+
+#include "../mutate/member.hpp"
+#include "../inspect/member.hpp"
+
+ namespace reflection
+  {
+   namespace property
+    {
+     namespace guarded
+      {
+
+       template
+         <
+          typename model_name
+         ,typename image_name
+         ,typename class_name
+         ,typename storage_name
+         ,typename report_name
+         >
+        struct  member_class
+         {
+          typedef model_name    model_type;
+          typedef image_name    image_type;
+          typedef class_name    class_type;
+          typedef storage_name  storage_type;
+          typedef report_name   report_type;
+
+          typedef ::reflection::property::inspect::member_class<image_name,class_name,storage_type> inspect_type;
+          typedef ::reflection::property::mutate::member_class<model_type,class_type,storage_type,report_type> mutate_type;
+
+          typedef typename  mutate_type::assigner_type   assigner_type;
+          typedef typename inspect_type::convertor_type convertor_type;
+
+          typedef ::reflection::property::guarded::base_class <model_name, image_name, storage_name, assigner_type, convertor_type, report_name>      typedef_type;
+
+          typedef typename  mutate_type::writter_type   writter_type;
+          typedef typename inspect_type::reader_type     reader_type;
+
+          static typedef_type make( storage_type const& carrier_param, writter_type const& writter_param, reader_type const& reader_param )
+           {
+            return typedef_type( carrier_param, assigner_type( writter_param ), convertor_type( reader_param )/**/ );
+           }
+         };
+
+       template
+        <
+         typename model_name
+        ,typename image_name
+        ,typename class_name
+        ,typename storage_name
+        ,typename report_name
+        >
+       inline
+       typename ::reflection::property::guarded::member_class<model_name,image_name,class_name,storage_name,report_name>::typedef_type
+       member
+        (
+          storage_name const& carrier_param
+         ,report_name      (class_name::*writter_param)( model_name )
+         ,image_name       (class_name::*reader_param)( void )const
+        )
+        {
+         typedef ::reflection::property::guarded::member_class<model_name,image_name,class_name,storage_name,report_name> member_type;
+         return member_type::make( carrier_param, writter_param, reader_param );
+        }
+
+     }
+   }
+ }
+
+#endif

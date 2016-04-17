@@ -13,7 +13,7 @@
        template
         <
           typename class_name
-       //,typename carrier_name = class_name *
+       //,typename storage_name = class_name *
         >
         class base
          : public memory::pointer::pure<class_name>

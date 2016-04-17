@@ -72,6 +72,12 @@ class MyClass
 
        ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator ).process( 10 );
 
+
+       ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
+
+       std::cout << "Inspect::guardedpretend = " <<   ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector ).present()  << std::endl;
+       ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector ).process( 46 );
+
        ::reflection::property::inspect::pretend::member< bool, ::type::convert::identity< bool, int > >( this, &MyClass::inspector ).present();
 
        {

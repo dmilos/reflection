@@ -13,40 +13,40 @@ namespace reflection
       template
        <
          typename report_name
-        ,typename carrier_name    //= type_name
-        ,typename agent_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
+        ,typename storage_name    //= type_name
+        ,typename agent_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
        class base_class
         : virtual public ::reflection::property::reset::pure_class< report_name >
         {
          public:
            typedef report_name   report_type;
-           typedef carrier_name    carrier_type;
+           typedef storage_name    storage_type;
            typedef agent_name  agent_type;
 
                      base_class(){ }
 
-            explicit base_class( carrier_type   const& carrier_param, agent_type const& agent_param = agent_type() )
+            explicit base_class( storage_type   const& carrier_param, agent_type const& agent_param = agent_type() )
               : m_carrier( carrier_param ), m_agent( agent_param )
                      {
                      }
 
          public:
-           carrier_type   const&  carrier ( void )const
+           storage_type   const&  carrier ( void )const
             {
              return m_carrier; 
             }
-           void                carrier( carrier_type const& carrier_param )
+           void                carrier( storage_type const& carrier_param )
             {
              m_carrier = carrier_param;  
             }
          protected:
-           carrier_type&          F1_carrier()
+           storage_type&          F1_carrier()
             {
              return m_carrier; 
             }
          private:
-           carrier_type           m_carrier;
+           storage_type           m_carrier;
 
          public: 
            report_type process( void )

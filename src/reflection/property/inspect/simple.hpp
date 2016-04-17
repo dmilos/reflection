@@ -20,7 +20,7 @@ namespace reflection
          typedef data_name      data_type;
          typedef original_name  original_type;
 
-         typedef data_name const&     carrier_type;  //!< by design
+         typedef data_name const&     storage_type;  //!< by design
 
          typedef class convert_class
           {
@@ -29,16 +29,16 @@ namespace reflection
               {
               }
 
-             original_type operator()( carrier_type const& carrier_param )const
+             original_type operator()( storage_type const& carrier_param )const
               {
                return  carrier_param;
               }
 
           } convert_type;
 
-         typedef ::reflection::property::inspect::base< original_type, carrier_type, convert_type > typedef_type;
+         typedef ::reflection::property::inspect::base< original_type, storage_type, convert_type > typedef_type;
 
-         static typedef_type make( carrier_type const& P_carrier ){ return typedef_type( P_carrier ); }
+         static typedef_type make( storage_type const& P_carrier ){ return typedef_type( P_carrier ); }
         };
 
        /*
@@ -50,7 +50,7 @@ namespace reflection
          typedef void   data_type;
          typedef void   original_type;
 
-         typedef void   carrier_type;
+         typedef void   storage_type;
 
          //TODO typedef std::original<data_name>  convert_type;
 

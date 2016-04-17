@@ -28,17 +28,27 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name>  carrier_type;
 
-                     base_class(){ }
+            explicit base_class
+             (
+              retriever_type const& retriever_param = retriever_type() 
+             )
+             : m_retriever( retriever_param )
+             {
+             }
 
-            explicit base_class( storage_type   const& carrier_param, retriever_type const& retriever_param = retriever_type() )
-              : carrier_type( carrier_param ), m_retriever( retriever_param )
-                     {
-                     }
+            explicit base_class
+             (
+               storage_type   const& carrier_param
+              ,retriever_type const& retriever_param = retriever_type() 
+             )
+             : carrier_type( carrier_param ), m_retriever( retriever_param )
+             {
+             }
 
          public: 
            image_type present( void )const
             {
-             return this->retriever()( this->carrier_type::carrier() );
+             return this->retriever()( this->carrier_type::storage() );
             }
 
          public: 

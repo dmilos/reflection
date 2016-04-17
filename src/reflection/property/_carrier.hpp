@@ -18,24 +18,24 @@ namespace reflection
         public:
           typedef storage_name storage_type;
 
-          explicit carrier_class( storage_type const& storage_param )
+          explicit carrier_class( storage_type const& storage_param  = storage_type())
            : m_storage( storage_param )
            {
 
            }
 
          public:
-           storage_type   const&  carrier ( void )const
+           storage_type   const&  storage ( void )const
             {
              return m_storage; 
             }
-           void                carrier( storage_type const& storage_param )
+           void                storage( storage_type const& storage_param )
             {
              m_storage = storage_param;  
             }
 
          protected:
-           storage_type&          F1_carrier()
+           storage_type&          storage()
             {
              return m_storage; 
             }

@@ -33,22 +33,23 @@
             typedef ::reflection::property::_internal::carrier_class<storage_name>  carrier_type;
 
             explicit base_class
-                      (
-                       assigner_type  const& assigner_param   = assigner_type()
-                      )
-                      {
-                      }
+              (
+               assigner_type  const& assigner_param   = assigner_type()
+              )
+              :m_assigner( assigner_param )
+              {
+              }
 
             explicit base_class
-                      (
-                        storage_type   const& storage_param
-                       ,assigner_type  const& assigner_param   = assigner_type()
-                      )
-                      :carrier_type( storage_param )
-                      ,m_assigner( assigner_param )
-                      {
-                       //std::cout << __FUNCTION__ << std::endl;
-                      }
+              (
+                storage_type   const& storage_param
+               ,assigner_type  const& assigner_param   = assigner_type()
+              )
+              :carrier_type( storage_param )
+              ,m_assigner( assigner_param )
+              {
+               //std::cout << __FUNCTION__ << std::endl;
+              }
 
                     ~base_class( void ){ }
 
@@ -65,7 +66,7 @@
           public:
             report_type       process( model_type model_param )
              {
-              return this->assigner()( this->carrier_type::F1_carrier(), model_param );
+              return this->assigner()( this->carrier_type::storage(), model_param );
              }
 
           public:

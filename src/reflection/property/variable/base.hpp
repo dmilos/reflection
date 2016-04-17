@@ -16,7 +16,7 @@ namespace reflection
          typename original_name
         ,typename image_name
         ,typename storage_name    //= type_name
-        ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, carrier_name const& >
+        ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
         ,typename convertor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
        class base_class
