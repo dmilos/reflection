@@ -30,6 +30,11 @@ namespace reflection
 
                      base_class(){ }
 
+            explicit base_class(  extractor_type const& extractor_param = extractor_type() )
+              :                           m_extractor( extractor_param )
+              {
+              }
+
             explicit base_class( storage_type   const& storage_param, extractor_type const& extractor_param = extractor_type() )
               : carrier_type( storage_param ), m_extractor( extractor_param )
               {

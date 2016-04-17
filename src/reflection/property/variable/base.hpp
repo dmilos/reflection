@@ -53,7 +53,7 @@ namespace reflection
            using direct_type::extractor;
 
            using inspect_type::present;
-           using inspect_type::convertor;
+           using inspect_type::retriever;
         };
 
       }
