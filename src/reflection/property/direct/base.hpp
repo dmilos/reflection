@@ -30,7 +30,7 @@ namespace reflection
 
                      base_class(){ }
 
-            explicit base_class(  extractor_type const& extractor_param = extractor_type() )
+            explicit base_class(  extractor_type const& extractor_param )
               :                           m_extractor( extractor_param )
               {
               }

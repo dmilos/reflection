@@ -35,6 +35,12 @@ class MyClass
       return true;
      }
 
+    void defaulter()
+     {
+      std::cout << __FUNCTION__ << std::endl;
+      m_int = 100;
+     }
+
     bool        executor( )
      {
       std::cout << __FUNCTION__ << std::endl;
@@ -68,7 +74,7 @@ class MyClass
         ::reflection::property::inspect::present<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
 
         auto x1 = ::reflection::property::mutate::member( this, &MyClass::mutator );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
-        auto x2 = ::reflection::property::reset::member(  this, &MyClass::executor );  ::reflection::property::reset::process<bool>(  x2 );
+        auto x2 = ::reflection::property::reset::member(  this, &MyClass::defaulter );  ::reflection::property::reset::process<void>(  x2 );
 
        ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator ).process( 10 );
 
