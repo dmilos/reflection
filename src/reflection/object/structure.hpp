@@ -25,6 +25,7 @@ namespace reflection
         structure_class & operator=( structure_class const& that_param )
          {
           // EMPTY!!!
+          return *this;
          }
     
         ~structure_class(){}
