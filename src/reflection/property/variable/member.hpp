@@ -32,16 +32,16 @@
           typedef ::reflection::property::inspect::member_class<image_name,class_name,storage_type> inspect_type;
 
           typedef typename  direct_type::extractor_type   extractor_type;
-          typedef typename inspect_type::convertor_type convertor_type;
+          typedef typename inspect_type::retriever_type   retriever_type;
 
-          typedef ::reflection::property::variable::base_class <original_name, image_name, storage_name, extractor_type, convertor_type>      typedef_type;
+          typedef ::reflection::property::variable::base_class <original_name, image_name, storage_name, extractor_type, retriever_type>      typedef_type;
 
           typedef typename  direct_type::traitor_type   traitor_type;
           typedef typename inspect_type::reader_type     reader_type;
 
           static typedef_type make( storage_type const& carrier_param, traitor_type const& traitor_param, reader_type const& reader_param )
            {
-            return typedef_type( carrier_param, extractor_type( traitor_param ), convertor_type( reader_param ) );
+            return typedef_type( carrier_param, extractor_type( traitor_param ), retriever_type( reader_param ) );
            }
          };
 

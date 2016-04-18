@@ -25,10 +25,10 @@ namespace reflection
 
          typedef image_name     (class_name::*reader_type)( )const;
 
-         typedef class convertor_class
+         typedef class retriever_class
           {
            public:
-             explicit convertor_class( reader_type const& reader_param = NULL )
+             explicit retriever_class( reader_type const& reader_param = NULL )
               :m_reader( reader_param )
               {
               }
@@ -43,13 +43,13 @@ namespace reflection
 
            private:
              reader_type  m_reader;
-          } convertor_type;
+          } retriever_type;
 
-         typedef ::reflection::property::inspect::base_class<image_name,storage_name,convertor_type>      typedef_type;
+         typedef ::reflection::property::inspect::base_class<image_name,storage_name,retriever_type>      typedef_type;
 
          static typedef_type make( storage_type const& carrier_param, reader_type const& reader_param )
           {
-           return typedef_type( carrier_param, convertor_type( reader_param ) );
+           return typedef_type( carrier_param, retriever_type( reader_param ) );
           }
 
         };

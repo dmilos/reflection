@@ -31,14 +31,14 @@ namespace reflection
 
          typedef ::reflection::property::inspect::member_class<image_name, class_name, storage_name > property_type;
 
-         typedef typename property_type::reader_type    reader_type;
-         typedef typename property_type::convertor_class  convertor_class;
+         typedef typename property_type::reader_type        reader_type;
+         typedef typename property_type::retriever_type  retriever_type;
 
-         typedef ::reflection::content::inspect::basic_class<data_name,image_name,storage_name,convertor_class>      type_type;
+         typedef ::reflection::content::inspect::basic_class<data_name,image_name,storage_name,retriever_type>      type_type;
 
          static type_type make( storage_type const& storage_param, reader_type const& reader_param )
           {
-           return type_type( storage_param, convertor_class( reader_param ) );
+           return type_type( storage_param, retriever_type( reader_param ) );
           }
 
        };
@@ -59,7 +59,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::inspect::member_class<data_name,image_name,class_name,storage_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::convertor_class( reader_param ) );
+         return typename member_type::type_type( storage_param, typename member_type::retriever_type( reader_param ) );
         }
 
 
@@ -78,7 +78,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::inspect::member_class<data_name,data_name const&,class_name,storage_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::convertor_class( reader_param ) );
+         return typename member_type::type_type( storage_param, typename member_type::retriever_type( reader_param ) );
         }
 
 

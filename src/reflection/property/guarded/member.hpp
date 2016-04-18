@@ -34,16 +34,16 @@
           typedef ::reflection::property::mutate::member_class<model_type,class_type,storage_type,report_type> mutate_type;
 
           typedef typename  mutate_type::assigner_type   assigner_type;
-          typedef typename inspect_type::convertor_type convertor_type;
+          typedef typename inspect_type::retriever_type retriever_type;
 
-          typedef ::reflection::property::guarded::base_class <model_name, image_name, storage_name, assigner_type, convertor_type, report_name>      typedef_type;
+          typedef ::reflection::property::guarded::base_class <model_name, image_name, storage_name, assigner_type, retriever_type, report_name>      typedef_type;
 
           typedef typename  mutate_type::writter_type   writter_type;
           typedef typename inspect_type::reader_type     reader_type;
 
           static typedef_type make( storage_type const& carrier_param, writter_type const& writter_param, reader_type const& reader_param )
            {
-            return typedef_type( carrier_param, assigner_type( writter_param ), convertor_type( reader_param )/**/ );
+            return typedef_type( carrier_param, assigner_type( writter_param ), retriever_type( reader_param )/**/ );
            }
          };
 

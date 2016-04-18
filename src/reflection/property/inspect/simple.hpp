@@ -13,30 +13,30 @@ namespace reflection
       template
        <
          typename data_name
-        ,typename original_name =  data_name &
+        ,typename image_name =  data_name &
        >
        struct simple_class
         {
          typedef data_name      data_type;
-         typedef original_name  original_type;
+         typedef image_name  image_type;
 
-         typedef data_name const&     storage_type;  //!< by design
+         typedef data_name    storage_type;  //!< by design
 
-         typedef class convert_class
+         typedef class retriever_class
           {
            public:
-             explicit convertor_class( )
+             explicit retriever_class( )
               {
               }
 
-             original_type operator()( storage_type const& carrier_param )const
+             image_type operator()( storage_type const& storage_param )const
               {
-               return  carrier_param;
+               return  storage_param;
               }
 
-          } convert_type;
+          } retriever_type;
 
-         typedef ::reflection::property::inspect::base< original_type, storage_type, convert_type > typedef_type;
+         typedef ::reflection::property::inspect::base< image_type, storage_type, retriever_type > typedef_type;
 
          static typedef_type make( storage_type const& P_carrier ){ return typedef_type( P_carrier ); }
         };
@@ -48,13 +48,13 @@ namespace reflection
        struct simple_class<void,void>
         {
          typedef void   data_type;
-         typedef void   original_type;
+         typedef void   image_type;
 
          typedef void   storage_type;
 
-         //TODO typedef std::original<data_name>  convert_type;
+         //TODO typedef std::original<data_name>  retriever_type;
 
-         typedef ::reflection::property::inspect::base< void, void, convert_type > typedef_type;
+         typedef ::reflection::property::inspect::base< void, void, retriever_type > typedef_type;
 
          static typedef_type make(  ){ return typedef_type( ); }
         };
