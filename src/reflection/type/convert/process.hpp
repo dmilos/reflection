@@ -20,7 +20,7 @@ namespace type
 
         return_type operator ()( parameter_type parameter_param )const
          {
-          return processor_name()( P_parameter );
+          return processor_name()( parameter_param );
          }
 
       };
