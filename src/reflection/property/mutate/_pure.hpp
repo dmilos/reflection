@@ -10,7 +10,11 @@ namespace reflection
     namespace mutate
      {
 
-      template< typename model_name, typename report_name = bool >
+      template
+       <
+         typename model_name
+        ,typename report_name = bool
+       >
        class pure_class
         : public ::reflection::property::pure_class
         {

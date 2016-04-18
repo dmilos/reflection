@@ -76,7 +76,7 @@
             typedef class reader_name
              {
               public:
-                typedef image_name    image_type,    T_2nd;
+                typedef image_name    image_type;
                 typedef storage_name  storage_type;
 
                 explicit reader_name( method_type const& method_param /*= std::nullptr_t()*/ )

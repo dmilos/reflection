@@ -1,5 +1,7 @@
 #ifndef reflection_property_direct_base
 #define reflection_property_direct_base
+// ::reflection::property::direct::base_class<original_name,storage_name,extractor_name>
+
 
 #include "./_pure.hpp"
 #include "../_carrier.hpp"
@@ -31,22 +33,22 @@ namespace reflection
                      base_class(){ }
 
             explicit base_class(  extractor_type const& extractor_param )
-              :                           m_extractor( extractor_param )
+              :                            m_extractor( extractor_param )
               {
               }
 
             explicit base_class( storage_type   const& storage_param, extractor_type const& extractor_param = extractor_type() )
-              : carrier_type( storage_param ), m_extractor( extractor_param )
+              :                          carrier_type( storage_param ),        m_extractor( extractor_param )
               {
               }
 
-         public: 
+         public:
            original_type disclose( void )
             {
              return this->F1_extractor()( this->carrier_type::storage() );
             }
 
-         public: 
+         public:
            extractor_type const&   extractor()const{ return m_extractor; }
            void                 extractor( extractor_type const& extractor_param ){ m_extractor = extractor_param; }
          //extractor_type   &   extractor(){ return m_extractor; }

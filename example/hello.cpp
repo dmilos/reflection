@@ -30,7 +30,7 @@ class MyClass
 
     bool        mutator( int const& a )
      {
-      std::cout << __FUNCTION__ << "a = " << a <<std::endl;
+      std::cout << __FUNCTION__ << "::a = " << a <<std::endl;
       m_int = a;
       return true;
      }
@@ -58,8 +58,25 @@ class MyClass
        ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator );
        ::reflection::property::variable::member( this, &MyClass::traitor, &MyClass::inspector );
        ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
-       
-        ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function<int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( []( int const& i )-> std::string{ return std::to_string( i ); } ) );
+
+       ::reflection::content::direct::member( this, &MyClass::traitor );
+       ::reflection::content::inspect::member( this, &MyClass::inspector );
+       ::reflection::content::mutate::member<int>( this, &MyClass::mutator );
+
+       ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() = 4242;
+
+       std::cout << "content::direct::type = " << ::type::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
+
+       std::cout << "content::direct = " << ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() << std::endl;
+
+       std::cout << "content::inspect = " << ::reflection::content::inspect::member( this, &MyClass::inspector ).present() << std::endl;
+
+
+       ::reflection::content::mutate::member<int>( this, &MyClass::mutator ).process( 2424 );
+
+       std::cout << "content::inspect = " << ::reflection::content::inspect::member( this, &MyClass::inspector ).present() << std::endl;
+
+       ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function<int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( []( int const& i )-> std::string{ return std::to_string( i ); } ) );
 
        ::reflection::property::function::member( this, &MyClass::a );
        ::reflection::property::function::member( this, &MyClass::executor );
@@ -84,8 +101,8 @@ class MyClass
        {
         auto st =[]( int const& i )-> std::string
          {
-          return std::to_string( i ); 
-         }; 
+          return std::to_string( i );
+         };
 
         std::cout << "Inspect::pretend = " <<  ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function <int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( st ) ).present() << std::endl;
        }
@@ -105,12 +122,12 @@ class MyClass
        {
         auto ts =[]( std::string const& s )-> int
          {
-          return std::stoi( s ); 
-         }; 
+          return std::stoi( s );
+         };
 
         ::reflection::property::mutate::pretend::member< std::string, std::pointer_to_unary_function <std::string const&, int > >( this, &MyClass::mutator, std::pointer_to_unary_function <std::string const&, int>( ts ) ).process( "42" );
        }
-       
+
 
        //::reflection::object::execute<void,int>( this, "asd", 1 );
        //::reflection::object::inspect<int>(      this, "asd" );

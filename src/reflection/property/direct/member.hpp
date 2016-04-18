@@ -1,6 +1,6 @@
- #ifndef reflection_property_direct_member
- #define reflection_property_direct_member
-// TODO
+#ifndef reflection_property_direct_member
+#define reflection_property_direct_member
+// ::reflection::property::direct::member_class<original_name,class_name,storage_name>
 
  #include "./base.hpp"
 
@@ -34,10 +34,10 @@ namespace reflection
               }
              original_type operator()( storage_type & carrier_param )const
               {
-               if( NULL == m_traitor ) 
+               if( NULL == m_traitor )
                 {
                  throw (void*)NULL;
-                }   
+                }
                return  ((*carrier_param).* m_traitor)( );
               }
 

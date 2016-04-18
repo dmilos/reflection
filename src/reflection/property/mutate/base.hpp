@@ -48,20 +48,9 @@
               :carrier_type( storage_param )
               ,m_assigner( assigner_param )
               {
-               //std::cout << __FUNCTION__ << std::endl;
               }
 
-                    ~base_class( void ){ }
-
-                    /*
-                     base_class&
-                     operator=( base_class const& original )
-                      {
-                       std::cout << typeid(*this).name()<<"::"<< __FUNCTION__ << std::endl;
-                       assigner( original.assigner() );
-                       return *this;
-                      }
-                    */
+            ~base_class( void ){ }
 
           public:
             report_type       process( model_type model_param )
