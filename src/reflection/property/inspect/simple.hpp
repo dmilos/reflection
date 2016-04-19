@@ -13,7 +13,7 @@ namespace reflection
       template
        <
          typename data_name
-        ,typename image_name =  data_name &
+        ,typename image_name =  data_name const&
        >
        struct simple_class
         {
@@ -36,7 +36,7 @@ namespace reflection
 
           } retriever_type;
 
-         typedef ::reflection::property::inspect::base< image_type, storage_type, retriever_type > typedef_type;
+         typedef ::reflection::property::inspect::base_class< image_type, storage_type, retriever_type > typedef_type;
 
          static typedef_type make( storage_type const& P_carrier ){ return typedef_type( P_carrier ); }
         };
@@ -66,10 +66,10 @@ namespace reflection
          typename data_name
        >
        inline
-       typename ::reflection::property::inspect::simple_class< data_name, data_name & >::typedef_type
+       typename ::reflection::property::inspect::simple_class< data_name, data_name const& >::typedef_type
        simple( data_name const& P_data )
         {
-         return ::reflection::property::inspect::simple_class< data_name, data_name & >::make( P_data );
+         return ::reflection::property::inspect::simple_class< data_name, data_name const& >::make( P_data );
         }
 
       }

@@ -52,16 +52,32 @@ class MyClass
      void init()
       {
        ::reflection::property::direct::member( this, &MyClass::traitor );
+       ::reflection::property::direct::simple( 1024 );
+
        ::reflection::property::inspect::member( this, &MyClass::inspector );
        ::reflection::property::inspect::pretend::member< bool, ::type::convert::identity< bool, int > >( this, &MyClass::inspector );
+       ::reflection::property::inspect::simple( 150 );
+
        ::reflection::property::mutate::member( this, &MyClass::mutator );
        ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator );
+       ::reflection::property::mutate::simple< int, bool >( 512 );
+
        ::reflection::property::variable::member( this, &MyClass::traitor, &MyClass::inspector );
+       // TODO ::reflection::property::variable::simple( 111 );
+
        ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
+       // TODO ::reflection::property::guarded::simple( 666 );
 
        ::reflection::content::direct::member( this, &MyClass::traitor );
        ::reflection::content::inspect::member( this, &MyClass::inspector );
        ::reflection::content::mutate::member<int>( this, &MyClass::mutator );
+
+       ::reflection::content::direct::simple<int>( 1024 );
+       ::reflection::content::inspect::simple<int>( 1024 );
+       ::reflection::content::mutate::simple<int>( 1024 );
+
+       //::reflection::content::variable::simple<int>( 1024 );
+       //::reflection::content::guarded::simple<int>( 1024 );
 
        ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() = 4242;
 

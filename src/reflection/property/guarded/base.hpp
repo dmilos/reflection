@@ -50,7 +50,7 @@ namespace reflection
              ,mutate_type( assigner_param )
              ,inspect_type( retriever_param )
              {
-             } ////// /**/
+             }
 
          public:
            using mutate_type::process;
