@@ -157,9 +157,9 @@ class MyClass
         insert(  "f2", item_type( ::reflection::property::function::member( this, &MyClass::c ) ) );
         insert(  "f3", item_type( ::reflection::property::function::member( this, &MyClass::d ) ) );
 
-        insert(  "m1", item_type( ::reflection::property::direct::member(  this, &MyClass::traitor   ) ) );
-        insert(  "m2", item_type( ::reflection::property::inspect::member( this, &MyClass::inspector ) ) );
-        insert(  "m3", item_type( ::reflection::property::mutate::member(  this, &MyClass::mutator   ) ) );
+        insert(  "m1", item_type( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) );
+        //insert(  "m2", item_type( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) );
+        //insert(  "m3", item_type( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) );
 
         //insert(  "extra2", item_type( ::reflection::property::direct::simple<int>( 10 ) );
 

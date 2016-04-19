@@ -130,7 +130,7 @@
                 }
                this->destroy();
                //m_duplicator.TEMPLATE operator()<derive_name>( NULL, reinterpret_cast< derive_name *>( nullptr ) ); //! reconfiguration request
-               return F2_assign( &F1_get(), &derive_param ); //! druga i zadnja prilika. raport ignorisan;
+               return F2_assign( &F1_get(), &derive_param ); //! druga i zadnja prilika. report ignorisan;
               }
 
           /*public:
@@ -141,7 +141,7 @@
 
             void                  duplicator( duplicator_type const& P_duplicator )
              {
-              // ? this->destroy(); ? 
+              // ? this->destroy(); ?
               F1_duplicator() = P_duplicator;
              }
           protected:

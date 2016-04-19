@@ -26,8 +26,9 @@ namespace reflection
         , public ::reflection::property::inspect::pure_class<image_name>
         {
          public:
-           typedef model_name model_type;
-           typedef image_name       image_type;
+           typedef model_name     model_type;
+           typedef image_name     image_type;
+           typedef report_name   report_type;
 
            typedef  ::reflection::property::mutate::pure_class<model_name,report_name>  mutate_type;
            typedef  ::reflection::property::inspect::pure_class<image_name>    inspect_type;

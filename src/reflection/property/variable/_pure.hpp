@@ -17,8 +17,8 @@ namespace reflection
 
       template
        <
-          typename original_name
-         ,typename    image_name
+         typename original_name
+        ,typename    image_name
        >
        class pure_class
         : public ::reflection::property::direct::pure_class<original_name>
