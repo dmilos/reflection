@@ -5,13 +5,65 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="reflection">
+      <UniqueIdentifier>{58e17c58-9558-4a0b-bb29-17e641ab342a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="reflection\type">
+      <UniqueIdentifier>{5c9079e3-d26a-4d41-9503-a41bcb3ce20b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property">
+      <UniqueIdentifier>{9bba097b-d278-4b35-b866-f118441cdb61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\content">
+      <UniqueIdentifier>{de8884fd-9b9a-4077-810e-90a364f8c935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\content\direct">
+      <UniqueIdentifier>{4185b89f-3515-4429-8bfa-9f63d4bf32c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\content\guarded">
+      <UniqueIdentifier>{873022d6-5072-47bf-a299-4b3121d700dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\content\inspect">
+      <UniqueIdentifier>{f28385bb-917e-4996-9ad8-903bf7918ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\content\mutate">
+      <UniqueIdentifier>{bed3214b-91bf-457e-80a6-f4083740a00d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\content\variable">
+      <UniqueIdentifier>{ae2cc90d-af68-4493-ae10-8ad76c421cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\direct">
+      <UniqueIdentifier>{c0040e44-bbe2-4463-99a3-c2b8d37df375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\guarded">
+      <UniqueIdentifier>{83f10b29-b580-4910-89e7-7990a4796815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\inspect">
+      <UniqueIdentifier>{039fd214-4993-4e16-a24b-5933165d64ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\mutate">
+      <UniqueIdentifier>{5fca02f2-d0bc-4720-8dc7-e129c8ef8fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\variable">
+      <UniqueIdentifier>{eb3a5964-3b68-4976-b873-71ada54f006c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\function">
+      <UniqueIdentifier>{805492da-f4ea-4005-8fbb-ceeed06c742e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\type\ptr">
+      <UniqueIdentifier>{85d715e4-d07c-4078-8df8-4bd0b9bb3d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\type\functor">
+      <UniqueIdentifier>{fa1ab891-744a-4ffd-9514-e0c9d0f46d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\type\convert">
+      <UniqueIdentifier>{e9daca50-0395-45fd-a61b-ce1e23e29406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\reset">
+      <UniqueIdentifier>{2db696fa-7a72-42b1-a8e3-39ae52fee2a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\object">
+      <UniqueIdentifier>{1e586c27-27e6-4909-a598-d8c8464e7398}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,5 +73,226 @@
     <ClCompile Include="..\hello.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\reflection\object\structure.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\reflection.hpp">
+      <Filter>reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\reflection.body.hpp">
+      <Filter>reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\direct\member.hpp">
+      <Filter>reflection\content\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\direct\basic.hpp">
+      <Filter>reflection\content\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\direct\simple.hpp">
+      <Filter>reflection\content\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\direct\_pure.hpp">
+      <Filter>reflection\content\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\direct\direct.hpp">
+      <Filter>reflection\content\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\guarded\_pure.hpp">
+      <Filter>reflection\content\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\guarded\guarded.hpp">
+      <Filter>reflection\content\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\inspect\member.hpp">
+      <Filter>reflection\content\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\inspect\basic.hpp">
+      <Filter>reflection\content\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\inspect\simple.hpp">
+      <Filter>reflection\content\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\inspect\_pure.hpp">
+      <Filter>reflection\content\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\inspect\inspect.hpp">
+      <Filter>reflection\content\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\mutate\member.hpp">
+      <Filter>reflection\content\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\mutate\basic.hpp">
+      <Filter>reflection\content\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\mutate\simple.hpp">
+      <Filter>reflection\content\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\mutate\_pure.hpp">
+      <Filter>reflection\content\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\mutate\mutate.hpp">
+      <Filter>reflection\content\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\variable\_pure.hpp">
+      <Filter>reflection\content\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\variable\variable.hpp">
+      <Filter>reflection\content\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\_pure.hpp">
+      <Filter>reflection\content</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\content.hpp">
+      <Filter>reflection\content</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\direct\member.hpp">
+      <Filter>reflection\property\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\direct\base.hpp">
+      <Filter>reflection\property\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\direct\simple.hpp">
+      <Filter>reflection\property\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\direct\reference.hpp">
+      <Filter>reflection\property\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\direct\_pure.hpp">
+      <Filter>reflection\property\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\direct\direct.hpp">
+      <Filter>reflection\property\direct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\function\member.hpp">
+      <Filter>reflection\property\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\function\free.hpp">
+      <Filter>reflection\property\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\function\pure.hpp">
+      <Filter>reflection\property\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\function\function.hpp">
+      <Filter>reflection\property\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\guarded\member.hpp">
+      <Filter>reflection\property\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\guarded\base.hpp">
+      <Filter>reflection\property\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\guarded\_pure.hpp">
+      <Filter>reflection\property\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\guarded\guarded.hpp">
+      <Filter>reflection\property\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\guarded\simple.hpp">
+      <Filter>reflection\property\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\pretend.hpp">
+      <Filter>reflection\property\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\member.hpp">
+      <Filter>reflection\property\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\base.hpp">
+      <Filter>reflection\property\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\simple.hpp">
+      <Filter>reflection\property\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\_pure.hpp">
+      <Filter>reflection\property\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\inspect.hpp">
+      <Filter>reflection\property\inspect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\mutate\pretend.hpp">
+      <Filter>reflection\property\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\mutate\member.hpp">
+      <Filter>reflection\property\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\mutate\base.hpp">
+      <Filter>reflection\property\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\mutate\simple.hpp">
+      <Filter>reflection\property\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\mutate\_pure.hpp">
+      <Filter>reflection\property\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\mutate\mutate.hpp">
+      <Filter>reflection\property\mutate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\variable\member.hpp">
+      <Filter>reflection\property\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\variable\base.hpp">
+      <Filter>reflection\property\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\variable\_pure.hpp">
+      <Filter>reflection\property\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\variable\variable.hpp">
+      <Filter>reflection\property\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\variable\simple.hpp">
+      <Filter>reflection\property\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\category.hpp">
+      <Filter>reflection\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\string.hpp">
+      <Filter>reflection\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\type.hpp">
+      <Filter>reflection\type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\convert\process.hpp">
+      <Filter>reflection\type\convert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\convert\dynamic.hpp">
+      <Filter>reflection\type\convert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\convert\identity.hpp">
+      <Filter>reflection\type\convert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\convert\convert.hpp">
+      <Filter>reflection\type\convert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\functor\asterisk.hpp">
+      <Filter>reflection\type\functor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\type\functor\identity.hpp">
+      <Filter>reflection\type\functor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\reset\member.hpp">
+      <Filter>reflection\property\reset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\reset\base.hpp">
+      <Filter>reflection\property\reset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\reset\_pure.hpp">
+      <Filter>reflection\property\reset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\reset\reset.hpp">
+      <Filter>reflection\property\reset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\_carrier.hpp">
+      <Filter>reflection\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\_pure.hpp">
+      <Filter>reflection\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\property.hpp">
+      <Filter>reflection\property</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

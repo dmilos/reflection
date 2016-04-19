@@ -16,7 +16,7 @@ namespace reflection
         ,typename report_name = bool
        >
        class pure_class
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef report_name report_type;

@@ -19,7 +19,8 @@ namespace reflection
         typedef std::string string_type;
         typedef ::reflection::property::pure_class property_type;
         //typedef ::std::unique_ptr<property_type> item_type;
-        typedef ::reflection::type::ptr::clone<property_type> item_type;
+        typedef ::std::shared_ptr<property_type> item_type;
+        //typedef ::reflection::type::ptr::clone<property_type> item_type;
 
         typedef std::map<string_type, item_type> container_type;
 
@@ -69,14 +70,14 @@ namespace reflection
           return *(iterator->second);
          }
 
-        bool               set(    string_type const& name, item_type const& item )
+        bool               set(    string_type const& name, item_type const& item_param )
          {
           auto iterator = m_container.find( name );
           if( m_container.end( ) == iterator )
            {
             return false;
            }
-          iterator->second = item;
+          iterator->second = item_param;
           return true;
          }
 

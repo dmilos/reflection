@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="reflection::content::direct::basic_class&lt;data_name, original_name, storage_name, extractor_name&gt;" Collapsed="true">
+    <Position X="3.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\content\direct\basic.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="reflection::content::direct::pure_class&lt;data_name, original_name&gt;" Collapsed="true">
+    <Position X="2" Y="5.25" Width="1.5" />
+    <InheritanceLine Type="reflection::content::pure_class&lt;data_name&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="2.75" Y="4.07" />
+        <Point X="2.75" Y="5.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="reflection::property::direct::pure_class&lt;original_name&gt;" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="3.438" />
+        <Point X="4.875" Y="3.438" />
+        <Point X="4.875" Y="4.875" />
+        <Point X="3.375" Y="4.875" />
+        <Point X="3.375" Y="5.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\content\direct\_pure.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="reflection::property::direct::base_class&lt;original_name, storage_name, extractor_name&gt;" Collapsed="true">
+    <Position X="5.25" Y="5" Width="1.5" />
+    <InheritanceLine Type="reflection::property::direct::pure_class&lt;original_name&gt;" FixedFromPoint="true">
+      <Path>
+        <Point X="6" Y="3.691" />
+        <Point X="6" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="reflection::property::_internal::carrier_class&lt;storage_name&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="7.75" Y="4.312" />
+        <Point X="7.75" Y="4.625" />
+        <Point X="6.688" Y="4.625" />
+        <Point X="6.688" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAgQAAAAAAAgAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\property\direct\base.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="reflection::content::pure_class&lt;data_name&gt;" Collapsed="true">
+    <Position X="2" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="reflection::property::pure_class" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.625" Y="2.312" />
+        <Point X="5.625" Y="2.687" />
+        <Point X="3.25" Y="2.687" />
+        <Point X="3.25" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="type::category&lt;type_name&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="2.75" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\content\_pure.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="reflection::property::direct::pure_class&lt;original_name&gt;" Collapsed="true">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <InheritanceLine Type="reflection::property::pure_class" FixedFromPoint="true">
+      <Path>
+        <Point X="6" Y="2.312" />
+        <Point X="6" Y="3" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\property\direct\_pure.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="reflection::property::_internal::carrier_class&lt;storage_name&gt;" Collapsed="true">
+    <Position X="7" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAAAAgAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\property\_carrier.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="reflection::property::pure_class" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\property\_pure.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="type::category&lt;type_name&gt;" Collapsed="true">
+    <Position X="2" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAgAAAAAAAABAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>C:\work\git\ref\src\reflection\type\category.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

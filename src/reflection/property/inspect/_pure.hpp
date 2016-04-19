@@ -19,7 +19,7 @@ namespace reflection
         typename image_name 
        >
        class pure_class
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef image_name  image_type;

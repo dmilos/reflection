@@ -63,6 +63,83 @@ $(prg_scons) --directory=$(SolutionDir)build config=release
   <ItemGroup>
     <ClCompile Include="..\hello.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\reflection\content\content.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\direct\basic.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\direct\direct.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\direct\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\direct\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\direct\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\guarded\guarded.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\guarded\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\inspect\basic.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\inspect\inspect.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\inspect\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\inspect\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\inspect\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\mutate\basic.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\mutate\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\mutate\mutate.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\mutate\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\mutate\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\variable\variable.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\variable\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\object\structure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\direct\base.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\direct\direct.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\direct\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\direct\reference.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\direct\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\direct\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\function\free.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\function\function.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\function\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\function\pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\guarded\base.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\guarded\guarded.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\guarded\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\guarded\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\guarded\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\inspect\base.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\inspect\inspect.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\inspect\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\inspect\pretend.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\inspect\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\inspect\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\mutate\base.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\mutate\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\mutate\mutate.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\mutate\pretend.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\mutate\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\mutate\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\property.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\reset\base.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\reset\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\reset\reset.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\reset\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\variable\base.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\variable\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\variable\simple.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\variable\variable.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\variable\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\_carrier.hpp" />
+    <ClInclude Include="..\..\src\reflection\property\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\reflection.body.hpp" />
+    <ClInclude Include="..\..\src\reflection\reflection.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\category.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\convert\convert.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\convert\dynamic.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\convert\identity.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\convert\process.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\functor\asterisk.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\functor\identity.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\string.hpp" />
+    <ClInclude Include="..\..\src\reflection\type\type.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

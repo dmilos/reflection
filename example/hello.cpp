@@ -6,6 +6,8 @@
 #include "reflection/reflection.hpp"
 #include "reflection/type/convert/convert.hpp"
 
+#include "reflection/type/ptr/make.hpp"
+
 class MyClass
 : public ::reflection::object::structure_class
  {
@@ -81,7 +83,7 @@ class MyClass
 
        ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() = 4242;
 
-       std::cout << "content::direct::type = " << ::type::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
+       std::cout << "content::direct::type = " << ::type::category::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
 
        std::cout << "content::direct = " << ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() << std::endl;
 
@@ -151,25 +153,40 @@ class MyClass
        //::reflection::object::reset<int>(        this, "asd" );
        //::reflection::object::set<int>(          this, "asd", 20 );
 
-        return;
-        insert(  "f0", item_type( ::reflection::property::function::member( this, &MyClass::a ) ) );
-        insert(  "f1", item_type( ::reflection::property::function::member( this, &MyClass::b ) ) );
-        insert(  "f2", item_type( ::reflection::property::function::member( this, &MyClass::c ) ) );
-        insert(  "f3", item_type( ::reflection::property::function::member( this, &MyClass::d ) ) );
+        //auto x =  ::reflection::content::direct::member(  this, &MyClass::traitor   );
+        //
+        //reflection::property::direct::check< int& >( x );
+        //reflection::property::inspect::check< int& >( x );
+        //reflection::property::mutate::check< int& >( x );
 
-        insert(  "m1", item_type( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) );
-        //insert(  "m2", item_type( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) );
-        //insert(  "m3", item_type( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) );
+        insert(  "f0", item_type( ::memory::pointer::make( ::reflection::property::function::member( this, &MyClass::a ) ) ) );
+        insert(  "f1", item_type( ::memory::pointer::make( ::reflection::property::function::member( this, &MyClass::b ) ) ) );
+        //insert(  "f2", item_type( ::reflection::property::function::member( this, &MyClass::c ) ) );
+        //insert(  "f3", item_type( ::reflection::property::function::member( this, &MyClass::d ) ) );
+
+        insert(  "m1", item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) ) );
+        insert(  "m2", item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
+        insert(  "m3", item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) ) );
 
         //insert(  "extra2", item_type( ::reflection::property::direct::simple<int>( 10 ) );
 
        exists(  "asd" );
        remove(  "asd" );
-       clear();
        container();
 
        ::reflection::property::function::check<void>(   get( "f0" ) );
        ::reflection::property::function::execute<void>( get( "f0" ) );
+
+       ::reflection::property::direct::disclose< int& >( get("m1") ) = 10;
+       ::reflection::property::inspect::present< int const& >( get("m2") );
+       ::reflection::property::mutate::process<  int const& >( get("m3"), 2424 );
+
+       std::cout << "category::check == " << ::type::category::check< std::string >( get("m3") )<< std::endl;
+
+       std::cout << "category::type = " << ::type::category::type< std::string >( dynamic_cast< ::type::category::pure_class< std::string > const& >( get("m3") ) )  << std::endl;
+
+
+       clear();
       }
 
  };

@@ -19,7 +19,7 @@ namespace reflection
          typename original_name
        >
        class pure_class
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef original_name original_type;
