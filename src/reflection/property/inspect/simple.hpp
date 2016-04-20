@@ -1,6 +1,9 @@
 #ifndef reflection_property_inspect_simple
 #define reflection_property_inspect_simple
 
+// reflection::property::inspect::simple_class<data_name,image_name>
+// reflection::property::inspect::simple<data_name>( data_name const& )
+
 #include "./base.hpp"
 
 namespace reflection

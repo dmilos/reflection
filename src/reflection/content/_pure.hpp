@@ -8,6 +8,7 @@
 #include "../type/string.hpp"
 #include "../type/category.hpp"
 
+
 namespace reflection
  {
   namespace  content

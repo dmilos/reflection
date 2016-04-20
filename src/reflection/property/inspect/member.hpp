@@ -1,5 +1,6 @@
 #ifndef reflection_property_inspect_member
  #define reflection_property_inspect_member
+ 
 // ::reflection::property::inspect::member_class<image_name,class_name,storage_name>
 
  #include "./base.hpp"

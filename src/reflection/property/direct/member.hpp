@@ -1,5 +1,6 @@
 #ifndef reflection_property_direct_member
 #define reflection_property_direct_member
+
 // ::reflection::property::direct::member_class<original_name,class_name,storage_name>
 
  #include "./base.hpp"

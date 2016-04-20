@@ -1,6 +1,8 @@
 #ifndef reflection_property_mutate_pure
 #define reflection_property_mutate_pure
 
+// ::reflection::property::mutate::pure_class<model_name,report_name>
+
 #include "../_pure.hpp"
 
 namespace reflection

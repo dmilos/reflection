@@ -1,8 +1,9 @@
 #ifndef reflection_property_mutate_base
 #define reflection_property_mutate_base
+
 // ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name >
 
- #include "./_pure.hpp"
+#include "./_pure.hpp"
 #include "../_carrier.hpp"
 
  namespace reflection

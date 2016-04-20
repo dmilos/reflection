@@ -1,9 +1,9 @@
 #ifndef type_category_pure_hpp
  #define type_category_pure_hpp
 
-// type::category<type_name>
-// type::type()
-// type::check()
+// ::type::category::pure_class<type_name>
+// ::type::category::type()
+// ::type::category::check()
 
  namespace type
   {

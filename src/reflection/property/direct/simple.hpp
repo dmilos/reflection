@@ -1,6 +1,8 @@
 #ifndef reflection_property_direct_simple
 #define reflection_property_direct_simple
 
+// ::reflection::property::direct::simple_class<data_name,original_name>
+
 #include "./base.hpp"
 
 namespace reflection

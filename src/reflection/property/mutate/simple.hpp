@@ -1,5 +1,6 @@
 #ifndef reflection_property_mutate_simple
 #define reflection_property_mutate_simple
+
 // ::reflection::property::mutate::simple< data_name, model_name, report_name >
 
 #include "./base.hpp"

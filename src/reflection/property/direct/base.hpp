@@ -1,5 +1,6 @@
 #ifndef reflection_property_direct_base
 #define reflection_property_direct_base
+
 // ::reflection::property::direct::base_class<original_name,storage_name,extractor_name>
 
 

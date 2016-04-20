@@ -1,6 +1,7 @@
 #ifndef reflection_content_guarded_pure_hpp
  #define reflection_content_guarded_pure_hpp
- // ::reflection::content::guarded::pure_class<data_name,original_name >
+
+// ::reflection::content::guarded::pure_class<data_name,model_name,image_name,report_name>
 
  #include "../../property/guarded/_pure.hpp"
 
