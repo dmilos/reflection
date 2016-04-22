@@ -22,8 +22,8 @@ namespace reflection
          ,typename report_name
        >
        class pure_class
-        : public ::reflection::property::mutate::pure_class<model_name,report_name>
-        , public ::reflection::property::inspect::pure_class<image_name>
+        : virtual public ::reflection::property::mutate::pure_class<model_name,report_name>
+        , virtual public ::reflection::property::inspect::pure_class<image_name>
         {
          public:
            typedef model_name     model_type;

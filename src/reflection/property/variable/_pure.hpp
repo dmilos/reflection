@@ -21,8 +21,8 @@ namespace reflection
         ,typename    image_name
        >
        class pure_class
-        : public ::reflection::property::direct::pure_class<original_name>
-        , public ::reflection::property::inspect::pure_class<image_name>
+        : virtual public ::reflection::property::direct::pure_class<original_name>
+        , virtual public ::reflection::property::inspect::pure_class<image_name>
         {
          public:
            typedef original_name original_type;

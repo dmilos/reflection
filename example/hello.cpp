@@ -79,7 +79,7 @@ class MyClass
        ::reflection::content::mutate::simple<int>( 1024 );
 
        //::reflection::content::variable::simple<int>( 1024 );
-       //::reflection::content::guarded::simple<int>( 1024 );
+       ::reflection::content::guarded::simple<int>( 1024 );
 
        ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() = 4242;
 
@@ -164,11 +164,13 @@ class MyClass
         //insert(  "f2", item_type( ::reflection::property::function::member( this, &MyClass::c ) ) );
         //insert(  "f3", item_type( ::reflection::property::function::member( this, &MyClass::d ) ) );
 
-        insert(  "m1", item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) ) );
-        insert(  "m2", item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
-        insert(  "m3", item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) ) );
+        insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) ) );
+        insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
+        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) ) );
 
-        //insert(  "extra2", item_type( ::reflection::property::direct::simple<int>( 10 ) );
+        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
+
+        insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
 
        exists(  "asd" );
        remove(  "asd" );
@@ -180,6 +182,14 @@ class MyClass
        ::reflection::property::direct::disclose< int& >( get("m1") ) = 10;
        ::reflection::property::inspect::present< int const& >( get("m2") );
        ::reflection::property::mutate::process<  int const& >( get("m3"), 2424 );
+
+       ::reflection::property::direct::disclose< int &  >( get("extra1") ) = 11;
+       std::cout << "extra1::category::simple::direct::disclose == " << ::reflection::property::direct::disclose< int &  >( get("extra1") )<< std::endl;
+
+       std::cout << "extra2::category::simple::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("extra2") )<< std::endl;
+
+       ::reflection::property::mutate::process<  int const& >( get("extra2"), 2424 );
+       std::cout << "extra2::category::simple::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("extra2") )<< std::endl;
 
        std::cout << "category::check == " << ::type::category::check< std::string >( get("m3") )<< std::endl;
 

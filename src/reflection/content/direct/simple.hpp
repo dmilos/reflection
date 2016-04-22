@@ -46,6 +46,7 @@ namespace reflection
 
          //static typedef_type make( void ){ return typedef_type(); }
         };*/
+
       template
        <
          typename data_name
