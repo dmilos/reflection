@@ -1,6 +1,8 @@
 #ifndef reflection_property_reset_pure
 #define reflection_property_reset_pure
 
+// reflection::property::reset<report_name>
+
 #include "../_pure.hpp"
 
 namespace reflection
