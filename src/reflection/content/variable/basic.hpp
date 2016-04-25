@@ -37,9 +37,9 @@ namespace reflection
            typedef    report_name     report_type;
 
            typedef ::reflection::content::variable::pure_class<data_name,model_name,image_name,report_name> pure_type;
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::variable::base_class< model_name, image_name, storage_name,extractor_name, retriever_name, report_name > base_class;
 
-           typedef ::reflection::property::variable::base_class< model_name, image_name,  storage_name,extractor_name, retriever_name, report_name > base_class;
+           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
                      basic_class()
                       {
@@ -48,10 +48,11 @@ namespace reflection
             explicit basic_class
                      (
                        storage_type   const& carrier_param
-                      ,extractor_type  const& extractor_param  =  extractor_type()
+                      ,extractor_type const& extractor_param = extractor_type()
                       ,retriever_type const& retriever_param = retriever_type()
                      )
-                     :base_class( carrier_param, extractor_param, retriever_param )
+                     :carrier_type( storage_param )
+                     ,base_class( extractor_param, retriever_param )
                      {
                      }
 

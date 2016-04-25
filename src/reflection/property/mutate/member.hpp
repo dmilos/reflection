@@ -39,9 +39,9 @@
                :m_writter( writter_param )
                {
                }
-              report_type operator()( storage_type & carrier_param, model_type P_input )const
+              report_type operator()( storage_type & carrier_param, model_type input_param )const
                {
-                return  ( (*carrier_param).*m_writter)( P_input );
+                return  ( (*carrier_param).*m_writter)( input_param );
                }
             private:
              writter_type  m_writter;

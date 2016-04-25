@@ -4,6 +4,9 @@
 
 #include "../../property/guarded/base.hpp"
 
+#include "../mutate/basic.hpp"
+#include "../inspect/basic.hpp"
+
 #include "./_pure.hpp"
 
 namespace reflection
@@ -37,9 +40,9 @@ namespace reflection
            typedef    report_name     report_type;
 
            typedef ::reflection::content::guarded::pure_class<data_name,model_name,image_name,report_name> pure_type;
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
-
            typedef ::reflection::property::guarded::base_class< model_name, image_name,  storage_name,assigner_name, retriever_name, report_name > base_class;
+
+           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
                      basic_class()
                       {
@@ -47,11 +50,12 @@ namespace reflection
 
             explicit basic_class
                      (
-                       storage_type   const& carrier_param
-                      ,assigner_type  const& assigner_param  =  assigner_type()
+                       storage_type   const& storage_param
+                      ,assigner_type  const&  assigner_param =  assigner_type()
                       ,retriever_type const& retriever_param = retriever_type()
                      )
-                     :base_class( carrier_param, assigner_param, retriever_param )
+                     :carrier_type( storage_param )
+                     ,base_class( assigner_param, retriever_param )
                      {
                      }
 

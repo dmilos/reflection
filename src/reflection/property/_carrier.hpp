@@ -21,7 +21,6 @@ namespace reflection
           explicit carrier_class( storage_type const& storage_param  = storage_type())
            : m_storage( storage_param )
            {
-
            }
 
          public:

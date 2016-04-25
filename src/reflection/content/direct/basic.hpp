@@ -49,11 +49,11 @@ namespace reflection
 
             explicit basic_class
                      (
-                       storage_type   const& P_carrier
+                       storage_type   const& storage_param
                       ,extractor_type const& extractor_param = extractor_type()
                      )
                      :base_class( extractor_param )
-                     ,carrier_type( P_carrier )
+                     ,carrier_type( storage_param )
                      {
                      }
 

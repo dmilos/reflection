@@ -70,7 +70,10 @@ $(prg_scons) --directory=$(SolutionDir)build config=release
     <ClInclude Include="..\..\src\reflection\content\direct\member.hpp" />
     <ClInclude Include="..\..\src\reflection\content\direct\simple.hpp" />
     <ClInclude Include="..\..\src\reflection\content\direct\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\guarded\basic.hpp" />
     <ClInclude Include="..\..\src\reflection\content\guarded\guarded.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\guarded\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\guarded\simple.hpp" />
     <ClInclude Include="..\..\src\reflection\content\guarded\_pure.hpp" />
     <ClInclude Include="..\..\src\reflection\content\inspect\basic.hpp" />
     <ClInclude Include="..\..\src\reflection\content\inspect\inspect.hpp" />
@@ -82,6 +85,9 @@ $(prg_scons) --directory=$(SolutionDir)build config=release
     <ClInclude Include="..\..\src\reflection\content\mutate\mutate.hpp" />
     <ClInclude Include="..\..\src\reflection\content\mutate\simple.hpp" />
     <ClInclude Include="..\..\src\reflection\content\mutate\_pure.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\variable\basic.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\variable\member.hpp" />
+    <ClInclude Include="..\..\src\reflection\content\variable\simple.hpp" />
     <ClInclude Include="..\..\src\reflection\content\variable\variable.hpp" />
     <ClInclude Include="..\..\src\reflection\content\variable\_pure.hpp" />
     <ClInclude Include="..\..\src\reflection\content\_pure.hpp" />

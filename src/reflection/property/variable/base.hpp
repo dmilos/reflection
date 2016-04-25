@@ -34,19 +34,31 @@ namespace reflection
            typedef ::reflection::property::direct::base_class< original_name,storage_name, extractor_name > direct_type;
            typedef ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name > inspect_type;
 
-                     base_class(){ }
+                    base_class()
+                     {
+                     }
 
-            explicit base_class
-             (
-               storage_type   const& storage_param
-              ,extractor_type const& extractor_param = extractor_type()
-              ,retriever_type const& retriever_param = retriever_type()
-             )
-             :carrier_type(   storage_param )
-             , direct_type( extractor_param )
-             ,inspect_type( retriever_param )
-             {
-             }
+           explicit base_class
+            (
+              extractor_type const& extractor_param = extractor_type()
+             ,retriever_type const& retriever_param = retriever_type()
+            )
+            :direct_type( extractor_param )
+            ,inspect_type( retriever_param )
+            {
+            }
+
+           explicit base_class
+            (
+              storage_type   const& storage_param
+             ,extractor_type const& extractor_param = extractor_type()
+             ,retriever_type const& retriever_param = retriever_type()
+            )
+            :carrier_type(   storage_param )
+            , direct_type( extractor_param )
+            ,inspect_type( retriever_param )
+            {
+            }
 
          public:
            using direct_type::disclose;

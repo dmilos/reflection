@@ -99,12 +99,6 @@
     <ClInclude Include="..\..\src\reflection\content\direct\direct.hpp">
       <Filter>reflection\content\direct</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\content\guarded\_pure.hpp">
-      <Filter>reflection\content\guarded</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\content\guarded\guarded.hpp">
-      <Filter>reflection\content\guarded</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\reflection\content\inspect\member.hpp">
       <Filter>reflection\content\inspect</Filter>
     </ClInclude>
@@ -134,12 +128,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\content\mutate\mutate.hpp">
       <Filter>reflection\content\mutate</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\content\variable\_pure.hpp">
-      <Filter>reflection\content\variable</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\content\variable\variable.hpp">
-      <Filter>reflection\content\variable</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\content\_pure.hpp">
       <Filter>reflection\content</Filter>
@@ -290,6 +278,36 @@
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\property.hpp">
       <Filter>reflection\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\guarded\member.hpp">
+      <Filter>reflection\content\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\guarded\basic.hpp">
+      <Filter>reflection\content\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\guarded\simple.hpp">
+      <Filter>reflection\content\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\guarded\_pure.hpp">
+      <Filter>reflection\content\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\guarded\guarded.hpp">
+      <Filter>reflection\content\guarded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\variable\basic.hpp">
+      <Filter>reflection\content\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\variable\_pure.hpp">
+      <Filter>reflection\content\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\variable\variable.hpp">
+      <Filter>reflection\content\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\variable\member.hpp">
+      <Filter>reflection\content\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\variable\simple.hpp">
+      <Filter>reflection\content\variable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

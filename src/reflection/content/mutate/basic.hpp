@@ -50,11 +50,11 @@ namespace reflection
 
             explicit basic_class
                      (
-                       storage_type   const& P_carrier
+                       storage_type   const& storage_param
                       ,assigner_type const& assigner_param = assigner_type()
                      )
                      :base_class( assigner_param )
-                     ,carrier_type( P_carrier )
+                     ,carrier_type( storage_param )
                      {
                      }
 

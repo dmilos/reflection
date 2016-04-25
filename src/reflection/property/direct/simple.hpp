@@ -40,7 +40,7 @@ namespace reflection
 
          typedef ::reflection::property::direct::base_class< original_type, storage_type, extractor_type > typedef_type;
 
-         static typedef_type make( storage_type const& P_carrier ){ return typedef_type( P_carrier ); }
+         static typedef_type make( storage_type const& storage_param ){ return typedef_type( storage_param ); }
         };
 
        /*
@@ -69,9 +69,9 @@ namespace reflection
        >
        inline
        typename ::reflection::property::direct::simple_class< data_name, data_name & >::typedef_type
-       simple( data_name const& P_data )
+       simple( data_name const& data_param )
         {
-         return ::reflection::property::direct::simple_class< data_name, data_name & >::make( P_data );
+         return ::reflection::property::direct::simple_class< data_name, data_name & >::make( data_param );
         }
 
       }

@@ -199,8 +199,7 @@ class MyClass
 
        std::cout << "category::type = " << ::type::category::type< std::string >( dynamic_cast< ::type::category::pure_class< std::string > const& >( get("m3") ) )  << std::endl;
 
-       ::reflection::property::inspect::present< int const& >( get("g1") );
-       //std::cout << "guarded1::category::inspect::present== " <<  << std::endl;
+       std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
        ::reflection::property::mutate::process<  int const& >( get("g1"), 10000 );
        std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
