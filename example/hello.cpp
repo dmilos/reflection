@@ -80,6 +80,7 @@ class MyClass
 
        //::reflection::content::variable::simple<int>( 1024 );
        ::reflection::content::guarded::simple<int>( 1024 );
+       ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
 
        ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() = 4242;
 
@@ -168,6 +169,9 @@ class MyClass
         insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
         insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) ) );
 
+        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector ) ) ) );
+
+
         insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
 
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
@@ -195,6 +199,11 @@ class MyClass
 
        std::cout << "category::type = " << ::type::category::type< std::string >( dynamic_cast< ::type::category::pure_class< std::string > const& >( get("m3") ) )  << std::endl;
 
+       ::reflection::property::inspect::present< int const& >( get("g1") );
+       //std::cout << "guarded1::category::inspect::present== " <<  << std::endl;
+
+       ::reflection::property::mutate::process<  int const& >( get("g1"), 10000 );
+       std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
        clear();
       }

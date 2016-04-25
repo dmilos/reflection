@@ -17,22 +17,22 @@ namespace reflection
         ,typename image_name
         ,typename storage_name    //= type_name
         ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
-        ,typename convertor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
+        ,typename retriever_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
        class base_class
         :  public ::reflection::property::direct::base_class< original_name,storage_name, extractor_name >
-        ,  public ::reflection::property::inspect::base_class< image_name, storage_name, convertor_name >
+        ,  public ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name >
         {
          public:
            typedef original_name   original_type;
            typedef storage_name    storage_type;
            typedef extractor_name  extractor_type;
-           typedef convertor_name  convertor_type;
+           typedef retriever_name  retriever_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
            typedef ::reflection::property::direct::base_class< original_name,storage_name, extractor_name > direct_type;
-           typedef ::reflection::property::inspect::base_class< image_name, storage_name, convertor_name > inspect_type;
+           typedef ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name > inspect_type;
 
                      base_class(){ }
 
@@ -40,11 +40,11 @@ namespace reflection
              (
                storage_type   const& storage_param
               ,extractor_type const& extractor_param = extractor_type()
-              ,convertor_type const& convertor_param = convertor_type()
+              ,retriever_type const& retriever_param = retriever_type()
              )
              :carrier_type(   storage_param )
              , direct_type( extractor_param )
-             ,inspect_type( convertor_param )
+             ,inspect_type( retriever_param )
              {
              }
 
