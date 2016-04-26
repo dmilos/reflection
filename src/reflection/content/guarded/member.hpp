@@ -87,7 +87,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::guarded::member_class<data_name,model_name,image_name,class_name,storage_name,report_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::retriever_type( reader_param ) );
+         return member_type::make( storage_param, writter_param, reader_param );
         }
 
 
@@ -108,7 +108,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::guarded::member_class<data_name,data_name const&,data_name const&,class_name,storage_name,report_name> member_type;
-         return typename member_type::typedef_type( storage_param, typename member_type::assigner_class( writter_param ), typename member_type::retriever_type( reader_param ) );
+         return member_type::make( storage_param, writter_param, reader_param );
         }
 
 

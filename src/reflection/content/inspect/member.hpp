@@ -34,11 +34,11 @@ namespace reflection
          typedef typename property_type::reader_type        reader_type;
          typedef typename property_type::retriever_type  retriever_type;
 
-         typedef ::reflection::content::inspect::basic_class<data_name,image_name,storage_name,retriever_type>      type_type;
+         typedef ::reflection::content::inspect::basic_class<data_name,image_name,storage_name,retriever_type>      typedef_type;
 
-         static type_type make( storage_type const& storage_param, reader_type const& reader_param )
+         static typedef_type make( storage_type const& storage_param, reader_type const& reader_param )
           {
-           return type_type( storage_param, retriever_type( reader_param ) );
+           return typedef_type( storage_param, retriever_type( reader_param ) );
           }
 
        };
@@ -51,7 +51,7 @@ namespace reflection
        ,typename storage_name
        >
        inline
-       typename ::reflection::content::inspect::member_class<data_name,image_name,class_name,storage_name>::type_type
+       typename ::reflection::content::inspect::member_class<data_name,image_name,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
@@ -59,7 +59,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::inspect::member_class<data_name,image_name,class_name,storage_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::retriever_type( reader_param ) );
+         return member_type::make( storage_param, reader_param );
         }
 
 
@@ -70,7 +70,7 @@ namespace reflection
        ,typename storage_name
        >
        inline
-       typename ::reflection::content::inspect::member_class<data_name,data_name const&,class_name,storage_name>::type_type
+       typename ::reflection::content::inspect::member_class<data_name,data_name const&,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
@@ -78,7 +78,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::inspect::member_class<data_name,data_name const&,class_name,storage_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::retriever_type( reader_param ) );
+         return member_type::make( storage_param, reader_param );
         }
 
 

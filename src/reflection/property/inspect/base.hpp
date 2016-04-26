@@ -30,7 +30,7 @@ namespace reflection
 
             explicit base_class
              (
-              retriever_type const& retriever_param = retriever_type() 
+              retriever_type const& retriever_param = retriever_type()
              )
              : m_retriever( retriever_param )
              {
@@ -39,19 +39,19 @@ namespace reflection
             explicit base_class
              (
                storage_type   const& carrier_param
-              ,retriever_type const& retriever_param = retriever_type() 
+              ,retriever_type const& retriever_param = retriever_type()
              )
              : carrier_type( carrier_param ), m_retriever( retriever_param )
              {
              }
 
-         public: 
+         public:
            image_type present( void )const
             {
              return this->retriever()( this->carrier_type::storage() );
             }
 
-         public: 
+         public:
            retriever_type const&   retriever()const{ return m_retriever; }
            void                 retriever( retriever_type const& retriever_param ){ m_retriever = retriever_param; }
          //retriever_type   &   retriever(){ return m_retriever; }

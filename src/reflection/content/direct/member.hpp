@@ -34,11 +34,11 @@ namespace reflection
          typedef typename property_type::traitor_type    traitor_type;
          typedef typename property_type::extractor_type  extractor_type;
 
-         typedef ::reflection::content::direct::basic_class<data_name,original_name,storage_name,extractor_type>      type_type;
+         typedef ::reflection::content::direct::basic_class<data_name,original_name,storage_name,extractor_type>      typedef_type;
 
-         static type_type make( storage_type const& storage_param, traitor_type const& traitor_param )
+         static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param )
           {
-           return type_type( storage_param, extractor_type( traitor_param ) );
+           return typedef_type( storage_param, extractor_type( traitor_param ) );
           }
 
        };
@@ -51,7 +51,7 @@ namespace reflection
        ,typename storage_name
        >
        inline
-       typename ::reflection::content::direct::member_class<data_name,original_name,class_name,storage_name>::type_type
+       typename ::reflection::content::direct::member_class<data_name,original_name,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
@@ -59,7 +59,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::direct::member_class<data_name,original_name,class_name,storage_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::extractor_type( traitor_param ) );
+         return member_type::make( storage_param, traitor_param );
         }
 
 
@@ -70,7 +70,7 @@ namespace reflection
        ,typename storage_name
        >
        inline
-       typename ::reflection::content::direct::member_class<data_name,data_name&,class_name,storage_name>::type_type
+       typename ::reflection::content::direct::member_class<data_name,data_name&,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
@@ -78,7 +78,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::direct::member_class<data_name,data_name&,class_name,storage_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::extractor_type( traitor_param ) );
+         return member_type::make( storage_param, traitor_param );
         }
 
 

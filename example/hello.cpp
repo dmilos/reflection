@@ -71,18 +71,20 @@ class MyClass
        // TODO ::reflection::property::guarded::simple( 666 );
 
        ::reflection::content::direct::member( this, &MyClass::traitor );
-       ::reflection::content::inspect::member( this, &MyClass::inspector );
-       ::reflection::content::mutate::member<int>( this, &MyClass::mutator );
+       ::reflection::content::direct::simple( 152 ).disclose() = 4242;
 
-       ::reflection::content::direct::simple<int>( 1024 );
+       ::reflection::content::inspect::member( this, &MyClass::inspector );
        ::reflection::content::inspect::simple<int>( 1024 );
+
+       ::reflection::content::mutate::member<int>( this, &MyClass::mutator );
        ::reflection::content::mutate::simple<int>( 1024 );
 
-       //::reflection::content::variable::simple<int>( 1024 );
+       ::reflection::content::variable::simple<int>( 1024 );
+       ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector );
+
        ::reflection::content::guarded::simple<int>( 1024 );
        ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
 
-       ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() = 4242;
 
        std::cout << "content::direct::type = " << ::type::category::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
 

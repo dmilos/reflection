@@ -35,11 +35,11 @@ namespace reflection
          typedef typename property_type::writter_type       writter_type;
          typedef typename property_type::assigner_class  assigner_type;
 
-         typedef ::reflection::content::mutate::basic_class<data_name,model_name,storage_name,assigner_type, report_name>      type_type;
+         typedef ::reflection::content::mutate::basic_class<data_name,model_name,storage_name,assigner_type, report_name>      typedef_type;
 
-         static type_type make( storage_type const& storage_param, writter_type const& writter_param )
+         static typedef_type make( storage_type const& storage_param, writter_type const& writter_param )
           {
-           return type_type( storage_param, assigner_type( writter_param ) );
+           return typedef_type( storage_param, assigner_type( writter_param ) );
           }
 
        };
@@ -53,7 +53,7 @@ namespace reflection
        ,typename report_name
        >
        inline
-       typename ::reflection::content::mutate::member_class<data_name,model_name,class_name,storage_name,report_name>::type_type
+       typename ::reflection::content::mutate::member_class<data_name,model_name,class_name,storage_name,report_name>::typedef_type
        member
         (
           storage_name const&             storage_param
@@ -61,7 +61,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::mutate::member_class<data_name,model_name,class_name,storage_name,report_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::assigner_type( writter_param ) );
+         return member_type::make( storage_param, writter_param );
         }
 
 
@@ -73,7 +73,7 @@ namespace reflection
        ,typename report_name
        >
        inline
-       typename ::reflection::content::mutate::member_class< data_name, data_name const&,class_name,storage_name,report_name>::type_type
+       typename ::reflection::content::mutate::member_class< data_name, data_name const&,class_name,storage_name,report_name>::typedef_type
        member
         (
           storage_name const&             storage_param
@@ -81,7 +81,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::mutate::member_class<data_name,data_name const&,class_name,storage_name,report_name> member_type;
-         return typename member_type::type_type( storage_param, typename member_type::assigner_type( writter_param ) );
+         return member_type::make( storage_param, writter_param );
         }
 
 
