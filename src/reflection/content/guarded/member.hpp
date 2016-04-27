@@ -41,7 +41,7 @@ namespace reflection
            typedef ::reflection::content::inspect::member_class< data_name,image_name,class_name,storage_name >            inspect_type;
 
            typedef typename mutate_type::writter_type       writter_type;
-           typedef typename mutate_type::assigner_class  assigner_type;
+           typedef typename mutate_type::assigner_type  assigner_type;
 
            typedef typename inspect_type::reader_type        reader_type;
            typedef typename inspect_type::retriever_type  retriever_type;

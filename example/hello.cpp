@@ -65,10 +65,11 @@ class MyClass
        ::reflection::property::mutate::simple< int, bool >( 512 );
 
        ::reflection::property::variable::member( this, &MyClass::traitor, &MyClass::inspector );
-       // TODO ::reflection::property::variable::simple( 111 );
+       ::reflection::property::variable::simple( 111 );
 
        ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
-       // TODO ::reflection::property::guarded::simple( 666 );
+       ::reflection::property::guarded::simple( 666 );
+
 
        ::reflection::content::direct::member( this, &MyClass::traitor );
        ::reflection::content::direct::simple( 152 ).disclose() = 4242;
