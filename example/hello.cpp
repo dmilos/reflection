@@ -55,37 +55,46 @@ class MyClass
       {
        ::reflection::property::direct::member( this, &MyClass::traitor );
        ::reflection::property::direct::simple( 1024 );
+       ::reflection::property::direct::simple<float>();
 
        ::reflection::property::inspect::member( this, &MyClass::inspector );
        ::reflection::property::inspect::pretend::member< bool, ::type::convert::identity< bool, int > >( this, &MyClass::inspector );
        ::reflection::property::inspect::simple( 150 );
+       ::reflection::property::inspect::simple<double>();
 
        ::reflection::property::mutate::member( this, &MyClass::mutator );
        ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator );
        ::reflection::property::mutate::simple< int, bool >( 512 );
+       ::reflection::property::mutate::simple< int, bool >( );
 
        ::reflection::property::variable::member( this, &MyClass::traitor, &MyClass::inspector );
        ::reflection::property::variable::simple( 111 );
+       ::reflection::property::variable::simple<int>( );
 
        ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
        ::reflection::property::guarded::simple( 666 );
+       ::reflection::property::guarded::simple<int>();
 
 
        ::reflection::content::direct::member( this, &MyClass::traitor );
        ::reflection::content::direct::simple( 152 ).disclose() = 4242;
+       ::reflection::content::direct::simple<float>( );
 
        ::reflection::content::inspect::member( this, &MyClass::inspector );
-       ::reflection::content::inspect::simple<int>( 1024 );
+       ::reflection::content::inspect::simple( 1024 );
+       ::reflection::content::inspect::simple<double>();
 
        ::reflection::content::mutate::member<int>( this, &MyClass::mutator );
        ::reflection::content::mutate::simple<int>( 1024 );
+       ::reflection::content::mutate::simple<double>();
 
-       ::reflection::content::variable::simple<int>( 1024 );
        ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector );
+       ::reflection::content::variable::simple<int>( 1024 );
+       ::reflection::content::variable::simple<int>( );
 
-       ::reflection::content::guarded::simple<int>( 1024 );
        ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
-
+       ::reflection::content::guarded::simple<int>( 1024 );
+       ::reflection::content::guarded::simple<float>( );
 
        std::cout << "content::direct::type = " << ::type::category::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
 

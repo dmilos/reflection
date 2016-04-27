@@ -42,8 +42,8 @@ namespace reflection
 
            explicit base_class
             (
-              assigner_type  const&  assigner_param = assigner_type()
-             ,retriever_type const& retriever_param = retriever_type()
+              assigner_type  const&  assigner_param
+             ,retriever_type const& retriever_param
             )
             :mutate_type( assigner_param )
             ,inspect_type( retriever_param )

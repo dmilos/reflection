@@ -43,6 +43,7 @@ namespace reflection
 
          typedef ::reflection::property::mutate::base_class< model_type, storage_type, assigner_type, report_name > typedef_type;
 
+         static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( storage_type const& carrier_param ){ return typedef_type( carrier_param ); }
         };
 
@@ -65,6 +66,18 @@ namespace reflection
         };
        */
 
+      template
+       <
+         typename data_name
+        ,typename report_name
+       >
+       inline
+       typename ::reflection::property::mutate::simple_class< data_name, data_name const &, report_name >::typedef_type
+       simple()
+        {
+         typedef ::reflection::property::mutate::simple_class< data_name, data_name const& > simple_type;
+         return simple_type::make( );
+        }
 
       template
        <

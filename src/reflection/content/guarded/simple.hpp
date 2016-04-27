@@ -61,6 +61,20 @@ namespace reflection
 
          //static typedef_type make( void ){ return typedef_type(); }
         };*/
+      template
+       <
+         typename data_name
+        ,typename model_name  =  data_name const&
+        ,typename image_name  =  data_name const&
+        ,typename report_name = bool
+       >
+       inline
+       typename ::reflection::content::guarded::simple_class<data_name, model_name, image_name, report_name >::typedef_type
+       simple()
+        {
+         typedef ::reflection::content::guarded::simple_class<data_name, model_name, image_name, report_name> simple_type;
+         return simple_type::make();
+        }
 
       template
        <
@@ -76,6 +90,7 @@ namespace reflection
          typedef ::reflection::content::guarded::simple_class<data_name, model_name, image_name, report_name> simple_type;
          return simple_type::make( data_param );
         }
+
      }
    }
  }

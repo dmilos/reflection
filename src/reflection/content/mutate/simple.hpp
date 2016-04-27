@@ -50,6 +50,17 @@ namespace reflection
 
          //static typedef_type make( void ){ return typedef_type(); }
         };*/
+      template
+       <
+         typename data_name
+       >
+       inline
+       typename ::reflection::content::mutate::simple_class<data_name, data_name& >::typedef_type
+       simple()
+        {
+         typedef ::reflection::content::mutate::simple_class<data_name, data_name& > simple_type;
+         return simple_type::make();
+        }
 
       template
        <

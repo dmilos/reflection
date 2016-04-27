@@ -41,6 +41,7 @@ namespace reflection
 
          typedef ::reflection::property::inspect::base_class< image_type, storage_type, retriever_type > typedef_type;
 
+         static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( storage_type const& storage_param ){ return typedef_type( storage_param ); }
         };
 
@@ -62,7 +63,17 @@ namespace reflection
          static typedef_type make(  ){ return typedef_type( ); }
         };
        */
-
+      template
+       <
+         typename data_name
+       >
+       inline
+       typename ::reflection::property::inspect::simple_class< data_name, data_name const& >::typedef_type
+       simple()
+        {
+         typedef ::reflection::property::inspect::simple_class< data_name, data_name const& > simple_type; 
+         return simple_type::make();
+        }
 
       template
        <
@@ -72,7 +83,8 @@ namespace reflection
        typename ::reflection::property::inspect::simple_class< data_name, data_name const& >::typedef_type
        simple( data_name const& data_param )
         {
-         return ::reflection::property::inspect::simple_class< data_name, data_name const& >::make( data_param );
+         typedef ::reflection::property::inspect::simple_class< data_name, data_name const& >simple_type;
+         return simple_type::make( data_param );
         }
 
       }

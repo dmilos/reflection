@@ -65,15 +65,29 @@ namespace reflection
        >
        inline
        typename ::reflection::content::variable::simple_class<data_name, original_name, image_name >::typedef_type
+       simple()
+        {
+         typedef ::reflection::content::variable::simple_class<data_name, original_name, image_name > simple_type;
+         return simple_type::make();
+        }
+
+      template
+       <
+         typename data_name
+        ,typename original_name  =  data_name &
+        ,typename image_name     =  data_name const&
+       >
+       inline
+       typename ::reflection::content::variable::simple_class<data_name, original_name, image_name >::typedef_type
        simple( data_name const& data_param )
         {
          typedef ::reflection::content::variable::simple_class<data_name, original_name, image_name > simple_type;
          return simple_type::make( data_param );
         }
+
      }
    }
  }
 
 #endif
 
- 

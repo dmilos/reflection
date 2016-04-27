@@ -40,8 +40,8 @@ namespace reflection
 
            explicit base_class
             (
-              extractor_type const& extractor_param = extractor_type()
-             ,retriever_type const& retriever_param = retriever_type()
+              extractor_type const& extractor_param
+             ,retriever_type const& retriever_param
             )
             :direct_type( extractor_param )
             ,inspect_type( retriever_param )
