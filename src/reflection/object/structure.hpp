@@ -50,22 +50,20 @@ namespace reflection
 
         property_type const& get(    string_type const& name )const
          {
-          static property_type s_empty;
           auto iterator = m_container.find( name );
           if( m_container.end( ) == iterator )
            {
-            return s_empty;
+            return empty();
            }
           return *(iterator->second);
          }
 
         property_type      & get(    string_type const& name )
          {
-          static property_type s_empty;
           auto iterator = m_container.find( name );
           if( m_container.end( ) == iterator )
            {
-            return s_empty;
+            return empty();
            }
           return *(iterator->second);
          }
@@ -90,7 +88,15 @@ namespace reflection
           m_container.clear();
          }
 
+     public:
+        static property_type  & empty()
+         {
+          static property_type s_empty;
+          return s_empty;
+         }
+        
 
+     public:
         container_type const& container()const{ return m_container; }
         container_type      & container()     { return m_container; }
 

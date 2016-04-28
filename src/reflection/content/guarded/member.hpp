@@ -66,8 +66,6 @@ namespace reflection
          //static typedef_type make( void ){ return typedef_type(); }
         };*/
 
-
-
       template
        <
          typename data_name
@@ -110,7 +108,6 @@ namespace reflection
          typedef ::reflection::content::guarded::member_class<data_name,data_name const&,data_name const&,class_name,storage_name,report_name> member_type;
          return member_type::make( storage_param, writter_param, reader_param );
         }
-
 
      }
    }

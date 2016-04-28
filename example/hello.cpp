@@ -183,7 +183,6 @@ class MyClass
 
         insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector ) ) ) );
 
-
         insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
 
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
@@ -214,7 +213,7 @@ class MyClass
        std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
        ::reflection::property::mutate::process<  int const& >( get("g1"), 10000 );
-       std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
+       std::cout << "guarded1::category::inspect::present == " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
        clear();
       }
