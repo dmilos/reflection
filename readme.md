@@ -1,4 +1,4 @@
-#C++ Reflection
+# C++ Reflection
 
 Status
 - In progress
@@ -9,9 +9,15 @@ Description
 
 Key features:
  - Headers only
+ - No additional binaries 
+ - No third parties
+ - Out of the box ready
+  - No need to recompile or start some install process.
+ - One file to include to start the fun
 
-Install:
- - TODO
 
 Example:
+ - TODO
+
+TODO:
  - TODO

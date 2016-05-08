@@ -65,6 +65,12 @@
     <Filter Include="reflection\object">
       <UniqueIdentifier>{1e586c27-27e6-4909-a598-d8c8464e7398}</UniqueIdentifier>
     </Filter>
+    <Filter Include="reflection\property\big">
+      <UniqueIdentifier>{0459da18-f859-4aba-ad3b-29730932b611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\content\reset">
+      <UniqueIdentifier>{af8baa0a-3372-42ac-9a53-3fa597931944}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -308,6 +314,36 @@
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\content\variable\simple.hpp">
       <Filter>reflection\content\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\interact.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\object.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\observe.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\big\_pure.hpp">
+      <Filter>reflection\property\big</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\big\big.hpp">
+      <Filter>reflection\property\big</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\big\block.hpp">
+      <Filter>reflection\property\big</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\big\file.hpp">
+      <Filter>reflection\property\big</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\big\vector.hpp">
+      <Filter>reflection\property\big</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\reset\_pure.hpp">
+      <Filter>reflection\content\reset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\reset\reset.hpp">
+      <Filter>reflection\content\reset</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

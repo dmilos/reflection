@@ -8,10 +8,29 @@
 
 #include "reflection/type/ptr/make.hpp"
 
-class MyClass
-: public ::reflection::object::structure_class
+class MyClassA
+ : public ::reflection::object::structure_class<>
  {
   public:
+    MyClassA(){ init(); }
+  private:
+   void init()
+      {
+       insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
+       insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
+       insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<float>( 1024 ) ) ) );
+       insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string>( "asdfg" ) ) ) );
+      }
+
+ };
+
+
+class MyClass
+: public ::reflection::object::structure_class<>
+ {
+  public:
+    typedef ::reflection::object::structure_class<> structure_type;
+
     MyClass(){ init(); }
 
     void a(){std::cout << __FUNCTION__ << std::endl;}
@@ -24,6 +43,7 @@ class MyClass
       std::cout << __FUNCTION__ << std::endl;
       return m_int;
      }
+
     int const&  inspector()const
      {
       std::cout << __FUNCTION__ << std::endl;
@@ -49,8 +69,18 @@ class MyClass
       return true;
      }
 
+    structure_type const&  structure_get()const
+     {
+      std::cout << __FUNCTION__ << std::endl;
+      return m_sub;
+      }
+
   private:
     int m_int;
+
+    MyClassA m_sub;
+
+  private:
      void init()
       {
        ::reflection::property::direct::member( this, &MyClass::traitor );
@@ -74,7 +104,9 @@ class MyClass
        ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
        ::reflection::property::guarded::simple( 666 );
        ::reflection::property::guarded::simple<int>();
-
+       ::reflection::property::big::block_class bigb;
+       ::reflection::property::big::file_class  bigf;
+       ::reflection::property::big::vector_class  bigv;
 
        ::reflection::content::direct::member( this, &MyClass::traitor );
        ::reflection::content::direct::simple( 152 ).disclose() = 4242;
@@ -181,10 +213,11 @@ class MyClass
         insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
         insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) ) );
 
+        insert(  "mS",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::structure_get ) ) ) );
+
         insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector ) ) ) );
 
         insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
-
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
 
        exists(  "asd" );
@@ -215,7 +248,7 @@ class MyClass
        ::reflection::property::mutate::process<  int const& >( get("g1"), 10000 );
        std::cout << "guarded1::category::inspect::present == " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
-       clear();
+       //clear();
       }
 
  };
@@ -227,6 +260,19 @@ int main( int argc, char *argv[] )
 
   MyClass m;
 
+
+  ::reflection::object::observe_class<int> observe;
+
+  int i;
+  observe.protocol().emplace( typeid( float ).name(), []( ::reflection::property::pure_class const&, int &  )  { std::cout << "0 - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid( int ).name(), []( ::reflection::property::pure_class const&, int &  )  { std::cout << "1 - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid( ::reflection::object::structure_class<> ).name(), [&observe]( ::reflection::property::pure_class const& p, int & i )
+   {
+    observe.view( ::reflection::property::inspect::present< ::reflection::object::structure_class<> const& >( p ), i );
+    std::cout << "2 - " << __FUNCTION__ << std::endl; return true; 
+   } );
+
+  observe.view( m, i );
   std::cin.get();
   return EXIT_SUCCESS;
  }

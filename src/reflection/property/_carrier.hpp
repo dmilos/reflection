@@ -18,7 +18,7 @@ namespace reflection
         public:
           typedef storage_name storage_type;
 
-          explicit carrier_class( storage_type const& storage_param  = storage_type())
+          explicit carrier_class( storage_type const& storage_param = storage_type() )
            : m_storage( storage_param )
            {
            }
@@ -38,6 +38,7 @@ namespace reflection
             {
              return m_storage; 
             }
+
          private:
            storage_type           m_storage;
        };

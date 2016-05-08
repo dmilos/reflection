@@ -2,8 +2,6 @@
 #define reflection_content__pure
 // ::reflection::content::pure_class<data_name>
 
-#include <typeinfo>
-
 #include "../property/_pure.hpp"
 #include "../type/string.hpp"
 #include "../type/category.hpp"

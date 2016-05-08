@@ -3,7 +3,10 @@
 
 #include <string>
 #include <map>
-
+#include <vector>
+#include <typeinfo>
+#include <memory>
+#include <algorithm> 
 
 #if defined REFLECTION_USE_PP2FILE
 #include "./reflection.pp2f.hpp"

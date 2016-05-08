@@ -1,3 +1,4 @@
 
-#include "./object/structure.hpp"
+#include "./property/property.hpp"
+#include "./object/object.hpp"
 #include "./content/content.hpp"
