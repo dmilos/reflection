@@ -7,6 +7,7 @@
 #include <typeinfo>
 #include <memory>
 #include <algorithm> 
+#include <functional> 
 
 #if defined REFLECTION_USE_PP2FILE
 #include "./reflection.pp2f.hpp"
