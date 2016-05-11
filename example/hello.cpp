@@ -260,13 +260,13 @@ int main( int argc, char *argv[] )
 
   MyClass m;
 
-
   ::reflection::object::observe_class<int> observe;
 
   int i;
-  observe.protocol().emplace( typeid( float ).name(), []( ::reflection::property::pure_class const&, int &  )  { std::cout << "0 - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid( int ).name(), []( ::reflection::property::pure_class const&, int &  )  { std::cout << "1 - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid( ::reflection::object::structure_class<> ).name(), [&observe]( ::reflection::property::pure_class const& p, int & i )
+  observe.protocol().emplace( typeid( std::string ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "s - " << __FUNCTION__ << std::endl; return true; } ); 
+  observe.protocol().emplace( typeid( float ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "0 - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid(   int ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "1 - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid( ::reflection::object::structure_class<> ).name(), [&observe]( std::string const& name, ::reflection::property::pure_class const& p, int & i )
    {
     observe.view( ::reflection::property::inspect::present< ::reflection::object::structure_class<> const& >( p ), i );
     std::cout << "2 - " << __FUNCTION__ << std::endl; return true; 

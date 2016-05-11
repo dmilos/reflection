@@ -1,7 +1,7 @@
 #ifndef reflection_object_structure
 #define reflection_object_structure
 
-// ::reflection::opbject::structure_class<key_name>
+// ::reflection::object::structure_class<key_name>
 
 #include "../type/ptr/ptr.hpp"
 #include "../property/_pure.hpp"

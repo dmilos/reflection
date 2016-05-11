@@ -27,6 +27,7 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
+           // assign??, modify, 
            virtual report_name process( model_type model_param )=0;
         };
 

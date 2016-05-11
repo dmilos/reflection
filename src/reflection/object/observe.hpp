@@ -16,6 +16,7 @@ namespace reflection
        typename output_name
       ,typename    key_name = std::string
       ,typename   type_name = std::string
+    //,template   modofier_name< typename class_name >
      >
      class observe_class
       {
@@ -28,12 +29,12 @@ namespace reflection
          typedef ::reflection::object::structure_class<key_name>  structure_type;
          typedef ::reflection::property::pure_class                property_type;
 
-         typedef std::function< bool ( property_type const&, output_type & ) > action_type;
+         typedef std::function< bool ( key_name const&, property_type const&, output_type & ) > action_type;
          typedef std::map< type_name, action_type > protocol_type;
 
         public:
          observe_class()
-          :m_recover( []( property_type const&, output_type & ){return true; })
+          :m_recover( []( key_name const&, property_type const&, output_type & ){return true; })
           {
           }
 
@@ -63,35 +64,28 @@ namespace reflection
               property_type const*  property = item.second.get();
               category_type const* category = dynamic_cast< category_type const* >( property );
 
-              if( nullptr == category )
+              if( nullptr != category )
                {
-                if( false == recover()(*property , output_param) )
+                auto const& action = protocol().find( category->type() );
+                if( protocol().end() == action )
                  {
-                  return false;
+                  goto label_recover;
                  }
-                continue;
+
+                if( false == action->second( item.first, *property, output_param ) )
+                 {
+                  goto label_recover;
+                 }
                }
 
-              auto const& action = protocol().find( category->type() );
-              std::cout << category->type() << std::endl;
-              if( protocol().end() == action )
-               {
-                if( false == recover()( *property , output_param ) )
-                 {
-                  return false;
-                 }
-                continue;
-               }
-
-              if( false == action->second( *property, output_param ) )
-               {
-                if( false == recover()(*property , output_param) )
-                 {
-                  return false;
-                 }
-                continue;
-               }
+              continue;
+              label_recover:
+               if( false == recover()( item.first, *property, output_param ) )
+                {
+                 return false;
+                }
              }
+
             return true;
            }
 
