@@ -220,6 +220,10 @@ class MyClass
         insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
 
+        insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector ) ) ) );
+
+        ::reflection::property::assign< int >( get( "v1" ), get( "g1" ) );
+
        exists(  "asd" );
        remove(  "asd" );
        container();
@@ -263,13 +267,14 @@ int main( int argc, char *argv[] )
   ::reflection::object::observe_class<int> observe;
 
   int i;
-  observe.protocol().emplace( typeid( std::string ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "s - " << __FUNCTION__ << std::endl; return true; } ); 
-  observe.protocol().emplace( typeid( float ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "0 - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid(   int ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "1 - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid( std::string ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
+  observe.protocol().emplace( typeid( float ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )        { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid(   int ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )        { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
   observe.protocol().emplace( typeid( ::reflection::object::structure_class<> ).name(), [&observe]( std::string const& name, ::reflection::property::pure_class const& p, int & i )
    {
-    observe.view( ::reflection::property::inspect::present< ::reflection::object::structure_class<> const& >( p ), i );
-    std::cout << "2 - " << __FUNCTION__ << std::endl; return true; 
+    std::cout << "struct - " << __FUNCTION__ << std::endl; 
+    observe.view( ::reflection::property::inspect::present< ::reflection::object::structure_class<> const& >( p ), i);
+    return true; 
    } );
 
   observe.view( m, i );

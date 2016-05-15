@@ -21,8 +21,9 @@ namespace reflection
         ,typename report_name
        >
        class base_class
-        :  public ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name >
-        ,  public ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name >
+        :  virtual public ::reflection::property::guarded::pure_class<model_name,image_name,report_name>
+        ,          public ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name >
+        ,          public ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name >
         {
          public:
            typedef model_name          model_type;

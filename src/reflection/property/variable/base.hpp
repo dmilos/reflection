@@ -20,8 +20,9 @@ namespace reflection
         ,typename retriever_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
        class base_class
-        :  public ::reflection::property::direct::base_class< original_name,storage_name, extractor_name >
-        ,  public ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name >
+        :  virtual public ::reflection::property::variable::pure_class<original_name,image_name>
+        ,          public ::reflection::property::direct::base_class< original_name,storage_name, extractor_name >
+        ,          public ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name >
         {
          public:
            typedef original_name   original_type;

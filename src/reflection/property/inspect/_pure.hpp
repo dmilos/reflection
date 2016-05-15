@@ -34,14 +34,14 @@ namespace reflection
        inline bool check( ::reflection::property::pure_class const& property_param )
         {
          typedef ::reflection::property::inspect::pure_class<image_name> image_type;
-         return nullptr != dynamic_cast< image_type const*>( &property_param );
+         return nullptr != dynamic_cast< image_type const* >( &property_param );
         }
 
       template< typename image_name >
        inline image_name present( ::reflection::property::pure_class const& property_param )
         {
          typedef ::reflection::property::inspect::pure_class<image_name> image_type;
-         return dynamic_cast< image_type const&>( property_param ).present();
+         return dynamic_cast< image_type const& >( property_param ).present();
         }
 
      }

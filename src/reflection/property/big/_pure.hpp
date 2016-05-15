@@ -44,6 +44,15 @@ namespace reflection
          return nullptr != dynamic_cast< big_type const*>( &property_param );
         }
 
+      template< typename size_name, typename data_name >
+       inline 
+       ::reflection::property::big::pure_class<size_name, data_name> const*
+       convert( ::reflection::property::pure_class const& property_param )
+        {
+         typedef ::reflection::property::big::pure_class<size_name, data_name> big_type;
+         return dynamic_cast< big_type const*>( &property_param );
+        }
+
      }
    }
  }
