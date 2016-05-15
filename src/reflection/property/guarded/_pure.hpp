@@ -1,9 +1,9 @@
 #ifndef reflection_property_guarded_pure
 #define reflection_property_guarded_pure
 
-// reflection::property::guarded::pure_class<model_name>
-// reflection::property::guarded::get
-// reflection::property::guarded::check
+// ::reflection::property::guarded::pure_class<model_name,image_name,report_name>
+// ::reflection::property::guarded::get
+// ::reflection::property::guarded::check
 
 #include "../mutate/_pure.hpp"
 #include "../inspect/_pure.hpp"

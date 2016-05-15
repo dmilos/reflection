@@ -48,7 +48,7 @@ namespace reflection
       /*template
        <
        >
-       struct simple_class<void>
+       struct simple_struct<void>
         //: S_storage::GC_simple<data_name>::T_direct
         {
          //! @todo

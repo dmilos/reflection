@@ -1,9 +1,9 @@
 #ifndef reflection_property_variable_pure
 #define reflection_property_variable_pure
 
-// reflection::property::variable::pure_class<original_name>
-// reflection::property::variable::get
-// reflection::property::variable::check
+// ::reflection::property::variable::pure_class<original_name,image_name>
+// ::reflection::property::variable::get
+// ::reflection::property::variable::check
 
 #include "../direct/_pure.hpp"
 #include "../inspect/_pure.hpp"

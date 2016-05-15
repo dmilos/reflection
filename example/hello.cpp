@@ -9,7 +9,7 @@
 #include "reflection/type/ptr/make.hpp"
 
 class MyClassA
- : public ::reflection::object::structure_class<>
+ : public ::reflection::object::class_class<MyClassA>
  {
   public:
     MyClassA(){ init(); }
@@ -26,7 +26,7 @@ class MyClassA
 
 
 class MyClass
-: public ::reflection::object::structure_class<>
+: public ::reflection::object::class_class<MyClass>
  {
   public:
     typedef ::reflection::object::structure_class<> structure_type;
