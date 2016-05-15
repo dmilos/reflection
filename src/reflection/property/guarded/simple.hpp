@@ -1,6 +1,6 @@
 #ifndef reflection_property_guarded_simple_hpp
 #define reflection_property_guarded_simple_hpp
- // ::reflection::property::guarded::simple_class<data_name>
+ // ::reflection::property::guarded::simple_struct<data_name>
  // ::reflection::property::guarded::simple( )
 
 #include "../mutate/simple.hpp"
@@ -23,7 +23,7 @@ namespace reflection
         ,typename image_name  = data_name const&
         ,typename report_name = bool
        >
-       struct simple_class
+       struct simple_struct
         : public ::reflection::property::mutate::simple_class< data_name,model_name,report_name >
         , public ::reflection::property::inspect::simple_class< data_name,image_name >
         {
@@ -53,7 +53,7 @@ namespace reflection
       /*template
        <
        >
-       struct simple_class<void>
+       struct simple_struct<void>
         //: S_storage::GC_simple<data_name>::T_direct
         {
          //! @todo
@@ -70,10 +70,10 @@ namespace reflection
         ,typename report_name = bool
        >
        inline
-       typename ::reflection::property::guarded::simple_class<data_name, model_name, image_name, report_name >::typedef_type
+       typename ::reflection::property::guarded::simple_struct<data_name, model_name, image_name, report_name >::typedef_type
        simple()
         {
-         typedef ::reflection::property::guarded::simple_class<data_name, model_name, image_name, report_name> simple_type;
+         typedef ::reflection::property::guarded::simple_struct<data_name, model_name, image_name, report_name> simple_type;
          return simple_type::make();
         }
 
@@ -85,10 +85,10 @@ namespace reflection
         ,typename report_name = bool
        >
        inline
-       typename ::reflection::property::guarded::simple_class<data_name, model_name, image_name, report_name >::typedef_type
+       typename ::reflection::property::guarded::simple_struct<data_name, model_name, image_name, report_name >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::property::guarded::simple_class<data_name, model_name, image_name, report_name> simple_type;
+         typedef ::reflection::property::guarded::simple_struct<data_name, model_name, image_name, report_name> simple_type;
          return simple_type::make( data_param );
         }
 

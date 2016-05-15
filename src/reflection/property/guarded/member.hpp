@@ -1,6 +1,6 @@
 #ifndef reflection_property_guarded_member
 #define reflection_property_guarded_member
-// ::reflection::property::guarded::member_class<model_name,class_name,carrier_name,report_name>
+// ::reflection::property::guarded::member_struct<model_name,class_name,carrier_name,report_name>
 
  #include "./base.hpp"
 
@@ -22,7 +22,7 @@
          ,typename storage_name
          ,typename report_name
          >
-        struct  member_class
+        struct  member_struct
          {
           typedef model_name    model_type;
           typedef image_name    image_type;
@@ -56,7 +56,7 @@
         ,typename report_name
         >
        inline
-       typename ::reflection::property::guarded::member_class<model_name,image_name,class_name,storage_name,report_name>::typedef_type
+       typename ::reflection::property::guarded::member_struct<model_name,image_name,class_name,storage_name,report_name>::typedef_type
        member
         (
           storage_name const& carrier_param
@@ -64,7 +64,7 @@
          ,image_name       (class_name::*reader_param)( void )const
         )
         {
-         typedef ::reflection::property::guarded::member_class<model_name,image_name,class_name,storage_name,report_name> member_type;
+         typedef ::reflection::property::guarded::member_struct<model_name,image_name,class_name,storage_name,report_name> member_type;
          return member_type::make( carrier_param, writter_param, reader_param );
         }
 

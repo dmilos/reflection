@@ -144,7 +144,6 @@ class MyClass
        ::reflection::property::function::member( this, &MyClass::a );
        ::reflection::property::function::member( this, &MyClass::executor );
 
-
        std::cout << ::reflection::property::direct::check<int&>(         ::reflection::property::direct::member(   this, &MyClass::traitor   ) ) << std::endl;
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;
        std::cout << ::reflection::property::mutate::check<int const&>(   ::reflection::property::mutate::member(   this, &MyClass::mutator   ) ) << std::endl;

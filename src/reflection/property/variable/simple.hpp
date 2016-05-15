@@ -22,7 +22,7 @@ namespace reflection
         ,typename original_name  = data_name &
         ,typename image_name     = data_name const&
        >
-       struct simple_class
+       struct simple_struct
         : public ::reflection::property::direct::simple_class< data_name,original_name >
         , public ::reflection::property::inspect::simple_class< data_name, image_name >
         {
@@ -48,7 +48,7 @@ namespace reflection
       /*template
        <
        >
-       struct simple_class<void>
+       struct simple_struct<void>
         //: S_storage::GC_simple<data_name>::T_direct
         {
          //! @todo
@@ -64,10 +64,10 @@ namespace reflection
         ,typename image_name     =  data_name const&
        >
        inline
-       typename ::reflection::property::variable::simple_class<data_name, original_name, image_name >::typedef_type
+       typename ::reflection::property::variable::simple_struct<data_name, original_name, image_name >::typedef_type
        simple()
         {
-         typedef ::reflection::property::variable::simple_class<data_name, original_name, image_name > simple_type;
+         typedef ::reflection::property::variable::simple_struct<data_name, original_name, image_name > simple_type;
          return simple_type::make( );
         }
 
@@ -78,10 +78,10 @@ namespace reflection
         ,typename image_name     =  data_name const&
        >
        inline
-       typename ::reflection::property::variable::simple_class<data_name, original_name, image_name >::typedef_type
+       typename ::reflection::property::variable::simple_struct<data_name, original_name, image_name >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::property::variable::simple_class<data_name, original_name, image_name > simple_type;
+         typedef ::reflection::property::variable::simple_struct<data_name, original_name, image_name > simple_type;
          return simple_type::make( data_param );
         }
 

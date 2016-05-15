@@ -37,14 +37,14 @@ namespace reflection
          typedef std::map< type_name, action_type > protocol_type;
 
          typedef std::array< action_type, 3 > recover_type;
-         enum recover_enum { not_category_index = 0, missing_index = 1, fail_index = 2 };
+         enum recover_enum { not_category_index = 0, missing_action_index = 1, action_fail_index = 2 };
 
        public:
          observe_class()
           {
-           recover( not_category_index, []( key_name const&, property_qualified_type &, output_type & ){ return true; } );
-           recover(      missing_index, []( key_name const&, property_qualified_type &, output_type & ){ return true; } );
-           recover(         fail_index, []( key_name const&, property_qualified_type &, output_type & ){ return true; } );
+           recover(    not_category_index, []( key_name const&, property_qualified_type &, output_type & ){ return true; } );
+           recover(  missing_action_index, []( key_name const&, property_qualified_type &, output_type & ){ return true; } );
+           recover(     action_fail_index, []( key_name const&, property_qualified_type &, output_type & ){ return true; } );
           }
 
        public:
@@ -74,7 +74,7 @@ namespace reflection
 
               category_qualified_type *  category = dynamic_cast< category_qualified_type * >( property );
               if( nullptr == category )
-               { // not category
+               {
                 if( false == recover()[not_category_index]( item.first, *property, output_param ) )
                  {
                   return false;
@@ -84,8 +84,8 @@ namespace reflection
 
               auto action = protocol().find( category->type() );
               if( protocol().end() == action )
-               {  // miss
-                if( false == recover()[missing_index]( item.first, *property, output_param ) )
+               {
+                if( false == recover()[missing_action_index]( item.first, *property, output_param ) )
                  {
                   return false;
                  }
@@ -93,8 +93,8 @@ namespace reflection
                }
 
               if( false == action->second( item.first, *property, output_param ) )
-               { // fail
-                if( false == recover()[fail_index]( item.first, *property, output_param ) )
+               {
+                if( false == recover()[action_fail_index]( item.first, *property, output_param ) )
                  {
                   return false;
                  }

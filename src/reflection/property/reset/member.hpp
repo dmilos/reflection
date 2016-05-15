@@ -17,7 +17,7 @@ namespace reflection
         ,typename class_name
         ,typename storage_name
        >
-       struct member_class
+       struct member_struct
         {
          typedef report_name   report_type;
          typedef class_name    class_type;
@@ -61,14 +61,14 @@ namespace reflection
         ,typename storage_name
        >
        inline
-       typename ::reflection::property::reset::member_class<report_name,class_name,storage_name>::typedef_type
+       typename ::reflection::property::reset::member_struct<report_name,class_name,storage_name>::typedef_type
        member
         (
           storage_name         const& carrier_param
          ,report_name (class_name::*executor_param )( void )
         )
         {
-         typedef ::reflection::property::reset::member_class<report_name,class_name,storage_name> member_type;
+         typedef ::reflection::property::reset::member_struct<report_name,class_name,storage_name> member_type;
          return member_type::make( carrier_param, executor_param );
         }
 
