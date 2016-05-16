@@ -1,7 +1,7 @@
 #ifndef reflection_property_assign
 #define reflection_property_assign
 
-// ::reflection::property::assign<... >
+// ::reflection::property::assign<type_name>
 
 #include "./direct/_pure.hpp"
 #include "./mutate/_pure.hpp"
@@ -21,7 +21,7 @@ namespace reflection
       ,typename      model_name = std::add_lvalue_reference< std::add_const<type_name>::type >::type
      >
      inline
-     reflection::property::pure_class &
+     void
      assign
       (
          reflection::property::pure_class       &  left_param
@@ -35,24 +35,24 @@ namespace reflection
        auto right_inspect = dynamic_cast< inspect_type const* > ( &right_param );
        if( nullptr == right_inspect )
         {
-         return left_param;
+         return;
         }
 
        auto left_mutate = dynamic_cast< mutate_type * > ( &left_param );
        if( nullptr != left_mutate )
         {
          left_mutate->process( right_inspect->present() );
-         return left_param;
+         return;
         }
 
        auto left_direct = dynamic_cast< direct_type * > ( &left_param );
        if( nullptr != left_direct )
         {
          left_direct->disclose() = right_inspect->present();
-         return left_param;
+         return;
         }
 
-       return left_param;
+       return;
       }
 
    }

@@ -278,8 +278,12 @@ int main( int argc, char *argv[] )
    } );
 
   observe.view( m, i );
-  std::cin.get();
 
-//  ::reflection::object::assign<>( m, q );
+  ::reflection::object::assign_class<> a;
+   a.protocol().emplace( std::make_pair( typeid( std::string ).name(), typeid( std::string ).name() ), ::reflection::property::assign<std::string> );
+   a.protocol().emplace( std::make_pair( typeid( int ).name(), typeid( int ).name() ), ::reflection::property::assign<int> );
+   a( m, q );
+
+  std::cin.get();
   return EXIT_SUCCESS;
  }
