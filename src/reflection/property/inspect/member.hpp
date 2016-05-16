@@ -1,7 +1,7 @@
 #ifndef reflection_property_inspect_member
  #define reflection_property_inspect_member
  
-// ::reflection::property::inspect::member_class<image_name,class_name,storage_name>
+// ::reflection::property::inspect::member_struct<image_name,class_name,storage_name>
 
  #include "./base.hpp"
 
@@ -18,7 +18,7 @@ namespace reflection
         ,typename class_name
         ,typename storage_name
        >
-       struct member_class
+       struct member_struct
         {
          typedef image_name    image_type;
          typedef class_name    class_type;
@@ -62,14 +62,14 @@ namespace reflection
         ,typename storage_name
        >
        inline
-       typename ::reflection::property::inspect::member_class<image_name,class_name,storage_name>::typedef_type
+       typename ::reflection::property::inspect::member_struct<image_name,class_name,storage_name>::typedef_type
        member
         (
           storage_name           const& carrier_param
          ,image_name       (class_name::*reader_param)( void )const 
         )
         {
-         typedef ::reflection::property::inspect::member_class<image_name,class_name,storage_name> member_type;
+         typedef ::reflection::property::inspect::member_struct<image_name,class_name,storage_name> member_type;
          return member_type::make( carrier_param, reader_param );
         }
 

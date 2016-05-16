@@ -24,8 +24,8 @@ namespace reflection
         ,typename report_name = bool
        >
        struct simple_struct
-        : public ::reflection::property::mutate::simple_class< data_name,model_name,report_name >
-        , public ::reflection::property::inspect::simple_class< data_name,image_name >
+        : public ::reflection::property::mutate::simple_struct< data_name,model_name,report_name >
+        , public ::reflection::property::inspect::simple_struct< data_name,image_name >
         {
          public:
            typedef   data_name    data_type;
@@ -35,8 +35,8 @@ namespace reflection
 
            typedef  data_name  storage_type;     //!< By design
 
-           typedef ::reflection::property::mutate::simple_class< data_name,model_name,report_name >  mutate_type;
-           typedef ::reflection::property::inspect::simple_class< data_name,image_name >             inspect_type;
+           typedef ::reflection::property::mutate::simple_struct< data_name,model_name,report_name >  mutate_type;
+           typedef ::reflection::property::inspect::simple_struct< data_name,image_name >             inspect_type;
 
            typedef typename mutate_type::assigner_type  assigner_type;
            typedef typename inspect_type::retriever_type  retriever_type;

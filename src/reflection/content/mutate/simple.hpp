@@ -1,6 +1,6 @@
 #ifndef reflection_content_mutate_simple_hpp
 #define reflection_content_mutate_simple_hpp
- // ::reflection::content::mutate::simple_class<data_name, model_name,class_name,storage_name>
+ // ::reflection::content::mutate::simple_struct<data_name, model_name,class_name,storage_name>
  // ::reflection::content::mutate::simple( )
 
 #include "../../property/mutate/simple.hpp"
@@ -20,8 +20,8 @@ namespace reflection
         ,typename model_name =  data_name const &
         ,typename report_name = bool
        >
-       struct simple_class
-        : public ::reflection::property::mutate::simple_class< data_name, model_name, report_name >
+       struct simple_struct
+        : public ::reflection::property::mutate::simple_struct< data_name, model_name, report_name >
         {
          typedef data_name      data_type;
          typedef model_name    model_type;
@@ -29,7 +29,7 @@ namespace reflection
 
          typedef data_name  storage_name; //!< By design
 
-         typedef ::reflection::property::mutate::simple_class< data_name, model_name, report_name >  simple_type;
+         typedef ::reflection::property::mutate::simple_struct< data_name, model_name, report_name >  simple_type;
 
          typedef typename simple_type::assigner_class assigner_class;
 
@@ -42,7 +42,7 @@ namespace reflection
       /*template
        <
        >
-       struct simple_class<void>
+       struct simple_struct<void>
         //: S_storage::GC_simple<data_name>::T_inspect
         {
          //! @todo
@@ -55,10 +55,10 @@ namespace reflection
          typename data_name
        >
        inline
-       typename ::reflection::content::mutate::simple_class<data_name, data_name& >::typedef_type
+       typename ::reflection::content::mutate::simple_struct<data_name, data_name& >::typedef_type
        simple()
         {
-         typedef ::reflection::content::mutate::simple_class<data_name, data_name& > simple_type;
+         typedef ::reflection::content::mutate::simple_struct<data_name, data_name& > simple_type;
          return simple_type::make();
         }
 
@@ -67,10 +67,10 @@ namespace reflection
          typename data_name
        >
        inline
-       typename ::reflection::content::mutate::simple_class<data_name, data_name& >::typedef_type
+       typename ::reflection::content::mutate::simple_struct<data_name, data_name& >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::content::mutate::simple_class<data_name, data_name& > simple_type;
+         typedef ::reflection::content::mutate::simple_struct<data_name, data_name& > simple_type;
          return simple_type::make( data_param );
         }
 

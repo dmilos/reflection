@@ -1,6 +1,6 @@
 #ifndef reflection_property_variable_simple_hpp
 #define reflection_property_variable_simple_hpp
- // ::reflection::property::variable::simple_class<data_name>
+ // ::reflection::property::variable::simple_struct<data_name>
  // ::reflection::property::variable::simple( )
 
 #include "../direct/simple.hpp"
@@ -23,8 +23,8 @@ namespace reflection
         ,typename image_name     = data_name const&
        >
        struct simple_struct
-        : public ::reflection::property::direct::simple_class< data_name,original_name >
-        , public ::reflection::property::inspect::simple_class< data_name, image_name >
+        : public ::reflection::property::direct::simple_struct< data_name,original_name >
+        , public ::reflection::property::inspect::simple_struct< data_name, image_name >
         {
          public:
            typedef   data_name       data_type;
@@ -33,8 +33,8 @@ namespace reflection
 
            typedef  data_name  storage_type;     //!< By design
 
-           typedef ::reflection::property::direct::simple_class< data_name,original_name>   direct_type;
-           typedef ::reflection::property::inspect::simple_class< data_name,image_name >             inspect_type;
+           typedef ::reflection::property::direct::simple_struct< data_name,original_name>   direct_type;
+           typedef ::reflection::property::inspect::simple_struct< data_name,image_name >             inspect_type;
 
            typedef typename direct_type::extractor_type  extractor_type;
            typedef typename inspect_type::retriever_type retriever_type;

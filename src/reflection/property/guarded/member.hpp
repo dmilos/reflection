@@ -30,8 +30,8 @@
           typedef storage_name  storage_type;
           typedef report_name   report_type;
 
-          typedef ::reflection::property::inspect::member_class<image_name,class_name,storage_type> inspect_type;
-          typedef ::reflection::property::mutate::member_class<model_type,class_type,storage_type,report_type> mutate_type;
+          typedef ::reflection::property::inspect::member_struct<image_name,class_name,storage_type> inspect_type;
+          typedef ::reflection::property::mutate::member_struct<model_type,class_type,storage_type,report_type> mutate_type;
 
           typedef typename  mutate_type::assigner_type   assigner_type;
           typedef typename inspect_type::retriever_type retriever_type;

@@ -1,7 +1,7 @@
 #ifndef reflection_property_direct_simple
 #define reflection_property_direct_simple
 
-// ::reflection::property::direct::simple_class<data_name,original_name>
+// ::reflection::property::direct::simple_struct<data_name,original_name>
 
 #include "./base.hpp"
 
@@ -17,7 +17,7 @@ namespace reflection
          typename data_name
         ,typename original_name =  data_name &
        >
-       struct simple_class
+       struct simple_struct
         {
          typedef data_name      data_type;
          typedef original_name  original_type;
@@ -48,7 +48,7 @@ namespace reflection
       template
        <
        >
-       struct simple_class<void,void>
+       struct simple_struct<void,void>
         {
          typedef void   data_type;
          typedef void   original_type;
@@ -68,10 +68,10 @@ namespace reflection
          typename data_name
        >
        inline
-       typename ::reflection::property::direct::simple_class< data_name, data_name & >::typedef_type
+       typename ::reflection::property::direct::simple_struct< data_name, data_name & >::typedef_type
        simple( )
         {
-         typedef ::reflection::property::direct::simple_class< data_name, data_name & > simple_type;
+         typedef ::reflection::property::direct::simple_struct< data_name, data_name & > simple_type;
          return simple_type::make();
         }
 
@@ -80,10 +80,10 @@ namespace reflection
          typename data_name
        >
        inline
-       typename ::reflection::property::direct::simple_class< data_name, data_name & >::typedef_type
+       typename ::reflection::property::direct::simple_struct< data_name, data_name & >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::property::direct::simple_class< data_name, data_name & > simple_type;
+         typedef ::reflection::property::direct::simple_struct< data_name, data_name & > simple_type;
          return simple_type::make( data_param );
         }
 

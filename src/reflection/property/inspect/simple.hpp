@@ -1,7 +1,7 @@
 #ifndef reflection_property_inspect_simple
 #define reflection_property_inspect_simple
 
-// reflection::property::inspect::simple_class<data_name,image_name>
+// reflection::property::inspect::simple_struct<data_name,image_name>
 // reflection::property::inspect::simple<data_name>( data_name const& )
 
 #include "./base.hpp"
@@ -18,7 +18,7 @@ namespace reflection
          typename data_name
         ,typename image_name =  data_name const&
        >
-       struct simple_class
+       struct simple_struct
         {
          typedef data_name      data_type;
          typedef image_name  image_type;
@@ -49,7 +49,7 @@ namespace reflection
       template
        <
        >
-       struct simple_class<void,void>
+       struct simple_struct<void,void>
         {
          typedef void   data_type;
          typedef void   image_type;
@@ -68,10 +68,10 @@ namespace reflection
          typename data_name
        >
        inline
-       typename ::reflection::property::inspect::simple_class< data_name, data_name const& >::typedef_type
+       typename ::reflection::property::inspect::simple_struct< data_name, data_name const& >::typedef_type
        simple()
         {
-         typedef ::reflection::property::inspect::simple_class< data_name, data_name const& > simple_type; 
+         typedef ::reflection::property::inspect::simple_struct< data_name, data_name const& > simple_type; 
          return simple_type::make();
         }
 
@@ -80,10 +80,10 @@ namespace reflection
          typename data_name
        >
        inline
-       typename ::reflection::property::inspect::simple_class< data_name, data_name const& >::typedef_type
+       typename ::reflection::property::inspect::simple_struct< data_name, data_name const& >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::property::inspect::simple_class< data_name, data_name const& >simple_type;
+         typedef ::reflection::property::inspect::simple_struct< data_name, data_name const& >simple_type;
          return simple_type::make( data_param );
         }
 

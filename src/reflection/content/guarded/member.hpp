@@ -1,6 +1,6 @@
 #ifndef reflection_content_guarded_member_hpp
 #define reflection_content_guarded_member_hpp
- // ::reflection::content::guarded::member_class<data_name>
+ // ::reflection::content::guarded::member_struct<data_name>
  // ::reflection::content::guarded::member( )
 
 #include "../mutate/member.hpp"
@@ -25,9 +25,9 @@ namespace reflection
         ,typename storage_name
         ,typename report_name = bool
        >
-       struct member_class
-        : public ::reflection::content::mutate::member_class< data_name,model_name,class_name,storage_name,report_name >
-        , public ::reflection::content::inspect::member_class< data_name,image_name,class_name,storage_name >
+       struct member_struct
+        : public ::reflection::content::mutate::member_struct< data_name,model_name,class_name,storage_name,report_name >
+        , public ::reflection::content::inspect::member_struct< data_name,image_name,class_name,storage_name >
         {
          public:
            typedef    data_name     data_type;
@@ -37,8 +37,8 @@ namespace reflection
            typedef storage_name  storage_type;
            typedef  report_name   report_type;
 
-           typedef ::reflection::content::mutate::member_class< data_name,model_name,class_name,storage_name,report_name >  mutate_type;
-           typedef ::reflection::content::inspect::member_class< data_name,image_name,class_name,storage_name >            inspect_type;
+           typedef ::reflection::content::mutate::member_struct< data_name,model_name,class_name,storage_name,report_name >  mutate_type;
+           typedef ::reflection::content::inspect::member_struct< data_name,image_name,class_name,storage_name >            inspect_type;
 
            typedef typename mutate_type::writter_type       writter_type;
            typedef typename mutate_type::assigner_type  assigner_type;
@@ -57,7 +57,7 @@ namespace reflection
       /*template
        <
        >
-       struct member_class<void>
+       struct member_struct<void>
         //: S_storage::GC_member<data_name>::T_direct
         {
          //! @todo
@@ -76,7 +76,7 @@ namespace reflection
         ,typename report_name = bool
        >
        inline
-       typename ::reflection::content::guarded::member_class<data_name,model_name,image_name,class_name,storage_name,report_name>::typedef_type
+       typename ::reflection::content::guarded::member_struct<data_name,model_name,image_name,class_name,storage_name,report_name>::typedef_type
        member
         (
           storage_name     &             storage_param
@@ -84,7 +84,7 @@ namespace reflection
          ,image_name        (class_name::*reader_param )()const//!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
-         typedef ::reflection::content::guarded::member_class<data_name,model_name,image_name,class_name,storage_name,report_name> member_type;
+         typedef ::reflection::content::guarded::member_struct<data_name,model_name,image_name,class_name,storage_name,report_name> member_type;
          return member_type::make( storage_param, writter_param, reader_param );
         }
 
@@ -97,7 +97,7 @@ namespace reflection
        ,typename report_name
        >
        inline
-       typename ::reflection::content::guarded::member_class<data_name,data_name const&,data_name const&,class_name,storage_name,report_name>::typedef_type
+       typename ::reflection::content::guarded::member_struct<data_name,data_name const&,data_name const&,class_name,storage_name,report_name>::typedef_type
        member
         (
           storage_name &             storage_param
@@ -105,7 +105,7 @@ namespace reflection
          ,data_name const&       (class_name::*reader_param )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
-         typedef ::reflection::content::guarded::member_class<data_name,data_name const&,data_name const&,class_name,storage_name,report_name> member_type;
+         typedef ::reflection::content::guarded::member_struct<data_name,data_name const&,data_name const&,class_name,storage_name,report_name> member_type;
          return member_type::make( storage_param, writter_param, reader_param );
         }
 

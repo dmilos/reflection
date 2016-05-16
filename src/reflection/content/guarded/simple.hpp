@@ -1,6 +1,6 @@
 #ifndef reflection_content_guarded_simple_hpp
 #define reflection_content_guarded_simple_hpp
- // ::reflection::content::guarded::simple_class<data_name>
+ // ::reflection::content::guarded::simple_struct<data_name>
  // ::reflection::content::guarded::simple( )
 
 #include "../mutate/simple.hpp"
@@ -23,9 +23,9 @@ namespace reflection
         ,typename image_name  = data_name const&
         ,typename report_name = bool
        >
-       struct simple_class
-        : public ::reflection::content::mutate::simple_class< data_name,model_name,report_name >
-        , public ::reflection::content::inspect::simple_class< data_name,image_name >
+       struct simple_struct
+        : public ::reflection::content::mutate::simple_struct< data_name,model_name,report_name >
+        , public ::reflection::content::inspect::simple_struct< data_name,image_name >
         {
          public:
            typedef   data_name    data_type;
@@ -35,8 +35,8 @@ namespace reflection
 
            typedef  data_name  storage_type;     //!< By design
 
-           typedef ::reflection::content::mutate::simple_class< data_name,model_name,report_name >  mutate_type;
-           typedef ::reflection::content::inspect::simple_class< data_name,image_name >             inspect_type;
+           typedef ::reflection::content::mutate::simple_struct< data_name,model_name,report_name >  mutate_type;
+           typedef ::reflection::content::inspect::simple_struct< data_name,image_name >             inspect_type;
 
            typedef typename mutate_type::assigner_type  assigner_type;
            typedef typename inspect_type::retriever_type  retriever_type;
@@ -53,7 +53,7 @@ namespace reflection
       /*template
        <
        >
-       struct simple_class<void>
+       struct simple_struct<void>
         //: S_storage::GC_simple<data_name>::T_direct
         {
          //! @todo
@@ -69,10 +69,10 @@ namespace reflection
         ,typename report_name = bool
        >
        inline
-       typename ::reflection::content::guarded::simple_class<data_name, model_name, image_name, report_name >::typedef_type
+       typename ::reflection::content::guarded::simple_struct<data_name, model_name, image_name, report_name >::typedef_type
        simple()
         {
-         typedef ::reflection::content::guarded::simple_class<data_name, model_name, image_name, report_name> simple_type;
+         typedef ::reflection::content::guarded::simple_struct<data_name, model_name, image_name, report_name> simple_type;
          return simple_type::make();
         }
 
@@ -84,10 +84,10 @@ namespace reflection
         ,typename report_name = bool
        >
        inline
-       typename ::reflection::content::guarded::simple_class<data_name, model_name, image_name, report_name >::typedef_type
+       typename ::reflection::content::guarded::simple_struct<data_name, model_name, image_name, report_name >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::content::guarded::simple_class<data_name, model_name, image_name, report_name> simple_type;
+         typedef ::reflection::content::guarded::simple_struct<data_name, model_name, image_name, report_name> simple_type;
          return simple_type::make( data_param );
         }
 

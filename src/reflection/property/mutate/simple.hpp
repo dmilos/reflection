@@ -18,7 +18,7 @@ namespace reflection
         ,typename model_name =  data_name const &
         ,typename report_name = bool
        >
-       struct simple_class
+       struct simple_struct
         {
          typedef data_name      data_type;
          typedef model_name    model_type;
@@ -51,7 +51,7 @@ namespace reflection
       template
        <
        >
-       struct simple_class<void,void>
+       struct simple_struct<void,void>
         {
          typedef void   data_type;
          typedef void   original_type;
@@ -72,10 +72,10 @@ namespace reflection
         ,typename report_name
        >
        inline
-       typename ::reflection::property::mutate::simple_class< data_name, data_name const &, report_name >::typedef_type
+       typename ::reflection::property::mutate::simple_struct< data_name, data_name const &, report_name >::typedef_type
        simple()
         {
-         typedef ::reflection::property::mutate::simple_class< data_name, data_name const& > simple_type;
+         typedef ::reflection::property::mutate::simple_struct< data_name, data_name const& > simple_type;
          return simple_type::make( );
         }
 
@@ -85,10 +85,10 @@ namespace reflection
         ,typename report_name
        >
        inline
-       typename ::reflection::property::mutate::simple_class< data_name, data_name const &, report_name >::typedef_type
+       typename ::reflection::property::mutate::simple_struct< data_name, data_name const &, report_name >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::property::mutate::simple_class< data_name, data_name const& > simple_type;
+         typedef ::reflection::property::mutate::simple_struct< data_name, data_name const& > simple_type;
          return simple_type::make( data_param );
         }
 

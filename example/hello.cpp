@@ -262,6 +262,7 @@ int main( int argc, char *argv[] )
   std::cout << "Hello World" << std::endl;
 
   MyClass m;
+  MyClass q;
 
   ::reflection::object::observe_class<int> observe;
 
@@ -278,5 +279,7 @@ int main( int argc, char *argv[] )
 
   observe.view( m, i );
   std::cin.get();
+
+//  ::reflection::object::assign<>( m, q );
   return EXIT_SUCCESS;
  }

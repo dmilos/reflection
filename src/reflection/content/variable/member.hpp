@@ -24,9 +24,9 @@ namespace reflection
         ,typename class_name
         ,typename storage_name
        >
-       struct member_class
-        : public ::reflection::content::direct::member_class< data_name,original_name,class_name,storage_name>
-        , public ::reflection::content::inspect::member_class< data_name,image_name,class_name,storage_name >
+       struct member_struct
+        : public ::reflection::content::direct::member_struct< data_name,original_name,class_name,storage_name>
+        , public ::reflection::content::inspect::member_struct< data_name,image_name,class_name,storage_name >
         {
          public:
            typedef      data_name     data_type;
@@ -35,8 +35,8 @@ namespace reflection
            typedef     class_name    class_type;
            typedef   storage_name  storage_type;
 
-           typedef ::reflection::content::direct::member_class< data_name,original_name,class_name,storage_name>  direct_type;
-           typedef ::reflection::content::inspect::member_class< data_name,image_name,class_name,storage_name >   inspect_type;
+           typedef ::reflection::content::direct::member_struct< data_name,original_name,class_name,storage_name>  direct_type;
+           typedef ::reflection::content::inspect::member_struct< data_name,image_name,class_name,storage_name >   inspect_type;
 
            typedef typename direct_type::traitor_type       traitor_type;
            typedef typename direct_type::extractor_type  extractor_type;
@@ -55,7 +55,7 @@ namespace reflection
       /*template
        <
        >
-       struct member_class<void>
+       struct member_struct<void>
         //: S_storage::GC_member<data_name>::T_direct
         {
          //! @todo
@@ -73,7 +73,7 @@ namespace reflection
         ,typename storage_name
        >
        inline
-       typename ::reflection::content::variable::member_class<data_name,original_name,image_name,class_name,storage_name>::typedef_type
+       typename ::reflection::content::variable::member_struct<data_name,original_name,image_name,class_name,storage_name>::typedef_type
        member
         (
           storage_name     &             storage_param
@@ -81,7 +81,7 @@ namespace reflection
          ,image_name        (class_name::*reader_param )()const//!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
-         typedef ::reflection::content::variable::member_class<data_name,original_name,image_name,class_name,storage_name> member_type;
+         typedef ::reflection::content::variable::member_struct<data_name,original_name,image_name,class_name,storage_name> member_type;
          return member_type::make( storage_param, reader_param , reader_param );
         }
 
@@ -93,7 +93,7 @@ namespace reflection
        ,typename storage_name
        >
        inline
-       typename ::reflection::content::variable::member_class<data_name,data_name &,data_name const&,class_name,storage_name>::typedef_type
+       typename ::reflection::content::variable::member_struct<data_name,data_name &,data_name const&,class_name,storage_name>::typedef_type
        member
         (
           storage_name &             storage_param
@@ -101,7 +101,7 @@ namespace reflection
          ,data_name const&    (class_name::*reader_param  )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
-         typedef ::reflection::content::variable::member_class<data_name,data_name &,data_name const&,class_name,storage_name> member_type;
+         typedef ::reflection::content::variable::member_struct<data_name,data_name &,data_name const&,class_name,storage_name> member_type;
          return  member_type::make( storage_param, traitor_param, reader_param );
         }
 

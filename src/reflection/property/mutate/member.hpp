@@ -1,7 +1,7 @@
 #ifndef reflection_property_mutate_member
 #define reflection_property_mutate_member
 
-// ::reflection::property::mutate::member_class<model_name,class_name,carrier_name,report_name>
+// ::reflection::property::mutate::member_struct<model_name,class_name,carrier_name,report_name>
 
  #include "./base.hpp"
 
@@ -19,7 +19,7 @@
          ,typename storage_name
          ,typename report_name
          >
-        struct  member_class
+        struct  member_struct
          {
           typedef model_name    model_type;
           typedef class_name    class_type;
@@ -64,14 +64,14 @@
         ,typename report_name
         >
        inline
-       typename ::reflection::property::mutate::member_class<model_name,class_name,storage_name,report_name>::typedef_type
+       typename ::reflection::property::mutate::member_struct<model_name,class_name,storage_name,report_name>::typedef_type
        member
         (
           storage_name const& carrier_param
         , report_name (class_name::*writter_param)( model_name )
         )
         {
-         typedef ::reflection::property::mutate::member_class<model_name,class_name,storage_name,report_name> member_type;
+         typedef ::reflection::property::mutate::member_struct<model_name,class_name,storage_name,report_name> member_type;
          return member_type::make( carrier_param, writter_param );
         }
 
