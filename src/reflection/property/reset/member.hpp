@@ -2,7 +2,7 @@
  #define reflection_property_reset_member
 // TODO
 
- #include "./base.hpp"
+#include "./base.hpp"
 
 namespace reflection
  {
@@ -28,15 +28,16 @@ namespace reflection
          typedef class agent_class
           {
            public:
-             explicit agent_class( executor_type const& executor_param = NULL )
+             explicit agent_class( executor_type const& executor_param = nullptr )
               :m_executor( executor_param )
               {
               }
+
              report_type operator()( storage_type & carrier_param )const
               {
-               if( NULL == m_executor ) 
+               if( nullptr == m_executor ) 
                 {
-                 throw (void*)NULL;
+                 throw (void*)nullptr;
                 }   
                return  ((*carrier_param).* m_executor)( );
               }

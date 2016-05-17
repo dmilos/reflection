@@ -2,7 +2,8 @@
 #define reflection_property_big_pure
 
 // ::reflection::property::big::pure_class<size_name,data_name>
-// reflection::property::big::check
+// ::reflection::property::big::check
+// ::reflection::property::big::convert
 
 #include "../_pure.hpp"
 

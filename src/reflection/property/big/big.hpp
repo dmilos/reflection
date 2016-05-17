@@ -2,3 +2,4 @@
 #include "./block.hpp"
 #include "./file.hpp"
 #include "./vector.hpp"
+#include "./member.hpp"

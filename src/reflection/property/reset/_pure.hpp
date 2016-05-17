@@ -1,7 +1,9 @@
 #ifndef reflection_property_reset_pure
 #define reflection_property_reset_pure
 
-// reflection::property::reset<report_name>
+// ::reflection::property::reset<report_name>
+// ::reflection::property::reset::check
+// ::reflection::property::reset::process
 
 #include "../_pure.hpp"
 
@@ -12,9 +14,12 @@ namespace reflection
     namespace reset
      {
 
-      template< typename report_name = void >
+      template
+       <
+        typename report_name = void 
+       >
        class pure_class
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef report_name report_type;
