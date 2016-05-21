@@ -1,6 +1,5 @@
 #ifndef reflection_property_reset_member
  #define reflection_property_reset_member
-// TODO
 
 #include "./base.hpp"
 

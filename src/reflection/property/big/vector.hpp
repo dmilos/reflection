@@ -27,7 +27,7 @@ namespace reflection
 
           virtual size_type  size( size_type const& size_param )
            {
-            m_data.resize(size_param); 
+            m_data.resize( size_param ); 
             return size();
            }
 

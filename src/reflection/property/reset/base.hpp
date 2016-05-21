@@ -49,7 +49,7 @@ namespace reflection
          public:
            agent_type const&   agent()const{ return m_agent; }
            void                 agent( agent_type const& agent_param ){ m_agent = agent_param; }
-         //agent_type   &   agent(){ return m_agent; }
+         //agent_type       &   agent(){ return m_agent; }
          protected:
            agent_type      &   F1_agent(){ return m_agent; }
          private:
