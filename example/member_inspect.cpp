@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main( int argc, char *argv[] )
+int main_member_inspect( int argc, char *argv[] )
  {
   cout << "aaaaa" << endl;
 
