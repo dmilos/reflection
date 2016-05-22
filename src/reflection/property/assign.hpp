@@ -17,7 +17,7 @@ namespace reflection
        typename       type_name
       ,typename     report_name = bool
       ,typename      image_name = std::add_lvalue_reference< std::add_const<type_name>::type >::type
-      ,typename   original_name = std::add_lvalue_reference<type_name>::type
+      ,typename   original_name = std::add_lvalue_reference< type_name >::type
       ,typename      model_name = std::add_lvalue_reference< std::add_const<type_name>::type >::type
      >
      inline

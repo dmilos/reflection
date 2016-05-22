@@ -257,7 +257,7 @@ class MyClass
  };
 
 
-int main( int argc, char *argv[] )
+int main_hello( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
 

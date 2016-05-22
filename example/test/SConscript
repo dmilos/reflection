@@ -40,6 +40,7 @@ source +=   [
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_inspect'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_inspect'+ '.cpp'       )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_mutate'   ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_mutate' + '.cpp'       )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'observe_simple'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'observe_simple'+ '.cpp'       )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'xml'             ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'xml'+ '.cpp'       )
   ]
 
 # Make native environment
