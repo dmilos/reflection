@@ -11,6 +11,7 @@ namespace reflection
    {
     namespace big
      {
+
       template
        <
         typename class_name
@@ -83,7 +84,6 @@ namespace reflection
           traitor_type        & traitor(){ return m_traitor; }
         private:
           traitor_type m_traitor;
-
        };
 
      }

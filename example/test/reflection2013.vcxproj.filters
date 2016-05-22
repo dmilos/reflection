@@ -71,6 +71,12 @@
     <Filter Include="reflection\content\reset">
       <UniqueIdentifier>{af8baa0a-3372-42ac-9a53-3fa597931944}</UniqueIdentifier>
     </Filter>
+    <Filter Include="reflection\property\inspect\pretend">
+      <UniqueIdentifier>{bc99765e-c036-44f4-ba1a-387cf495b0b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\property\mutate\pretend">
+      <UniqueIdentifier>{2cacd255-4db1-4629-819e-3f4b0b87df01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -96,9 +102,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\reflection\object\structure.hpp">
-      <Filter>reflection\object</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\reflection\reflection.hpp">
       <Filter>reflection</Filter>
     </ClInclude>
@@ -201,9 +204,6 @@
     <ClInclude Include="..\..\src\reflection\property\guarded\simple.hpp">
       <Filter>reflection\property\guarded</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\property\inspect\pretend.hpp">
-      <Filter>reflection\property\inspect</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\inspect\member.hpp">
       <Filter>reflection\property\inspect</Filter>
     </ClInclude>
@@ -218,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\inspect\inspect.hpp">
       <Filter>reflection\property\inspect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\property\mutate\pretend.hpp">
-      <Filter>reflection\property\mutate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\mutate\member.hpp">
       <Filter>reflection\property\mutate</Filter>
@@ -330,14 +327,20 @@
     <ClInclude Include="..\..\src\reflection\content\variable\simple.hpp">
       <Filter>reflection\content\variable</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\interact.hpp">
-      <Filter>reflection\object</Filter>
+    <ClInclude Include="..\..\src\reflection\content\reset\_pure.hpp">
+      <Filter>reflection\content\reset</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\object.hpp">
-      <Filter>reflection\object</Filter>
+    <ClInclude Include="..\..\src\reflection\content\reset\reset.hpp">
+      <Filter>reflection\content\reset</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\observe.hpp">
-      <Filter>reflection\object</Filter>
+    <ClInclude Include="..\..\src\reflection\property\inspect\pretend\base.hpp">
+      <Filter>reflection\property\inspect\pretend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\pretend\member.hpp">
+      <Filter>reflection\property\inspect\pretend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\inspect\pretend\pretend.hpp">
+      <Filter>reflection\property\inspect\pretend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\big\_pure.hpp">
       <Filter>reflection\property\big</Filter>
@@ -351,14 +354,41 @@
     <ClInclude Include="..\..\src\reflection\property\big\file.hpp">
       <Filter>reflection\property\big</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\big\member.hpp">
+      <Filter>reflection\property\big</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\big\vector.hpp">
       <Filter>reflection\property\big</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\content\reset\_pure.hpp">
-      <Filter>reflection\content\reset</Filter>
+    <ClInclude Include="..\..\src\reflection\property\mutate\pretend\base.hpp">
+      <Filter>reflection\property\mutate\pretend</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\content\reset\reset.hpp">
-      <Filter>reflection\content\reset</Filter>
+    <ClInclude Include="..\..\src\reflection\property\mutate\pretend\member.hpp">
+      <Filter>reflection\property\mutate\pretend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\mutate\pretend\pretend.hpp">
+      <Filter>reflection\property\mutate\pretend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\assign.hpp">
+      <Filter>reflection\property</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\assign.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\class.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\object.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\observe.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\structure.hpp">
+      <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\object\xml.hpp">
+      <Filter>reflection\object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
