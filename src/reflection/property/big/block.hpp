@@ -1,7 +1,7 @@
 #ifndef reflection_property_big_block
 #define reflection_property_big_block
 
-// reflection::property::big::block_class
+// ::reflection::property::big::block_class
 
 #include "./_pure.hpp"
 

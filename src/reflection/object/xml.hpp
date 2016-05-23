@@ -19,7 +19,7 @@ namespace reflection
         ,typename    key_name = std::string
         ,typename   type_name = std::string
        >
-       class xml_class
+       struct xml_class
         {
          public:
            typedef  output_name     output_type;

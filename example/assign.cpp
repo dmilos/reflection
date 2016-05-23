@@ -21,7 +21,6 @@ class MyClassA
        insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<float>( 1024 ) ) ) );
        insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string>( "asdfg" ) ) ) );
       }
-
  };
 
 
@@ -102,8 +101,6 @@ class MyClass
 
         insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector ) ) ) );
 
-        // TODO ::reflection::property::assign< int >( get( "v1" ), get( "g1" ) );
-
       }
 
  };
@@ -115,6 +112,8 @@ int main_assign( int argc, char *argv[] )
 
   MyClass m;
   MyClass q;
+
+  ::reflection::property::assign< int >( m.get( "v1" ), q.get( "g1" ) );
 
   ::reflection::object::assign_class<> assign;
    assign.protocol().emplace( std::make_pair( typeid( std::string ).name(), typeid( std::string ).name() ), ::reflection::property::assign<std::string> );

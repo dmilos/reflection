@@ -1,7 +1,7 @@
 #ifndef reflection_property_big_file
 #define reflection_property_big_file
 
-// reflection::property::big::file_class
+// ::reflection::property::big::file_class
 
 #include "../../type/string.hpp"
 #include "./_pure.hpp"

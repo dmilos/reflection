@@ -13,7 +13,7 @@ namespace reflection
 
     template< typename key_name = std::string >
      class structure_class
-      : public virtual reflection::property::pure_class
+      : public virtual ::reflection::property::pure_class
       {
        public:
          typedef std::string key_type;
@@ -28,7 +28,7 @@ namespace reflection
          structure_class( structure_class const& that_param ){ *this = that_param; }
          structure_class & operator=( structure_class const& that_param )
           {
-           // EMPTY!!!
+           // Do nothing!
            return *this;
           }
 
@@ -83,6 +83,7 @@ namespace reflection
           {
            m_container.erase( name );
           }
+
          void clear()
           {
            m_container.clear();

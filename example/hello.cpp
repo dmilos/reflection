@@ -256,10 +256,23 @@ class MyClass
 
  };
 
+void other_main( int argc, char *argv[] )
+ {
+  int main_observe_simple( int argc, char *argv[] );
+  int main_assign( int argc, char *argv[] );
+  int main_xml( int argc, char *argv[] );
 
-int main_hello( int argc, char *argv[] )
+  main_observe_simple( argc, argv );
+  main_assign( argc, argv );
+  main_xml( argc, argv );
+ }
+
+
+int main( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
+
+  other_main( argc, argv );
 
   MyClass m;
   MyClass q;

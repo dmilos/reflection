@@ -24,8 +24,8 @@ namespace reflection
      bool
      assign
       (
-         reflection::property::pure_class       &  left_param
-       , reflection::property::pure_class  const& right_param
+         ::reflection::property::pure_class       &  left_param
+       , ::reflection::property::pure_class  const& right_param
        )
       {
        typedef ::reflection::property::inspect::pure_class< image_name >                inspect_type;
@@ -35,24 +35,23 @@ namespace reflection
        auto right_inspect = dynamic_cast< inspect_type const* > ( &right_param );
        if( nullptr == right_inspect )
         {
-         return false;
+         return report_name( false );
         }
 
        auto left_mutate = dynamic_cast< mutate_type * > ( &left_param );
        if( nullptr != left_mutate )
         {
-         left_mutate->process( right_inspect->present() );
-         return false;
+         return left_mutate->process( right_inspect->present() );
         }
 
        auto left_direct = dynamic_cast< direct_type * > ( &left_param );
        if( nullptr != left_direct )
         {
          left_direct->disclose() = right_inspect->present();
-         return false;
+         return report_name( true );
         }
 
-       return true;
+       return report_name( false );
       }
 
    }

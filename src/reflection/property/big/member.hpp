@@ -1,7 +1,7 @@
 #ifndef reflection_property_big_member
 #define reflection_property_big_member
 
-// reflection::property::big::member_class
+// ::reflection::property::big::member_class
 
 #include "./_pure.hpp"
 

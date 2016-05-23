@@ -1,8 +1,8 @@
 #ifndef reflection_property_inspect_simple
 #define reflection_property_inspect_simple
 
-// reflection::property::inspect::simple_struct<data_name,image_name>
-// reflection::property::inspect::simple<data_name>( data_name const& )
+// ::reflection::property::inspect::simple_struct<data_name,image_name>
+// ::reflection::property::inspect::simple<data_name>( data_name const& )
 
 #include "./base.hpp"
 

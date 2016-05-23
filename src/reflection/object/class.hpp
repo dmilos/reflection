@@ -14,7 +14,7 @@ namespace reflection
     template< typename data_name, typename key_name = std::string >
      class class_class
       : virtual public ::reflection::content::pure_class<data_name>
-      , /*virtual */public reflection::object::structure_class<key_name>
+      , /*virtual */public ::reflection::object::structure_class<key_name>
       {
        public:
          typedef data_name   data_type;

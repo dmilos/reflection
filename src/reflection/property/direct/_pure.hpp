@@ -1,9 +1,9 @@
 #ifndef reflection_property_direct_pure
 #define reflection_property_direct_pure
 
-// reflection::property::direct::pure_class<original_name>
-// reflection::property::direct::disclose
-// reflection::property::direct::check
+// ::reflection::property::direct::pure_class<original_name>
+// ::reflection::property::direct::disclose
+// ::reflection::property::direct::check
 
 #include "../_pure.hpp"
 
