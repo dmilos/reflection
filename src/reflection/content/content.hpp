@@ -7,4 +7,4 @@
 
 #include "./reset/reset.hpp"
 
-//#include "./function/function.hpp"
+#include "./function/function.hpp"

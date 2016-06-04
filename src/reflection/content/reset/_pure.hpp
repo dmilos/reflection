@@ -27,10 +27,10 @@ namespace reflection
            typedef data_name       data_type;
            typedef report_name   report_type;
 
-           typedef ::reflection::content::pure_class< data_name >              content_pure_type;
-           typedef ::reflection::property::reset::pure_class<report_name>     property_pure_type;
+           typedef ::reflection::content::pure_class< data_name >              content_type;
+           typedef ::reflection::property::reset::pure_class<report_name>     property_type;
 
-           using property_pure_type::process;
+           using property_type::process;
         };
 
       }

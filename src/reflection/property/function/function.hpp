@@ -1,3 +1,3 @@
-#include "./pure.hpp"
+#include "./_pure.hpp"
 #include "./member.hpp"
 #include "./free.hpp"

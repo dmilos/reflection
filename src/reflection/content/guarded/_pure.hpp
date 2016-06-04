@@ -31,11 +31,11 @@ namespace reflection
            typedef image_name   image_type;
            typedef report_name   report_type;
 
-           typedef ::reflection::content::pure_class< data_name >              content_pure_type;
-           typedef ::reflection::property::guarded::pure_class<model_name,image_name,report_name>   property_pure_type;
+           typedef ::reflection::content::pure_class< data_name >              content_type;
+           typedef ::reflection::property::guarded::pure_class<model_name,image_name,report_name>   property_type;
 
-           using property_pure_type::process;
-           using property_pure_type::present;
+           using property_type::process;
+           using property_type::present;
         };
 
       }

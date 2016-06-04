@@ -22,26 +22,33 @@ class MyClass
       return m_int;
       }
 
+    bool        mutator( int const& a )
+     {
+      std::cout << __FUNCTION__ << "::a = " << a <<std::endl;
+      m_int = a;
+      return true;
+     }
+
   private:
     int m_int;
-
 
   private:
      void init()
       {
-       insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
+       insert(  "g1", item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector ) ) ) );
       }
 
  };
 
-
-int main_inspect( int argc, char *argv[] )
+int main_guarded( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
 
   MyClass m;
 
-  std::cout <<  ::reflection::property::inspect::present< int const& >( m.get("m2") ) << std::endl;
+  std::cout <<  ::reflection::property::inspect::present< int const& >( m.get("g1") ) << std::endl;
+  ::reflection::property::mutate::process<  int const& >( m.get("g1"), 2424 );
+  std::cout <<  ::reflection::property::inspect::present< int const& >( m.get("g1") ) << std::endl;
 
   std::cin.get();
   return EXIT_SUCCESS;

@@ -26,10 +26,10 @@ namespace reflection
            typedef data_name          data_type;
            typedef original_name  original_type;
 
-           typedef ::reflection::content::pure_class< data_name >              content_pure_type;
-           typedef ::reflection::property::direct::pure_class<original_name>   property_pure_type;
+           typedef ::reflection::content::pure_class< data_name >              content_type;
+           typedef ::reflection::property::direct::pure_class<original_name>   property_type;
 
-           using property_pure_type::disclose;
+           using property_type::disclose;
         };
 
       }

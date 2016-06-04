@@ -27,16 +27,16 @@ namespace reflection
            typedef size_name  size_type;
            typedef data_name  data_type;
 
-           typedef ::reflection::content::pure_class< data_name >                  content_pure_type;
-           typedef ::reflection::property::big::pure_class<size_name,data_name>   property_pure_type;
+           typedef ::reflection::content::pure_class< data_name >                  content_type;
+           typedef ::reflection::property::big::pure_class<size_name,data_name>   property_type;
 
-           using property_pure_type::disclose;
+           using property_type::disclose;
 
-           using property_pure_type::size;
-           using property_pure_type::get;
-           using property_pure_type::insert;
-           using property_pure_type::replace;
-           using property_pure_type::erase;
+           using property_type::size;
+           using property_type::get;
+           using property_type::insert;
+           using property_type::replace;
+           using property_type::erase;
         };
 
       }

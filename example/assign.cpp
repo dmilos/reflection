@@ -116,10 +116,10 @@ int main_assign( int argc, char *argv[] )
   ::reflection::property::assign< int >( m.get( "v1" ), q.get( "g1" ) );
 
   ::reflection::object::assign_class<> assign;
-   assign.protocol().emplace( std::make_pair( typeid( std::string ).name(), typeid( std::string ).name() ), ::reflection::property::assign<std::string> );
-   assign.protocol().emplace( std::make_pair( typeid( int ).name(),         typeid( int ).name()         ), ::reflection::property::assign<int> );
+  assign.protocol().emplace( std::make_pair( typeid( std::string ).name(), typeid( std::string ).name() ), ::reflection::property::assign<std::string> );
+  assign.protocol().emplace( std::make_pair( typeid( int ).name(),         typeid( int ).name()         ), ::reflection::property::assign<int> );
 
-   assign( m, q );
+  assign( m, q );
 
   std::cin.get();
   return EXIT_SUCCESS;

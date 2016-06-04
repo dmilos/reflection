@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main_member_direct( int argc, char *argv[] )
+int main_reset( int argc, char *argv[] )
  {
   cout << "TODO" << endl;
 

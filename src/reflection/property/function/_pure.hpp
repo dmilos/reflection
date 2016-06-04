@@ -1,6 +1,10 @@
 #ifndef reflection_property_function_pure
 #define reflection_property_function_pure
 
+// ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
+// ::reflection::property::function::check<return_name,first_name,second_name,third_name,fourth_name,fifth_name>()
+// ::reflection::property::function::execute<return_name,first_name,second_name,third_name,fourth_name,fifth_name>()
+
 #include "../_pure.hpp"
 
 namespace reflection

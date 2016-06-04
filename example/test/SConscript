@@ -37,13 +37,15 @@ envObject = nucleotide.Environment( settings ).native()
 
 source = []
 source +=   [
-      envObject.StaticObject( target =  os.path.join( directory_obj, 'hello'           ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'hello'         + '.cpp'       )
-     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'assign'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'assign'        + '.cpp'       )
-     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_direct'   ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_direct' + '.cpp'       )
-     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_inspect'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_inspect'+ '.cpp'       )
-     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_mutate'   ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_mutate' + '.cpp'       )
-     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'observe_simple'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'observe_simple'+ '.cpp'       )
-     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'xml'             ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'xml'+ '.cpp'       )
+      envObject.StaticObject( target =  os.path.join( directory_obj, 'hello'           ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'hello'           + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'assign'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'assign'          + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_direct'   ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_direct'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_inspect'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_inspect'  + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_mutate'   ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_mutate'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_function' ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_function' + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_guarded'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_guarded'  + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'observe_simple'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'observe_simple'  + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'xml'             ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'xml'             + '.cpp' )
   ]
 
 # Make native environment
