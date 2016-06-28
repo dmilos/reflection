@@ -62,6 +62,7 @@ $(prg_scons) --directory=$(SolutionDir)build config=release
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\assign.cpp" />
+    <ClCompile Include="..\free.cpp" />
     <ClCompile Include="..\hello.cpp" />
     <ClCompile Include="..\member_direct.cpp" />
     <ClCompile Include="..\member_inspect.cpp" />

@@ -169,11 +169,11 @@ class MyClass
        ::reflection::content::function::member( this, &MyClass::executor );
        ::reflection::content::function::member( this, &MyClass::mutator  );
        ::reflection::content::function::member( this, &MyClass::d  );
-       //::reflection::content::function::member( this, &MyClass::calc );
+     //::reflection::content::function::member( this, &MyClass::calc );
 
-        ::reflection::content::function::free( &free_void_void );
-        ::reflection::content::function::free( &free_int_void  );
-        ::reflection::content::function::free( &free_int_int   );
+        ::reflection::content::function::free( &free_void_void ).execute();
+        ::reflection::content::function::free( &free_int_void  ).execute();
+        ::reflection::content::function::free( &free_int_int   ).execute( 10 );
 
        std::cout << ::reflection::property::direct::check<int&>(         ::reflection::property::direct::member(   this, &MyClass::traitor   ) ) << std::endl;
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;
@@ -292,10 +292,12 @@ void other_main( int argc, char *argv[] )
   int main_observe_simple( int argc, char *argv[] );
   int main_assign( int argc, char *argv[] );
   int main_xml( int argc, char *argv[] );
-
+  int main_free( int argc, char *argv[] );
+  
   main_observe_simple( argc, argv );
   main_assign( argc, argv );
   main_xml( argc, argv );
+  main_free( argc, argv );
  }
 
 

@@ -14,6 +14,7 @@ Key features:
  - Out of the box ready
   - No need to recompile or start some install process.
  - One file to include to start the fun
+ - Strong type check
 
 
 Example:

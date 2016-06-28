@@ -12,7 +12,7 @@
       >
       inline
       class_name *
-      make( class_name const& class_param)
+      make( class_name const& class_param )
        {
         return new class_name{ class_param };
        }

@@ -24,7 +24,7 @@ namespace reflection
         ,typename fifth_name
         >
        class pure_class
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef return_name    return_type;
@@ -43,7 +43,7 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
        class pure_class< return_name,first_name,second_name,third_name,fourth_name,void>
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef return_name    return_type;
@@ -61,7 +61,7 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name, typename third_name >
        class pure_class< return_name,first_name,second_name,third_name,void,void>
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef return_name    return_type;
@@ -79,7 +79,7 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name >
        class pure_class< return_name,first_name,second_name,void,void,void>
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef return_name    return_type;
@@ -96,7 +96,7 @@ namespace reflection
 
       template< typename return_name, typename first_name >
        class pure_class< return_name,first_name,void,void,void,void>
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef return_name    return_type;
@@ -112,7 +112,7 @@ namespace reflection
 
       template< typename return_name >
        class pure_class< return_name,void,void,void,void,void>
-        : public ::reflection::property::pure_class
+        : virtual public ::reflection::property::pure_class
         {
          public:
            typedef return_name    return_type;

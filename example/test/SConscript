@@ -46,7 +46,8 @@ source +=   [
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'member_guarded'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'member_guarded'  + '.cpp' )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'observe_simple'  ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'observe_simple'  + '.cpp' )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'xml'             ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'xml'             + '.cpp' )
-  ]
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'free'            ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'free'            + '.cpp' )
+     ]
 
 # Make native environment
 envProgram = nucleotide.Environment( settings ).native()

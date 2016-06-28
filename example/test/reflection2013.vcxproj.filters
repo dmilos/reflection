@@ -103,6 +103,9 @@
     <ClCompile Include="..\observe_simple.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\free.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\reflection\reflection.hpp">

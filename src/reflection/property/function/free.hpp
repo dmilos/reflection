@@ -23,7 +23,7 @@ namespace reflection
         ,typename fifth_name
         >
        class free_class
-        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
+        : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
         {
          public:
            typedef return_name    return_type;
@@ -50,7 +50,7 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
        class free_class<return_name,first_name,second_name,third_name,fourth_name,void>
-        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>
+        : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>
         {
          public:
 
@@ -76,7 +76,7 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name, typename third_name >
        class free_class<return_name,first_name,second_name,third_name,void,void>
-        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>
+        : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>
         {
          public:
 
@@ -101,7 +101,7 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name >
        class free_class<return_name,first_name,second_name,void,void,void>
-        : public ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>
+        : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>
         {
          public:
 
@@ -126,7 +126,7 @@ namespace reflection
 
       template< typename return_name, typename first_name >
        class free_class<return_name,first_name,void,void,void,void>
-        : public ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>
+        : virtual public ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>
         {
          public:
 
@@ -149,7 +149,7 @@ namespace reflection
 
       template< typename return_name >
        class free_class<return_name,void,void,void,void,void>
-        : public ::reflection::property::function::pure_class<return_name,void,void,void,void,void>
+        : virtual public ::reflection::property::function::pure_class<return_name,void,void,void,void,void>
         {
          public:
 
