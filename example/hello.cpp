@@ -21,9 +21,24 @@ class MyClassA
        insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<float>( 1024 ) ) ) );
        insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string>( "asdfg" ) ) ) );
       }
-
  };
 
+void free_void_void()
+ {
+  std::cout << __FUNCTION__ << std::endl;
+ }
+
+int free_int_void()
+ {
+  std::cout << __FUNCTION__ << std::endl;
+  return 10;
+ }
+
+int free_int_int( int )
+ {
+  std::cout << __FUNCTION__ << std::endl;
+  return 10;
+ }
 
 class MyClass
 : public ::reflection::object::class_class<MyClass>
@@ -44,11 +59,17 @@ class MyClass
       return m_int;
      }
 
+    int const&  calc( float f )const
+     {
+      std::cout << __FUNCTION__ << std::endl;
+      return m_int;
+     }
+
     int const&  inspector()const
      {
       std::cout << __FUNCTION__ << std::endl;
       return m_int;
-      }
+     }
 
     bool        mutator( int const& a )
      {
@@ -143,6 +164,16 @@ class MyClass
 
        ::reflection::property::function::member( this, &MyClass::a );
        ::reflection::property::function::member( this, &MyClass::executor );
+
+       ::reflection::content::function::member( this, &MyClass::a );
+       ::reflection::content::function::member( this, &MyClass::executor );
+       ::reflection::content::function::member( this, &MyClass::mutator  );
+       ::reflection::content::function::member( this, &MyClass::d  );
+       //::reflection::content::function::member( this, &MyClass::calc );
+
+        ::reflection::content::function::free( &free_void_void );
+        ::reflection::content::function::free( &free_int_void  );
+        ::reflection::content::function::free( &free_int_int   );
 
        std::cout << ::reflection::property::direct::check<int&>(         ::reflection::property::direct::member(   this, &MyClass::traitor   ) ) << std::endl;
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;

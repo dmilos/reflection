@@ -1,6 +1,9 @@
 #ifndef reflection_property_function_free
 #define reflection_property_function_free
 
+// ::reflection::property::function::free_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
+// ::reflection::property::function::free<return_name,first_name,second_name,third_name,fourth_name,fifth_name>( )
+
 #include "../_pure.hpp"
 
 namespace reflection

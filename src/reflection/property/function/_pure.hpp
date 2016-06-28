@@ -54,8 +54,9 @@ namespace reflection
 
                     pure_class(){}
            virtual ~pure_class(){}
-
+         public:
            virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param )=0;
+         //virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param )const=0;
         };
 
       template< typename return_name, typename first_name, typename second_name, typename third_name >
@@ -71,7 +72,9 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
-           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param )=0;
+         public:
+           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param )=0;/*{ return this->execute( first_param,second_param,third_param ); }*/
+         //virtual return_name execute( first_name first_param, second_name second_param, third_name third_param )const=0;
         };
 
       template< typename return_name, typename first_name, typename second_name >
@@ -86,7 +89,9 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
-           virtual return_name execute( first_name first_param, second_name second_param )=0;
+         public:
+           virtual return_name execute( first_name first_param, second_name second_param )=0;/*{ return this->execute( first_param,second_param ); }*/
+         //virtual return_name execute( first_name first_param, second_name second_param )const=0;
         };
 
       template< typename return_name, typename first_name >
@@ -100,7 +105,9 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
-           virtual return_name execute( first_name first_param )=0;
+         public:
+           virtual return_name execute( first_name first_param )=0;/*{ return this->execute( first_param ); }*/
+         //virtual return_name execute( first_name first_param )const=0;
         };
 
       template< typename return_name >
@@ -113,7 +120,9 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
-           virtual return_name execute()=0;
+         public:
+           virtual return_name execute()=0;/*{ return this->execute( ); }*/
+         //virtual return_name execute()const=0;
         };
 
       template< typename return_name=void, typename first_name=void, typename second_name=void, typename third_name=void, typename fourth_name=void, typename fifth_name=void >
@@ -132,6 +141,16 @@ namespace reflection
 
          return dynamic_cast< function_type &>( property_param ).execute();
         }
+
+      // TODO template< typename return_name >
+      // TODO  inline
+      // TODO  return_name
+      // TODO  execute( ::reflection::property::pure_class const& property_param )
+      // TODO   {
+      // TODO    typedef ::reflection::property::function::pure_class<return_name,void,void,void,void,void> function_type;
+      // TODO 
+      // TODO    return dynamic_cast< function_type &>( property_param ).execute();
+      // TODO   }
 
       template< typename return_name, typename first_name >
        inline

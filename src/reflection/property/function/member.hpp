@@ -32,7 +32,7 @@ namespace reflection
            typedef fourth_name    fourth_type;
            typedef  fifth_name     fifth_type;
 
-           typedef return_type (class_name::*function_type)( first_type, second_type , third_type , fourth_type , fifth_type );
+           typedef return_type (class_name::*function_type)( first_type, second_type, third_type, fourth_type, fifth_type );
 
                     member_class( class_type * class_param, function_type function_param ):m_class(class_param),m_function(function_param) { }
            virtual ~member_class( ){}
@@ -41,6 +41,7 @@ namespace reflection
             {
              return (m_class->*m_function)( first_param, second_param, third_param, fourth_param, fifth_param );
             }
+
           private:
              class_type   *m_class;
              function_type m_function;

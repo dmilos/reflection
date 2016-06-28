@@ -77,6 +77,9 @@
     <Filter Include="reflection\property\mutate\pretend">
       <UniqueIdentifier>{2cacd255-4db1-4629-819e-3f4b0b87df01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="reflection\content\function">
+      <UniqueIdentifier>{497739d1-a8e7-422e-ba87-8ff377b35af2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -181,9 +184,6 @@
       <Filter>reflection\property\function</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\function\free.hpp">
-      <Filter>reflection\property\function</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\property\function\pure.hpp">
       <Filter>reflection\property\function</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\function\function.hpp">
@@ -389,6 +389,21 @@
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\object\xml.hpp">
       <Filter>reflection\object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\function\free.hpp">
+      <Filter>reflection\content\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\function\function.hpp">
+      <Filter>reflection\content\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\function\member.hpp">
+      <Filter>reflection\content\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\content\function\pure.hpp">
+      <Filter>reflection\content\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\property\function\_pure.hpp">
+      <Filter>reflection\property\function</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
