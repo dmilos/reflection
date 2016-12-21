@@ -14,7 +14,7 @@ namespace reflection
     namespace big
      {
 
-       template 
+       template
         <
           typename size_name = std::size_t
          ,typename data_name = std::vector< std::uint8_t >
@@ -46,7 +46,7 @@ namespace reflection
         }
 
       template< typename size_name, typename data_name >
-       inline 
+       inline
        ::reflection::property::big::pure_class<size_name, data_name> const*
        convert( ::reflection::property::pure_class const& property_param )
         {

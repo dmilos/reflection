@@ -46,7 +46,7 @@ namespace reflection
 
            typedef ::reflection::content::variable::basic_class<data_name,original_name,image_name,storage_type, extractor_type, retriever_type> typedef_type;
 
-           static typedef_type make( storage_type & storage_param, traitor_type const& traitor_param, reader_type const& reader_param  )
+           static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param, reader_type const& reader_param  )
             {
              return typedef_type( storage_param, extractor_type(traitor_param), retriever_type(reader_param) );
             }
@@ -76,9 +76,9 @@ namespace reflection
        typename ::reflection::content::variable::member_struct<data_name,original_name,image_name,class_name,storage_name>::typedef_type
        member
         (
-          storage_name     &             storage_param
+          storage_name     const&             storage_param
          ,original_name    (class_name::*traitor_param )( void )
-         ,image_name        (class_name::*reader_param )()const//!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
+         ,image_name       (class_name::*reader_param )()const//!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
          typedef ::reflection::content::variable::member_struct<data_name,original_name,image_name,class_name,storage_name> member_type;
@@ -96,9 +96,9 @@ namespace reflection
        typename ::reflection::content::variable::member_struct<data_name,data_name &,data_name const&,class_name,storage_name>::typedef_type
        member
         (
-          storage_name &             storage_param
-         ,data_name      &    (class_name::*traitor_param )( void )
-         ,data_name const&    (class_name::*reader_param  )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
+          storage_name   const &             storage_param
+         ,data_name            &    (class_name::*traitor_param )( void )
+         ,data_name       const&    (class_name::*reader_param  )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
          typedef ::reflection::content::variable::member_struct<data_name,data_name &,data_name const&,class_name,storage_name> member_type;

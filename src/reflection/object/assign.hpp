@@ -65,7 +65,7 @@ namespace reflection
             category_type const*  category_right = dynamic_cast< category_type const* >( right_item.second.get() );
             if( nullptr == category_right )
              {
-              // TODO if( false == recover()[right_not_category_index]( left_param, right_param, right_item ) )
+              // TODO if( false == recover()[right_not_category_index]( right_param, right_item ) )
               // {
               //  return false;
               // }

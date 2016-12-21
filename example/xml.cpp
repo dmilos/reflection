@@ -76,8 +76,6 @@ class MyClass_XML_B
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
 
         insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass_XML_B::traitor, &MyClass_XML_B::inspector ) ) ) );
-
-        ::reflection::property::assign< int >( get( "v1" ), get( "g1" ) );
       }
 
  };

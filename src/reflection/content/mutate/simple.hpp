@@ -31,9 +31,9 @@ namespace reflection
 
          typedef ::reflection::property::mutate::simple_struct< data_name, model_name, report_name >  simple_type;
 
-         typedef typename simple_type::assigner_class assigner_class;
+         typedef typename simple_type::assigner_class assigner_type;
 
-         typedef ::reflection::content::mutate::basic_class<data_name,model_name,storage_name,assigner_class,report_name> typedef_type;
+         typedef ::reflection::content::mutate::basic_class<data_name,model_name,storage_name,assigner_type,report_name> typedef_type;
 
          static typedef_type make( void )                 { return typedef_type( ); }
          static typedef_type make( data_type const& value_param ){ return typedef_type( value_param ); }

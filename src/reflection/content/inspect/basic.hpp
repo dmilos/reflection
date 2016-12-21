@@ -33,7 +33,7 @@ namespace reflection
            typedef ::reflection::content::inspect::pure_class<data_name,image_name > pure_type;
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef::reflection::property::inspect::base_class<image_name,storage_name,retriever_name> base_class;
+           typedef::reflection::property::inspect::base_class<image_name,storage_name,retriever_name> base_type;
 
                      basic_class()
                       {
@@ -43,7 +43,7 @@ namespace reflection
                      (
                        retriever_type const& extractor_param
                      )
-                     :base_class( extractor_param )
+                     :base_type( extractor_param )
                      {
                      }
 
@@ -52,13 +52,13 @@ namespace reflection
                        storage_type   const& carrier_param
                       ,retriever_type const& extractor_param = retriever_type()
                      )
-                     :base_class( extractor_param )
+                     :base_type( extractor_param )
                      ,carrier_type( carrier_param )
                      {
                      }
 
-           using base_class::present;
-           using base_class::retriever;
+           using base_type::present;
+           using base_type::retriever;
         };
 
       }

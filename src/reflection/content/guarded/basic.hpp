@@ -40,7 +40,7 @@ namespace reflection
            typedef    report_name     report_type;
 
            typedef ::reflection::content::guarded::pure_class<data_name,model_name,image_name,report_name> pure_type;
-           typedef ::reflection::property::guarded::base_class< model_name, image_name,  storage_name,assigner_name, retriever_name, report_name > base_class;
+           typedef ::reflection::property::guarded::base_class< model_name, image_name,  storage_name,assigner_name, retriever_name, report_name > base_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
@@ -55,18 +55,18 @@ namespace reflection
                       ,retriever_type const& retriever_param = retriever_type()
                      )
                      :carrier_type( storage_param )
-                     ,base_class( assigner_param, retriever_param )
+                     ,base_type( assigner_param, retriever_param )
                      {
                      }
 
-           //using base_class::process;
-           using base_class::assigner;
+           //using base_type::process;
+           using base_type::assigner;
 
-           //using base_class::present;
-           using base_class::retriever;
+           //using base_type::present;
+           using base_type::retriever;
 
-           image_type present()const{ return base_class::present(); }
-           report_name process( model_type model_param ){ return base_class::process(model_param); }
+           image_type present()const{ return base_type::present(); }
+           report_name process( model_type model_param ){ return base_type::process(model_param); }
         };
 
       }

@@ -1,6 +1,6 @@
 #ifndef reflection_content_big_pure_hpp
 #define reflection_content_big_pure_hpp
- // ::reflection::content::big::pure_class<data_name,original_name >
+ // ::reflection::content::big::pure_class<size_name,data_name >
 
  #include "../../property/big/_pure.hpp"
 
@@ -29,8 +29,6 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< data_name >                  content_type;
            typedef ::reflection::property::big::pure_class<size_name,data_name>   property_type;
-
-           using property_type::disclose;
 
            using property_type::size;
            using property_type::get;

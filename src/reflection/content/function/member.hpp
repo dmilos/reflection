@@ -3,7 +3,7 @@
 
  // ::reflection::content::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>
 
- 
+
  #include "../../property/function/member.hpp"
 
  #include "./_pure.hpp"
@@ -30,6 +30,7 @@ namespace reflection
         ,         public ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>
         {
          public:
+           typedef class_name      class_type;
            typedef return_name    return_type;
            typedef  first_name     first_type;
            typedef second_name    second_type;
@@ -39,6 +40,8 @@ namespace reflection
 
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>              content_type;
            typedef ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>   member_type;
+
+           typedef typename member_type::function_type function_type;
 
          public:
                     member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
@@ -59,6 +62,7 @@ namespace reflection
         ,         public ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,void>
         {
          public:
+           typedef class_name      class_type;
            typedef return_name    return_type;
            typedef  first_name     first_type;
            typedef second_name    second_type;
@@ -67,6 +71,8 @@ namespace reflection
 
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>              content_type;
            typedef ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,void>   member_type;
+
+           typedef typename member_type::function_type function_type;
 
          public:
                     member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
@@ -87,6 +93,7 @@ namespace reflection
         ,         public ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,void,void>
         {
          public:
+           typedef class_name      class_type;
            typedef return_name    return_type;
            typedef  first_name     first_type;
            typedef second_name    second_type;
@@ -94,6 +101,8 @@ namespace reflection
 
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,third_name,void,void>              content_type;
            typedef ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,void,void>   member_type;
+
+           typedef typename member_type::function_type function_type;
 
          public:
                     member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
@@ -116,12 +125,15 @@ namespace reflection
         ,         public ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,void,void,void>
         {
          public:
+           typedef class_name      class_type;
            typedef return_name    return_type;
            typedef  first_name     first_type;
            typedef second_name    second_type;
 
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,void,void,void>              content_type;
            typedef ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,void,void,void>   member_type;
+
+           typedef typename member_type::function_type function_type;
 
          public:
                     member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
@@ -143,11 +155,14 @@ namespace reflection
         ,         public ::reflection::property::function::member_class<class_name,return_name,first_name,void,void,void,void>
         {
          public:
+           typedef class_name      class_type;
            typedef return_name    return_type;
            typedef  first_name     first_type;
 
            typedef ::reflection::content::function::pure_class<return_name,first_name,void,void,void,void>                content_type;
            typedef ::reflection::property::function::member_class<class_name,return_name,first_name,void,void,void,void>   member_type;
+
+           typedef typename member_type::function_type function_type;
 
          public:
                     member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
@@ -167,10 +182,13 @@ namespace reflection
         ,         public ::reflection::property::function::member_class<class_name,return_name,void,void,void,void,void>
         {
          public:
+           typedef class_name      class_type;
            typedef return_name    return_type;
 
            typedef ::reflection::content::function::pure_class<return_name,void,void,void,void,void>                content_type;
            typedef ::reflection::property::function::member_class<class_name,return_name,void,void,void,void,void>   member_type;
+
+           typedef typename member_type::function_type function_type;
 
          public:
                     member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }

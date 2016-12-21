@@ -26,7 +26,7 @@ namespace reflection
 
           typedef std::size_t size_type;
           typedef std::vector< std::uint8_t > data_type;
-          typedef data_type const&  (class_name::*traitor_type)();
+          typedef data_type &  (class_name::*traitor_type)();
 
                    member_class(){}
           virtual ~member_class(){}
@@ -45,7 +45,7 @@ namespace reflection
            {
             auto const& data = ((*m_pointer).* m_traitor)();
             // TODO range check
-            std::copy( data.begin() + position_param, data.begin() + position_param + value_param.size(), value_param.begin() );
+            std::copy( data.begin() + position_param, data.begin() + position_param + target_param.size(), target_param.begin() );
             return 0;
            }
 
@@ -70,16 +70,16 @@ namespace reflection
            }
       
         public:
-                  pointer_type    const& traitor()const{ return m_pointer; }
-          virtual bool         traitor( pointer_type const& pointer_param ){ m_pointer = pointer_param; return bool( true ); }
+                  pointer_type    const& pointer()const{ return m_pointer; }
+          virtual bool                   pointer( pointer_type const& pointer_param ){ m_pointer = pointer_param; return bool( true ); }
         protected:
-          pointer_type        & traitor(){ return m_pointer; }
+          pointer_type        & pointer(){ return m_pointer; }
         private:
           pointer_type m_pointer;
 
         public:
                   traitor_type    const& traitor()const{ return m_traitor; }
-          virtual bool         traitor( traitor_type const& traitor_param ){ m_traitor = traitor_param; return bool( true ); }
+          virtual bool                   traitor( traitor_type const& traitor_param ){ m_traitor = traitor_param; return bool( true ); }
         protected:
           traitor_type        & traitor(){ return m_traitor; }
         private:

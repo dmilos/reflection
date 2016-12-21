@@ -32,9 +32,9 @@ namespace reflection
 
         public:
                   pointer_type    const& pointer()const{ return m_pointer; }
-          virtual bool         pointer( pointer_type const& pointer_param ){ m_pointer = pointer_param; return bool( true ); }
+          virtual bool                   pointer( pointer_type const& pointer_param ){ m_pointer = pointer_param; return bool( true ); }
         protected:
-          pointer_type        & pointer(){ return m_pointer; }
+          pointer_type                 & pointer(){ return m_pointer; }
         private:
           pointer_type m_pointer;
 

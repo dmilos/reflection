@@ -6,7 +6,7 @@
 
  #include "../../property/function/free.hpp"
 
- #include "./pure.hpp"
+ #include "./_pure.hpp"
 
 namespace reflection
  {
@@ -39,6 +39,8 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>    content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name   >   free_type;
 
+           typedef typename free_type::function_type function_type;
+
          public:
                     free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
@@ -67,6 +69,8 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>    content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,third_name,fourth_name,void>   free_type;
 
+           typedef typename free_type::function_type function_type;
+
          public:
                     free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
@@ -94,6 +98,8 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,third_name,void,void>              content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,third_name,void,void>   free_type;
 
+           typedef typename free_type::function_type function_type;
+
          public:
                     free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
@@ -119,6 +125,8 @@ namespace reflection
 
            typedef ::reflection::content::function::pure_class<return_name,first_name,second_name,void,void,void>              content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,void,void,void>   free_type;
+
+           typedef typename free_type::function_type function_type;
 
          public:
                     free_class( function_type function_param ):free_type( function_param ) { }
@@ -146,6 +154,8 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<return_name,first_name,void,void,void,void>                content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,void,void,void,void>   free_type;
 
+           typedef typename free_type::function_type function_type;
+
          public:
                     free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
@@ -168,6 +178,8 @@ namespace reflection
 
            typedef ::reflection::content::function::pure_class<return_name,void,void,void,void,void>                content_type;
            typedef ::reflection::property::function::free_class<return_name,void,void,void,void,void>   free_type;
+
+           typedef typename free_type::function_type function_type;
 
          public:
                     free_class( function_type function_param ):free_type( function_param ) { }

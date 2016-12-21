@@ -137,7 +137,7 @@ class MyClass
        ::reflection::content::inspect::simple( 1024 );
        ::reflection::content::inspect::simple<double>();
 
-       ::reflection::content::mutate::member<int>( this, &MyClass::mutator );
+       ::reflection::content::mutate::member( this, &MyClass::mutator );
        ::reflection::content::mutate::simple<int>( 1024 );
        ::reflection::content::mutate::simple<double>();
 
@@ -282,6 +282,11 @@ class MyClass
        ::reflection::property::mutate::process<  int const& >( get("g1"), 10000 );
        std::cout << "guarded1::category::inspect::present == " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
+
+       ::reflection::content::big::vector_class bv;
+       ::reflection::content::big::member_class<MyClass> bm;
+       ::reflection::content::big::block_class  bb;
+       ::reflection::content::big::file_class  bf;
        //clear();
       }
 

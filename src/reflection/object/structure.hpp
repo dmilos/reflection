@@ -89,14 +89,14 @@ namespace reflection
            m_container.clear();
           }
 
-      public:
+       public:
          static property_type  & empty()
           {
            static property_type s_empty;
            return s_empty;
           }
 
-      public:
+       public:
          container_type const& container()const{ return m_container; }
          container_type      & container()     { return m_container; }
 

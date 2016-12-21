@@ -4,7 +4,7 @@
     <Position X="3.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\content\direct\basic.hpp</FileName>
+      <FileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\content\direct\basic.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="reflection::content::direct::pure_class&lt;data_name, original_name&gt;" Collapsed="true">
@@ -18,15 +18,15 @@
     <InheritanceLine Type="reflection::property::direct::pure_class&lt;original_name&gt;" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.25" Y="3.438" />
-        <Point X="4.875" Y="3.438" />
-        <Point X="4.875" Y="4.875" />
-        <Point X="3.375" Y="4.875" />
+        <Point X="5.156" Y="3.438" />
+        <Point X="5.156" Y="5.156" />
+        <Point X="3.375" Y="5.156" />
         <Point X="3.375" Y="5.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\content\direct\_pure.hpp</FileName>
+      <FileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\content\direct\_pure.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="reflection::property::direct::base_class&lt;original_name, storage_name, extractor_name&gt;" Collapsed="true">
@@ -47,11 +47,23 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAgQAAAAAAAgAAAACAAAAAAAAAAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\property\direct\base.hpp</FileName>
+      <FileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\property\direct\base.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="reflection::content::pure_class&lt;data_name&gt;" Collapsed="true">
     <Position X="2" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Typedef Name="reflection::content::pure_class&lt;data_name&gt;::string_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\content\_pure.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="reflection::content::pure_class&lt;data_name&gt;::category_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\content\_pure.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
     <InheritanceLine Type="reflection::property::pure_class" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.625" Y="2.312" />
@@ -60,15 +72,9 @@
         <Point X="3.25" Y="3.25" />
       </Path>
     </InheritanceLine>
-    <InheritanceLine Type="type::category&lt;type_name&gt;" FixedToPoint="true">
-      <Path>
-        <Point X="2.75" Y="2.312" />
-        <Point X="2.75" Y="3.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\content\_pure.hpp</FileName>
+      <FileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\content\_pure.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="reflection::property::direct::pure_class&lt;original_name&gt;" Collapsed="true">
@@ -81,28 +87,21 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\property\direct\_pure.hpp</FileName>
+      <FileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\property\direct\_pure.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="reflection::property::_internal::carrier_class&lt;storage_name&gt;" Collapsed="true">
     <Position X="7" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAAAAgAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\property\_carrier.hpp</FileName>
+      <FileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\property\_carrier.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="reflection::property::pure_class" Collapsed="true">
     <Position X="5.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\property\_pure.hpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="type::category&lt;type_name&gt;" Collapsed="true">
-    <Position X="2" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAAAAAAAAgAAAAAAAABAAAAAAAIAAAAAAA=</HashCode>
-      <FileName>C:\work\git\ref\src\reflection\type\category.hpp</FileName>
+      <FileName>c:\prg\cygwin\home\dex\work\git\reflection\src\reflection\property\_pure.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

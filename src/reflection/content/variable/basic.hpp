@@ -35,7 +35,7 @@ namespace reflection
            typedef retriever_name  retriever_type;
 
            typedef ::reflection::content::variable::pure_class<data_name,original_name,image_name> pure_type;
-           typedef ::reflection::property::variable::base_class< original_name, image_name, storage_name,extractor_name, retriever_name> base_class;
+           typedef ::reflection::property::variable::base_class< original_name, image_name, storage_name,extractor_name, retriever_name> base_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
@@ -50,18 +50,18 @@ namespace reflection
                       ,retriever_type const& retriever_param = retriever_type()
                      )
                      :carrier_type( storage_param )
-                     ,base_class( extractor_param, retriever_param )
+                     ,base_type( extractor_param, retriever_param )
                      {
                      }
 
            //using base_class::disclose;
-           using base_class::extractor;
+           using base_type::extractor;
 
-           //using base_class::present;
-           using base_class::retriever;
+           //using base_type::present;
+           using base_type::retriever;
 
-           original_type disclose( ){ return base_class::disclose(); }
-           image_type    present()const{ return base_class::present(); }
+           original_type disclose( )   { return base_type::disclose(); }
+           image_type    present()const{ return base_type::present(); }
         };
 
       }
