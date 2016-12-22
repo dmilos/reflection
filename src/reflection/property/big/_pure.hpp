@@ -33,9 +33,9 @@ namespace reflection
            virtual size_type  size( )const=0;
            virtual size_type  size( size_type const& size_param )=0;
            virtual size_type  get(     data_type      & value_param,  size_type const& position_param )const=0;
-           virtual bool       insert(  data_type const& value_param,  size_type const& position_param )=0;
-           virtual bool       replace( data_type const& value_param,  size_type const& position_param )=0;
-           virtual bool       erase(   size_type const& begin_param,  size_type const& end_param )=0;
+           virtual size_type  insert(  data_type const& value_param,  size_type const& position_param )=0;
+           virtual size_type  replace( data_type const& value_param,  size_type const& position_param )=0;
+           virtual size_type  erase(   size_type const& begin_param,  size_type const& end_param )=0;
         };
 
       template< typename size_name, typename data_name >

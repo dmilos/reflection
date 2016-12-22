@@ -41,34 +41,33 @@ namespace reflection
             ((*m_pointer).* m_traitor)().resize( size_param );
             return size();
            }
-          virtual size_type  get(     data_type      & target_param,  size_type const& position_param )const
+          virtual size_type  get(     data_type      & value_param,  size_type const& position_param )const
            {
             auto const& data = ((*m_pointer).* m_traitor)();
             // TODO range check
-            std::copy( data.begin() + position_param, data.begin() + position_param + target_param.size(), target_param.begin() );
-            return 0;
+            std::copy( data.begin() + position_param, data.begin() + position_param + value_param.size(), value_param.begin() );
+            return size();
            }
 
-          virtual bool       insert(  data_type const& target_param,  size_type const& position_param )
+          virtual size_type  insert(  data_type const& value_param,  size_type const& position_param )
            {
             auto & data = ((*m_pointer).* m_traitor)();
             /*TODO*/
+            return size();
+           }
+          virtual size_type  replace( data_type const& value_param,  size_type const& position_param )
+           {
+            auto & data = ((*m_pointer).* m_traitor)();
+            /*TODO*/
+            return size();
+           }
+          virtual size_type  erase(   size_type const& begin_param,   size_type const& end_param )
+           {
+            auto & data = ((*m_pointer).* m_traitor)();
+            /*TODO*/
+            return size();
+           }
 
-            return false;
-           }
-          virtual bool       replace( data_type const& target_param,  size_type const& position_param )
-           {
-            auto & data = ((*m_pointer).* m_traitor)();
-            /*TODO*/
-            return false;
-           }
-          virtual bool       erase(   size_type const& begin_param,   size_type const& end_param )
-           {
-            auto & data = ((*m_pointer).* m_traitor)();
-            /*TODO*/
-            return false;
-           }
-      
         public:
                   pointer_type    const& pointer()const{ return m_pointer; }
           virtual bool                   pointer( pointer_type const& pointer_param ){ m_pointer = pointer_param; return bool( true ); }

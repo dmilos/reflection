@@ -35,37 +35,37 @@ namespace reflection
 
           virtual size_type  size( size_type const& size_param )
            {
-            if( false == this->good() ) { return 0; } 
+            if( false == this->good() ) { return size(); }
             /*TODO*/
-            return 0;
+            return size();
            }
 
-          virtual size_type  get(     data_type      & target_param,  size_type const& position_param )const
+          virtual size_type  get(     data_type      & value_param,  size_type const& position_param )const
            {
-            if( false == this->good() ) { return 0; } 
+            if( false == this->good() ) { return size(); }
             /*TODO*/
-            return 0;
+            return size();
            }
 
-          virtual bool       insert(  data_type const& target_param,  size_type const& position_param )
+          virtual size_type  insert(  data_type const& value_param,  size_type const& position_param )
            {
-            if( false == this->good() ) { return false; }
+            if( false == this->good() ) { return size(); }
             /*TODO*/
-            return false;
+            return size();
            }
 
-          virtual bool       replace( data_type const& target_param,  size_type const& position_param )
+          virtual size_type  replace( data_type const& value_param,  size_type const& position_param )
            {
-            if( false == this->good() ) { return false; }
+            if( false == this->good() ) { return size(); }
             /*TODO*/
-            return false;
+            return size();
            }
 
-          virtual bool       erase(   size_type const& begin_param,   size_type const& end_param )
+          virtual size_type  erase(   size_type const& begin_param,   size_type const& end_param )
            {
-            if( false == this->good() ) { return false; }
+            if( false == this->good() ) { return size(); }
             /*TODO*/
-            return false;
+            return size();
            }
         private:
           void open( string_type const& filename_param ){ }

@@ -27,7 +27,7 @@ namespace reflection
 
           virtual size_type  size( size_type const& size_param )
            {
-            m_data.resize( size_param ); 
+            m_data.resize( size_param );
             return size();
            }
 
@@ -35,27 +35,27 @@ namespace reflection
            {
             // TODO range check
             std::copy( m_data.begin() + position_param, m_data.begin() + position_param + value_param.size(), value_param.begin() );
-            return 0;
+            return size();
            }
 
-          virtual bool       insert(  data_type const& value_param,  size_type const& position_param )
+          virtual size_type  insert(  data_type const& value_param,  size_type const& position_param )
            {
             // TODO range check
             m_data.insert( m_data.begin() + position_param, value_param.begin(), value_param.end() );
-            return 0;
+            return size();
            }
 
-          virtual bool       replace( data_type const& value_param,  size_type const& position_param )
+          virtual size_type  replace( data_type const& value_param,  size_type const& position_param )
            {
             // TODO range check
             std::copy( value_param.begin(), value_param.end(), m_data.begin() + position_param );
-            return false;
+            return size();
            }
 
-          virtual bool       erase(   size_type const& begin_param,  size_type const& end_param )
+          virtual size_type  erase(   size_type const& begin_param,  size_type const& end_param )
            {
-            m_data.erase( m_data.begin() + begin_param,  m_data.begin() +  end_param); 
-            return false;
+            m_data.erase( m_data.begin() + begin_param,  m_data.begin() +  end_param);
+            return size();
            }
 
         public:
