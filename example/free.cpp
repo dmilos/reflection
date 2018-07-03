@@ -47,10 +47,10 @@ namespace
    }
 
 class MyClass
-: public ::reflection::object::class_class<MyClass>
+: public ::reflection::content::class_class<MyClass>
  {
   public:
-    typedef ::reflection::object::structure_class<> structure_type;
+    typedef ::reflection::property::structure_class<> structure_type;
 
     MyClass(){ init(); }
 

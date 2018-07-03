@@ -3,6 +3,7 @@
 
 #include "../direct/base.hpp"
 #include "../inspect/base.hpp"
+#include "./_pure.hpp"
 
 namespace reflection
  {

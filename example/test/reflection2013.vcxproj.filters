@@ -62,9 +62,6 @@
     <Filter Include="reflection\property\reset">
       <UniqueIdentifier>{2db696fa-7a72-42b1-a8e3-39ae52fee2a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="reflection\object">
-      <UniqueIdentifier>{1e586c27-27e6-4909-a598-d8c8464e7398}</UniqueIdentifier>
-    </Filter>
     <Filter Include="reflection\property\big">
       <UniqueIdentifier>{0459da18-f859-4aba-ad3b-29730932b611}</UniqueIdentifier>
     </Filter>
@@ -79,6 +76,12 @@
     </Filter>
     <Filter Include="reflection\content\function">
       <UniqueIdentifier>{497739d1-a8e7-422e-ba87-8ff377b35af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\operation">
+      <UniqueIdentifier>{1e586c27-27e6-4909-a598-d8c8464e7398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="reflection\operation\transfer">
+      <UniqueIdentifier>{972eb048-8ba2-406a-b5c3-d832a88b067e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +107,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\free.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\json.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -375,24 +381,6 @@
     <ClInclude Include="..\..\src\reflection\property\assign.hpp">
       <Filter>reflection\property</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\assign.hpp">
-      <Filter>reflection\object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\class.hpp">
-      <Filter>reflection\object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\object.hpp">
-      <Filter>reflection\object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\observe.hpp">
-      <Filter>reflection\object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\structure.hpp">
-      <Filter>reflection\object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\reflection\object\xml.hpp">
-      <Filter>reflection\object</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\reflection\content\function\free.hpp">
       <Filter>reflection\content\function</Filter>
     </ClInclude>
@@ -407,6 +395,30 @@
     </ClInclude>
     <ClInclude Include="..\..\src\reflection\property\function\_pure.hpp">
       <Filter>reflection\property\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\assign.hpp">
+      <Filter>reflection\operation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\operation.hpp">
+      <Filter>reflection\operation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\transfer\action.hpp">
+      <Filter>reflection\operation\transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\transfer\json.hpp">
+      <Filter>reflection\operation\transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\transfer\observe.hpp">
+      <Filter>reflection\operation\transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\transfer\protocol.hpp">
+      <Filter>reflection\operation\transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\transfer\transfer.hpp">
+      <Filter>reflection\operation\transfer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\reflection\operation\transfer\xml.hpp">
+      <Filter>reflection\operation\transfer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

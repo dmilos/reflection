@@ -18,7 +18,8 @@ namespace reflection
         ,         public ::reflection::property::big::block_class
         {
          public:
-           typedef ::reflection::content::big::pure_class< std::size_t, std::vector< std::uint8_t > >  pure_type;
+           typedef std::vector< std::uint8_t > memory_block;
+           typedef ::reflection::content::big::pure_class< std::size_t, memory_block >  pure_type;
            typedef ::reflection::property::big::block_class       block_type;
 
            using block_type::size;

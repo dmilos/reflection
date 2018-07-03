@@ -4,12 +4,13 @@
 #include <functional>
 
 #include "reflection/reflection.hpp"
+
 #include "reflection/type/convert/convert.hpp"
 
 #include "reflection/type/ptr/make.hpp"
 
 class MyClass_XML_A
- : public ::reflection::object::class_class<MyClass_XML_A>
+ : public ::reflection::content::class_class<MyClass_XML_A>
  {
   public:
     MyClass_XML_A(){ init(); }
@@ -26,10 +27,10 @@ class MyClass_XML_A
 
 
 class MyClass_XML_B
-: public ::reflection::object::class_class<MyClass_XML_B>
+: public ::reflection::content::class_class<MyClass_XML_B>
  {
   public:
-    typedef ::reflection::object::structure_class<> structure_type;
+    typedef ::reflection::property::structure_class<> structure_type;
 
     MyClass_XML_B(){ init(); }
 
@@ -64,6 +65,10 @@ class MyClass_XML_B
   private:
      void init()
       {
+        //insert(  "m1",      this, { &MyClass_XML_B::traitor }  );
+        //insert(  "g1",      this{ &MyClass_XML_B::mutator, &MyClass_XML_B::inspector } );
+        //insert(  "g1",      this{ &MyClass_XML_B::traitor, &MyClass_XML_B::inspector } );
+
         insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass_XML_B::traitor   ) ) ) );
         insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass_XML_B::inspector ) ) ) );
         insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass_XML_B::mutator   ) ) ) );
@@ -87,9 +92,9 @@ int main_xml( int argc, char *argv[] )
 
   MyClass_XML_B m;
 
-  typedef ::reflection::object::observe_class<std::ostream> observe_type;
-  typedef ::reflection::object::transfer::xml_class<std::ostream> xml_type;
-  typedef ::reflection::object::structure_class<> structure_type;
+  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
+  typedef ::reflection::operation::transfer::xml_class<std::ostream> xml_type;
+  typedef ::reflection::property::structure_class<> structure_type;
 
   xml_type xml;
   observe_type observe;
@@ -101,9 +106,9 @@ int main_xml( int argc, char *argv[] )
   observe.protocol().emplace( typeid( std::string    ).name(), std::bind( &xml_type::simple<std::string>, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) ); 
   observe.protocol().emplace( typeid(       float    ).name(), std::bind( &xml_type::simple<float>,       std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) ); 
   observe.protocol().emplace( typeid(         int    ).name(), std::bind( &xml_type::simple<int>,         std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) ); 
-  observe.protocol().emplace( typeid( structure_type ).name(), std::bind( &xml_type::structure,           std::ref( observe ), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) );
+  observe.protocol().emplace( typeid( structure_type ).name(), std::bind( &xml_type::structure,           std::placeholders::_1, std::ref( observe ),   std::placeholders::_2, std::placeholders::_3 ) );
 
-  observe.view( m, std::cout );
+  observe.view( std::cout, m );
 
   std::cin.get();
   return EXIT_SUCCESS;

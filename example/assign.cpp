@@ -9,7 +9,7 @@
 #include "reflection/type/ptr/make.hpp"
 
 class MyClassA
- : public ::reflection::object::class_class<MyClassA>
+ : public ::reflection::content::class_class<MyClassA>
  {
   public:
     MyClassA(){ init(); }
@@ -25,10 +25,10 @@ class MyClassA
 
 
 class MyClass
-: public ::reflection::object::class_class<MyClass>
+: public ::reflection::content::class_class<MyClass>
  {
   public:
-    typedef ::reflection::object::structure_class<> structure_type;
+    typedef ::reflection::property::structure_class<> structure_type;
 
     MyClass(){ init(); }
 
@@ -115,11 +115,15 @@ int main_assign( int argc, char *argv[] )
 
   ::reflection::property::assign< int >( m.get( "v1" ), q.get( "g1" ) );
 
-  ::reflection::object::assign_class<> assign;
-  assign.protocol().emplace( std::make_pair( typeid( std::string ).name(), typeid( std::string ).name() ), ::reflection::property::assign<std::string> );
-  assign.protocol().emplace( std::make_pair( typeid( int ).name(),         typeid( int ).name()         ), ::reflection::property::assign<int> );
+  typedef ::reflection::operation::transfer::assign_struct<std::string >     assign_type;
+  typedef ::reflection::property::structure_class<std::string>                        structure_type;
 
-  assign( m, q );
+  ::reflection::operation::transfer::observe_class< structure_type, std::string, std::string, assign_type::error_enum > observe_assign;
+
+  observe_assign.protocol().emplace( typeid( std::string ).name(),  &assign_type::process<std::string> );
+  observe_assign.protocol().emplace( typeid( int ).name(),          &assign_type::process<int> );
+
+  observe_assign.view( m, q );
 
   std::cin.get();
   return EXIT_SUCCESS;

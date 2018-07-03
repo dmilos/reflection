@@ -9,7 +9,7 @@
 #include "reflection/type/ptr/make.hpp"
 
 class MyClassA
- : public ::reflection::object::class_class<MyClassA>
+ : public ::reflection::content::class_class<MyClassA>
  {
   public:
     MyClassA(){ init(); }
@@ -41,10 +41,10 @@ int free_int_int( int )
  }
 
 class MyClass
-: public ::reflection::object::class_class<MyClass>
+: public ::reflection::content::class_class<MyClass>
  {
   public:
-    typedef ::reflection::object::structure_class<> structure_type;
+    typedef ::reflection::property::structure_class<> structure_type;
 
     MyClass(){ init(); }
 
@@ -149,7 +149,7 @@ class MyClass
        ::reflection::content::guarded::simple<int>( 1024 );
        ::reflection::content::guarded::simple<float>( );
 
-       std::cout << "content::direct::type = " << ::type::category::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
+       std::cout << "content::direct::type = " << ::reflection::content::category::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
 
        std::cout << "content::direct = " << ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() << std::endl;
 
@@ -222,11 +222,11 @@ class MyClass
        }
 
 
-       //::reflection::object::execute<void,int>( this, "asd", 1 );
-       //::reflection::object::inspect<int>(      this, "asd" );
-       //::reflection::object::direct<int>(       this, "asd" );
-       //::reflection::object::reset<int>(        this, "asd" );
-       //::reflection::object::set<int>(          this, "asd", 20 );
+       //::reflection::operation::execute<void,int>( this, "asd", 1 );
+       //::reflection::operation::inspect<int>(      this, "asd" );
+       //::reflection::operation::direct<int>(       this, "asd" );
+       //::reflection::operation::reset<int>(        this, "asd" );
+       //::reflection::operation::set<int>(          this, "asd", 20 );
 
         //auto x =  ::reflection::content::direct::member(  this, &MyClass::traitor   );
         //
@@ -273,9 +273,9 @@ class MyClass
        ::reflection::property::mutate::process<  int const& >( get("extra2"), 2424 );
        std::cout << "extra2::category::simple::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("extra2") )<< std::endl;
 
-       std::cout << "category::check == " << ::type::category::check< std::string >( get("m3") )<< std::endl;
+       std::cout << "category::check == " << ::reflection::content::category::check< std::string >( get("m3") )<< std::endl;
 
-       std::cout << "category::type = " << ::type::category::type< std::string >( dynamic_cast< ::type::category::pure_class< std::string > const& >( get("m3") ) )  << std::endl;
+       std::cout << "category::type = " << ::reflection::content::category::type< std::string >( dynamic_cast< ::reflection::content::category::pure_class< std::string > const& >( get("m3") ) )  << std::endl;
 
        std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
@@ -283,10 +283,10 @@ class MyClass
        std::cout << "guarded1::category::inspect::present == " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
 
-       ::reflection::content::big::vector_class bv;
+       ::reflection::content::big::vector_class          bv;
        ::reflection::content::big::member_class<MyClass> bm;
-       ::reflection::content::big::block_class  bb;
-       ::reflection::content::big::file_class  bf;
+       ::reflection::content::big::block_class           bb;
+       ::reflection::content::big::file_class            bf;
        //clear();
       }
 
@@ -298,11 +298,13 @@ void other_main( int argc, char *argv[] )
   int main_assign( int argc, char *argv[] );
   int main_xml( int argc, char *argv[] );
   int main_free( int argc, char *argv[] );
+  int main_json( int argc, char *argv[] );
   
   main_observe_simple( argc, argv );
   main_assign( argc, argv );
   main_xml( argc, argv );
   main_free( argc, argv );
+  main_json( argc, argv );
  }
 
 
@@ -315,25 +317,30 @@ int main( int argc, char *argv[] )
   MyClass m;
   MyClass q;
 
-  ::reflection::object::observe_class<int> observe;
+  ::reflection::operation::transfer::observe_class<int> observe;
 
   int i;
-  observe.protocol().emplace( typeid( std::string ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
-  observe.protocol().emplace( typeid( float ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )        { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid(   int ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )        { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid( ::reflection::object::structure_class<> ).name(), [&observe]( std::string const& name, ::reflection::property::pure_class const& p, int & i )
+  observe.protocol().emplace( typeid(                             std::string ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
+  observe.protocol().emplace( typeid(                                   float ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid(                                     int ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid( ::reflection::property::structure_class<> ).name(), [&observe]( int & i, std::string const& name, ::reflection::property::pure_class const& p  )
    {
     std::cout << "struct - " << __FUNCTION__ << std::endl; 
-    observe.view( ::reflection::property::inspect::present< ::reflection::object::structure_class<> const& >( p ), i);
+    observe.view( i, ::reflection::property::inspect::present< ::reflection::property::structure_class<> const& >( p ) );
     return true; 
    } );
 
-  observe.view( m, i );
+  observe.view( i, m );
 
-  ::reflection::object::assign_class<> a;
-   a.protocol().emplace( std::make_pair( typeid( std::string ).name(), typeid( std::string ).name() ), ::reflection::property::assign<std::string> );
-   a.protocol().emplace( std::make_pair( typeid( int ).name(), typeid( int ).name() ), ::reflection::property::assign<int> );
-   a( m, q );
+  typedef ::reflection::operation::transfer::assign_struct<std::string >     assign_type;
+  typedef ::reflection::property::structure_class<std::string>                        structure_type;
+
+  ::reflection::operation::transfer::observe_class< structure_type, std::string, std::string, assign_type::error_enum > observe_assign;
+
+  observe_assign.protocol().emplace( typeid( std::string ).name(),  assign_type::process<std::string> );
+  observe_assign.protocol().emplace( typeid( int ).name(),          assign_type::process<int> );
+
+  observe_assign.view( m, q );
 
   std::cin.get();
   return EXIT_SUCCESS;

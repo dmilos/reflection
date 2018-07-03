@@ -26,7 +26,7 @@ namespace reflection
       (
          ::reflection::property::pure_class       &  left_param
        , ::reflection::property::pure_class  const& right_param
-       )
+      )
       {
        typedef ::reflection::property::inspect::pure_class< image_name >                inspect_type;
        typedef ::reflection::property::direct::pure_class<  original_name >             direct_type;

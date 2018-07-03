@@ -1,0 +1,7 @@
+#include "./action.hpp"
+#include "./json.hpp"
+#include "./observe.hpp"
+#include "./protocol.hpp"
+#include "./xml.hpp"
+#include "./json.hpp"
+#include "./assign.hpp"

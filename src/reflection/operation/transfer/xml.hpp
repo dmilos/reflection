@@ -1,14 +1,14 @@
 #ifndef reflection_object_transfer_xml
 #define reflection_object_transfer_xml
 
-// ::reflection::object::transfer::xml_class<output_name,key_name,type_name>
+// ::reflection::operation::transfer::xml_class<output_name,key_name,type_name>
 
-#include "../type/category.hpp"
-#include "./structure.hpp"
+#include "../../content/category.hpp"
+#include "../property/structure.hpp"
 
 namespace reflection
  {
-  namespace object
+  namespace operation
    {
     namespace transfer
      {
@@ -18,6 +18,8 @@ namespace reflection
          typename output_name
         ,typename    key_name = std::string
         ,typename   type_name = std::string
+        ,typename   report_name = bool
+        ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
        struct xml_class
         {
@@ -25,15 +27,16 @@ namespace reflection
            typedef  output_name     output_type;
            typedef     key_name        key_type;
            typedef    type_name       type_type;
+           typedef    report_name    report_type;
 
-           typedef ::type::category::pure_class<type_name>           category_type;
-           typedef ::reflection::object::structure_class<key_name>  structure_type;
-           typedef ::reflection::property::pure_class                property_type;
+           typedef ::reflection::content::category::pure_class<type_type>            category_type;
+           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
+           typedef ::reflection::property::pure_class                                 property_type;
 
-           typedef  ::reflection::object::observe_class<output_name,key_name,type_name> observe_type;
+           typedef  ::reflection::operation::transfer::observe_class<output_type,key_type,type_type> observe_type;
 
            template< typename simple_name >
-            static bool simple( key_type const& key_param, property_type const& property_param, output_name & output_param )
+            static report_type simple( output_type & output_param, key_type const& key_param, property_type const& property_param )
              {
               output_param << "<item ";
               output_param << "name=\"" << key_param << "\" ";
@@ -62,8 +65,7 @@ namespace reflection
               return true;
              }
 
-
-           static bool recover( key_type const& key_param, property_type const& property_param, output_name & output_param )
+           static bool recover(       output_type & output_param, key_type const& key_param, property_type const& property_param )
             {
              output_param << "<item ";
              output_param << "name=\"" << key_param << "\" ";
@@ -89,7 +91,7 @@ namespace reflection
              return true;
             }
 
-           static bool structure( observe_type const& observe_param,  key_type const& key_param, property_type const& property_param, output_name & output_param )
+           static bool structure(     output_name & output_param, observe_type const& observe_param, key_type const& key_param, property_type const& property_param  )
             {
              output_param << "<item ";
              output_param << "name=\"" << key_param    << "\" ";
@@ -107,7 +109,7 @@ namespace reflection
              output_param << ">";
              output_param << std::endl;
 
-             observe_param.view( ::reflection::property::inspect::present< structure_type const& >( property_param ), output_param );
+             observe_param.view( output_param, ::reflection::property::inspect::present< structure_type const& >( property_param )  );
 
              output_param << "</item>";
              output_param << std::endl;

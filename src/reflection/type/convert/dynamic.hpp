@@ -17,9 +17,9 @@ namespace type
          typedef  left_name  left_type;
          typedef right_name right_type;
 
-         right_type operator ()( left_name left_param )const
+         left_type operator ()( right_name right_param )const
           {
-           return dynamic_cast< right_type >( left_param );
+           return dynamic_cast< left_type >( right_param );
           }
 
       };

@@ -4,7 +4,7 @@
 
 #include "../property/_pure.hpp"
 #include "../type/string.hpp"
-#include "../type/category.hpp"
+#include "../category.hpp"
 
 
 namespace reflection
@@ -18,11 +18,11 @@ namespace reflection
      >
     class pure_class
      : virtual public ::reflection::property::pure_class
-     , virtual public ::type::category::pure_class< ::reflection::type::string_type >
+     , virtual public ::reflection::content::category::pure_class< ::reflection::type::string_type >
      {
       public:
         typedef ::reflection::type::string_type string_type;
-        typedef ::type::category::pure_class< ::reflection::type::string_type > category_type;
+        typedef ::reflection::content::category::pure_class< ::reflection::type::string_type > category_type;
 
         explicit pure_class( string_type const& type_param = typeid(data_name).name() )
          :category_type( type_param )

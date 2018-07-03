@@ -10,7 +10,7 @@
 
 
 class MyClass
-: public ::reflection::object::class_class<MyClass>
+: public ::reflection::content::class_class<MyClass>
  {
   public:
 

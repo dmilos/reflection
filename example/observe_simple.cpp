@@ -9,7 +9,7 @@
 #include "reflection/type/ptr/make.hpp"
 
 class MyClassA
- : public ::reflection::object::class_class<MyClassA>
+ : public ::reflection::content::class_class<MyClassA>
  {
   public:
     MyClassA(){ init(); }
@@ -26,10 +26,10 @@ class MyClassA
 
 
 class MyClass
-: public ::reflection::object::class_class<MyClass>
+: public ::reflection::content::class_class<MyClass>
  {
   public:
-    typedef ::reflection::object::structure_class<> structure_type;
+    typedef ::reflection::property::structure_class<> structure_type;
 
     MyClass(){ init(); }
 
@@ -114,20 +114,20 @@ int main_observe_simple( int argc, char *argv[] )
 
   MyClass m;
 
-  ::reflection::object::observe_class<int> observe;
+  ::reflection::operation::transfer::observe_class<int> observe;
 
   int i;
-  observe.protocol().emplace( typeid( std::string ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
-  observe.protocol().emplace( typeid( float ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )        { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid(   int ).name(), []( std::string const& name, ::reflection::property::pure_class const&, int &  )        { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid( ::reflection::object::structure_class<> ).name(), [&observe]( std::string const& name, ::reflection::property::pure_class const& p, int & i )
+  observe.protocol().emplace( typeid(                             std::string ).name(), [](         int &,   std::string const& name, ::reflection::property::pure_class const&  )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
+  observe.protocol().emplace( typeid(                                   float ).name(), [](         int &,   std::string const& name, ::reflection::property::pure_class const&  )        { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid(                                     int ).name(), [](         int &,   std::string const& name, ::reflection::property::pure_class const&  )        { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
+  observe.protocol().emplace( typeid( ::reflection::property::structure_class<> ).name(), [&observe]( int & i, std::string const& name, ::reflection::property::pure_class const& p )
    {
     std::cout << "struct - " << __FUNCTION__ << std::endl; 
-    observe.view( ::reflection::property::inspect::present< ::reflection::object::structure_class<> const& >( p ), i);
+    observe.view( i, ::reflection::property::inspect::present< ::reflection::property::structure_class<> const& >( p ) );
     return true; 
    } );
 
-  observe.view( m, i );
+  observe.view( i, m );
 
   std::cin.get();
   return EXIT_SUCCESS;

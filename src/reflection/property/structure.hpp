@@ -1,28 +1,33 @@
-#ifndef reflection_object_structure
-#define reflection_object_structure
+#ifndef reflection_property_structure
+#define reflection_property_structure
 
-// ::reflection::object::structure_class<key_name>
+// ::reflection::property::structure_class<key_name,container_name>
 
 #include "../type/ptr/ptr.hpp"
 #include "../property/_pure.hpp"
+#include "../type/container/map.hpp"
 
 namespace reflection
  {
-  namespace object
+  namespace property
    {
 
-    template< typename key_name = std::string >
+    template
+     < 
+       typename key_name = std::string
+      ,template < typename, typename > class container_name = ::reflection::type::container::map
+     >
      class structure_class
       : public virtual ::reflection::property::pure_class
       {
        public:
-         typedef std::string key_type;
+         typedef key_name key_type;
          typedef ::reflection::property::pure_class property_type;
          //typedef ::std::unique_ptr<property_type> item_type;
          typedef ::std::shared_ptr<property_type> item_type;
          //typedef ::reflection::type::ptr::clone<property_type> item_type;
 
-         typedef std::map<key_type, item_type> container_type;
+         typedef container_name< key_type, item_type> container_type;
 
          structure_class(){}
          structure_class( structure_class const& that_param ){ *this = that_param; }
