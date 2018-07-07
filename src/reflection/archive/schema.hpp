@@ -21,9 +21,9 @@ namespace reflection
                  schema_class();
         virtual ~schema_class();
 
-        //find( )
-        //insert( )
-        //remove( )
+        // TODO find( )
+        // TODO insert( )
+        // TODO remove( )
 
      };
 

@@ -7,6 +7,10 @@
 #include "../../property/structure.hpp"
 #include "../../operation/transfer/observe.hpp"
 
+
+
+
+
 namespace reflection
  {
   namespace operation
@@ -16,9 +20,9 @@ namespace reflection
 
       template
        <
-        typename output_name
-        ,typename    key_name = std::string
-        ,typename   type_name = std::string
+         typename output_name
+        ,typename      key_name = std::string
+        ,typename     type_name = std::string
         ,typename   report_name = bool
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
@@ -28,13 +32,15 @@ namespace reflection
            typedef  output_name     output_type;
            typedef     key_name        key_type;
            typedef    type_name       type_type;
+           typedef    report_name   report_type;
 
-           typedef ::reflection::content::category::pure_class<type_type>           category_type;
-           typedef ::reflection::property::structure_class<key_name,container_name>  structure_type;
-           typedef ::reflection::property::pure_class                property_type;
+           typedef ::reflection::property::pure_class                                 property_type;
+           typedef ::reflection::content::category::pure_class<type_type>             category_type;
+           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
+
            typedef typename std::add_const< ::reflection::property::pure_class>::type                property_qualified_type;
 
-           typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, type_type, report_name, std::add_const, container_name > observe_type;
+           typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, type_type, report_type, std::add_const, container_name > observe_type;
 
            json_struct( observe_type & observe_param )
             {
@@ -63,7 +69,7 @@ namespace reflection
                if( nullptr == inspect )
                 {
                   return false;
-                } 
+                }
 
               output_param <<  key_param << ": " <<  inspect->present() << std::endl;
               return true;

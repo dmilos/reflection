@@ -4,7 +4,12 @@
 // ::reflection::operation::transfer::xml_class<output_name,key_name,type_name>
 
 #include "../../content/category.hpp"
-#include "../property/structure.hpp"
+#include "../../property/structure.hpp"
+#include "../../operation/transfer/observe.hpp"
+
+
+
+
 
 namespace reflection
  {
@@ -29,9 +34,9 @@ namespace reflection
            typedef    type_name       type_type;
            typedef    report_name    report_type;
 
-           typedef ::reflection::content::category::pure_class<type_type>            category_type;
-           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
            typedef ::reflection::property::pure_class                                 property_type;
+           typedef ::reflection::content::category::pure_class<type_type>             category_type;
+           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef  ::reflection::operation::transfer::observe_class<output_type,key_type,type_type> observe_type;
 

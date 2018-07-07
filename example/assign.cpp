@@ -115,14 +115,13 @@ int main_assign( int argc, char *argv[] )
 
   ::reflection::property::assign< int >( m.get( "v1" ), q.get( "g1" ) );
 
-  typedef ::reflection::operation::transfer::assign_struct<std::string >     assign_type;
-  typedef ::reflection::property::structure_class<std::string>                        structure_type;
+  typedef ::reflection::operation::transfer::assign_struct< >     assign_type;
+  typedef ::reflection::property::structure_class<std::string>            structure_type;
 
-  ::reflection::operation::transfer::observe_class< structure_type, std::string, std::string, assign_type::error_enum > observe_assign;
+  ::reflection::operation::transfer::observe_class< structure_type > observe_assign;
 
-  observe_assign.protocol().emplace( typeid( std::string ).name(),  &assign_type::process<std::string> );
-  observe_assign.protocol().emplace( typeid( int ).name(),          &assign_type::process<int> );
-
+  assign_type assign( observe_assign );
+  
   observe_assign.view( m, q );
 
   std::cin.get();
