@@ -118,7 +118,7 @@ int main_assign( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::assign_struct< >     assign_type;
   typedef ::reflection::property::structure_class<std::string>            structure_type;
 
-  ::reflection::operation::transfer::observe_class< structure_type > observe_assign;
+  assign_type::observe_type observe_assign;
 
   assign_type assign( observe_assign );
   
