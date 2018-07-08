@@ -4,6 +4,7 @@
 // ::reflection::operation::transfer::action_struct< key_type, output_type, qualificator_name>::typedef_type
 
 #include "../../property/property.hpp"
+#include "../../type/trait.hpp"
 
 
 namespace reflection
@@ -30,9 +31,10 @@ namespace reflection
 
            typedef ::reflection::property::pure_class                property_type;
 
-           typedef typename qualificator_name< property_type >::type     property_qualified_type;
+           typedef typename qualificator_name< property_type >::type                       property_qualified_type;
+           typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
 
-           typedef std::function< report_report ( output_type &, key_type const&, property_qualified_type & ) > action_type, typedef_type;
+           typedef std::function< report_report ( output_type &, key_type const&, property_qualified_reference_type ) > action_type, typedef_type;
 
        };
 

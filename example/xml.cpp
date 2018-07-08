@@ -77,7 +77,7 @@ class MyClass_XML_B
 
         insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass_XML_B::mutator, &MyClass_XML_B::inspector ) ) ) );
 
-        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
+        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::content::direct::simple<int>( 10 ) ) ) );
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
 
         insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass_XML_B::traitor, &MyClass_XML_B::inspector ) ) ) );
@@ -90,25 +90,19 @@ int main_xml( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
 
-  MyClass_XML_B m;
+  MyClass_XML_B r;
 
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_class<std::ostream> xml_type;
+  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
   typedef ::reflection::property::structure_class<> structure_type;
 
-  xml_type xml;
   observe_type observe;
+  xml_type xml(observe);
 
-  observe.recover( observe_type::not_category_index  , std::bind( &xml_type::recover, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 )  );
-  observe.recover( observe_type::missing_action_index, std::bind( &xml_type::recover, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 )  ); 
-  observe.recover( observe_type::action_fail_index   , std::bind( &xml_type::recover, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 )  );
+  observe.view( std::cout, r );
 
-  observe.protocol().emplace( typeid( std::string    ).name(), std::bind( &xml_type::simple<std::string>, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) ); 
-  observe.protocol().emplace( typeid(       float    ).name(), std::bind( &xml_type::simple<float>,       std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) ); 
-  observe.protocol().emplace( typeid(         int    ).name(), std::bind( &xml_type::simple<int>,         std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) ); 
-  observe.protocol().emplace( typeid( structure_type ).name(), std::bind( &xml_type::structure,           std::placeholders::_1, std::ref( observe ),   std::placeholders::_2, std::placeholders::_3 ) );
-
-  observe.view( std::cout, m );
+ auto const& c = r.container();
+ auto const& m = r.get("extra2");
 
   std::cin.get();
   return EXIT_SUCCESS;

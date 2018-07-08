@@ -41,7 +41,7 @@ namespace reflection
 
          bool                 exists( key_type const& name )
           {
-           return m_container.end() != m_container.find( name );
+           return this->container().end() != this->container().find( name );
           }
 
          void                 insert( key_type const& name, item_type const& item )
@@ -50,13 +50,13 @@ namespace reflection
             {
              return;
             }
-            m_container.emplace( name, item );
+           this->container().emplace( name, item );
           }
 
          property_type const& get(    key_type const& name )const
           {
-           auto iterator = m_container.find( name );
-           if( m_container.end( ) == iterator )
+           auto iterator = this->container().find( name );
+           if( this->container().end( ) == iterator )
             {
              return empty();
             }
@@ -65,8 +65,8 @@ namespace reflection
 
          property_type      & get(    key_type const& name )
           {
-           auto iterator = m_container.find( name );
-           if( m_container.end( ) == iterator )
+           auto iterator = this->container().find( name );
+           if( this->container().end( ) == iterator )
             {
              return empty();
             }
@@ -75,8 +75,8 @@ namespace reflection
 
          bool               set(    key_type const& name, item_type const& item_param )
           {
-           auto iterator = m_container.find( name );
-           if( m_container.end( ) == iterator )
+           auto iterator = this->container().find( name );
+           if( this->container().end( ) == iterator )
             {
              return false;
             }
@@ -86,12 +86,12 @@ namespace reflection
 
          void remove(  key_type const& name )
           {
-           m_container.erase( name );
+           this->container().erase( name );
           }
 
          void clear()
           {
-           m_container.clear();
+           this->container().clear();
           }
 
        public:
@@ -102,8 +102,8 @@ namespace reflection
           }
 
        public:
-         container_type const& container()const{ return m_container; }
-         container_type      & container()     { return m_container; }
+         container_type const& container()const{ return this->m_container; }
+         container_type      & container()     { return this->m_container; }
 
        private:
          container_type m_container;

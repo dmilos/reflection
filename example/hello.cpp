@@ -71,7 +71,7 @@ class MyClass
       return m_int;
      }
 
-    bool        mutator( int const& a )
+    bool        writter( int const& a )
      {
       std::cout << __FUNCTION__ << "::a = " << a <<std::endl;
       m_int = a;
@@ -113,8 +113,8 @@ class MyClass
        ::reflection::property::inspect::simple( 150 );
        ::reflection::property::inspect::simple<double>();
 
-       ::reflection::property::mutate::member( this, &MyClass::mutator );
-       ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator );
+       ::reflection::property::mutate::member( this, &MyClass::writter );
+       ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::writter );
        ::reflection::property::mutate::simple< int, bool >( 512 );
        ::reflection::property::mutate::simple< int, bool >( );
 
@@ -122,11 +122,11 @@ class MyClass
        ::reflection::property::variable::simple( 111 );
        ::reflection::property::variable::simple<int>( );
 
-       ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
+       ::reflection::property::guarded::member( this, &MyClass::writter, &MyClass::inspector );
        ::reflection::property::guarded::simple( 666 );
        ::reflection::property::guarded::simple<int>();
        ::reflection::property::big::block_class bigb;
-       ::reflection::property::big::file_class  bigf;
+       ::reflection::property::big::file_class<std::string>  bigf;
        ::reflection::property::big::vector_class  bigv;
 
        ::reflection::content::direct::member( this, &MyClass::traitor );
@@ -137,7 +137,7 @@ class MyClass
        ::reflection::content::inspect::simple( 1024 );
        ::reflection::content::inspect::simple<double>();
 
-       ::reflection::content::mutate::member( this, &MyClass::mutator );
+       ::reflection::content::mutate::member( this, &MyClass::writter );
        ::reflection::content::mutate::simple<int>( 1024 );
        ::reflection::content::mutate::simple<double>();
 
@@ -145,7 +145,7 @@ class MyClass
        ::reflection::content::variable::simple<int>( 1024 );
        ::reflection::content::variable::simple<int>( );
 
-       ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
+       ::reflection::content::guarded::member( this, &MyClass::writter, &MyClass::inspector );
        ::reflection::content::guarded::simple<int>( 1024 );
        ::reflection::content::guarded::simple<float>( );
 
@@ -156,7 +156,7 @@ class MyClass
        std::cout << "content::inspect = " << ::reflection::content::inspect::member( this, &MyClass::inspector ).present() << std::endl;
 
 
-       ::reflection::content::mutate::member<int>( this, &MyClass::mutator ).process( 2424 );
+       ::reflection::content::mutate::member<int>( this, &MyClass::writter ).process( 2424 );
 
        std::cout << "content::inspect = " << ::reflection::content::inspect::member( this, &MyClass::inspector ).present() << std::endl;
 
@@ -167,7 +167,7 @@ class MyClass
 
        ::reflection::content::function::member( this, &MyClass::a );
        ::reflection::content::function::member( this, &MyClass::executor );
-       ::reflection::content::function::member( this, &MyClass::mutator  );
+       ::reflection::content::function::member( this, &MyClass::writter  );
        ::reflection::content::function::member( this, &MyClass::d  );
      //::reflection::content::function::member( this, &MyClass::calc );
 
@@ -177,7 +177,7 @@ class MyClass
 
        std::cout << ::reflection::property::direct::check<int&>(         ::reflection::property::direct::member(   this, &MyClass::traitor   ) ) << std::endl;
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;
-       std::cout << ::reflection::property::mutate::check<int const&>(   ::reflection::property::mutate::member(   this, &MyClass::mutator   ) ) << std::endl;
+       std::cout << ::reflection::property::mutate::check<int const&>(   ::reflection::property::mutate::member(   this, &MyClass::writter   ) ) << std::endl;
 
        std::cout << ::reflection::property::function::check<>(           ::reflection::property::function::member( this, &MyClass::a         ) ) << std::endl;
        std::cout << ::reflection::property::function::check<int>(        ::reflection::property::function::member( this, &MyClass::a         ) ) << std::endl;
@@ -203,22 +203,22 @@ class MyClass
 
        ::reflection::property::variable::member( this, &MyClass::traitor, &MyClass::inspector ).disclose() = 44;
 
-       ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector );
-       std::cout << "Inspect::guarded = " <<   ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector ).present()  << std::endl;
-       ::reflection::property::guarded::member( this, &MyClass::mutator, &MyClass::inspector ).process( 46 );
+       ::reflection::property::guarded::member( this, &MyClass::writter, &MyClass::inspector );
+       std::cout << "Inspect::guarded = " <<   ::reflection::property::guarded::member( this, &MyClass::writter, &MyClass::inspector ).present()  << std::endl;
+       ::reflection::property::guarded::member( this, &MyClass::writter, &MyClass::inspector ).process( 46 );
 
         auto x2 = ::reflection::property::reset::member(  this, &MyClass::defaulter );  ::reflection::property::reset::process<void>(  x2 );
 
-        auto x1 = ::reflection::property::mutate::member( this, &MyClass::mutator );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
+        auto x1 = ::reflection::property::mutate::member( this, &MyClass::writter );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
 
-       ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::mutator ).process( 10 );
+       ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::writter ).process( 10 );
        {
         auto ts =[]( std::string const& s )-> int
          {
           return std::stoi( s );
          };
 
-        ::reflection::property::mutate::pretend::member< std::string, std::pointer_to_unary_function <std::string const&, int > >( this, &MyClass::mutator, std::pointer_to_unary_function <std::string const&, int>( ts ) ).process( "42" );
+        ::reflection::property::mutate::pretend::member< std::string, std::pointer_to_unary_function <std::string const&, int > >( this, &MyClass::writter, std::pointer_to_unary_function <std::string const&, int>( ts ) ).process( "42" );
        }
 
 
@@ -241,11 +241,11 @@ class MyClass
 
         insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) ) );
         insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
-        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::mutator   ) ) ) );
+        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::writter   ) ) ) );
 
         insert(  "mS",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::structure_get ) ) ) );
 
-        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector ) ) ) );
+        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::writter, &MyClass::inspector ) ) ) );
 
         insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
@@ -286,7 +286,7 @@ class MyClass
        ::reflection::content::big::vector_class          bv;
        ::reflection::content::big::member_class<MyClass> bm;
        ::reflection::content::big::block_class           bb;
-       ::reflection::content::big::file_class            bf;
+       ::reflection::content::big::file_class<std::string>            bf;
        //clear();
       }
 
@@ -299,13 +299,18 @@ void other_main( int argc, char *argv[] )
   int main_xml( int argc, char *argv[] );
   int main_free( int argc, char *argv[] );
   int main_json( int argc, char *argv[] );
-  
+  int main_from_existing( int argc, char *argv[] );
+  int main_readme( int argc, char *argv[] );
+
   main_observe_simple( argc, argv );
   main_assign( argc, argv );
   main_xml( argc, argv );
   main_free( argc, argv );
   main_json( argc, argv );
- }
+  main_from_existing( argc, argv );
+  main_readme( argc, argv );
+
+}
 
 
 int main( int argc, char *argv[] )

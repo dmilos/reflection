@@ -4,9 +4,10 @@
  // ::reflection::content::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>
 
 
- #include "../../property/function/member.hpp"
+#include "../../property/function/member.hpp"
 
- #include "./_pure.hpp"
+#include "./_pure.hpp"
+
 
 namespace reflection
  {

@@ -22,6 +22,7 @@ namespace reflection
        <
          typename      key_name = std::string
         ,typename     type_name = std::string
+        ,template  < typename > class qualificator_name = std::add_const
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
        struct assign_struct
@@ -34,7 +35,8 @@ namespace reflection
            typedef ::reflection::content::category::pure_class<type_type>             category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
-           typedef typename std::add_const< ::reflection::property::pure_class>::type                property_qualified_type;
+           typedef typename qualificator_name< property_type >::type                       property_qualified_type;
+           typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
 
            typedef  structure_type     output_type;
 
@@ -51,8 +53,7 @@ namespace reflection
          public:
            assign_struct( observe_type & observe_param )
             {
-             observe_param.protocol().emplace( typeid(  std::string    ).name(), std::bind(  &assign_struct::process<std::string   > ,  std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 ) );
-
+             observe_param.protocol().emplace( typeid(  std::string    ).name(), &assign_struct::process<std::string   >  );
              observe_param.protocol().emplace( typeid(  std::wstring   ).name(), &assign_struct::process<std::wstring  >  );
 
              observe_param.protocol().emplace( typeid(  char           ).name(), &assign_struct::process<char          >  );
@@ -82,7 +83,7 @@ namespace reflection
              observe_param.protocol().emplace( typeid(  long           ).name(), &assign_struct::process<long          >  );
              observe_param.protocol().emplace( typeid(  long long      ).name(), &assign_struct::process<long long     >  );
 
-             observe_param.protocol().emplace( typeid(  nullptr_t     ).name(), &assign_struct::process<nullptr_t     >               );
+             observe_param.protocol().emplace( typeid(  nullptr_t     ).name(), &assign_struct::process<nullptr_t     >   );
              // TODO observe_param.protocol().emplace( typeid( structure_type ).name(), std::bind( &assign_struct::process,               std::placeholders::_1, std::ref(observe_param), std::placeholders::_2, std::placeholders::_3 ) );
             }
 
@@ -94,7 +95,7 @@ namespace reflection
              ,typename   original_name = typename std::add_lvalue_reference< type_name >::type
              ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<type_name>::type >::type
             >
-           static error_enum process( structure_type & output_param, key_type const& key_param, property_qualified_type property_param )
+           static error_enum process( structure_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              auto iterator = output_param.container().find( key_param );
              if( output_param.container().end() == iterator )

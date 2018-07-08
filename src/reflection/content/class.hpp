@@ -1,7 +1,7 @@
 #ifndef reflection_object_class
 #define reflection_object_class
 
-// ::reflection::content::class_class<data_name,key_name>
+// ::reflection::content::class_class<data_name,key_name,container_name>
 
 #include "../content/content.hpp"
 #include "../property/structure.hpp"

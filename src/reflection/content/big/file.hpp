@@ -13,20 +13,24 @@ namespace reflection
     namespace big
      {
 
-       class file_class
-        : virtual public ::reflection::content::big::pure_class<std::size_t,std::vector< std::uint8_t > >
-        ,         public ::reflection::property::big::file_class
-        {
-         public:
-           typedef ::reflection::content::big::pure_class< std::size_t, std::vector< std::uint8_t > >  pure_type;
-           typedef ::reflection::property::big::file_class                                           member_type;
-
-           using member_type::size;
-           using member_type::get;
-           using member_type::insert;
-           using member_type::replace;
-           using member_type::erase;
-        };
+      template
+        <
+        typename string_name
+        >
+        class file_class
+         : virtual public ::reflection::content::big::pure_class<std::size_t,std::vector< std::uint8_t > >
+         ,         public ::reflection::property::big::file_class< string_name >
+         {
+          public:
+            typedef ::reflection::content::big::pure_class< std::size_t, std::vector< std::uint8_t > >  pure_type;
+            typedef ::reflection::property::big::file_class< string_name >                            member_type;
+        
+            using member_type::size;
+            using member_type::get;
+            using member_type::insert;
+            using member_type::replace;
+            using member_type::erase;
+         };
 
       }
     }

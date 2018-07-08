@@ -7,3 +7,5 @@
 #include "./property/property.hpp"
 #include "./type/type.hpp"
 
+#include "./define/define.hpp"
+

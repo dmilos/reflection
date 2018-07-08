@@ -9,6 +9,8 @@
 #include "../../type/container/map.hpp"
 #include "./action.hpp"
 
+#include "../../type/trait.hpp"
+
 namespace reflection
  {
   namespace operation
@@ -37,9 +39,13 @@ namespace reflection
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
-           typedef typename qualificator_name<  category_type >::type     category_qualified_type;
-           typedef typename qualificator_name<  property_type >::type     property_qualified_type;
+           typedef typename qualificator_name<  category_type >::type      category_qualified_type;
+           typedef typename qualificator_name< property_type >::type       property_qualified_type;
            typedef typename qualificator_name< structure_type >::type     structure_qualified_type;
+
+           typedef typename std::add_lvalue_reference< category_qualified_type >::type      category_qualified_reference_type;
+           typedef typename std::add_lvalue_reference< property_qualified_type >::type      property_qualified_reference_type;
+           typedef typename std::add_lvalue_reference< structure_qualified_type >::type    structure_qualified_reference_type;
 
            typedef typename ::reflection::operation::transfer::action_struct< output_type, key_type, qualificator_name, report_type>::typedef_type action_type;
 
@@ -52,14 +58,16 @@ namespace reflection
                not_category_index   = 0
               ,missing_action_index = 1
               ,action_fail_index    = 2
+              ,null_pointer_index   = 3
              };
 
          public:
            observe_class()
             {
-             recover(    not_category_index, []( output_type &, key_type const&, property_qualified_type &){ return report_type(true); } );
-             recover(  missing_action_index, []( output_type &, key_type const&, property_qualified_type &){ return report_type(true); } );
-             recover(     action_fail_index, []( output_type &, key_type const&, property_qualified_type &){ return report_type(true); } );
+             recover(    not_category_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
+             recover(  missing_action_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
+             recover(     action_fail_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
+           //recover(    null_pointer_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
             }
 
          public:
@@ -79,18 +87,28 @@ namespace reflection
           public:
             report_type view
              (
-               output_type              & output_param
-              ,structure_qualified_type & struct_param
+               output_type                      & output_param
+              ,structure_qualified_reference_type struct_param
              )const
              {
               for( auto & item : struct_param.container() )
                {
-                property_qualified_type *  property = item.second.get();
+                auto ptr = item.second.get();
+                if( nullptr == ptr )
+                 {
+                  // TODO if( report_type( false ) == recover()[null_pointer_index]( output_param, item.first, property ) )
+                  // TODO  {
+                  // TODO   return report_type( false );
+                  // TODO  }
+                  continue;
+                 }
 
-                category_qualified_type *  category = dynamic_cast< category_qualified_type * >( property );
+                property_qualified_reference_type   property = *( item.second.get() );
+
+                category_qualified_type *  category = dynamic_cast< category_qualified_type * >( ptr );
                 if( nullptr == category )
                  {
-                  if( report_type( false ) == recover()[not_category_index]( output_param, item.first, *property ) )
+                  if( report_type( false ) == recover()[not_category_index]( output_param, item.first, property ) )
                    {
                     return report_type( false );
                    }
@@ -100,16 +118,16 @@ namespace reflection
                 auto action = protocol().find( category->type() );
                 if( protocol().end() == action )
                  {
-                  if( report_type( false ) == recover()[missing_action_index]( output_param, item.first, *property ) )
+                  if( report_type( false ) == recover()[missing_action_index]( output_param, item.first, property ) )
                    {
                     return report_type( false );
                    }
                   continue;
                  }
 
-                if( report_type( false ) == action->second( output_param, item.first, *property ) )
+                if( report_type( false ) == action->second( output_param, item.first, property ) )
                  {
-                  if( report_type( false ) == recover()[action_fail_index]( output_param, item.first, *property ) )
+                  if( report_type( false ) == recover()[action_fail_index]( output_param, item.first, property ) )
                    {
                     return report_type( false );
                    }

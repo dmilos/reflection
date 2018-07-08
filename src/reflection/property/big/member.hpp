@@ -4,6 +4,7 @@
 // ::reflection::property::big::member_class
 
 #include "./_pure.hpp"
+#include "../direct/member.hpp"
 
 namespace reflection
  {
@@ -18,6 +19,7 @@ namespace reflection
        >
       class member_class
        : virtual public ::reflection::property::big::pure_class< std::size_t, std::vector< std::uint8_t > >
+       ,                ::reflection::property::direct::member_struct<std::vector< std::uint8_t > & ,class_name,::reflection::property::big::member_class<class_name> >
        {
         public:
           typedef class_name class_type;
@@ -29,6 +31,7 @@ namespace reflection
           typedef data_type &  (class_name::*traitor_type)();
 
                    member_class(){}
+          explicit member_class( traitor_type const& traitor ):m_traitor(traitor){}
           virtual ~member_class(){}
 
           virtual size_type  size( )const
@@ -84,6 +87,23 @@ namespace reflection
         private:
           traitor_type m_traitor;
        };
+
+        /*           TODO
+      template
+       <
+        ,typename class_name
+        ,typename storage_name
+       >
+       inline
+       typename ::reflection::property::big::member_class<class_name>::typedef_type
+       member
+        (
+         original_name (class_name::*traitor_param )( void )
+        )
+        {
+         typedef ::reflection::property::big::member_class<class_name> member_type;
+         return member_type::make( traitor_param );
+        }            */
 
      }
    }

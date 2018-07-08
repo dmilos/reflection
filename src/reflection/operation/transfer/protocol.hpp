@@ -30,7 +30,8 @@ namespace reflection
            typedef output_name       output_type;
            typedef     key_name   key_type;
            typedef    type_name   type_type;
-           typedef typename qualificator_name<container_name>::type  property_qualified_type;
+           typedef typename qualificator_name<container_name>::type  container_qualified_type;
+           typedef typename qualificator_name<container_name>::type  container_qualified_reference_type;
 
            typedef typename ::reflection::operation::transfer::action_struct< output_type, key_type, qualificator_name >::typedef_type action_type;
 

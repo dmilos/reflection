@@ -22,7 +22,7 @@ class MyClass
       return m_int;
       }
 
-    bool        mutator( int const& a )
+    bool        writter( int const& a )
      {
       std::cout << __FUNCTION__ << "::a = " << a <<std::endl;
       m_int = a;
@@ -35,7 +35,7 @@ class MyClass
   private:
      void init()
       {
-       insert(  "g1", item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::mutator, &MyClass::inspector ) ) ) );
+       insert(  "g1", item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::writter, &MyClass::inspector ) ) ) );
       }
 
  };

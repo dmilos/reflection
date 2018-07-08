@@ -42,7 +42,7 @@ class MyClass_json_B
       return m_int;
       }
 
-    bool        mutator( int const& a )
+    bool        writter( int const& a )
      {
       m_int = a;
       return true;
@@ -62,16 +62,16 @@ class MyClass_json_B
      void init()
       {
         //insert(  "m1",      this, { &MyClass_json_B::traitor }  );
-        //insert(  "g1",      this{ &MyClass_json_B::mutator, &MyClass_json_B::inspector } );
+        //insert(  "g1",      this{ &MyClass_json_B::writter, &MyClass_json_B::inspector } );
         //insert(  "g1",      this{ &MyClass_json_B::traitor, &MyClass_json_B::inspector } );
 
         insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass_json_B::traitor   ) ) ) );
         insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass_json_B::inspector ) ) ) );
-        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass_json_B::mutator   ) ) ) );
+        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass_json_B::writter   ) ) ) );
 
         insert(  "mS",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass_json_B::structure_get ) ) ) );
 
-        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass_json_B::mutator, &MyClass_json_B::inspector ) ) ) );
+        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass_json_B::writter, &MyClass_json_B::inspector ) ) ) );
 
         insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
         insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );

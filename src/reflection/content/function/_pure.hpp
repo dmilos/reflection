@@ -1,11 +1,13 @@
 #ifndef reflection_content_function_pure_hpp
  #define reflection_content_function_pure_hpp
+
  // ::reflection::content::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
 
- #include "../../type/string.hpp"
- #include "../../property/function/_pure.hpp"
+#include "../../type/string.hpp"
+#include "../../property/function/_pure.hpp"
 
- #include "../_pure.hpp"
+#include "../_pure.hpp"
+
 
 namespace reflection
  {

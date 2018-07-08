@@ -4,9 +4,10 @@
  // ::reflection::content::function::free_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
  // ::reflection::content::function::free( )
 
- #include "../../property/function/free.hpp"
+#include "../../property/function/free.hpp"
 
- #include "./_pure.hpp"
+#include "./_pure.hpp"
+
 
 namespace reflection
  {
