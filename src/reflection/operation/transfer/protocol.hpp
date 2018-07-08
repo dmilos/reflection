@@ -3,8 +3,8 @@
 
 // ::reflection::operation::transfer::protocol<output_name,key_name,type_name>
 
-#include "../content/category.hpp"
-#include "./property/structure.hpp"
+#include "../../content/category.hpp"
+#include "../../property/structure.hpp"
 
 #include "../../type/container/vector.hpp"
 
@@ -20,6 +20,7 @@ namespace reflection
          typename output_name
         ,typename    key_name = std::string
         ,typename   type_name = std::string
+        ,typename   report_name = bool
         ,template  < typename > class qualificator_name = std::add_const
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
@@ -30,13 +31,14 @@ namespace reflection
            typedef output_name       output_type;
            typedef     key_name   key_type;
            typedef    type_name   type_type;
-           typedef typename qualificator_name<container_name>::type  container_qualified_type;
-           typedef typename qualificator_name<container_name>::type  container_qualified_reference_type;
+           typedef    report_name   report_type;
 
-           typedef typename ::reflection::operation::transfer::action_struct< output_type, key_type, qualificator_name >::typedef_type action_type;
+           typedef typename ::reflection::operation::transfer::action_struct< output_type, key_type, qualificator_name, report_type>::typedef_type action_type;
 
-           typedef container_name< type_type, action_type > container_type, typedef_type ;
+           typedef container_name< type_type, action_type > container_type;
 
+           typedef typename qualificator_name<container_type>::type  container_qualified_type;
+           typedef typename qualificator_name<container_type>::type  container_qualified_reference_type;
        };
 
      }

@@ -7,7 +7,7 @@
 #include "../../property/structure.hpp"
 #include "../../operation/transfer/observe.hpp"
 
-#include "../property/assign.hpp"
+#include "../../property/assign.hpp"
 
 
 
@@ -90,10 +90,10 @@ namespace reflection
          public:
            template
             <
-              typename       type_name
-             ,typename      image_name = typename std::add_lvalue_reference< typename std::add_const<type_name>::type >::type
-             ,typename   original_name = typename std::add_lvalue_reference< type_name >::type
-             ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<type_name>::type >::type
+              typename       primitive_name
+             ,typename      image_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
+             ,typename   original_name = typename std::add_lvalue_reference< primitive_name >::type
+             ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
             >
            static error_enum process( structure_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {

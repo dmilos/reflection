@@ -3,7 +3,7 @@
 
 // ::reflection::operation::observe_class<output_name,key_name,type_name>
 
-#include "../content/category.hpp"
+#include "../../content/category.hpp"
 #include "../../property/structure.hpp"
 
 #include "../../type/container/map.hpp"

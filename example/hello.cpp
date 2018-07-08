@@ -4,9 +4,6 @@
 #include <functional>
 
 #include "reflection/reflection.hpp"
-#include "reflection/type/convert/convert.hpp"
-
-#include "reflection/type/ptr/make.hpp"
 
 class MyClassA
  : public ::reflection::content::class_class<MyClassA>

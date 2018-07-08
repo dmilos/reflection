@@ -4,7 +4,7 @@
 
 #include "../property/_pure.hpp"
 #include "../type/string.hpp"
-#include "../category.hpp"
+#include "./category.hpp"
 
 
 namespace reflection
