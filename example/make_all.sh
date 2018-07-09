@@ -5,5 +5,8 @@
 
 # TODO REFLECTION_USE_PP2FILE
 
-g++ -fexceptions -std=c++11 -g -I../src hello.cpp               -o  hello
+#g++ -fexceptions -std=c++11 -g -I../src hello.cpp               -o  hello
 
+cd ./less-than-2k
+./make.sh
+cd ..

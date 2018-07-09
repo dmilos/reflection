@@ -15,9 +15,9 @@ namespace reflection
 
       template
        <
-         typename data_name       //!< mutablize before use!
-        ,typename model_name   //!< mutablize before use!
-        ,typename storage_name    //= data_name
+         typename data_name      //!< mutablize before use!
+        ,typename model_name     //!< mutablize before use!
+        ,typename storage_name   //= data_name
         ,typename assigner_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
         ,typename report_name
        >

@@ -22,6 +22,26 @@
      )                                                  \
    );
 
+#define reflection__CLASS_SIMPLE_mutate( member_string_name, type_symbolic_name, value_instance )\
+  insert                                                \
+   (                                                    \
+     member_string_name                                 \
+    ,item_type                                          \
+     (                                                  \
+      ::memory::pointer::make                           \
+       (                                                \
+        ::reflection::content::mutate::simple           \
+          <                                             \
+           type_symbolic_name                           \
+          >                                             \
+          (                                             \
+           value_instance                               \
+          )                                             \
+       )                                                \
+     )                                                  \
+   );                                                   \
+
+   
 /*
 mutate\
     member.hpp

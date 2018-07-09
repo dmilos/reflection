@@ -23,7 +23,7 @@ class MyClass
      }
      
      
-    int const&  inspector()const
+    int const&  reader()const
      {
       std::cout << __FUNCTION__ << std::endl;
       return m_int;
@@ -36,7 +36,7 @@ class MyClass
   private:
      void init()
       {
-        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::variable::member(  this, &MyClass::inspector, &MyClass::traitor   ) ) ) );
+        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::variable::member(  this, &MyClass::reader, &MyClass::traitor   ) ) ) );
       }
  };
 

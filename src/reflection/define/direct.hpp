@@ -23,12 +23,25 @@
    );                                                   \
 
 
-/*
-direct\
+#define reflection__CLASS_SIMPLE_direct( member_string_name, type_symbolic_name, value_instance )\
+  insert                                                \
+   (                                                    \
+     member_string_name                                 \
+    ,item_type                                          \
+     (                                                  \
+      ::memory::pointer::make                           \
+       (                                                \
+        ::reflection::content::direct::simple           \
+          <                                             \
+           type_symbolic_name                           \
+          >                                             \
+          (                                             \
+           value_instance                               \
+          )                                             \
+       )                                                \
+     )                                                  \
+   );                                                   \
 
-  member.hpp
-  reference.hpp
-  simple.hpp
-*/
+// TODO #define reflection__CLASS_MEMBER_direct_reference( type_symbolic_name, value_instance )\
 
 #endif

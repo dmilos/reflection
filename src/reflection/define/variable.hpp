@@ -22,6 +22,24 @@
      )                                                         \
    );
 
+#define reflection__CLASS_SIMPLE_variable( member_string_name, type_symbolic_name, value_instance )\
+  insert                                                \
+   (                                                    \
+     member_string_name                                 \
+    ,item_type                                          \
+     (                                                  \
+      ::memory::pointer::make                           \
+       (                                                \
+        ::reflection::content::variable::simple         \
+          <                                             \
+           type_symbolic_name                           \
+          >                                             \
+          (                                             \
+           value_instance                               \
+          )                                             \
+       )                                                \
+     )                                                  \
+   );  
 /*
   variable
     member.hpp
