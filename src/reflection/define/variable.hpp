@@ -40,11 +40,6 @@
        )                                                \
      )                                                  \
    );  
-/*
-  variable
-    member.hpp
-    simple.hpp
-*/
 
 
 #endif

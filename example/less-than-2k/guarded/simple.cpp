@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <functional>
 
 #include "reflection/reflection.hpp"
 
@@ -12,24 +11,16 @@ class MyClassOriginal
     MyClassOriginal()
      {
      }
-
-    // Do some processing, expect assigning
-    bool  writter_integer(  int         const& i ) {  m_int    = i; return true; }
-    bool  writter_float(    float       const& f ){  m_float  = f; return true; }
-    bool  writter_string(   std::string const& s ){  m_string = s; return true; }
-
-  private: // And private members
-    int          m_int;
-    float        m_float;
-    std::string  m_string;
+    //Just nothing.
  };
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
- reflection__CLASS_MEMBER_mutate( "integer",          MyClassOriginal, writter_integer  )
- reflection__CLASS_MEMBER_mutate( "float-point",      MyClassOriginal, writter_float    )
- reflection__CLASS_MEMBER_mutate( "standard-string",  MyClassOriginal, writter_string   )
+  // This will inject member that are not member of original class
+  reflection__CLASS_SIMPLE_guarded(   "integer",         int, 123  )
+  reflection__CLASS_SIMPLE_guarded(   "float-point",     float, 456.0  )
+  reflection__CLASS_SIMPLE_guarded(   "standard-string", std::string, "standard-string"  )
 
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 

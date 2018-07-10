@@ -19,9 +19,9 @@ class MyClassOriginal
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
   // This will inject members that are not member of original class
-  reflection__CLASS_SIMPLE_variable(   "integer",          int, 123  )
-  reflection__CLASS_SIMPLE_variable(   "float-point",      float, 456.0  )
-  reflection__CLASS_SIMPLE_variable(   "standard-string",  std::string, "standard-string"  )
+  //reflection__CLASS_SIMPLE_variable(   "integer",          int, 123  )
+  //reflection__CLASS_SIMPLE_variable(   "float-point",      float, 456.0  )
+  //reflection__CLASS_SIMPLE_variable(   "standard-string",  std::string, "standard-string"  )
 
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 

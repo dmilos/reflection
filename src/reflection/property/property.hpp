@@ -15,6 +15,8 @@
 #include "./guarded/guarded.hpp"
 #include "./variable/variable.hpp"
 
+#include "./trinity/trinity.hpp"
+
 #include "./reset/reset.hpp"
 
 

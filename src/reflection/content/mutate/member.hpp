@@ -64,7 +64,6 @@ namespace reflection
          return member_type::make( storage_param, writter_param );
         }
 
-
       template
        <
         typename data_name
@@ -83,7 +82,6 @@ namespace reflection
          typedef ::reflection::content::mutate::member_struct<data_name,data_name const&,class_name,storage_name,report_name> member_type;
          return member_type::make( storage_param, writter_param );
         }
-
 
       }
     }

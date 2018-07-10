@@ -10,6 +10,9 @@ class MyClassOriginal
   public:
 
     MyClassOriginal()
+     :m_int( 123)
+     ,m_float( 456)
+     ,m_string("Test comment.")
      {
      }
 
@@ -17,6 +20,11 @@ class MyClassOriginal
     bool  writter_integer(  int         const& i ) {  m_int    = i; return true; }
     bool  writter_float(    float       const& f ){  m_float  = f; return true; }
     bool  writter_string(   std::string const& s ){  m_string = s; return true; }
+
+    // Traitors. return reference to member it self
+    int         const&  reader_int()   const{ return m_int; }
+    float       const&  reader_float() const{ return m_float; }
+    std::string const&  reader_string()const{ return m_string; }
 
   private: // And private members
     int          m_int;
@@ -27,9 +35,9 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
- reflection__CLASS_MEMBER_mutate( "integer",          MyClassOriginal, writter_integer  )
- reflection__CLASS_MEMBER_mutate( "float-point",      MyClassOriginal, writter_float    )
- reflection__CLASS_MEMBER_mutate( "standard-string",  MyClassOriginal, writter_string   )
+  reflection__CLASS_MEMBER_guarded(   "integer",          MyClassOriginal, writter_integer,  reader_int      )
+  reflection__CLASS_MEMBER_guarded(   "float-point",      MyClassOriginal, writter_float ,   reader_float    )
+  reflection__CLASS_MEMBER_guarded(   "standard-string",  MyClassOriginal, writter_string,   reader_string   )
 
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 

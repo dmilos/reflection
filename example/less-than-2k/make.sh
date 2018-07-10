@@ -24,6 +24,10 @@ cd ./reset
 ./make.sh
 cd ..
 
+cd ./trinity
+./make.sh
+cd ..
+
 cd ./variable
 ./make.sh
 cd ..

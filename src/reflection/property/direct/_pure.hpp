@@ -24,6 +24,8 @@ namespace reflection
          public:
            typedef original_name original_type;
 
+           typedef ::reflection::property::pure_class  pure_type;
+
                     pure_class(){}
            virtual ~pure_class(){}
 

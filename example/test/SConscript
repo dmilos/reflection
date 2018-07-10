@@ -37,7 +37,19 @@ envObject = nucleotide.Environment( settings ).native()
 
 source = []
 source +=   [
-      envObject.StaticObject( target =  os.path.join( directory_obj, 'readme'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'readme'          + '.cpp' )
+      envObject.StaticObject( target =  os.path.join( directory_obj, 'trinity-member'  ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-3k/trinity/' +'member'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'trinity-simple'  ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/trinity/' +'simple'   + '.cpp' )
+
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'direct-member'   ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/direct/' +'member'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'direct-simple'   ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/direct/' +'simple'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'inspect-member'  ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/inspect/' +'member'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'inspect-simple'  ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/inspect/' +'simple'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'mutate-member'   ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/mutate/' +'member'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'mutate-simple'   ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/mutate/' +'simple'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'variable-member' ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/variable/' +'member'   + '.cpp' )
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'variable-simple' ) + envObject[ 'OBJSUFFIX' ],  source = '../less-than-2k/variable/' +'simple'   + '.cpp' )
+
+     ,envObject.StaticObject( target =  os.path.join( directory_obj, 'readme'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'readme'          + '.cpp' )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'from_existing'   ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'from_existing'   + '.cpp' )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'hello'           ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'hello'           + '.cpp' )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'assign'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'assign'          + '.cpp' )
@@ -50,6 +62,9 @@ source +=   [
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'xml'             ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'xml'             + '.cpp' )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'free'            ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'free'            + '.cpp' )
      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'json'            ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'json'            + '.cpp' )
+
+
+
      ]
 
 # Make native environment

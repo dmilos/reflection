@@ -1,5 +1,8 @@
 # Examples
 
+### less-than-1k
+Noting so far. :(
+
 ### less-than-2k
 In folder 'less-than-2k' examples! \
 All of them are less than 2Kb ( 2048b ) in size! \
