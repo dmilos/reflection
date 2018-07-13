@@ -26,8 +26,6 @@ class MyClass_json_B
 : public ::reflection::content::class_class<MyClass_json_B>
  {
   public:
-    typedef ::reflection::property::structure_class<> structure_type;
-
     MyClass_json_B(){ init(); }
 
 
@@ -82,7 +80,7 @@ class MyClass_json_B
  };
 
 
-int main_json( int argc, char *argv[] )
+int main( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
 
@@ -93,10 +91,6 @@ int main_json( int argc, char *argv[] )
 
   observe_type observe;
   json_type json( observe );
-
-  //observe.recover( observe_type::not_category_index  , std::bind( &json_type::recover, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 )  );
-  //observe.recover( observe_type::missing_action_index, std::bind( &json_type::recover, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 )  ); 
-  //observe.recover( observe_type::action_fail_index   , std::bind( &json_type::recover, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3 )  );
 
   observe.view( std::cout, m );
 

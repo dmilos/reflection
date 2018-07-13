@@ -32,20 +32,11 @@ reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 int main( int argc, char *argv[] )
  {
-  std::cout << __FUNCTION__ << std::endl;
-  // Some typedefs
-  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
-
   MyClassReflection r;  //!< Reflection of Original
 
-  // XMLize for example
-  observe_type observe;
-  xml_type xml( observe );
+  ::reflection::property::mutate::process<  int          const& >( r.get("integer"), 2424 );
+  ::reflection::property::mutate::process<  float        const& >( r.get("float-point"), 2424.0 );
+  ::reflection::property::mutate::process<  std::string  const& >( r.get("standard-string"), "asdasas" );
 
-  observe.view( std::cout, r );
-
-  std::cin.get();
   return EXIT_SUCCESS;
  }

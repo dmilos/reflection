@@ -1,0 +1,2 @@
+./member.exe
+./simple.exe

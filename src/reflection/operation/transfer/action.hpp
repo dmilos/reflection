@@ -27,15 +27,26 @@ namespace reflection
 
            typedef  output_name       output_type;
            typedef     key_name          key_type;
-           typedef     report_name  report_report;
+           typedef     report_name    report_type;
 
            typedef ::reflection::property::pure_class                property_type;
 
            typedef typename qualificator_name< property_type >::type                       property_qualified_type;
            typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
 
-           typedef std::function< report_report ( output_type &, key_type const&, property_qualified_reference_type ) > action_type, typedef_type;
+           typedef std::function< report_type ( output_type &, key_type const&, property_qualified_reference_type ) > function_type;
 
+           static function_type const&  always_false()
+            {
+             static function_type s_false = []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(false); };
+             return s_false;
+            }
+
+           static function_type const& always_true()
+            {
+             static function_type s_true = []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); };
+             return s_true;
+            }
        };
 
      }

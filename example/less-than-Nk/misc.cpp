@@ -41,8 +41,6 @@ class MyClass
 : public ::reflection::content::class_class<MyClass>
  {
   public:
-    typedef ::reflection::property::structure_class<> structure_type;
-
     MyClass(){ init(); }
 
     void a(){std::cout << __FUNCTION__ << std::endl;}
@@ -106,12 +104,12 @@ class MyClass
        ::reflection::property::direct::simple<float>();
 
        ::reflection::property::inspect::member( this, &MyClass::inspector );
-       ::reflection::property::inspect::pretend::member< bool, ::type::convert::identity< bool, int > >( this, &MyClass::inspector );
+       ::reflection::property::inspect::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::inspector );
        ::reflection::property::inspect::simple( 150 );
        ::reflection::property::inspect::simple<double>();
 
        ::reflection::property::mutate::member( this, &MyClass::writter );
-       ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::writter );
+       ::reflection::property::mutate::pretend::member< int, ::reflection::type::convert::identity< int, bool > >( this, &MyClass::writter );
        ::reflection::property::mutate::simple< int, bool >( 512 );
        ::reflection::property::mutate::simple< int, bool >( );
 
@@ -187,7 +185,7 @@ class MyClass
         auto x0 = ::reflection::property::direct::member( this, &MyClass::traitor );       ::reflection::property::direct::disclose<int&>( x0 ) = 6;
 
         ::reflection::property::inspect::present<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
-       ::reflection::property::inspect::pretend::member< bool, ::type::convert::identity< bool, int > >( this, &MyClass::inspector ).present();
+       ::reflection::property::inspect::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::inspector ).present();
        {
         auto st =[]( int const& i )-> std::string
          {
@@ -208,7 +206,7 @@ class MyClass
 
         auto x1 = ::reflection::property::mutate::member( this, &MyClass::writter );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
 
-       ::reflection::property::mutate::pretend::member< int, ::type::convert::identity< int, bool > >( this, &MyClass::writter ).process( 10 );
+       ::reflection::property::mutate::pretend::member< int, ::reflection::type::convert::identity< int, bool > >( this, &MyClass::writter ).process( 10 );
        {
         auto ts =[]( std::string const& s )-> int
          {
@@ -253,7 +251,6 @@ class MyClass
 
        exists(  "asd" );
        remove(  "asd" );
-       container();
 
        ::reflection::property::function::check<void>(   get( "f0" ) );
        ::reflection::property::function::execute<void>( get( "f0" ) );
@@ -289,32 +286,10 @@ class MyClass
 
  };
 
-void other_main( int argc, char *argv[] )
- {
-  int main_observe_simple( int argc, char *argv[] );
-  int main_assign( int argc, char *argv[] );
-  int main_xml( int argc, char *argv[] );
-  int main_free( int argc, char *argv[] );
-  int main_json( int argc, char *argv[] );
-  int main_from_existing( int argc, char *argv[] );
-  int main_readme( int argc, char *argv[] );
-
-  main_observe_simple( argc, argv );
-  main_assign( argc, argv );
-  main_xml( argc, argv );
-  main_free( argc, argv );
-  main_json( argc, argv );
-  main_from_existing( argc, argv );
-  main_readme( argc, argv );
-
-}
-
 
 int main( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
-
-  other_main( argc, argv );
 
   MyClass m;
   MyClass q;
@@ -322,10 +297,10 @@ int main( int argc, char *argv[] )
   ::reflection::operation::transfer::observe_class<int> observe;
 
   int i;
-  observe.protocol().emplace( typeid(                             std::string ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
-  observe.protocol().emplace( typeid(                                   float ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid(                                     int ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
-  observe.protocol().emplace( typeid( ::reflection::property::structure_class<> ).name(), [&observe]( int & i, std::string const& name, ::reflection::property::pure_class const& p  )
+  observe.insert( typeid(                             std::string ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
+  observe.insert( typeid(                                   float ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
+  observe.insert( typeid(                                     int ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
+  observe.insert( typeid( ::reflection::property::structure_class<> ).name(), [&observe]( int & i, std::string const& name, ::reflection::property::pure_class const& p  )
    {
     std::cout << "struct - " << __FUNCTION__ << std::endl; 
     observe.view( i, ::reflection::property::inspect::present< ::reflection::property::structure_class<> const& >( p ) );
@@ -339,8 +314,8 @@ int main( int argc, char *argv[] )
 
   ::reflection::operation::transfer::observe_class< structure_type, std::string, std::string, assign_type::error_enum > observe_assign;
 
-  observe_assign.protocol().emplace( typeid( std::string ).name(),  assign_type::process<std::string> );
-  observe_assign.protocol().emplace( typeid( int ).name(),          assign_type::process<int> );
+  observe_assign.insert( typeid( std::string ).name(),  assign_type::process<std::string> );
+  observe_assign.insert( typeid( int ).name(),          assign_type::process<int> );
 
   observe_assign.view( m, q );
 

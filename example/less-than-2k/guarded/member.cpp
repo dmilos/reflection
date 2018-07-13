@@ -44,20 +44,20 @@ reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 int main( int argc, char *argv[] )
  {
-  std::cout << __FUNCTION__ << std::endl;
-  // Some typedefs
-  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
-
   MyClassReflection r;  //!< Reflection of Original
 
-  // XMLize for example
-  observe_type observe;
-  xml_type xml( observe );
+  std::cout <<  ::reflection::property::inspect::present< int const& >( r.get("integer") ) << std::endl;
+  ::reflection::property::mutate::process<                int const& >( r.get("integer"), 2424 );
+  std::cout <<  ::reflection::property::inspect::present< int const& >( r.get("integer") ) << std::endl;
 
-  observe.view( std::cout, r );
+  std::cout <<  ::reflection::property::inspect::present< float const& >( r.get("float-point") ) << std::endl;
+  ::reflection::property::mutate::process<                float const& >( r.get("float-point"), 7890 );
+  std::cout <<  ::reflection::property::inspect::present< float const& >( r.get("float-point") ) << std::endl;
 
-  std::cin.get();
+  std::cout <<  ::reflection::property::inspect::present< std::string const& >( r.get("standard-string") ) << std::endl;
+  ::reflection::property::mutate::process<                std::string const& >( r.get("standard-string"), "asasdasd" );
+  std::cout <<  ::reflection::property::inspect::present< std::string const& >( r.get("standard-string") ) << std::endl;
+
+
   return EXIT_SUCCESS;
  }

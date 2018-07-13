@@ -50,7 +50,6 @@ int main( int argc, char *argv[] )
   // Some typedefs
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
 
   MyClassReflection r;  //!< Reflection of Original
 

@@ -45,37 +45,37 @@ namespace reflection
 
            json_struct( observe_type & observe_param )
             {
-             observe_param.protocol().emplace( typeid(  std::string    ).name(), &json_struct::basic<std::string   >  );
-             // TODO observe_param.protocol().emplace( typeid(  std::wstring   ).name(), &json_struct::basic<std::wstring  >  );
+             observe_param.insert( typeid(  std::string    ).name(), &json_struct::basic<std::string   >  );
+             // TODO observe_param.insert( typeid(  std::wstring   ).name(), &json_struct::basic<std::wstring  >  );
 
-             observe_param.protocol().emplace( typeid(  char           ).name(), &json_struct::basic<char          >  );
-             observe_param.protocol().emplace( typeid(  unsigned char  ).name(), &json_struct::basic<unsigned char >  );
-             observe_param.protocol().emplace( typeid(  wchar_t        ).name(), &json_struct::basic<wchar_t  >  );
-             observe_param.protocol().emplace( typeid(  std::wint_t    ).name(), &json_struct::basic<std::wint_t   >  );
+             observe_param.insert( typeid(  char           ).name(), &json_struct::basic<char          >  );
+             observe_param.insert( typeid(  unsigned char  ).name(), &json_struct::basic<unsigned char >  );
+             observe_param.insert( typeid(  wchar_t        ).name(), &json_struct::basic<wchar_t  >  );
+             observe_param.insert( typeid(  std::wint_t    ).name(), &json_struct::basic<std::wint_t   >  );
 
-             observe_param.protocol().emplace( typeid(  std::int8_t    ).name(), &json_struct::basic<std::int8_t   >  );
-             observe_param.protocol().emplace( typeid(  std::int16_t   ).name(), &json_struct::basic<std::int16_t  >  );
-             observe_param.protocol().emplace( typeid(  std::int32_t   ).name(), &json_struct::basic<std::int32_t  >  );
-             observe_param.protocol().emplace( typeid(  std::int64_t   ).name(), &json_struct::basic<std::int64_t  >  );
+             observe_param.insert( typeid(  std::int8_t    ).name(), &json_struct::basic<std::int8_t   >  );
+             observe_param.insert( typeid(  std::int16_t   ).name(), &json_struct::basic<std::int16_t  >  );
+             observe_param.insert( typeid(  std::int32_t   ).name(), &json_struct::basic<std::int32_t  >  );
+             observe_param.insert( typeid(  std::int64_t   ).name(), &json_struct::basic<std::int64_t  >  );
 
-             observe_param.protocol().emplace( typeid(  std::uint8_t   ).name(), &json_struct::basic<std::uint8_t  >  );
-             observe_param.protocol().emplace( typeid(  std::uint16_t  ).name(), &json_struct::basic<std::uint16_t >  );
-             observe_param.protocol().emplace( typeid(  std::uint32_t  ).name(), &json_struct::basic<std::uint32_t >  );
-             observe_param.protocol().emplace( typeid(  std::uint64_t  ).name(), &json_struct::basic<std::uint64_t >  );
+             observe_param.insert( typeid(  std::uint8_t   ).name(), &json_struct::basic<std::uint8_t  >  );
+             observe_param.insert( typeid(  std::uint16_t  ).name(), &json_struct::basic<std::uint16_t >  );
+             observe_param.insert( typeid(  std::uint32_t  ).name(), &json_struct::basic<std::uint32_t >  );
+             observe_param.insert( typeid(  std::uint64_t  ).name(), &json_struct::basic<std::uint64_t >  );
 
-             observe_param.protocol().emplace( typeid(       float     ).name(), &json_struct::basic<     float    >  );
-             observe_param.protocol().emplace( typeid(      double     ).name(), &json_struct::basic<    double    >  );
-             observe_param.protocol().emplace( typeid(  long double    ).name(), &json_struct::basic<long double   >  );
+             observe_param.insert( typeid(       float     ).name(), &json_struct::basic<     float    >  );
+             observe_param.insert( typeid(      double     ).name(), &json_struct::basic<    double    >  );
+             observe_param.insert( typeid(  long double    ).name(), &json_struct::basic<long double   >  );
 
-             observe_param.protocol().emplace( typeid(  void*          ).name(), &json_struct::basic<void*         >  );
-             observe_param.protocol().emplace( typeid(  short          ).name(), &json_struct::basic<short         >  );
-             observe_param.protocol().emplace( typeid(  unsigned short ).name(), &json_struct::basic<unsigned short>  );
-             observe_param.protocol().emplace( typeid(  int            ).name(), &json_struct::basic<int           >  );
-             observe_param.protocol().emplace( typeid(  unsigned       ).name(), &json_struct::basic<unsigned      >  );
-             observe_param.protocol().emplace( typeid(  long           ).name(), &json_struct::basic<long          >  );
-             observe_param.protocol().emplace( typeid(  long long      ).name(), &json_struct::basic<long long     >  );
+             observe_param.insert( typeid(  void*          ).name(), &json_struct::basic<void*         >  );
+             observe_param.insert( typeid(  short          ).name(), &json_struct::basic<short         >  );
+             observe_param.insert( typeid(  unsigned short ).name(), &json_struct::basic<unsigned short>  );
+             observe_param.insert( typeid(  int            ).name(), &json_struct::basic<int           >  );
+             observe_param.insert( typeid(  unsigned       ).name(), &json_struct::basic<unsigned      >  );
+             observe_param.insert( typeid(  long           ).name(), &json_struct::basic<long          >  );
+             observe_param.insert( typeid(  long long      ).name(), &json_struct::basic<long long     >  );
 
-             // TODO observe_param.protocol().emplace( typeid(  nullptr_t     ).name(), &json_struct::basic<nullptr_t     >   );
+             // TODO observe_param.insert( typeid(  nullptr_t     ).name(), &json_struct::basic<nullptr_t     >   );
             }
 
          private:

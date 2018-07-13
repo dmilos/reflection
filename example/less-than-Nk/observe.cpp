@@ -21,6 +21,7 @@ class MyClassA
        insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<float>( 1024 ) ) ) );
        insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string>( "asdfg" ) ) ) );
       }
+
  };
 
 
@@ -28,8 +29,6 @@ class MyClass
 : public ::reflection::content::class_class<MyClass>
  {
   public:
-    typedef ::reflection::property::structure_class<> structure_type;
-
     MyClass(){ init(); }
 
     void a(){std::cout << __FUNCTION__ << std::endl;}
@@ -101,28 +100,32 @@ class MyClass
 
         insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector ) ) ) );
 
+        ::reflection::property::assign< int >( get( "v1" ), get( "g1" ) );
       }
 
  };
 
 
-int main_assign( int argc, char *argv[] )
+int main( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
 
   MyClass m;
-  MyClass q;
 
-  ::reflection::property::assign< int >( m.get( "v1" ), q.get( "g1" ) );
+  ::reflection::operation::transfer::observe_class<int> observe;
 
-  typedef ::reflection::operation::transfer::assign_struct< >     assign_type;
-  typedef ::reflection::property::structure_class<std::string>            structure_type;
+  int i;
+  observe.insert( typeid(                             std::string ).name(), [](         int &,   std::string const& name, ::reflection::property::pure_class const&  )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
+  observe.insert( typeid(                                   float ).name(), [](         int &,   std::string const& name, ::reflection::property::pure_class const&  )        { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
+  observe.insert( typeid(                                     int ).name(), [](         int &,   std::string const& name, ::reflection::property::pure_class const&  )        { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
+  observe.insert( typeid( ::reflection::property::structure_class<> ).name(), [&observe]( int & i, std::string const& name, ::reflection::property::pure_class const& p )
+   {
+    std::cout << "struct - " << __FUNCTION__ << std::endl; 
+    observe.view( i, ::reflection::property::inspect::present< ::reflection::property::structure_class<> const& >( p ) );
+    return true; 
+   } );
 
-  assign_type::observe_type observe_assign;
-
-  assign_type assign( observe_assign );
-  
-  observe_assign.view( m, q );
+  observe.view( i, m );
 
   std::cin.get();
   return EXIT_SUCCESS;

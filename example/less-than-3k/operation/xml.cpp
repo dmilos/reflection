@@ -30,8 +30,6 @@ class MyClass_XML_B
 : public ::reflection::content::class_class<MyClass_XML_B>
  {
   public:
-    typedef ::reflection::property::structure_class<> structure_type;
-
     MyClass_XML_B(){ init(); }
 
 
@@ -86,7 +84,7 @@ class MyClass_XML_B
  };
 
 
-int main_xml( int argc, char *argv[] )
+int main( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
 
@@ -94,14 +92,12 @@ int main_xml( int argc, char *argv[] )
 
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
 
   observe_type observe;
   xml_type xml(observe);
 
   observe.view( std::cout, r );
 
- auto const& c = r.container();
  auto const& m = r.get("extra2");
 
   std::cin.get();

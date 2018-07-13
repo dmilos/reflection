@@ -19,29 +19,25 @@ class MyClassOriginal
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
   // This will inject members that are not member of original class
-  //reflection__CLASS_SIMPLE_variable(   "integer",          int, 123  )
-  //reflection__CLASS_SIMPLE_variable(   "float-point",      float, 456.0  )
-  //reflection__CLASS_SIMPLE_variable(   "standard-string",  std::string, "standard-string"  )
+  reflection__CLASS_SIMPLE_variable(   "integer",          int, 123  )
+  reflection__CLASS_SIMPLE_variable(   "float-point",      float, 456.0  )
+  reflection__CLASS_SIMPLE_variable(   "standard-string",  std::string, "standard-string"  )
 
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )
  {
-  std::cout << __FUNCTION__ << std::endl;
-  // Some typedefs
-  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
-
   MyClassReflection r;  //!< Reflection of Original
 
-  // XMLize for example
-  observe_type observe;
-  xml_type xml( observe );
+  std::cout << ::reflection::property::direct::disclose< int & >( r.get("integer") ) << std::endl;
+  std::cout << ::reflection::property::inspect::present<  int const& >(  r.get("integer") ) << std::endl;
 
-  observe.view( std::cout, r );
+  std::cout << ::reflection::property::direct::disclose< float & >( r.get("float-point") ) << std::endl;
+  std::cout << ::reflection::property::inspect::present<  float const& >(  r.get("float-point") ) << std::endl;
 
-  std::cin.get();
+  std::cout << ::reflection::property::direct::disclose< std::string & >( r.get("standard-string") ) << std::endl;
+  std::cout << ::reflection::property::inspect::present< std::string const& >(  r.get("standard-string") ) << std::endl;
+
   return EXIT_SUCCESS;
  }

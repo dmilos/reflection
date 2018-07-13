@@ -14,6 +14,11 @@ Compiling: \
     - start: VS2015 command prompt e.g.: 'VS2015 x64 Native Tools Command Prompt' \
     - cl /EHsc /I../src simple.cpp direct.cpp \
 
+### less-than-3k
+All of them are less than 3Kb ( 3072b ) in size!
+
+### less-than-4k
+All of them are less than 4Kb ( 4094b ) in size!
 
 ### Test
 Do not bother with SCons in test folder. \

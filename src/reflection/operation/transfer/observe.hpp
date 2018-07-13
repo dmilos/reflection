@@ -6,10 +6,13 @@
 #include "../../content/category.hpp"
 #include "../../property/structure.hpp"
 
-#include "../../type/container/map.hpp"
+#include "../../type/container/container.hpp"
 #include "./action.hpp"
 
 #include "../../type/trait.hpp"
+
+#include "./protocol.hpp"
+
 
 namespace reflection
  {
@@ -33,11 +36,14 @@ namespace reflection
            typedef  output_name     output_type;
            typedef     key_name        key_type;
            typedef    type_name       type_type;
-           typedef   report_name   report_type;
+           typedef   report_name    report_type;
 
            typedef ::reflection::content::category::pure_class<type_type>             category_type;
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
+
+           typedef typename structure_type::item_type                          item_type;
+           typedef typename qualificator_name< item_type >::type               item_qualified_type;
 
            typedef typename qualificator_name<  category_type >::type      category_qualified_type;
            typedef typename qualificator_name< property_type >::type       property_qualified_type;
@@ -47,12 +53,12 @@ namespace reflection
            typedef typename std::add_lvalue_reference< property_qualified_type >::type      property_qualified_reference_type;
            typedef typename std::add_lvalue_reference< structure_qualified_type >::type    structure_qualified_reference_type;
 
-           typedef typename ::reflection::operation::transfer::action_struct< output_type, key_type, qualificator_name, report_type>::typedef_type action_type;
+           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, type_name, report_name, qualificator_name, container_name > protocolX_type;
 
-           typedef container_name< type_type, action_type > container_type;
-           typedef container_type protocol_type;
+           typedef typename protocolX_type::function_type     function_type;
+           typedef typename protocolX_type::menu_type         menu_type;
 
-           typedef std::array< action_type, 3 > recover_type;
+           typedef std::array< function_type, 3 > recover_type;
            enum recover_enum
              {
                not_category_index   = 0
@@ -72,71 +78,80 @@ namespace reflection
 
          public:
            recover_type    const&recover()const{ return m_recover; }
-           void                  recover( recover_enum const& index_param, action_type const& action_param ){ m_recover[index_param] = action_param; }
+           void                  recover( recover_enum const& index_param, function_type const& action_param ){ m_recover[index_param] = action_param; }
            recover_type        & recover(){ return m_recover; }
          private:
            recover_type m_recover;
 
          public:
-           protocol_type    const&protocol()const{ return m_protocol; }
-           bool                   protocol( protocol_type const& protocol_param ){ m_protocol = protocol_param; return bool( report_type(true) ); }
-           protocol_type        & protocol(){ return m_protocol; }
+           menu_type    const&menu()const{ return m_menu; }
+           bool               menu( menu_type const& menu_param ){ m_menu = menu_param; return bool( report_type(true) ); }
          private:
-           protocol_type m_protocol;
+           menu_type        & menu(){ return m_menu; }
+           menu_type m_menu;
 
-          public:
-            report_type view
-             (
-               output_type                      & output_param
-              ,structure_qualified_reference_type struct_param
-             )const
-             {
-              for( auto & item : struct_param.container() )
-               {
-                auto ptr = item.second.get();
-                if( nullptr == ptr )
-                 {
-                  // TODO if( report_type( false ) == recover()[null_pointer_index]( output_param, item.first, property ) )
-                  // TODO  {
-                  // TODO   return report_type( false );
-                  // TODO  }
-                  continue;
-                 }
+         public:
+           void insert( key_type const& key, function_type const& function )
+            {
+             protocolX_type::insert( this->menu(), key, function );
+            }
 
-                property_qualified_reference_type   property = *( item.second.get() );
+         public:
+           report_type view
+            (
+              output_type                      & output_param
+             ,structure_qualified_reference_type struct_param
+            )const
+            {
+             for( auto iterator  =  struct_param.begin();
+                       iterator !=  struct_param.end();
+                     ++iterator )
+              {
+               auto  const            key = struct_param.key(  iterator );
+               item_qualified_type   data = struct_param.data( iterator );
 
-                category_qualified_type *  category = dynamic_cast< category_qualified_type * >( ptr );
-                if( nullptr == category )
-                 {
-                  if( report_type( false ) == recover()[not_category_index]( output_param, item.first, property ) )
-                   {
-                    return report_type( false );
-                   }
-                  continue;
-                 }
+               if( nullptr == data.get() )
+                {
+                 // TODO if( report_type( false ) == recover()[null_pointer_index]( output_param, key, property ) )
+                 // TODO  {
+                 // TODO   return report_type( false );
+                 // TODO  }
+                 continue;
+                }
 
-                auto action = protocol().find( category->type() );
-                if( protocol().end() == action )
-                 {
-                  if( report_type( false ) == recover()[missing_action_index]( output_param, item.first, property ) )
-                   {
-                    return report_type( false );
-                   }
-                  continue;
-                 }
+               property_qualified_reference_type   property = *( data.get() );
 
-                if( report_type( false ) == action->second( output_param, item.first, property ) )
-                 {
-                  if( report_type( false ) == recover()[action_fail_index]( output_param, item.first, property ) )
-                   {
-                    return report_type( false );
-                   }
-                  continue;
-                 }
-               }
+               category_qualified_type *  category = dynamic_cast< category_qualified_type * >( data.get() );
+               if( nullptr == category )
+                {
+                 if( report_type( false ) == recover()[not_category_index]( output_param, key, property ) )
+                  {
+                   return report_type( false );
+                  }
+                 continue;
+                }
 
-              return report_type( true );
-             }
+               if( false == protocolX_type::exists( this->menu(), category->type() ) )
+                {
+                 if( report_type( false ) == recover()[missing_action_index]( output_param, key, property ) )
+                  {
+                   return report_type( false );
+                  }
+                 continue;
+                }
+
+               if( report_type( false ) == protocolX_type::find( this->menu(), category->type() )( output_param, key, property ) )
+                {
+                 if( report_type( false ) == recover()[action_fail_index]( output_param, key, property ) )
+                  {
+                   return report_type( false );
+                  }
+                 continue;
+                }
+              }
+
+             return report_type( true );
+            }
 
        };
 

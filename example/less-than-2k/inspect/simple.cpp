@@ -27,20 +27,10 @@ reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 int main( int argc, char *argv[] )
  {
-  std::cout << __FUNCTION__ << std::endl;
-  // Some typedefs
-  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
-
   MyClassReflection r;  //!< Reflection of Original
+  std::cout <<  ::reflection::property::inspect::present< int         const& >( r.get( "integer"         ) ) << std::endl;
+  std::cout <<  ::reflection::property::inspect::present< float       const& >( r.get( "float-point"     ) ) << std::endl;
+  std::cout <<  ::reflection::property::inspect::present< std::string const& >( r.get( "standard-string" ) ) << std::endl;
 
-  // XMLize for example
-  observe_type observe;
-  xml_type xml( observe );
-
-  observe.view( std::cout, r );
-
-  std::cin.get();
   return EXIT_SUCCESS;
  }

@@ -12,7 +12,7 @@ class MyClassOriginal
     MyClassOriginal(){ }
 
     void a(){ }
-    std::string const&  b( float const& f ){  return "asd"; }
+    std::string const&  b( float const& f ){ static std::string s;   return s; }
     int  c( float const& f, std::string const& str ){  return 1; }
     int  d( float const& f, std::string const& str, bool const& b ){  return 1; }
 
@@ -43,13 +43,12 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 
-int main_readme( int argc, char *argv[] )
+int main( int argc, char *argv[] )
  {
   std::cout << __FUNCTION__ << std::endl;
   // Some typedefs
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
 
   MyClassReflection r;  //!< Reflection of Original
 

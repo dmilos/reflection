@@ -4,8 +4,8 @@ Status
 - In progress
 
 Description
- - Yet another implementation of reflection in C++.
- Link: https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29
+ - Yet another implementation of reflection in C++. \
+   Link: https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29
 
 Key features:
  - Headers only
@@ -15,6 +15,8 @@ Key features:
   - No need to recompile or start some install process.
  - One file to include to start the fun
  - Strong type check
+ - Obey existing encapsulation
+ - No bloat of existing code
 
 
 Example:
@@ -83,8 +85,4 @@ int main_readme( int argc, char *argv[] )
   return EXIT_SUCCESS;
  }
 
-
  ```
-
-TODO:
- - TODO

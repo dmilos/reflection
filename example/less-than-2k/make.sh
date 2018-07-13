@@ -4,6 +4,10 @@ cd ./big
 ./make.sh
 cd ..
 
+cd ./function
+./make.sh
+cd ..
+
 cd ./direct
 ./make.sh
 cd ..

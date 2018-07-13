@@ -1,8 +1,14 @@
 #ifndef functor_identity
 #define functor_identity
 
-namespace functor
+
+
+
+
+namespace reflection
  {
+  namespace functor
+   {
 
   template
    <
@@ -11,7 +17,7 @@ namespace functor
    >
    inline
    result_name
-   identity( parameter_name left_param )
+   identityF( parameter_name left_param )
     {
      return left_param;
     }
@@ -21,7 +27,7 @@ namespace functor
      typename result_name
     ,typename parameter_name
    >
-   class identity
+   class identityC
     //: public functor::unaryC< result_name, parameter_name >
     {
      public:
@@ -34,6 +40,7 @@ namespace functor
         }
     };
 
+   }
  }
 
 #endif

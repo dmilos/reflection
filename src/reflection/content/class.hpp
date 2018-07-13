@@ -13,7 +13,7 @@ namespace reflection
 
     template
      <
-      typename data_name
+       typename data_name
       ,typename key_name = std::string
       ,template < typename, typename > class container_name = ::reflection::type::container::map
      >
@@ -24,6 +24,8 @@ namespace reflection
        public:
          typedef data_name   data_type;
          typedef std::string  key_type;
+
+         typedef ::reflection::property::structure_class<key_name, container_name >  structure_type;
 
          class_class(){}
          class_class( class_class const& that_param ){ *this = that_param; }

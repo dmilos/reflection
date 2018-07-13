@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main_member_big( int argc, char *argv[] )
+int main( int argc, char *argv[] )
  {
   cout << "TODO" << endl;
 

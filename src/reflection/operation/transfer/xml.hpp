@@ -38,48 +38,48 @@ namespace reflection
            typedef ::reflection::content::category::pure_class<type_type>             category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
-           typedef typename std::add_const< property_type >::type                          property_qualified_type;
+           typedef typename std::add_const< property_type >::type                                  property_qualified_type;
            typedef typename std::add_lvalue_reference<property_qualified_type>::type     property_qualified_reference_type;
 
            typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, type_type, report_type, std::add_const, container_name > observe_type;
 
            xml_struct( observe_type & observe_param )
-            {     
+            {
              observe_param.recover( observe_type::not_category_index  , &xml_struct::recover );
              observe_param.recover( observe_type::missing_action_index, &xml_struct::recover );
              observe_param.recover( observe_type::action_fail_index   , &xml_struct::recover );
 
-             observe_param.protocol().emplace( typeid(  std::string    ).name(), &xml_struct::simple<std::string   >  );
-            // TODO observe_param.protocol().emplace( typeid(  std::wstring   ).name(), &xml_struct::simple<std::wstring  >  );
+             observe_param.insert( typeid(  std::string    ).name(), &xml_struct::simple<std::string   >  );
+            // TODO observe_param.insert( typeid(  std::wstring   ).name(), &xml_struct::simple<std::wstring  >  );
 
-             observe_param.protocol().emplace( typeid(  char           ).name(), &xml_struct::simple<char          >  );
-             observe_param.protocol().emplace( typeid(  unsigned char  ).name(), &xml_struct::simple<unsigned char >  );
-             observe_param.protocol().emplace( typeid(  wchar_t        ).name(), &xml_struct::simple<wchar_t  >  );
-             observe_param.protocol().emplace( typeid(  std::wint_t    ).name(), &xml_struct::simple<std::wint_t   >  );
+             observe_param.insert( typeid(  char           ).name(), &xml_struct::simple<char          >  );
+             observe_param.insert( typeid(  unsigned char  ).name(), &xml_struct::simple<unsigned char >  );
+             observe_param.insert( typeid(  wchar_t        ).name(), &xml_struct::simple<wchar_t  >  );
+             observe_param.insert( typeid(  std::wint_t    ).name(), &xml_struct::simple<std::wint_t   >  );
 
-             observe_param.protocol().emplace( typeid(  std::int8_t    ).name(), &xml_struct::simple<std::int8_t   >  );
-             observe_param.protocol().emplace( typeid(  std::int16_t   ).name(), &xml_struct::simple<std::int16_t  >  );
-             observe_param.protocol().emplace( typeid(  std::int32_t   ).name(), &xml_struct::simple<std::int32_t  >  );
-             observe_param.protocol().emplace( typeid(  std::int64_t   ).name(), &xml_struct::simple<std::int64_t  >  );
+             observe_param.insert( typeid(  std::int8_t    ).name(), &xml_struct::simple<std::int8_t   >  );
+             observe_param.insert( typeid(  std::int16_t   ).name(), &xml_struct::simple<std::int16_t  >  );
+             observe_param.insert( typeid(  std::int32_t   ).name(), &xml_struct::simple<std::int32_t  >  );
+             observe_param.insert( typeid(  std::int64_t   ).name(), &xml_struct::simple<std::int64_t  >  );
 
-             observe_param.protocol().emplace( typeid(  std::uint8_t   ).name(), &xml_struct::simple<std::uint8_t  >  );
-             observe_param.protocol().emplace( typeid(  std::uint16_t  ).name(), &xml_struct::simple<std::uint16_t >  );
-             observe_param.protocol().emplace( typeid(  std::uint32_t  ).name(), &xml_struct::simple<std::uint32_t >  );
-             observe_param.protocol().emplace( typeid(  std::uint64_t  ).name(), &xml_struct::simple<std::uint64_t >  );
+             observe_param.insert( typeid(  std::uint8_t   ).name(), &xml_struct::simple<std::uint8_t  >  );
+             observe_param.insert( typeid(  std::uint16_t  ).name(), &xml_struct::simple<std::uint16_t >  );
+             observe_param.insert( typeid(  std::uint32_t  ).name(), &xml_struct::simple<std::uint32_t >  );
+             observe_param.insert( typeid(  std::uint64_t  ).name(), &xml_struct::simple<std::uint64_t >  );
 
-             observe_param.protocol().emplace( typeid(       float     ).name(), &xml_struct::simple<     float    >  );
-             observe_param.protocol().emplace( typeid(      double     ).name(), &xml_struct::simple<    double    >  );
-             observe_param.protocol().emplace( typeid(  long double    ).name(), &xml_struct::simple<long double   >  );
+             observe_param.insert( typeid(       float     ).name(), &xml_struct::simple<     float    >  );
+             observe_param.insert( typeid(      double     ).name(), &xml_struct::simple<    double    >  );
+             observe_param.insert( typeid(  long double    ).name(), &xml_struct::simple<long double   >  );
 
-             observe_param.protocol().emplace( typeid(  void*          ).name(), &xml_struct::simple<void*         >  );
-             observe_param.protocol().emplace( typeid(  short          ).name(), &xml_struct::simple<short         >  );
-             observe_param.protocol().emplace( typeid(  unsigned short ).name(), &xml_struct::simple<unsigned short>  );
-             observe_param.protocol().emplace( typeid(  int            ).name(), &xml_struct::simple<int           >  );
-             observe_param.protocol().emplace( typeid(  unsigned       ).name(), &xml_struct::simple<unsigned      >  );
-             observe_param.protocol().emplace( typeid(  long           ).name(), &xml_struct::simple<long          >  );
-             observe_param.protocol().emplace( typeid(  long long      ).name(), &xml_struct::simple<long long     >  );
+             observe_param.insert( typeid(  void*          ).name(), &xml_struct::simple<void*         >  );
+             observe_param.insert( typeid(  short          ).name(), &xml_struct::simple<short         >  );
+             observe_param.insert( typeid(  unsigned short ).name(), &xml_struct::simple<unsigned short>  );
+             observe_param.insert( typeid(  int            ).name(), &xml_struct::simple<int           >  );
+             observe_param.insert( typeid(  unsigned       ).name(), &xml_struct::simple<unsigned      >  );
+             observe_param.insert( typeid(  long           ).name(), &xml_struct::simple<long          >  );
+             observe_param.insert( typeid(  long long      ).name(), &xml_struct::simple<long long     >  );
 
-             //TODO observe_param.protocol().emplace( typeid(  nullptr_t     ).name(), &xml_struct::simple<nullptr_t     >               );
+             //TODO observe_param.insert( typeid(  nullptr_t     ).name(), &xml_struct::simple<nullptr_t     >               );
             }
 
            // wstring processing

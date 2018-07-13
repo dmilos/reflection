@@ -17,14 +17,14 @@ class MyClassOriginal
      }
 
     // Traitors. return reference to member it self
-    int         const&  reader_int()   const{ return m_int; }
-    float       const&  reader_float() const{ return m_float; }
-    std::string const&  reader_string()const{ return m_string; }
+    int         const&  reader_int()   const{ std::cout<< __FUNCTION__ << std::endl; return m_int; }
+    float       const&  reader_float() const{ std::cout<< __FUNCTION__ << std::endl; return m_float; }
+    std::string const&  reader_string()const{ std::cout<< __FUNCTION__ << std::endl; return m_string; }
 
     // Traitors. return reference to member it self
-    int         &  traitor_int()   { return m_int; }
-    float       &  traitor_float() { return m_float; }
-    std::string &  traitor_string(){ return m_string; }
+    int         &  traitor_int()   { std::cout<< __FUNCTION__ << std::endl; return m_int; }
+    float       &  traitor_float() { std::cout<< __FUNCTION__ << std::endl; return m_float; }
+    std::string &  traitor_string(){ std::cout<< __FUNCTION__ << std::endl; return m_string; }
 
   private: // And private members
     int          m_int;
@@ -44,20 +44,16 @@ reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 int main( int argc, char *argv[] )
  {
-  std::cout << __FUNCTION__ << std::endl;
-  // Some typedefs
-  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::property::structure_class<> structure_type;
-
   MyClassReflection r;  //!< Reflection of Original
 
-  // XMLize for example
-  observe_type observe;
-  xml_type xml( observe );
+  std::cout << ::reflection::property::direct::disclose< int & >( r.get("integer") ) << std::endl;
+  std::cout << ::reflection::property::inspect::present<  int const& >(  r.get("integer") ) << std::endl;
 
-  observe.view( std::cout, r );
+  std::cout << ::reflection::property::direct::disclose< float & >( r.get("float-point") ) << std::endl;
+  std::cout << ::reflection::property::inspect::present<  float const& >(  r.get("float-point") ) << std::endl;
 
-  std::cin.get();
+  std::cout << ::reflection::property::direct::disclose< std::string & >( r.get("standard-string") ) << std::endl;
+  std::cout << ::reflection::property::inspect::present< std::string const& >(  r.get("standard-string") ) << std::endl;
+
   return EXIT_SUCCESS;
  }

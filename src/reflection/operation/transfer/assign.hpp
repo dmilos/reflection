@@ -38,7 +38,7 @@ namespace reflection
            typedef typename qualificator_name< property_type >::type                       property_qualified_type;
            typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
 
-           typedef  structure_type     output_type;
+           typedef  structure_type                output_type;
 
            enum error_enum
             {
@@ -53,38 +53,38 @@ namespace reflection
          public:
            assign_struct( observe_type & observe_param )
             {
-             observe_param.protocol().emplace( typeid(  std::string    ).name(), &assign_struct::process<std::string   >  );
-             observe_param.protocol().emplace( typeid(  std::wstring   ).name(), &assign_struct::process<std::wstring  >  );
+             observe_param.insert( typeid(  std::string    ).name(), &assign_struct::process<std::string   >  );
+             observe_param.insert( typeid(  std::wstring   ).name(), &assign_struct::process<std::wstring  >  );
 
-             observe_param.protocol().emplace( typeid(  char           ).name(), &assign_struct::process<char          >  );
-             observe_param.protocol().emplace( typeid(  unsigned char  ).name(), &assign_struct::process<unsigned char >  );
-             observe_param.protocol().emplace( typeid(  wchar_t        ).name(), &assign_struct::process<wchar_t  >  );
-             observe_param.protocol().emplace( typeid(  std::wint_t    ).name(), &assign_struct::process<std::wint_t   >  );
+             observe_param.insert( typeid(  char           ).name(), &assign_struct::process<char          >  );
+             observe_param.insert( typeid(  unsigned char  ).name(), &assign_struct::process<unsigned char >  );
+             observe_param.insert( typeid(  wchar_t        ).name(), &assign_struct::process<wchar_t  >  );
+             observe_param.insert( typeid(  std::wint_t    ).name(), &assign_struct::process<std::wint_t   >  );
 
-             observe_param.protocol().emplace( typeid(  std::int8_t    ).name(), &assign_struct::process<std::int8_t   >  );
-             observe_param.protocol().emplace( typeid(  std::int16_t   ).name(), &assign_struct::process<std::int16_t  >  );
-             observe_param.protocol().emplace( typeid(  std::int32_t   ).name(), &assign_struct::process<std::int32_t  >  );
-             observe_param.protocol().emplace( typeid(  std::int64_t   ).name(), &assign_struct::process<std::int64_t  >  );
+             observe_param.insert( typeid(  std::int8_t    ).name(), &assign_struct::process<std::int8_t   >  );
+             observe_param.insert( typeid(  std::int16_t   ).name(), &assign_struct::process<std::int16_t  >  );
+             observe_param.insert( typeid(  std::int32_t   ).name(), &assign_struct::process<std::int32_t  >  );
+             observe_param.insert( typeid(  std::int64_t   ).name(), &assign_struct::process<std::int64_t  >  );
 
-             observe_param.protocol().emplace( typeid(  std::uint8_t   ).name(), &assign_struct::process<std::uint8_t  >  );
-             observe_param.protocol().emplace( typeid(  std::uint16_t  ).name(), &assign_struct::process<std::uint16_t >  );
-             observe_param.protocol().emplace( typeid(  std::uint32_t  ).name(), &assign_struct::process<std::uint32_t >  );
-             observe_param.protocol().emplace( typeid(  std::uint64_t  ).name(), &assign_struct::process<std::uint64_t >  );
+             observe_param.insert( typeid(  std::uint8_t   ).name(), &assign_struct::process<std::uint8_t  >  );
+             observe_param.insert( typeid(  std::uint16_t  ).name(), &assign_struct::process<std::uint16_t >  );
+             observe_param.insert( typeid(  std::uint32_t  ).name(), &assign_struct::process<std::uint32_t >  );
+             observe_param.insert( typeid(  std::uint64_t  ).name(), &assign_struct::process<std::uint64_t >  );
 
-             observe_param.protocol().emplace( typeid(       float     ).name(), &assign_struct::process<     float    >  );
-             observe_param.protocol().emplace( typeid(      double     ).name(), &assign_struct::process<    double    >  );
-             observe_param.protocol().emplace( typeid(  long double    ).name(), &assign_struct::process<long double   >  );
+             observe_param.insert( typeid(       float     ).name(), &assign_struct::process<     float    >  );
+             observe_param.insert( typeid(      double     ).name(), &assign_struct::process<    double    >  );
+             observe_param.insert( typeid(  long double    ).name(), &assign_struct::process<long double   >  );
 
-             observe_param.protocol().emplace( typeid(  void*          ).name(), &assign_struct::process<void*         >  );
-             observe_param.protocol().emplace( typeid(  short          ).name(), &assign_struct::process<short         >  );
-             observe_param.protocol().emplace( typeid(  unsigned short ).name(), &assign_struct::process<unsigned short>  );
-             observe_param.protocol().emplace( typeid(  int            ).name(), &assign_struct::process<int           >  );
-             observe_param.protocol().emplace( typeid(  unsigned       ).name(), &assign_struct::process<unsigned      >  );
-             observe_param.protocol().emplace( typeid(  long           ).name(), &assign_struct::process<long          >  );
-             observe_param.protocol().emplace( typeid(  long long      ).name(), &assign_struct::process<long long     >  );
+             observe_param.insert( typeid(  void*          ).name(), &assign_struct::process<void*         >  );
+             observe_param.insert( typeid(  short          ).name(), &assign_struct::process<short         >  );
+             observe_param.insert( typeid(  unsigned short ).name(), &assign_struct::process<unsigned short>  );
+             observe_param.insert( typeid(  int            ).name(), &assign_struct::process<int           >  );
+             observe_param.insert( typeid(  unsigned       ).name(), &assign_struct::process<unsigned      >  );
+             observe_param.insert( typeid(  long           ).name(), &assign_struct::process<long          >  );
+             observe_param.insert( typeid(  long long      ).name(), &assign_struct::process<long long     >  );
 
-             observe_param.protocol().emplace( typeid(  nullptr_t     ).name(), &assign_struct::process<nullptr_t     >   );
-             // TODO observe_param.protocol().emplace( typeid( structure_type ).name(), std::bind( &assign_struct::process,               std::placeholders::_1, std::ref(observe_param), std::placeholders::_2, std::placeholders::_3 ) );
+             observe_param.insert( typeid(  nullptr_t     ).name(), &assign_struct::process<nullptr_t     >   );
+             // TODO observe_param.insert( typeid( structure_type ).name(), std::bind( &assign_struct::process,               std::placeholders::_1, std::ref(observe_param), std::placeholders::_2, std::placeholders::_3 ) );
             }
 
          public:
@@ -95,22 +95,21 @@ namespace reflection
              ,typename   original_name = typename std::add_lvalue_reference< primitive_name >::type
              ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
             >
-           static error_enum process( structure_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static error_enum process( structure_type & output_param, key_type const& key_param, property_qualified_reference_type right_param )
             {
-             auto iterator = output_param.container().find( key_param );
-             if( output_param.container().end() == iterator )
+             auto iterator = output_param.find( key_param );
+             if( output_param.end() == iterator )
               {
                return left_not_found_index;
               }
-             auto right = iterator->second;
 
-             property_type *  left = dynamic_cast< property_type * >( iterator->second.get() );
+             property_type *  left = dynamic_cast< property_type * >( output_param.data( iterator ).get() );
              if( nullptr == left )
               {
                return left_not_property_index;
               }
 
-             if( false == ::reflection::property::assign<type_name, error_enum, image_name, original_name, model_name >( *left, *right ) )
+             if( false == ::reflection::property::assign<type_name, error_enum, image_name, original_name, model_name >( *left, right_param ) )
               {
                return assign_fail_index;
               }
