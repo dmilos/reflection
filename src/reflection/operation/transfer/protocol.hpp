@@ -51,7 +51,7 @@ namespace reflection
 
            static function_type const& find( menu_type const& container, type_type const& key )
             {
-             auto iterator = container.end();//::reflection::type::container::find< type_type, function_type >( container, key );
+             auto iterator = ::reflection::type::container::find< type_type, function_type >( container, key );
              if( container.end() == iterator )
               {
                return action_type::always_false();

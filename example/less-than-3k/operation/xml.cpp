@@ -9,86 +9,69 @@
 
 #include "reflection/type/ptr/make.hpp"
 
-class MyClass_XML_A
- : public ::reflection::content::class_class<MyClass_XML_A>
+
+
+
+class MySubsiderOriginal
  {
   public:
-    MyClass_XML_A(){ init(); }
-  private:
-   void init()
-      {
-       insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
-       insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
-       insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<float>( 1024 ) ) ) );
-       insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string>( "asdfg" ) ) ) );
-      }
 
+    MySubsiderOriginal()
+     {
+     }
+    //Just nothing.
  };
 
+// Reflect to reflection
+reflection__CLASS_BEGIN_inherit( MySubsiderReflection, public, MySubsiderOriginal )
+  reflection__CLASS_SIMPLE_guarded(   "integer",         int, 123  )
+  reflection__CLASS_SIMPLE_guarded(   "float-point",     float, 456.0  )
+  reflection__CLASS_SIMPLE_guarded(   "standard-string", std::string, "standard-string"  )
+reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
-class MyClass_XML_B
-: public ::reflection::content::class_class<MyClass_XML_B>
+
+class MyMainClass
  {
   public:
-    MyClass_XML_B(){ init(); }
+    typedef MySubsiderReflection::structure_type                        structure_type;
 
 
-    int      &  traitor()
-     {
-      return m_int;
-     }
+    MyMainClass(){  }
 
-    int const&  inspector()const
-     {
-      
-      return m_int;
-      }
+    int      &  traitor(){ return m_int; }
 
-    bool        mutator( int const& a )
-     {
-      m_int = a;
-      return true;
-     }
+    int const&  inspector()const{ return m_int; }
 
-    structure_type const&  structure_get()const
-     {
-      return m_sub;
-      }
+    bool        mutator( int const& a ){ m_int = a; return true; }
+
+    structure_type const&  structure_get()const{ return m_sub; }
 
   private:
     int m_int;
 
-    MyClass_XML_A m_sub;
-
-  private:
-     void init()
-      {
-        //insert(  "m1",      this, { &MyClass_XML_B::traitor }  );
-        //insert(  "g1",      this{ &MyClass_XML_B::mutator, &MyClass_XML_B::inspector } );
-        //insert(  "g1",      this{ &MyClass_XML_B::traitor, &MyClass_XML_B::inspector } );
-
-        insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass_XML_B::traitor   ) ) ) );
-        insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass_XML_B::inspector ) ) ) );
-        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass_XML_B::mutator   ) ) ) );
-
-        insert(  "mS",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass_XML_B::structure_get ) ) ) );
-
-        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass_XML_B::mutator, &MyClass_XML_B::inspector ) ) ) );
-
-        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::content::direct::simple<int>( 10 ) ) ) );
-        insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
-
-        insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass_XML_B::traitor, &MyClass_XML_B::inspector ) ) ) );
-      }
-
+    MySubsiderReflection m_sub;
  };
 
+reflection__CLASS_BEGIN_inherit( MyMainReflection, public, MyMainClass )
+
+  reflection__CLASS_MEMBER_direct  (  "m1",  MyMainClass, traitor   )
+  reflection__CLASS_MEMBER_inspect (  "m2",  MyMainClass, inspector )
+  reflection__CLASS_MEMBER_mutate  (  "m3",  MyMainClass, mutator   )
+  reflection__CLASS_MEMBER_inspect (  "mS",  MyMainClass, structure_get )
+  reflection__CLASS_MEMBER_guarded (  "g1",  MyMainClass, mutator, inspector )
+  reflection__CLASS_MEMBER_variable(  "v1",  MyMainClass, traitor, inspector )
+
+  reflection__CLASS_SIMPLE_direct(    "extra1",     int,  123  )
+  reflection__CLASS_SIMPLE_guarded(   "extra2",     int, 1024  )
+
+
+reflection__CLASS_END( MyMainReflection, MyClassOriginal );
 
 int main( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
 
-  MyClass_XML_B r;
+  MyMainReflection r;
 
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;

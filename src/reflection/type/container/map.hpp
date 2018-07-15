@@ -44,7 +44,7 @@ namespace reflection
          ,key_name  const& key
         )
         {
-         return false;
+         return container.find( key ) != container.end();
         }
 
       template< typename key_name, typename data_name >

@@ -42,10 +42,12 @@ namespace reflection
 
            enum error_enum
             {
+             false_index               = (false),
              true_index                = (true),
              left_not_found_index      = true_index + 1,
              left_not_property_index   = true_index + 2,
-             assign_fail_index         = true_index + 3,
+             left_not_structure_index  = true_index + 3,
+             assign_fail_index         = true_index + 4,
             };
 
            typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, type_type, error_enum, std::add_const, container_name > observe_type;
@@ -83,8 +85,14 @@ namespace reflection
              observe_param.insert( typeid(  long           ).name(), &assign_struct::process<long          >  );
              observe_param.insert( typeid(  long long      ).name(), &assign_struct::process<long long     >  );
 
-             observe_param.insert( typeid(  nullptr_t     ).name(), &assign_struct::process<nullptr_t     >   );
-             // TODO observe_param.insert( typeid( structure_type ).name(), std::bind( &assign_struct::process,               std::placeholders::_1, std::ref(observe_param), std::placeholders::_2, std::placeholders::_3 ) );
+             observe_param.insert( typeid(  nullptr_t     ).name(), &assign_struct::null   );
+
+             {
+              using namespace std::placeholders;
+              auto f = std::bind( &assign_struct::structure, _1, std::ref(observe_param), _2, _3 );
+              observe_param.insert( typeid(  structure_type      ).name(), f );
+             }
+
             }
 
          public:
@@ -112,6 +120,30 @@ namespace reflection
              if( false == ::reflection::property::assign<type_name, error_enum, image_name, original_name, model_name >( *left, right_param ) )
               {
                return assign_fail_index;
+              }
+
+             return true_index;
+            }
+
+           static error_enum structure( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             if( false == ::reflection::property::inspect::check < structure_type const& >( property_param ) )
+             {
+               return left_not_structure_index;
+             }
+             auto sub = ::reflection::property::inspect::present< structure_type const& >( property_param );
+             observe_param.view( output_param, sub );
+
+             return true_index;
+            }
+
+           static error_enum null     ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             typedef ::reflection::property::null_class null_type;
+             auto null = dynamic_cast< null_type const* >( &property_param );
+             if( nullptr == null )
+              {
+               return false_index;
               }
 
              return true_index;
