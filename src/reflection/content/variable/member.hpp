@@ -82,7 +82,7 @@ namespace reflection
         )
         {
          typedef ::reflection::content::variable::member_struct<data_name,original_name,image_name,class_name,storage_name> member_type;
-         return member_type::make( storage_param, reader_param , reader_param );
+         return member_type::make( storage_param, traitor_param, reader_param );
         }
 
 

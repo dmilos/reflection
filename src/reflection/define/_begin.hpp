@@ -62,4 +62,30 @@
      void init()                                                             \
       {
 
+
+#define reflection__CLASS_BEGIN_view( class_reflected,    class_original )   \
+  class class_reflected                                                      \
+   : public ::reflection::content::class_class<class_original>               \
+   {                                                                         \
+    public:                                                                  \
+      typedef class_original original_type;                                  \
+                                                                             \
+      explicit class_reflected( original_type const& original )              \
+       {                                                                     \
+        this->init();                                                        \
+       }                                                                     \
+                                                                             \
+      class_reflected()                                                      \
+       {                                                                     \
+        this->init();                                                        \
+       }                                                                     \
+                                                                             \
+      explicit class_reflected( class_reflected const& other )               \
+       {                                                                     \
+        this->init();                                                        \
+       }                                                                     \
+   private:                                                                  \
+     void init()                                                             \
+      {
+
 #endif

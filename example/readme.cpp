@@ -38,6 +38,8 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
   reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
   reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
 
+  //reflection__CLASS_SUBSIDER_direct( "sub0", MyClassOriginal, MySubSiderReflection, traitor )
+
 //reflection__CLASS_MEMBER_<TODO>(   "asasd2", &MyClassOriginal::traitor,   &MyClassOriginal::writter    )
 
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );

@@ -1,0 +1,4 @@
+- subsides
+- enumS
+- make view, just class_struct
+- static members and functions ???
