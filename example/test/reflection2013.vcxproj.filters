@@ -94,6 +94,9 @@
     <ClCompile Include="..\less-than-3k\operation\xml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\less-than-2k\exposed\member.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\reflection\reflection.hpp">

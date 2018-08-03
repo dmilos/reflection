@@ -14,7 +14,7 @@
 
 #include "./guarded/guarded.hpp"
 #include "./variable/variable.hpp"
-//#include "./exposed/exposed.hpp"
+#include "./exposed/exposed.hpp"
 
 #include "./trinity/trinity.hpp"
 

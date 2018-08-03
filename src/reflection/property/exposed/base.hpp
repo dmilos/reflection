@@ -27,12 +27,14 @@ namespace reflection
         ,          public ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name >
         {
          public:
-           typedef original_name   original_type;
-           typedef storage_name    storage_type;
+           typedef original_name    original_type;
+           typedef storage_name      storage_type;
            typedef extractor_name  extractor_type;
-           typedef assigner_name  assigner_class;
+           typedef assigner_name    assigner_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+
+           typedef ::reflection::property::exposed::pure_class<original_name,model_name,report_name>      pure_type;
 
            typedef ::reflection::property::direct::base_class< original_name,storage_name, extractor_name > direct_type;
            typedef ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name > mutate_type;
@@ -43,8 +45,8 @@ namespace reflection
 
            explicit base_class
             (
-              extractor_type const& extractor_param
-             ,assigner_class const& assigner_param
+              extractor_type const& extractor_param =   extractor_type()
+             ,assigner_type const& assigner_param =    assigner_type()
             )
             :direct_type( extractor_param )
             ,mutate_type( assigner_param )
@@ -55,7 +57,7 @@ namespace reflection
             (
               storage_type   const& storage_param
              ,extractor_type const& extractor_param = extractor_type()
-             ,assigner_class const& assigner_param = assigner_class()
+             ,assigner_type  const& assigner_param  = assigner_type()
             )
             :carrier_type(   storage_param )
             , direct_type( extractor_param )

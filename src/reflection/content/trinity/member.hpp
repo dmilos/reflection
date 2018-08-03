@@ -89,7 +89,7 @@ namespace reflection
        member
         (
           storage_name  const&             storage_param
-         ,report_name    (class_name::*traitor_param)(original_name )
+         ,original_name  (class_name::*traitor_param)(void )
          ,report_name    (class_name::*writter_param)( model_name )
          ,image_name     (class_name::*reader_param )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )

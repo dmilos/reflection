@@ -30,8 +30,8 @@ namespace reflection
         ,typename    report_name
        >
        class basic_class
-        :virtual public ::reflection::content::trinity::pure_class<data_name, original_name, model_name,image_name,report_name>
-        ,        public ::reflection::property::trinity::base_class< data_name, original_name, model_name, image_name, storage_name, extractor_name, assigner_name, retriever_name, report_name >
+        :virtual public ::reflection::content::trinity::pure_class< data_name, original_name, model_name,image_name,report_name>
+        ,        public ::reflection::property::trinity::base_class< original_name, model_name, image_name, storage_name, extractor_name, assigner_name, retriever_name, report_name >
         {
          public:
            typedef        data_name        data_type;
@@ -44,10 +44,11 @@ namespace reflection
            typedef   retriever_name   retriever_type;
            typedef      report_name      report_type;
 
-           typedef ::reflection::content::trinity::pure_class<data_name,original_name,model_name,image_name,report_name> pure_type;
-           typedef ::reflection::property::trinity::base_class<data_name, original_name,image_name, model_name, storage_name, extractor_name, assigner_name, retriever_name, report_name > base_type;
-
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+
+           typedef ::reflection::content::trinity::pure_class<data_name,original_name,model_name,image_name,report_name> pure_type;
+           typedef ::reflection::property::trinity::base_class< original_name,image_name, model_name, storage_name, extractor_name, assigner_name, retriever_name, report_name > base_type;
+
 
                      basic_class()
                       {
@@ -55,7 +56,7 @@ namespace reflection
 
             explicit basic_class
                      (
-                       storage_type   const& storage_param
+                        storage_type   const& storage_param
                        ,extractor_type  const&  extractor_param =  extractor_type()
                        ,assigner_type  const&    assigner_param =   assigner_type()
                        ,retriever_type const&   retriever_param =  retriever_type()
@@ -65,18 +66,18 @@ namespace reflection
                      {
                      }
 
-            using base_type::process;
             using base_type::extractor;
-
-            //using base_type::process;
             using base_type::assigner;
-
-            //using base_type::present;
             using base_type::retriever;
 
+            //using base_type::disclose;
+            //using base_type::process;
+            //using base_type::present;
+
             original_type disclose(){ return base_type::disclose(); }
-            image_type    present()const{ return base_type::present(); }
             report_name   process( model_type model_param ){ return base_type::process(model_param); }
+            image_type    present()const{ return base_type::present(); }
+
         };
 
       }

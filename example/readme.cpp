@@ -40,12 +40,12 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
   //reflection__CLASS_SUBSIDER_direct( "sub0", MyClassOriginal, MySubSiderReflection, traitor )
 
-//reflection__CLASS_MEMBER_<TODO>(   "asasd2", &MyClassOriginal::traitor,   &MyClassOriginal::writter    )
+   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writter )
 
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 
-int main( int argc, char *argv[] )
+int main_readme( int argc, char *argv[] )
  {
   std::cout << __FUNCTION__ << std::endl;
   // Some typedefs

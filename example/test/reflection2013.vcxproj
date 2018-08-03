@@ -61,6 +61,7 @@ $(prg_scons) --directory=$(SolutionDir)build config=release
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\less-than-2k\exposed\member.cpp" />
     <ClCompile Include="..\less-than-3k\operation\xml.cpp" />
     <ClCompile Include="..\readme.cpp" />
   </ItemGroup>

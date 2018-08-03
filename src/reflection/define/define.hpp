@@ -13,7 +13,7 @@
 
 #include "./guarded.hpp"
 #include "./variable.hpp"
-//#include "./exposed.hpp"
+#include "./exposed.hpp"
 
 #include "./trinity.hpp"
 

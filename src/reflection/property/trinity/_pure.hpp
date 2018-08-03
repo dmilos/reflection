@@ -48,7 +48,13 @@ namespace reflection
            using inspect_type::present;
         };
 
-      template< typename original_name, typename model_name, typename image_name,typename report_name >
+      template
+       < 
+         typename original_name
+        ,typename model_name
+        ,typename image_name
+        ,typename report_name 
+       >
        inline bool check( ::reflection::property::pure_class const& property_param )
         {
          typedef ::reflection::property::trinity::pure_class<original_name,model_name,image_name,report_name> trinity_type;
