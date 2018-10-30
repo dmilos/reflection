@@ -1,7 +1,7 @@
 #ifndef type_content_category_pure_hpp
  #define type_content_category_pure_hpp
 
-// ::reflection::content::category::pure_class<type_name>
+// ::reflection::content::category::pure_class<identificator_name>
 // ::reflection::content::category::type()
 // ::reflection::content::category::check()
 
@@ -14,57 +14,57 @@
 
        template
         <
-          typename type_name
+          typename identifier_name
         >
         class pure_class
          {
           public:
-            typedef type_name type_type;
+            typedef identifier_name identifier_type;
 
             explicit  pure_class
                        (
-                        type_type const& type_param = type_type()
+                         identifier_type const& id_param = identifier_type()
                        )
-                       : m_type( type_param )
+                       : m_identifier( id_param )
                        {
                        }
 
             virtual   ~pure_class(){ }
 
           public:
-            type_type const& type()const
+            identifier_type const& type()const
              {
-              return m_type;
+              return m_identifier;
              }
           protected:
-            type_type& type( void )
+            void type( identifier_type const& id_param )
              {
-              return m_type;
+              m_identifier = id_param;
              }
           private:
-            type_type m_type;
+            identifier_type m_identifier;
          };
 
        template
         <
-         typename type_name
+         typename identifier_name
         >
         inline
-        type_name const&
-        type( ::reflection::content::category::pure_class<type_name> const& instance_param )
+         identifier_name const&
+        type( ::reflection::content::category::pure_class<identifier_name> const& instance_param )
          {
           return instance_param.type();
          }
 
        template
         <
-          typename type_name
+          typename identifier_name
          ,typename whatever_name
         >
         inline
         bool check( whatever_name const& whatever_param )
          {
-          typedef ::reflection::content::category::pure_class<type_name> category_type;
+          typedef ::reflection::content::category::pure_class<identifier_name> category_type;
           return nullptr != dynamic_cast< category_type const*>( &whatever_param );
          }
 

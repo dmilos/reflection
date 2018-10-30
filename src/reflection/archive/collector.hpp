@@ -15,7 +15,7 @@ namespace reflection
       ,typename key_name = std::string
       ,template < typename, typename > class container_name = ::reflection::type::container::map
      >
-      using collector_class = ::reflection::content::class_class<data_name,key_name, container_name >;
+      using collector_class = ::reflection::content::class_class< data_name,key_name, container_name >;
 
    }
  }

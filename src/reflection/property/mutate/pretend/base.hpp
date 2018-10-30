@@ -35,7 +35,8 @@
               public:
 
                 explicit assigner_class( writter_type const& writter_param, converter_type const& convert_param )
-                 :m_writter( writter_param ),m_convert( convert_param )
+                 :m_writter( writter_param )
+                 ,m_convert( convert_param )
                  {
                  }
                 report_type operator()( storage_type & storage_param, pretend_type pretend_param )const

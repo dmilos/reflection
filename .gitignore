@@ -10,3 +10,5 @@
 /example/test/reflection2013.VC.db
 /example/test/*.opendb
 *.exe
+/example/test/msvc/2015/.vs
+/example/test/msvc/2015/Debug

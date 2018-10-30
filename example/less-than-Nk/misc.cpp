@@ -109,7 +109,7 @@ class MyClass
        ::reflection::property::inspect::simple<double>();
 
        ::reflection::property::mutate::member( this, &MyClass::writter );
-       ::reflection::property::mutate::pretend::member< int, ::reflection::type::convert::identity< int, bool > >( this, &MyClass::writter );
+       ::reflection::property::mutate::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::writter );
        ::reflection::property::mutate::simple< int, bool >( 512 );
        ::reflection::property::mutate::simple< int, bool >( );
 
@@ -160,15 +160,15 @@ class MyClass
        ::reflection::property::function::member( this, &MyClass::a );
        ::reflection::property::function::member( this, &MyClass::executor );
 
-       ::reflection::content::function::member( this, &MyClass::a );
-       ::reflection::content::function::member( this, &MyClass::executor );
-       ::reflection::content::function::member( this, &MyClass::writter  );
-       ::reflection::content::function::member( this, &MyClass::d  );
-     //::reflection::content::function::member( this, &MyClass::calc );
+       ::reflection::content::function::member<std::string>( this, &MyClass::a );
+       ::reflection::content::function::member<std::string>( this, &MyClass::executor );
+       ::reflection::content::function::member<std::string>( this, &MyClass::writter  );
+       ::reflection::content::function::member<std::string>( this, &MyClass::d  );
+     //::reflection::content::function::member<std::string>( this, &MyClass::calc );
 
-        ::reflection::content::function::free( &free_void_void ).execute();
-        ::reflection::content::function::free( &free_int_void  ).execute();
-        ::reflection::content::function::free( &free_int_int   ).execute( 10 );
+        ::reflection::content::function::free<std::string>( &free_void_void ).execute();
+        ::reflection::content::function::free<std::string>( &free_int_void  ).execute();
+        ::reflection::content::function::free<std::string>( &free_int_int   ).execute( 10 );
 
        std::cout << ::reflection::property::direct::check<int&>(         ::reflection::property::direct::member(   this, &MyClass::traitor   ) ) << std::endl;
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;
@@ -206,7 +206,7 @@ class MyClass
 
         auto x1 = ::reflection::property::mutate::member( this, &MyClass::writter );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
 
-       ::reflection::property::mutate::pretend::member< int, ::reflection::type::convert::identity< int, bool > >( this, &MyClass::writter ).process( 10 );
+       ::reflection::property::mutate::pretend::member< int, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::writter ).process( 10 );
        {
         auto ts =[]( std::string const& s )-> int
          {

@@ -3,7 +3,7 @@
 // ::reflection::content::pure_class<data_name>
 
 #include "../property/_pure.hpp"
-#include "../type/string.hpp"
+#include "../type/name/id.hpp"
 #include "./category.hpp"
 
 
@@ -14,20 +14,23 @@ namespace reflection
 
     template
      <
-      typename data_name
+       typename data_name
+      ,typename identifier_name = std::string
      >
     class pure_class
      : virtual public ::reflection::property::pure_class
-     , virtual public ::reflection::content::category::pure_class< ::reflection::type::string_type >
+     , virtual public ::reflection::content::category::pure_class< identifier_name >
      {
       public:
-        typedef ::reflection::type::string_type string_type;
-        typedef ::reflection::content::category::pure_class< ::reflection::type::string_type > category_type;
+        typedef identifier_name identifier_type;
+        typedef ::reflection::content::category::pure_class< identifier_type > category_type;
 
-        explicit pure_class( string_type const& type_param = typeid(data_name).name() )
+        typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
+
+        explicit pure_class( identifier_type const& type_param = identificator_type:: template get<data_name>() )
          :category_type( type_param )
          {
-          this->category_type::type() = string_type( typeid(data_name).name() );
+          this->category_type::type( identificator_type:: template get<data_name>() );
          }
 
         virtual ~pure_class(){}

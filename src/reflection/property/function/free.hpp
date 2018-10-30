@@ -43,8 +43,7 @@ namespace reflection
              return (*m_function)( first_param, second_param, third_param, fourth_param, fifth_param );
             }
           private:
-             function_type m_function;
-
+            function_type m_function;
         };
 
 
@@ -70,8 +69,7 @@ namespace reflection
              return (*m_function)( first_param, second_param, third_param, fourth_param );
             }
           private:
-
-             function_type m_function;
+            function_type m_function;
         };
 
       template< typename return_name, typename first_name, typename second_name, typename third_name >
@@ -95,8 +93,7 @@ namespace reflection
              return (*m_function)( first_param, second_param, third_param);
             }
           private:
-
-             function_type m_function;
+            function_type m_function;
         };
 
       template< typename return_name, typename first_name, typename second_name >
@@ -119,8 +116,7 @@ namespace reflection
              return (*m_function)( first_param, second_param);
             }
           private:
-
-             function_type m_function;
+            function_type m_function;
         };
 
 
@@ -143,8 +139,7 @@ namespace reflection
              return (*m_function)( first_param );
             }
           private:
-
-             function_type m_function;
+            function_type m_function;
         };
 
       template< typename return_name >
@@ -165,8 +160,7 @@ namespace reflection
              return (*m_function)();
             }
           private:
-
-             function_type m_function;
+            function_type m_function;
         };
 
       template< typename return_name >

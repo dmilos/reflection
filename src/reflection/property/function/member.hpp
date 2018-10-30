@@ -45,7 +45,6 @@ namespace reflection
           private:
              class_type   *m_class;
              function_type m_function;
-
         };
 
 
@@ -70,9 +69,9 @@ namespace reflection
             {
              return (m_class->*m_function)( first_param, second_param, third_param, fourth_param );
             }
-          private:
-             class_type   *m_class;
-             function_type m_function;
+         private:
+           class_type   *m_class;
+           function_type m_function;
         };
 
       template< typename class_name, typename return_name, typename first_name, typename second_name, typename third_name >
@@ -95,9 +94,9 @@ namespace reflection
             {
              return (m_class->*m_function)( first_param, second_param, third_param);
             }
-          private:
-             class_type   *m_class;
-             function_type m_function;
+         private:
+           class_type   *m_class;
+           function_type m_function;
         };
 
       template< typename class_name, typename return_name, typename first_name, typename second_name >
@@ -119,9 +118,9 @@ namespace reflection
             {
              return (m_class->*m_function)( first_param, second_param);
             }
-          private:
-             class_type   *m_class;
-             function_type m_function;
+         private:
+           class_type   *m_class;
+           function_type m_function;
         };
 
 
@@ -143,9 +142,9 @@ namespace reflection
             {
              return (m_class->*m_function)( first_param );
             }
-          private:
-             class_type   *m_class;
-             function_type m_function;
+         private:
+           class_type   *m_class;
+           function_type m_function;
         };
 
       template< typename class_name, typename return_name >
@@ -165,9 +164,9 @@ namespace reflection
             {
              return (m_class->*m_function)();
             }
-          private:
-             class_type   *m_class;
-             function_type m_function;
+         private:
+           class_type   *m_class;
+           function_type m_function;
         };
 
       template< typename class_name, typename return_name >
@@ -253,8 +252,6 @@ namespace reflection
 
          return member_type( class_param, function_param );
         }
-
-
 
      }
    }

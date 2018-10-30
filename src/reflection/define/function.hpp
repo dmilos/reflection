@@ -3,7 +3,7 @@
 
 
 
-#define reflection__CLASS_FUNCTION_member( function_string_name,  class_symbolic_name, function_symbolic_name ) \
+#define reflection__CLASS_FUNCTION_member( function_string_name, class_symbolic_name, function_symbolic_name ) \
   insert                                                      \
    (                                                          \
      function_string_name                                     \
@@ -19,6 +19,25 @@
        )                                                      \
      )                                                        \
    );
+
+
+
+// #define reflection__CLASS_FUNCTION_static( function_string_name, class_symbolic_name, function_symbolic_name ) \
+//   insert                                                  \
+//    (                                                      \
+//      function_string_name                                 \
+//     ,item_type                                            \
+//      (                                                    \
+//       ::memory::pointer::make                             \
+//        (                                                  \
+//         ::reflection::property::function::free            \
+//          (                                                \
+//           &class_symbolic_name::function_symbolic_name    \
+//          )                                                \
+//        )                                                  \
+//      )                                                    \
+//    );                                                     \
+
 
 #define reflection__CLASS_FUNCTION_free(      function_string_name,   function_symbolic_name   ) \
   insert                                             \

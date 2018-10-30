@@ -21,7 +21,7 @@ namespace reflection
       template
        <
          typename      key_name = std::string
-        ,typename     type_name = std::string
+        ,typename     identifier_name = std::string
         ,template  < typename > class qualificator_name = std::add_const
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
@@ -29,14 +29,16 @@ namespace reflection
         {
          public:
            typedef     key_name        key_type;
-           typedef    type_name       type_type;
+           typedef    identifier_name       identifier_type;
 
            typedef ::reflection::property::pure_class                                 property_type;
-           typedef ::reflection::content::category::pure_class<type_type>             category_type;
+           typedef ::reflection::content::category::pure_class<identifier_type>       category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef typename qualificator_name< property_type >::type                       property_qualified_type;
            typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
+
+           typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
            typedef  structure_type                output_type;
 
@@ -50,47 +52,47 @@ namespace reflection
              assign_fail_index         = true_index + 4,
             };
 
-           typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, type_type, error_enum, std::add_const, container_name > observe_type;
+           typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, error_enum, std::add_const, container_name > observe_type;
 
          public:
            assign_struct( observe_type & observe_param )
             {
-             observe_param.insert( typeid(  std::string    ).name(), &assign_struct::process<std::string   >  );
-             observe_param.insert( typeid(  std::wstring   ).name(), &assign_struct::process<std::wstring  >  );
+             observe_param.insert( identificator_type::template get<  std::string    >(), &assign_struct::process<std::string   >  );
+             observe_param.insert( identificator_type::template get<  std::wstring   >(), &assign_struct::process<std::wstring  >  );
 
-             observe_param.insert( typeid(  char           ).name(), &assign_struct::process<char          >  );
-             observe_param.insert( typeid(  unsigned char  ).name(), &assign_struct::process<unsigned char >  );
-             observe_param.insert( typeid(  wchar_t        ).name(), &assign_struct::process<wchar_t  >  );
-             observe_param.insert( typeid(  std::wint_t    ).name(), &assign_struct::process<std::wint_t   >  );
+             observe_param.insert( identificator_type::template get<  char           >(), &assign_struct::process<char          >  );
+             observe_param.insert( identificator_type::template get<  unsigned char  >(), &assign_struct::process<unsigned char >  );
+             observe_param.insert( identificator_type::template get<  wchar_t        >(), &assign_struct::process<wchar_t  >  );
+             observe_param.insert( identificator_type::template get<  std::wint_t    >(), &assign_struct::process<std::wint_t   >  );
 
-             observe_param.insert( typeid(  std::int8_t    ).name(), &assign_struct::process<std::int8_t   >  );
-             observe_param.insert( typeid(  std::int16_t   ).name(), &assign_struct::process<std::int16_t  >  );
-             observe_param.insert( typeid(  std::int32_t   ).name(), &assign_struct::process<std::int32_t  >  );
-             observe_param.insert( typeid(  std::int64_t   ).name(), &assign_struct::process<std::int64_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int8_t    >(), &assign_struct::process<std::int8_t   >  );
+             observe_param.insert( identificator_type::template get<  std::int16_t   >(), &assign_struct::process<std::int16_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int32_t   >(), &assign_struct::process<std::int32_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int64_t   >(), &assign_struct::process<std::int64_t  >  );
 
-             observe_param.insert( typeid(  std::uint8_t   ).name(), &assign_struct::process<std::uint8_t  >  );
-             observe_param.insert( typeid(  std::uint16_t  ).name(), &assign_struct::process<std::uint16_t >  );
-             observe_param.insert( typeid(  std::uint32_t  ).name(), &assign_struct::process<std::uint32_t >  );
-             observe_param.insert( typeid(  std::uint64_t  ).name(), &assign_struct::process<std::uint64_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &assign_struct::process<std::uint8_t  >  );
+             observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &assign_struct::process<std::uint16_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &assign_struct::process<std::uint32_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &assign_struct::process<std::uint64_t >  );
 
-             observe_param.insert( typeid(       float     ).name(), &assign_struct::process<     float    >  );
-             observe_param.insert( typeid(      double     ).name(), &assign_struct::process<    double    >  );
-             observe_param.insert( typeid(  long double    ).name(), &assign_struct::process<long double   >  );
+             observe_param.insert( identificator_type::template get<       float     >(), &assign_struct::process<     float    >  );
+             observe_param.insert( identificator_type::template get<      double     >(), &assign_struct::process<    double    >  );
+             observe_param.insert( identificator_type::template get<  long double    >(), &assign_struct::process<long double   >  );
 
-             observe_param.insert( typeid(  void*          ).name(), &assign_struct::process<void*         >  );
-             observe_param.insert( typeid(  short          ).name(), &assign_struct::process<short         >  );
-             observe_param.insert( typeid(  unsigned short ).name(), &assign_struct::process<unsigned short>  );
-             observe_param.insert( typeid(  int            ).name(), &assign_struct::process<int           >  );
-             observe_param.insert( typeid(  unsigned       ).name(), &assign_struct::process<unsigned      >  );
-             observe_param.insert( typeid(  long           ).name(), &assign_struct::process<long          >  );
-             observe_param.insert( typeid(  long long      ).name(), &assign_struct::process<long long     >  );
+             observe_param.insert( identificator_type::template get<  void*          >(), &assign_struct::process<void*         >  );
+             observe_param.insert( identificator_type::template get<  short          >(), &assign_struct::process<short         >  );
+             observe_param.insert( identificator_type::template get<  unsigned short >(), &assign_struct::process<unsigned short>  );
+             observe_param.insert( identificator_type::template get<  int            >(), &assign_struct::process<int           >  );
+             observe_param.insert( identificator_type::template get<  unsigned       >(), &assign_struct::process<unsigned      >  );
+             observe_param.insert( identificator_type::template get<  long           >(), &assign_struct::process<long          >  );
+             observe_param.insert( identificator_type::template get<  long long      >(), &assign_struct::process<long long     >  );
 
-             observe_param.insert( typeid(  nullptr_t     ).name(), &assign_struct::null   );
+             observe_param.insert( identificator_type::template get<  nullptr_t     >(), &assign_struct::null   );
 
              {
               using namespace std::placeholders;
               auto f = std::bind( &assign_struct::structure, _1, std::ref(observe_param), _2, _3 );
-              observe_param.insert( typeid(  structure_type      ).name(), f );
+              observe_param.insert( identificator_type::template get<  structure_type      >(), f );
              }
 
             }
@@ -117,7 +119,7 @@ namespace reflection
                return left_not_property_index;
               }
 
-             if( false == ::reflection::property::assign<type_name, error_enum, image_name, original_name, model_name >( *left, right_param ) )
+             if( false == ::reflection::property::assign<primitive_name, error_enum, image_name, original_name, model_name >( *left, right_param ) )
               {
                return assign_fail_index;
               }

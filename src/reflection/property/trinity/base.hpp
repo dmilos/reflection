@@ -1,7 +1,7 @@
 #ifndef reflection_property_trinity_base
 #define reflection_property_trinity_base
 
-// reflection::property::trinity::base_class
+// ::reflection::property::trinity::base_class
 
 
 #include "./_pure.hpp"
@@ -19,10 +19,10 @@ namespace reflection
 
       template
        <
-         typename  original_name   
-        ,typename     model_name      
-        ,typename     image_name     
-        ,typename   storage_name   
+         typename  original_name
+        ,typename     model_name
+        ,typename     image_name
+        ,typename   storage_name
         ,typename extractor_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
         ,typename  assigner_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
         ,typename retriever_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >

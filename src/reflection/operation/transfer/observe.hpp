@@ -1,7 +1,7 @@
 #ifndef reflection_object_transfer_observe
 #define reflection_object_transfer_observe
 
-// ::reflection::operation::observe_class<output_name,key_name,type_name>
+// ::reflection::operation::observe_class<output_name,key_name,identificator_name>
 
 #include "../../content/category.hpp"
 #include "../../property/structure.hpp"
@@ -25,7 +25,7 @@ namespace reflection
        <
          typename output_name
         ,typename    key_name = std::string
-        ,typename   type_name = std::string
+        ,typename   identificator_name = std::string
         ,typename   report_name = bool
         ,template  < typename > class qualificator_name = std::add_const
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
@@ -35,10 +35,10 @@ namespace reflection
          public:
            typedef  output_name     output_type;
            typedef     key_name        key_type;
-           typedef    type_name       type_type;
+           typedef    identificator_name       identificator_type;
            typedef   report_name    report_type;
 
-           typedef ::reflection::content::category::pure_class<type_type>             category_type;
+           typedef ::reflection::content::category::pure_class<identificator_type>    category_type;
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
@@ -53,7 +53,7 @@ namespace reflection
            typedef typename std::add_lvalue_reference< property_qualified_type >::type      property_qualified_reference_type;
            typedef typename std::add_lvalue_reference< structure_qualified_type >::type    structure_qualified_reference_type;
 
-           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, type_name, report_name, qualificator_name, container_name > protocolX_type;
+           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, identificator_name, report_name, qualificator_name, container_name > protocolX_type;
 
            typedef typename protocolX_type::function_type     function_type;
            typedef typename protocolX_type::menu_type         menu_type;

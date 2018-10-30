@@ -19,9 +19,9 @@ namespace reflection
            typedef  left_name  left_type;
            typedef right_name right_type;
 
-           left_type operator ()( right_name right_param )const
+           left_type operator ()( right_type right_param )const
             {
-             return right_param;
+             return static_cast<left_type>( right_param );
             }
 
         };

@@ -20,71 +20,74 @@ namespace reflection
 
       template
        <
-         typename output_name //!< conect operator << ()
-        ,typename      key_name = std::string
-        ,typename     type_name = std::string
-        ,typename   report_name = bool
+         typename      output_name //!< conect operator << ()
+        ,typename         key_name = std::string
+        ,typename  identifier_name = std::string
+        ,typename      report_name = bool
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
        struct xml_struct
         {
          public:
-           typedef  output_name     output_type;
-           typedef     key_name        key_type;
-           typedef    type_name       type_type;
-           typedef    report_name   report_type;
+           typedef      output_name        output_type;
+           typedef         key_name           key_type;
+           typedef  identifier_name    identifier_type;
+           typedef      report_name        report_type;
 
            typedef ::reflection::property::pure_class                                 property_type;
-           typedef ::reflection::content::category::pure_class<type_type>             category_type;
+           typedef ::reflection::content::category::pure_class<identifier_type>             category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
-           typedef typename std::add_const< property_type >::type                                  property_qualified_type;
-           typedef typename std::add_lvalue_reference<property_qualified_type>::type     property_qualified_reference_type;
+           typedef typename std::add_const< property_type >::type                          property_qualified_type;
+           typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
 
-           typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, type_type, report_type, std::add_const, container_name > observe_type;
+           typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
+           typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+
+         public:
            xml_struct( observe_type & observe_param )
             {
              observe_param.recover( observe_type::not_category_index  , &xml_struct::recover );
              observe_param.recover( observe_type::missing_action_index, &xml_struct::recover );
              observe_param.recover( observe_type::action_fail_index   , &xml_struct::recover );
 
-             observe_param.insert( typeid(  std::string    ).name(), &xml_struct::primitive<std::string   >  );
-            // TODO observe_param.insert( typeid(  std::wstring   ).name(), &xml_struct::primitive<std::wstring  >  );
+             observe_param.insert( identificator_type::template get< std::string    >(), &xml_struct::primitive<std::string   >  );
+            // TODO observe_param.insert( identificator_type::template get<  std::wstring   >(), &xml_struct::primitive<std::wstring  >  );
 
-             observe_param.insert( typeid(  char           ).name(), &xml_struct::primitive<char          >  );
-             observe_param.insert( typeid(  unsigned char  ).name(), &xml_struct::primitive<unsigned char >  );
-             observe_param.insert( typeid(  wchar_t        ).name(), &xml_struct::primitive<wchar_t  >  );
-             observe_param.insert( typeid(  std::wint_t    ).name(), &xml_struct::primitive<std::wint_t   >  );
+             observe_param.insert( identificator_type::template get<  char           >(), &xml_struct::primitive<char          >  );
+             observe_param.insert( identificator_type::template get<  unsigned char  >(), &xml_struct::primitive<unsigned char >  );
+             observe_param.insert( identificator_type::template get<  wchar_t        >(), &xml_struct::primitive<wchar_t  >  );
+             observe_param.insert( identificator_type::template get<  std::wint_t    >(), &xml_struct::primitive<std::wint_t   >  );
 
-             observe_param.insert( typeid(  std::int8_t    ).name(), &xml_struct::primitive<std::int8_t   >  );
-             observe_param.insert( typeid(  std::int16_t   ).name(), &xml_struct::primitive<std::int16_t  >  );
-             observe_param.insert( typeid(  std::int32_t   ).name(), &xml_struct::primitive<std::int32_t  >  );
-             observe_param.insert( typeid(  std::int64_t   ).name(), &xml_struct::primitive<std::int64_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int8_t    >(), &xml_struct::primitive<std::int8_t   >  );
+             observe_param.insert( identificator_type::template get<  std::int16_t   >(), &xml_struct::primitive<std::int16_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int32_t   >(), &xml_struct::primitive<std::int32_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int64_t   >(), &xml_struct::primitive<std::int64_t  >  );
 
-             observe_param.insert( typeid(  std::uint8_t   ).name(), &xml_struct::primitive<std::uint8_t  >  );
-             observe_param.insert( typeid(  std::uint16_t  ).name(), &xml_struct::primitive<std::uint16_t >  );
-             observe_param.insert( typeid(  std::uint32_t  ).name(), &xml_struct::primitive<std::uint32_t >  );
-             observe_param.insert( typeid(  std::uint64_t  ).name(), &xml_struct::primitive<std::uint64_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &xml_struct::primitive<std::uint8_t  >  );
+             observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &xml_struct::primitive<std::uint16_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &xml_struct::primitive<std::uint32_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &xml_struct::primitive<std::uint64_t >  );
 
-             observe_param.insert( typeid(       float     ).name(), &xml_struct::primitive<     float    >  );
-             observe_param.insert( typeid(      double     ).name(), &xml_struct::primitive<    double    >  );
-             observe_param.insert( typeid(  long double    ).name(), &xml_struct::primitive<long double   >  );
+             observe_param.insert( identificator_type::template get<       float     >(), &xml_struct::primitive<     float    >  );
+             observe_param.insert( identificator_type::template get<      double     >(), &xml_struct::primitive<    double    >  );
+             observe_param.insert( identificator_type::template get<  long double    >(), &xml_struct::primitive<long double   >  );
 
-             observe_param.insert( typeid(  void*          ).name(), &xml_struct::primitive<void*         >  );
-             observe_param.insert( typeid(  short          ).name(), &xml_struct::primitive<short         >  );
-             observe_param.insert( typeid(  unsigned short ).name(), &xml_struct::primitive<unsigned short>  );
-             observe_param.insert( typeid(  int            ).name(), &xml_struct::primitive<int           >  );
-             observe_param.insert( typeid(  unsigned       ).name(), &xml_struct::primitive<unsigned      >  );
-             observe_param.insert( typeid(  long           ).name(), &xml_struct::primitive<long          >  );
-             observe_param.insert( typeid(  long long      ).name(), &xml_struct::primitive<long long     >  );
+             observe_param.insert( identificator_type::template get<  void*          >(), &xml_struct::primitive<void*         >  );
+             observe_param.insert( identificator_type::template get<  short          >(), &xml_struct::primitive<short         >  );
+             observe_param.insert( identificator_type::template get<  unsigned short >(), &xml_struct::primitive<unsigned short>  );
+             observe_param.insert( identificator_type::template get<  int            >(), &xml_struct::primitive<int           >  );
+             observe_param.insert( identificator_type::template get<  unsigned       >(), &xml_struct::primitive<unsigned      >  );
+             observe_param.insert( identificator_type::template get<  long           >(), &xml_struct::primitive<long          >  );
+             observe_param.insert( identificator_type::template get<  long long      >(), &xml_struct::primitive<long long     >  );
 
-             observe_param.insert( typeid(  nullptr_t     ).name(), &xml_struct::null   );
+             observe_param.insert( identificator_type::template get<  nullptr_t     >(), &xml_struct::null   );
 
              {
               using namespace std::placeholders;
               auto f = std::bind( &xml_struct::structure, _1, std::ref(observe_param), _2, _3 );
-              observe_param.insert( typeid(  structure_type      ).name(), f );
+              observe_param.insert( identificator_type::template get<  structure_type      >(), f );
              }
             }
 
