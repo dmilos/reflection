@@ -13,6 +13,7 @@
       ::memory::pointer::make                           \
        (                                                \
         ::reflection::content::trinity::member          \
+         <std::string>                                  \
          (                                              \
            this                                         \
           ,&class_symbolic_name::traitir_symbolic_name  \
@@ -34,13 +35,13 @@
        (                                                \
         ::reflection::content::trinity::simple          \
           <                                             \
-           type_symbolic_name                           \
+           std::string,type_symbolic_name               \
           >                                             \
           (                                             \
            value_instance                               \
           )                                             \
        )                                                \
      )                                                  \
-   );  
+   );
 
 #endif

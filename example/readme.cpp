@@ -45,7 +45,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
 
-int main_readme( int argc, char *argv[] )
+int main( int argc, char *argv[] )
  {
   std::cout << __FUNCTION__ << std::endl;
   // Some typedefs

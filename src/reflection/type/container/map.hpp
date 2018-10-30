@@ -22,6 +22,8 @@ namespace reflection
          typedef   key_name    key_type;
          typedef   data_name  data_type;
 
+         typedef   std::size_t  size_type;
+
          typedef          std::map< key_name, data_name >                           container_type;
          typedef typename std::map< key_name, data_name >::value_type                   value_type;
          typedef typename std::map< key_name, data_name >::iterator                  iterator_type;

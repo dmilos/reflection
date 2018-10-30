@@ -16,7 +16,8 @@ namespace reflection
 
       template
        <
-         typename data_name
+         typename identifier_name
+        ,typename data_name
         ,typename model_name =  data_name const &
         ,typename report_name = bool
        >
@@ -33,7 +34,7 @@ namespace reflection
 
          typedef typename simple_type::assigner_class assigner_type;
 
-         typedef ::reflection::content::mutate::basic_class<data_name,model_name,storage_name,assigner_type,report_name> typedef_type;
+         typedef ::reflection::content::mutate::basic_class<identifier_name,data_name,model_name,storage_name,assigner_type,report_name> typedef_type;
 
          static typedef_type make( void )                 { return typedef_type( ); }
          static typedef_type make( data_type const& value_param ){ return typedef_type( value_param ); }
@@ -52,25 +53,27 @@ namespace reflection
         };*/
       template
        <
-         typename data_name
+         typename identifier_name = std::string
+        ,typename data_name
        >
        inline
-       typename ::reflection::content::mutate::simple_struct<data_name, data_name& >::typedef_type
+       typename ::reflection::content::mutate::simple_struct<identifier_name,data_name, data_name const& >::typedef_type
        simple()
         {
-         typedef ::reflection::content::mutate::simple_struct<data_name, data_name& > simple_type;
+         typedef ::reflection::content::mutate::simple_struct<identifier_name,data_name, data_name const& > simple_type;
          return simple_type::make();
         }
 
       template
        <
-         typename data_name
+         typename identifier_name = std::string
+        ,typename data_name
        >
        inline
-       typename ::reflection::content::mutate::simple_struct<data_name, data_name& >::typedef_type
+       typename ::reflection::content::mutate::simple_struct<identifier_name,data_name, data_name const& >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::content::mutate::simple_struct<data_name, data_name& > simple_type;
+         typedef ::reflection::content::mutate::simple_struct<identifier_name,data_name, data_name const& > simple_type;
          return simple_type::make( data_param );
         }
 

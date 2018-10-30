@@ -32,15 +32,15 @@ int main( int argc, char *argv[] )
 
   std::cout << ::reflection::property::direct::disclose< int      & >( r.get("integer") ) << std::endl;
   std::cout << ::reflection::property::inspect::present< int const& >( r.get("integer") ) << std::endl;
-               ::reflection::property::mutate::process<  int const& >( r.get("integer"), 2424 );
+  std::cout << ::reflection::property::mutate::process<  int          const& >( r.get("integer"), 2424 ) << std::endl;
 
   std::cout << ::reflection::property::direct::disclose< float      & >( r.get("float-point") ) << std::endl;
   std::cout << ::reflection::property::inspect::present< float const& >( r.get("float-point") ) << std::endl;
-               ::reflection::property::mutate::process<  float const& >( r.get("float-point"), 2424 );
+  std::cout << ::reflection::property::mutate::process<  float        const& >( r.get("float-point"), 2424.0 ) << std::endl;
 
   std::cout << ::reflection::property::direct::disclose< std::string      & >( r.get("standard-string") ) << std::endl;
   std::cout << ::reflection::property::inspect::present< std::string const& >( r.get("standard-string") ) << std::endl;
-               ::reflection::property::mutate::process<  std::string const& >( r.get("standard-string"), "asdasas" );
+  std::cout << ::reflection::property::mutate::process<  std::string const& >( r.get("standard-string"), "asdasas" ) << std::endl;
 
   return EXIT_SUCCESS;
  }

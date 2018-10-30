@@ -14,6 +14,7 @@
       ::memory::pointer::make                            \
        (                                                 \
         ::reflection::content::inspect::member           \
+         <std::string>                                   \
          (                                               \
            this                                          \
           ,&class_symbolic_name::reader_symbolic_name    \
@@ -32,7 +33,7 @@
        (                                                \
         ::reflection::content::inspect::simple          \
           <                                             \
-           type_symbolic_name                           \
+           std::string, type_symbolic_name              \
           >                                             \
           (                                             \
            value_instance                               \

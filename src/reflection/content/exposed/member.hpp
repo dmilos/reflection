@@ -18,7 +18,8 @@ namespace reflection
 
       template
        <
-         typename data_name
+         typename identifier_name
+        ,typename data_name
         ,typename original_name  //= data_name const&
         ,typename model_name  //= data_name const&
         ,typename class_name
@@ -26,8 +27,8 @@ namespace reflection
         ,typename report_name
        >
        struct member_struct
-        : public ::reflection::content::direct::member_struct< data_name,original_name,class_name,storage_name>
-        , public ::reflection::content::mutate::member_struct< data_name,model_name,class_name,storage_name, report_name >
+        : public ::reflection::content::direct::member_struct< identifier_name, data_name,original_name,class_name,storage_name>
+        , public ::reflection::content::mutate::member_struct< identifier_name,data_name,model_name,class_name,storage_name, report_name >
         {
          public:
            typedef      data_name         data_type;
@@ -37,8 +38,8 @@ namespace reflection
            typedef   storage_name      storage_type;
            typedef     report_name      report_type;
 
-           typedef ::reflection::content::direct::member_struct< data_type,original_type,class_type,storage_type>  direct_type;
-           typedef ::reflection::content::mutate::member_struct< data_type,model_type,class_type,storage_type,report_type >    mutate_type;
+           typedef ::reflection::content::direct::member_struct< identifier_name,data_type,original_type,class_type,storage_type>  direct_type;
+           typedef ::reflection::content::mutate::member_struct< identifier_name, data_type,model_type,class_type,storage_type,report_type >    mutate_type;
 
            typedef typename direct_type::traitor_type       traitor_type;
            typedef typename direct_type::extractor_type  extractor_type;
@@ -46,7 +47,7 @@ namespace reflection
            typedef typename mutate_type::writter_type      writter_type;
            typedef typename mutate_type::assigner_type    assigner_type;
 
-           typedef ::reflection::content::exposed::basic_class<data_type,original_type,model_type,storage_type,extractor_type,assigner_type,report_type > typedef_type;
+           typedef ::reflection::content::exposed::basic_class<identifier_name,data_type,original_type,model_type,storage_type,extractor_type,assigner_type,report_type > typedef_type;
 
            static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param, writter_type const& writter_param  )
             {
@@ -68,15 +69,16 @@ namespace reflection
 
       template
        <
-         typename data_name
-        ,typename original_name //= data_name &
-        ,typename model_name    //= data_name const&
-        ,typename class_name
-        ,typename storage_name
-        ,typename report_name = bool
+         typename identifier_name
+        ,typename       data_name
+        ,typename   original_name //= data_name &
+        ,typename      model_name //= data_name const&
+        ,typename      class_name
+        ,typename    storage_name
+        ,typename     report_name = bool
        >
        inline
-       typename ::reflection::content::exposed::member_struct<data_name,original_name,model_name,class_name,storage_name,report_name>::typedef_type
+       typename ::reflection::content::exposed::member_struct<identifier_name,data_name,original_name,model_name,class_name,storage_name,report_name>::typedef_type
        member
         (
           storage_name     const&             storage_param
@@ -84,20 +86,21 @@ namespace reflection
          ,report_name      (class_name::*writter_param )( model_name )
         )
         {
-         typedef ::reflection::content::exposed::member_struct<data_name,original_name,model_name,class_name,storage_name,report_name> member_type;
+         typedef ::reflection::content::exposed::member_struct<identifier_name,data_name,original_name,model_name,class_name,storage_name,report_name> member_type;
          return member_type::make( storage_param, traitor_param, writter_param );
         }
 
 
       template
        <
-        typename data_name
-       ,typename class_name
-       ,typename storage_name
-        ,typename report_name = bool
+         typename identifier_name
+        ,typename       data_name
+        ,typename      class_name
+        ,typename    storage_name
+        ,typename     report_name = bool
        >
        inline
-       typename ::reflection::content::exposed::member_struct<data_name,data_name &,data_name const&,class_name,storage_name, report_name>::typedef_type
+       typename ::reflection::content::exposed::member_struct<identifier_name,data_name,data_name &,data_name const&,class_name,storage_name, report_name>::typedef_type
        member
         (
           storage_name   const &             storage_param
@@ -105,7 +108,7 @@ namespace reflection
          ,report_name      (class_name::*writter_param )( data_name const& )              //!< <data_name,model_name,class_name,storage_name>::T_traitor const& writter_param
         )
         {
-         typedef ::reflection::content::exposed::member_struct<data_name,data_name &,data_name const&,class_name,storage_name,report_name> member_type;
+         typedef ::reflection::content::exposed::member_struct<identifier_name,data_name,data_name &,data_name const&,class_name,storage_name,report_name> member_type;
          return  member_type::make( storage_param, traitor_param, writter_param );
         }
 

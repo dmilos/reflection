@@ -13,22 +13,38 @@ namespace reflection
 
     template
      <
-       typename data_name
-      ,typename key_name = std::string
+       typename class_name
+      ,typename identifier_name   = std::string
+      ,typename key_name          = std::string
       ,template < typename, typename > class container_name = ::reflection::type::container::map
      >
      class class_class
-      : virtual public ::reflection::content::pure_class<data_name>
+      : virtual public ::reflection::content::pure_class<identifier_name>
       , /*virtual */public ::reflection::property::structure_class<key_name, container_name >
       {
        public:
-         typedef data_name   data_type;
-         typedef std::string  key_type;
+         typedef class_name             class_type;
+         typedef identifier_name   identifier_type;
+         typedef key_name                 key_type;
 
+         typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
+
+         typedef ::reflection::content::pure_class<identifier_name>                   content_type;
          typedef ::reflection::property::structure_class<key_name, container_name >  structure_type;
 
-         class_class(){}
-         class_class( class_class const& that_param ){ *this = that_param; }
+         class_class( )
+          :content_type( identificator_type::template get<class_name>() )
+          {
+           this->type( identificator_type::template get<class_name>() );
+          }
+
+         class_class( class_class const& that_param )
+          :content_type( identificator_type::template get<class_name>() )
+          {
+           this->type( identificator_type::template get<class_name>() );
+           *this = that_param; 
+          }
+
          class_class & operator=( class_class const& that_param )
           {
            // EMPTY!!!
@@ -36,10 +52,9 @@ namespace reflection
           }
 
         ~class_class(){}
-
       };
 
    }
  }
 
-#endif 
+#endif

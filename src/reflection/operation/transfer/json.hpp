@@ -6,6 +6,7 @@
 #include "../../type/name/id.hpp"
 
 #include "../../content/category.hpp"
+#include "../../content/function/context.hpp"
 #include "../../property/structure.hpp"
 #include "../../operation/transfer/observe.hpp"
 
@@ -49,12 +50,24 @@ namespace reflection
 
            json_struct( observe_type & observe_param )
             {
-             observe_param.insert( identificator_type::template get<  std::string    >(), &json_struct::primitive<std::string   >  );
-             // TODO observe_param.insert( identificator_type::template get<  std::wstring   >(), &json_struct::primitive<std::wstring  >  );
+             observe_param.control( observe_type::recover_not_category_index  , &json_struct::recover );
+             observe_param.control( observe_type::recover_missing_action_index, &json_struct::recover );
+             observe_param.control( observe_type::recover_action_fail_index   , &json_struct::recover );
+             observe_param.control( observe_type::recover_null_pointer_index  , &json_struct::null_recover    );
+
+             observe_param.control( observe_type::stage_prologue_index,   &json_struct::prologue );
+             observe_param.control( observe_type::stage_stasimon_index ,  &json_struct::stasimon );
+             observe_param.control( observe_type::stage_exodus_index ,    &json_struct::exodus   );
+
+             observe_param.insert( identificator_type::template get<  std::string   >(), &json_struct::string   );
+             observe_param.insert( identificator_type::template get<  std::wstring  >(), &json_struct::wstring  );
+
+             // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &json_struct::vector  );
+             // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &json_struct::vector  );
 
              observe_param.insert( identificator_type::template get<  char           >(), &json_struct::primitive<char          >  );
              observe_param.insert( identificator_type::template get<  unsigned char  >(), &json_struct::primitive<unsigned char >  );
-             observe_param.insert( identificator_type::template get<  wchar_t        >(), &json_struct::primitive<wchar_t  >  );
+             observe_param.insert( identificator_type::template get<  wchar_t        >(), &json_struct::primitive<wchar_t       >  );
              observe_param.insert( identificator_type::template get<  std::wint_t    >(), &json_struct::primitive<std::wint_t   >  );
 
              observe_param.insert( identificator_type::template get<  std::int8_t    >(), &json_struct::primitive<std::int8_t   >  );
@@ -79,7 +92,14 @@ namespace reflection
              observe_param.insert( identificator_type::template get<  long           >(), &json_struct::primitive<long          >  );
              observe_param.insert( identificator_type::template get<  long long      >(), &json_struct::primitive<long long     >  );
 
-             observe_param.insert( identificator_type::template get<  nullptr_t      >(), &json_struct::null   );
+             observe_param.insert( identificator_type::template get<  nullptr_t      >(), &json_struct::null_value   );
+
+             {
+              typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+              using namespace std::placeholders;
+              auto f = std::bind( &json_struct::function, _1, _2, _3 );
+              observe_param.insert( identificator_type::template get<  context_type      >(), f );
+             }
 
              {
               using namespace std::placeholders;
@@ -91,12 +111,79 @@ namespace reflection
 
          private:
            typedef    std::string       string_type;
+           typedef    std::wstring     wstring_type;
            typedef    bool             boolean_type;
 
-           template
-            <
-             typename number_name
-            >
+           static  report_type   prologue( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param <<  "{ " << std::endl;
+             return report_type( true );
+            }
+
+           static  report_type   stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param <<  "," << std::endl;
+             return report_type( true );
+            }
+
+           static  report_type   exodus ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << std::endl;
+             output_param <<  "}" << std::endl;
+             return report_type( true );
+            }
+
+           static  report_type   recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             return report_type( true );
+            }
+
+           static bool null_recover      ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param <<  "null" << std::endl;
+             return true;
+            }
+
+           static bool null_value      ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             typedef ::reflection::property::null_class null_type;
+             auto null = dynamic_cast< null_type const* >( &property_param );
+             if( nullptr == null )
+              {
+               return false;
+              }
+
+             output_param << "\"" << key_param << "\"" << ": " <<  "null" << std::endl;
+             return true;
+            }
+
+           static bool string(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             typedef ::reflection::property::inspect::pure_class<string_type const& > inspect_type;
+             auto inspect = dynamic_cast< inspect_type const* >( &property_param );
+              if( nullptr == inspect )
+               {
+                 return false;
+               }
+
+              output_param << "\"" << key_param << "\"" << ": " << "\""<<  inspect->present() << "\"";
+             return true;
+            }
+
+           static bool wstring(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             typedef ::reflection::property::inspect::pure_class<wstring_type const& > inspect_type;
+             auto inspect = dynamic_cast< inspect_type const* >( &property_param );
+              if( nullptr == inspect )
+               {
+                 return false;
+               }
+
+             // TODO output_param << "\"" << key_param << "\"" << ": " << "\""<<  inspect->present() << "\"";
+             return true;
+            }
+
+           template< typename number_name >
             static bool primitive(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
              {
               typedef ::reflection::property::inspect::pure_class<number_name const& > inspect_type;
@@ -106,14 +193,19 @@ namespace reflection
                   return false;
                 }
 
-              output_param <<  key_param << ": " <<  inspect->present() << std::endl;
+               output_param << "\"" << key_param << "\"" << ": " <<  inspect->present();
               return true;
              }
 
+
+           static report_type function ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             return report_type( true );
+            }
+
            static bool structure ( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             output_param << "{  ";
-             output_param << key_param    << ": ";
+             output_param << "\"" << key_param << "\"" << ": ";
 
              if( false == ::reflection::property::inspect::check < structure_type const& >( property_param ) )
               {
@@ -122,23 +214,11 @@ namespace reflection
 
              observe_param.view( output_param, ::reflection::property::inspect::present< structure_type const& >( property_param )  );
 
-             output_param << "}";
              output_param << std::endl;
              return true;
            }
 
-           static bool null      ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-            {
-             typedef ::reflection::property::null_class null_type;
-             auto null = dynamic_cast< null_type const* >( &property_param );
-             if( nullptr == null )
-              {
-               return false;
-              }
 
-             output_param <<  key_param << ": " <<  "null" << std::endl;
-             return true;
-            }
 
         };
 

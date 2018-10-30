@@ -1,7 +1,7 @@
 #ifndef reflection_type_name_std_type_id
 #define reflection_type_name_std_type_id
 
-// ::reflection::type::name::id
+// ::reflection::type::name::identificatorX< std::string >
 
 #include "./id.hpp"
 
@@ -21,8 +21,8 @@ namespace reflection
            template< typename data_name >
             static identifier_type const& get()
              {
-              static identifier_type id = typeid(data_name).name(); 
-              return id; 
+              static identifier_type id = typeid(data_name).name();
+              return id;
              }
         };
 

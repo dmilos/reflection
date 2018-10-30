@@ -29,12 +29,12 @@ namespace reflection
 
       template
        <
-         typename key_name
+         typename data_name
        >
        class base_class : virtual public ::reflection::operation::pure_class
         {
          public:
-           typedef key_name key_type;
+           typedef data_name data_type;
            typedef ::reflection::property::pure_class  property_type;
            pure_class( )
             {
@@ -45,7 +45,7 @@ namespace reflection
             }
          public:
           using pure_type::send;
-          virtual pure_class& base_class::send( key_type const& k, property_type const& p )const=0;
+          virtual pure_class& base_class::send( data_type const& k, property_type const& p )const=0;
         };
 
      }

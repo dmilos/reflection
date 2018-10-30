@@ -16,7 +16,8 @@ namespace reflection
 
       template
        <
-        typename data_name
+        typename identifier_name
+       ,typename data_name
        ,typename original_name
        ,typename class_name
        ,typename storage_name
@@ -34,7 +35,7 @@ namespace reflection
          typedef typename property_type::traitor_type    traitor_type;
          typedef typename property_type::extractor_type  extractor_type;
 
-         typedef ::reflection::content::direct::basic_class<data_name,original_name,storage_name,extractor_type>      typedef_type;
+         typedef ::reflection::content::direct::basic_class<identifier_name,data_name,original_name,storage_name,extractor_type>      typedef_type;
 
          static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param )
           {
@@ -45,38 +46,40 @@ namespace reflection
 
       template
        <
-        typename data_name
-       ,typename original_name
-       ,typename class_name
-       ,typename storage_name
+         typename identifier_name = std::string
+        ,typename data_name
+        ,typename original_name
+        ,typename class_name
+        ,typename storage_name
        >
        inline
-       typename ::reflection::content::direct::member_struct<data_name,original_name,class_name,storage_name>::typedef_type
+       typename ::reflection::content::direct::member_struct<identifier_name,data_name,original_name,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
          ,original_name       ( class_name::*traitor_param )( )//!< <data_name,original_name,class_name,storage_name>::T_traitor const& traitor_param
         )
         {
-         typedef ::reflection::content::direct::member_struct<data_name,original_name,class_name,storage_name> member_type;
+         typedef ::reflection::content::direct::member_struct<identifier_name,data_name,original_name,class_name,storage_name> member_type;
          return member_type::make( storage_param, traitor_param );
         }
 
       template
        <
-        typename data_name
-       ,typename class_name
-       ,typename storage_name
+         typename identifier_name = std::string
+        ,typename data_name
+        ,typename class_name
+        ,typename storage_name
        >
        inline
-       typename ::reflection::content::direct::member_struct<data_name,data_name&,class_name,storage_name>::typedef_type
+       typename ::reflection::content::direct::member_struct<identifier_name,data_name,data_name&,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
          ,data_name&       ( class_name::*traitor_param )( )//!< <data_name,original_name,class_name,storage_name>::T_traitor const& traitor_param
         )
         {
-         typedef ::reflection::content::direct::member_struct<data_name,data_name&,class_name,storage_name> member_type;
+         typedef ::reflection::content::direct::member_struct<identifier_name,data_name,data_name&,class_name,storage_name> member_type;
          return member_type::make( storage_param, traitor_param );
         }
 

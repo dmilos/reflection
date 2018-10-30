@@ -11,16 +11,14 @@
      (                                                        \
       ::memory::pointer::make                                 \
        (                                                      \
-        ::reflection::property::function::member              \
+        ::reflection::content::function::member<std::string>  \
          (                                                    \
-            (class_symbolic_name *const)this                  \
+            (class_symbolic_name *)this                  \
           , &class_symbolic_name::function_symbolic_name      \
          )                                                    \
        )                                                      \
      )                                                        \
    );
-
-
 
 // #define reflection__CLASS_FUNCTION_static( function_string_name, class_symbolic_name, function_symbolic_name ) \
 //   insert                                                  \
@@ -30,7 +28,7 @@
 //      (                                                    \
 //       ::memory::pointer::make                             \
 //        (                                                  \
-//         ::reflection::property::function::free            \
+//         ::reflection::content::function::free            \
 //          (                                                \
 //           &class_symbolic_name::function_symbolic_name    \
 //          )                                                \
@@ -47,7 +45,7 @@
      (                                               \
       ::memory::pointer::make                        \
        (                                             \
-        ::reflection::property::function::free       \
+        ::reflection::content::function::free<std::string>       \
          (                                           \
           function_symbolic_name                     \
          )                                           \

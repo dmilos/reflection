@@ -13,6 +13,7 @@
       ::memory::pointer::make                           \
        (                                                \
         ::reflection::content::exposed::member          \
+         <std::string>                                  \
          (                                              \
            this                                         \
           ,&class_symbolic_name::traitor_symbolic_name  \
@@ -32,7 +33,7 @@
        (                                                \
         ::reflection::content::exposed::simple          \
           <                                             \
-           type_symbolic_name                           \
+           std::string, type_symbolic_name              \
           >                                             \
           (                                             \
            value_instance                               \

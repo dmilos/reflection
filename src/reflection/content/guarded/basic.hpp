@@ -18,16 +18,17 @@ namespace reflection
 
       template
        <
-         typename      data_name
-        ,typename     image_name
-        ,typename     model_name
-        ,typename   storage_name
-        ,typename  assigner_name
-        ,typename retriever_name
-        ,typename    report_name
+         typename     identifier_name
+        ,typename           data_name
+        ,typename          image_name
+        ,typename          model_name
+        ,typename        storage_name
+        ,typename       assigner_name
+        ,typename      retriever_name
+        ,typename         report_name
        >
        class basic_class
-        :virtual public ::reflection::content::guarded::pure_class<data_name,model_name,image_name,report_name>
+        :virtual public ::reflection::content::guarded::pure_class<identifier_name,data_name,model_name,image_name,report_name>
         ,        public ::reflection::property::guarded::base_class< model_name, image_name, storage_name, assigner_name, retriever_name, report_name >
         {
          public:
@@ -39,7 +40,7 @@ namespace reflection
            typedef retriever_name  retriever_type;
            typedef    report_name     report_type;
 
-           typedef ::reflection::content::guarded::pure_class<data_name,model_name,image_name,report_name> pure_type;
+           typedef ::reflection::content::guarded::pure_class<identifier_name,data_name,model_name,image_name,report_name> pure_type;
            typedef ::reflection::property::guarded::base_class< model_name, image_name,  storage_name,assigner_name, retriever_name, report_name > base_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;

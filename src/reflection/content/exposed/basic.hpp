@@ -16,17 +16,18 @@ namespace reflection
 
       template
        <
-         typename       data_name
-        ,typename   original_name
-        ,typename      model_name
-        ,typename    storage_name
-        ,typename  extractor_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
-        ,typename   assigner_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
+         typename  identifier_name
+        ,typename        data_name
+        ,typename    original_name
+        ,typename       model_name
+        ,typename     storage_name
+        ,typename   extractor_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
+        ,typename    assigner_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
 
         ,typename     report_name
        >
        class basic_class
-        :virtual public ::reflection::content::exposed::pure_class<data_name,original_name,model_name,report_name>
+        :virtual public ::reflection::content::exposed::pure_class<identifier_name,data_name,original_name,model_name,report_name>
         ,        public ::reflection::property::exposed::base_class< original_name, model_name, storage_name, extractor_name, assigner_name, report_name >
         {
          public:
@@ -40,11 +41,12 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef ::reflection::content::exposed::pure_class<data_name,original_name,model_name,report_name> pure_type;
+           typedef ::reflection::content::exposed::pure_class<identifier_name,data_name,original_name,model_name,report_name> pure_type;
            typedef ::reflection::property::exposed::base_class< original_name, model_name, storage_name, extractor_name, assigner_name, report_name > base_type;
 
 
                     basic_class()
+                     //:content_type( identificator_type::template get<data_name>() )
                      {
                      }
 
@@ -54,6 +56,7 @@ namespace reflection
               ,extractor_type     const&  extractor_param  =   extractor_type()
               ,assigner_type      const&  assigner_param   =    assigner_type()
              )
+             //:content_type( identificator_type::template get<data_name>() )
              :carrier_type( storage_param )
              ,base_type( extractor_param, assigner_param )
              {

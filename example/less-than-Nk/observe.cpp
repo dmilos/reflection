@@ -17,9 +17,9 @@ class MyClassA
    void init()
       {
        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
-       insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
-       insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<float>( 1024 ) ) ) );
-       insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string>( "asdfg" ) ) ) );
+       insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string,int>( 1024 ) ) ) );
+       insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string,float>( 1024 ) ) ) );
+       insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string,std::string>( "asdfg" ) ) ) );
       }
 
  };

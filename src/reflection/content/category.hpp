@@ -21,6 +21,7 @@
           public:
             typedef identifier_name identifier_type;
 
+          public:
             explicit  pure_class
                        (
                          identifier_type const& id_param = identifier_type()
@@ -50,7 +51,7 @@
          typename identifier_name
         >
         inline
-         identifier_name const&
+        identifier_name const&
         type( ::reflection::content::category::pure_class<identifier_name> const& instance_param )
          {
           return instance_param.type();

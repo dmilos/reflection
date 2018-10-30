@@ -15,15 +15,16 @@ namespace reflection
 
       template
        <
-         typename       data_name
-        ,typename   original_name
-        ,typename      image_name
-        ,typename    storage_name
-        ,typename  extractor_name
-        ,typename  retriever_name
+         typename  identifier_name
+        ,typename        data_name
+        ,typename    original_name
+        ,typename       image_name
+        ,typename     storage_name
+        ,typename   extractor_name
+        ,typename   retriever_name
        >
        class basic_class
-        :virtual public ::reflection::content::variable::pure_class<data_name,original_name,image_name>
+        :virtual public ::reflection::content::variable::pure_class<identifier_name, data_name,original_name,image_name>
         ,        public ::reflection::property::variable::base_class< original_name, image_name, storage_name,extractor_name, retriever_name >
         {
          public:
@@ -34,7 +35,7 @@ namespace reflection
            typedef extractor_name  extractor_type;
            typedef retriever_name  retriever_type;
 
-           typedef ::reflection::content::variable::pure_class<data_name,original_name,image_name> pure_type;
+           typedef ::reflection::content::variable::pure_class<identifier_name, data_name,original_name,image_name> pure_type;
            typedef ::reflection::property::variable::base_class< original_name, image_name, storage_name,extractor_name, retriever_name> base_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;

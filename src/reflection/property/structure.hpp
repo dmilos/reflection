@@ -28,6 +28,7 @@ namespace reflection
          typedef ::std::shared_ptr<property_type> item_type;
        //typedef ::reflection::type::ptr::clone<property_type> item_type;
 
+         typedef typename container_name< key_type, item_type >::size_type                        size_type;
          typedef typename container_name< key_type, item_type >::container_type              container_type;
          typedef typename container_name< key_type, item_type >::iterator_type                iterator_type;
          typedef typename container_name< key_type, item_type >::const_iterator_type    const_iterator_type;
@@ -42,10 +43,11 @@ namespace reflection
 
         ~structure_class(){}
 
-         const_iterator_type  begin()const{ return this->container().begin(); }
-         iterator_type        begin()     { return this->container().begin(); }
-         const_iterator_type   end()const { return this->container().end(); }
-         iterator_type         end()      { return this->container().end(); }
+         const_iterator_type  begin()const { return this->container().begin(); }
+         iterator_type        begin()      { return this->container().begin(); }
+         const_iterator_type    end()const { return this->container().end(); }
+         iterator_type          end()      { return this->container().end(); }
+         size_type             size()const { return this->container().size(); }
 
          key_type const key( const_iterator_type const& iterator )const
           {

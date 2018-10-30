@@ -1,3 +1,3 @@
 # Examples
 
-### less-than-3k
+### less-than-2k or 2048bytes

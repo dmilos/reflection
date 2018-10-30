@@ -1,7 +1,7 @@
 #ifndef reflection_object_transfer_observe
 #define reflection_object_transfer_observe
 
-// ::reflection::operation::observe_class<output_name,key_name,identificator_name>
+// ::reflection::operation::observe_class<output_name,key_name,identifier_name>
 
 #include "../../content/category.hpp"
 #include "../../property/structure.hpp"
@@ -23,22 +23,22 @@ namespace reflection
 
       template
        <
-         typename output_name
-        ,typename    key_name = std::string
-        ,typename   identificator_name = std::string
-        ,typename   report_name = bool
+         typename          output_name
+        ,typename             key_name = std::string
+        ,typename      identifier_name = std::string
+        ,typename          report_name = bool
         ,template  < typename > class qualificator_name = std::add_const
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
        class observe_class
         {
          public:
-           typedef  output_name     output_type;
-           typedef     key_name        key_type;
-           typedef    identificator_name       identificator_type;
-           typedef   report_name    report_type;
+           typedef      output_name        output_type;
+           typedef         key_name           key_type;
+           typedef  identifier_name    identifier_type;
+           typedef      report_name        report_type;
 
-           typedef ::reflection::content::category::pure_class<identificator_type>    category_type;
+           typedef ::reflection::content::category::pure_class<identifier_type>       category_type;
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
@@ -53,35 +53,42 @@ namespace reflection
            typedef typename std::add_lvalue_reference< property_qualified_type >::type      property_qualified_reference_type;
            typedef typename std::add_lvalue_reference< structure_qualified_type >::type    structure_qualified_reference_type;
 
-           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, identificator_name, report_name, qualificator_name, container_name > protocolX_type;
+           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, identifier_type, report_name, qualificator_name, container_name > protocolX_type;
 
            typedef typename protocolX_type::function_type     function_type;
            typedef typename protocolX_type::menu_type         menu_type;
+           typedef typename protocolX_type::action_type       action_type;
 
-           typedef std::array< function_type, 3 > recover_type;
-           enum recover_enum
-             {
-               not_category_index   = 0
-              ,missing_action_index = 1
-              ,action_fail_index    = 2
-              ,null_pointer_index   = 3
+           typedef std::array< function_type, 7 > control_type;
+           enum control_enum
+            {
+              recover_not_category_index     = 0
+             ,recover_missing_action_index   = 1
+             ,recover_action_fail_index      = 2
+             ,recover_null_pointer_index     = 3
+             ,stage_prologue_index           = 4
+             ,stage_stasimon_index           = 5
+             ,stage_exodus_index             = 6
              };
 
          public:
            observe_class()
             {
-             recover(    not_category_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
-             recover(  missing_action_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
-             recover(     action_fail_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
-           //recover(    null_pointer_index, []( output_type &, key_type const&, property_qualified_reference_type ){ return report_type(true); } );
+             this->control( recover_not_category_index   , action_type::always_true() );
+             this->control( recover_missing_action_index , action_type::always_true() );
+             this->control( recover_action_fail_index    , action_type::always_true() );
+             this->control( recover_null_pointer_index   , action_type::always_true() );
+             this->control( stage_prologue_index           , action_type::always_true() );
+             this->control( stage_stasimon_index         , action_type::always_true() );
+             this->control( stage_exodus_index           , action_type::always_true() );
             }
 
          public:
-           recover_type    const&recover()const{ return m_recover; }
-           void                  recover( recover_enum const& index_param, function_type const& action_param ){ m_recover[index_param] = action_param; }
-           recover_type        & recover(){ return m_recover; }
+           control_type    const&control()const{ return m_control; }
+           void                  control( control_enum const& index_param, function_type const& action_param ){ m_control[index_param] = action_param; }
+           control_type        & control(){ return m_control; }
          private:
-           recover_type m_recover;
+           control_type m_control;
 
          public:
            menu_type    const&menu()const{ return m_menu; }
@@ -103,18 +110,29 @@ namespace reflection
              ,structure_qualified_reference_type struct_param
             )const
             {
+
+              {
+                auto report = this->control()[stage_prologue_index]( output_param, key_type{}, struct_param );
+                if( report_type( false ) == report )
+                {
+                  return report;
+                }
+              }
+
+             std::size_t index=0;
              for( auto iterator  =  struct_param.begin();
                        iterator !=  struct_param.end();
-                     ++iterator )
+                     ++iterator, ++index )
               {
                auto  const            key = struct_param.key(  iterator );
                item_qualified_type   data = struct_param.data( iterator );
 
                if( nullptr == data.get() )
                 {
-                 // TODO if( report_type( false ) == recover()[null_pointer_index]( output_param, key, property ) )
+                 // TODO auto report = this->control()[recover_null_pointer_index]( output_param, key, property );
+                 // TODO if( report_type( false ) == report )
                  // TODO  {
-                 // TODO   return report_type( false );
+                 // TODO   return report;
                  // TODO  }
                  continue;
                 }
@@ -124,7 +142,7 @@ namespace reflection
                category_qualified_type *  category = dynamic_cast< category_qualified_type * >( data.get() );
                if( nullptr == category )
                 {
-                 if( report_type( false ) == recover()[not_category_index]( output_param, key, property ) )
+                 if( report_type( false ) == this->control()[recover_not_category_index]( output_param, key, property ) )
                   {
                    return report_type( false );
                   }
@@ -133,7 +151,7 @@ namespace reflection
 
                if( false == protocolX_type::exists( this->menu(), category->type() ) )
                 {
-                 if( report_type( false ) == recover()[missing_action_index]( output_param, key, property ) )
+                 if( report_type( false ) == this->control()[recover_missing_action_index]( output_param, key, property ) )
                   {
                    return report_type( false );
                   }
@@ -142,15 +160,25 @@ namespace reflection
 
                if( report_type( false ) == protocolX_type::find( this->menu(), category->type() )( output_param, key, property ) )
                 {
-                 if( report_type( false ) == recover()[action_fail_index]( output_param, key, property ) )
+                 if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key, property ) )
                   {
                    return report_type( false );
                   }
                  continue;
                 }
+
+               if( index + 1 < struct_param.size() )
+                {
+                 auto report = this->control()[stage_stasimon_index]( output_param, key, property );
+                 if( report_type( false ) == report )
+                  {
+                   return report;
+                  }
+                }
+
               }
 
-             return report_type( true );
+             return this->control()[stage_exodus_index]( output_param, key_type{}, struct_param );
             }
 
        };

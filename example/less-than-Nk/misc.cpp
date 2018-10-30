@@ -14,9 +14,9 @@ class MyClassA
    void init()
       {
        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
-       insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
-       insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<float>( 1024 ) ) ) );
-       insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string>( "asdfg" ) ) ) );
+       insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string,int>( 1024 ) ) ) );
+       insert(  "extra3", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string,float>( 1024 ) ) ) );
+       insert(  "extra4", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string,std::string>( "asdfg" ) ) ) );
       }
  };
 
@@ -124,31 +124,31 @@ class MyClass
        ::reflection::property::big::file_class<std::string>  bigf;
        ::reflection::property::big::vector_class  bigv;
 
-       ::reflection::content::direct::member( this, &MyClass::traitor );
-       ::reflection::content::direct::simple( 152 ).disclose() = 4242;
-       ::reflection::content::direct::simple<float>( );
+       ::reflection::content::direct::member<std::string>( this, &MyClass::traitor );
+       ::reflection::content::direct::simple<std::string>( 152 ).disclose() = 4242;
+       ::reflection::content::direct::simple<std::string,float>( );
 
-       ::reflection::content::inspect::member( this, &MyClass::inspector );
-       ::reflection::content::inspect::simple( 1024 );
-       ::reflection::content::inspect::simple<double>();
+       ::reflection::content::inspect::member<std::string>( this, &MyClass::inspector );
+       ::reflection::content::inspect::simple<std::string>( 1024 );
+       ::reflection::content::inspect::simple<std::string,double>();
 
-       ::reflection::content::mutate::member( this, &MyClass::writter );
+       ::reflection::content::mutate::member<std::string>( this, &MyClass::writter );
        ::reflection::content::mutate::simple<int>( 1024 );
-       ::reflection::content::mutate::simple<double>();
+       ::reflection::content::mutate::simple<std::string,double>();
 
-       ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector );
-       ::reflection::content::variable::simple<int>( 1024 );
-       ::reflection::content::variable::simple<int>( );
+       ::reflection::content::variable::member<std::string>( this, &MyClass::traitor, &MyClass::inspector );
+       ::reflection::content::variable::simple<std::string,int>( 1024 );
+       ::reflection::content::variable::simple<std::string,int>( );
 
-       ::reflection::content::guarded::member( this, &MyClass::writter, &MyClass::inspector );
-       ::reflection::content::guarded::simple<int>( 1024 );
-       ::reflection::content::guarded::simple<float>( );
+       ::reflection::content::guarded::member<std::string>( this, &MyClass::writter, &MyClass::inspector );
+       ::reflection::content::guarded::simple<std::string,int>( 1024 );
+       ::reflection::content::guarded::simple<std::string,float>( );
 
        std::cout << "content::direct::type = " << ::reflection::content::category::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
 
        std::cout << "content::direct = " << ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() << std::endl;
 
-       std::cout << "content::inspect = " << ::reflection::content::inspect::member( this, &MyClass::inspector ).present() << std::endl;
+       std::cout << "content::inspect = " << ::reflection::content::inspect::member<std::string>( this, &MyClass::inspector ).present() << std::endl;
 
 
        ::reflection::content::mutate::member<int>( this, &MyClass::writter ).process( 2424 );
@@ -277,10 +277,10 @@ class MyClass
        std::cout << "guarded1::category::inspect::present == " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
 
-       ::reflection::content::big::vector_class          bv;
-       ::reflection::content::big::member_class<MyClass> bm;
-       ::reflection::content::big::block_class           bb;
-       ::reflection::content::big::file_class<std::string>            bf;
+       //::reflection::content::big::vector_class          bv;
+       //::reflection::content::big::member_class<MyClass> bm;
+       //::reflection::content::big::block_class           bb;
+       //::reflection::content::big::file_class<std::string>            bf;
        //clear();
       }
 

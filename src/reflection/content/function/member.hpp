@@ -28,8 +28,8 @@ namespace reflection
         ,typename fifth_name
         >
        class member_class
-        : virtual public ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>
-        ,         public ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>
+        :  public ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>
+        ,  public ::reflection::property::function::member_class<class_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>
         {
          public:
            typedef class_name      class_type;
@@ -288,7 +288,6 @@ namespace reflection
 
          return member_type( class_param, function_param );
         }
-
 
       }
     }

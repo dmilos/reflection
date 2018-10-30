@@ -16,7 +16,8 @@ namespace reflection
 
       template
        <
-         typename data_name
+         typename identifier_name
+        ,typename data_name
         ,typename image_name
         ,typename class_name
         ,typename storage_name
@@ -34,7 +35,7 @@ namespace reflection
          typedef typename property_type::reader_type        reader_type;
          typedef typename property_type::retriever_type  retriever_type;
 
-         typedef ::reflection::content::inspect::basic_class<data_name,image_name,storage_name,retriever_type>      typedef_type;
+         typedef ::reflection::content::inspect::basic_class<identifier_name,data_name,image_name,storage_name,retriever_type>      typedef_type;
 
          static typedef_type make( storage_type const& storage_param, reader_type const& reader_param )
           {
@@ -45,39 +46,41 @@ namespace reflection
 
       template
        <
-        typename data_name
-       ,typename image_name
-       ,typename class_name
-       ,typename storage_name
+         typename identifier_name = std::string
+        ,typename data_name
+        ,typename image_name
+        ,typename class_name
+        ,typename storage_name
        >
        inline
-       typename ::reflection::content::inspect::member_struct<data_name,image_name,class_name,storage_name>::typedef_type
+       typename ::reflection::content::inspect::member_struct<identifier_name,data_name,image_name,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
          ,image_name       ( class_name::*reader_param )()const//!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
-         typedef ::reflection::content::inspect::member_struct<data_name,image_name,class_name,storage_name> member_type;
+         typedef ::reflection::content::inspect::member_struct<identifier_name,data_name,image_name,class_name,storage_name> member_type;
          return member_type::make( storage_param, reader_param );
         }
 
 
       template
        <
-        typename data_name
-       ,typename class_name
-       ,typename storage_name
+         typename identifier_name =  std::string
+        ,typename data_name
+        ,typename class_name
+        ,typename storage_name
        >
        inline
-       typename ::reflection::content::inspect::member_struct<data_name,data_name const&,class_name,storage_name>::typedef_type
+       typename ::reflection::content::inspect::member_struct<identifier_name,data_name,data_name const&,class_name,storage_name>::typedef_type
        member
         (
           storage_name const&             storage_param
          ,data_name const&       ( class_name::*reader_param )()const//!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
-         typedef ::reflection::content::inspect::member_struct<data_name,data_name const&,class_name,storage_name> member_type;
+         typedef ::reflection::content::inspect::member_struct<identifier_name,data_name,data_name const&,class_name,storage_name> member_type;
          return member_type::make( storage_param, reader_param );
         }
 

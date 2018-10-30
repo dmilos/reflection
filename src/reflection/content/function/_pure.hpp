@@ -30,9 +30,9 @@ namespace reflection
         ,typename fifth_name
         >
        class pure_class
-        : virtual public ::reflection::content::pure_class< return_name (first_name,second_name,third_name,fourth_name,fifth_name) >
+        : virtual public ::reflection::content::pure_class< identifier_name >
         , virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
-        , virtual public ::reflection::content::function::context_class<identifier_name>
+        ,         public ::reflection::content::function::context_class<identifier_name>
         {
          public:
            typedef identifier_name identifier_type;
@@ -45,7 +45,7 @@ namespace reflection
            typedef  fifth_name     fifth_type;
 
 
-           typedef ::reflection::content::pure_class< return_name (first_name,second_name,third_name,fourth_name,fifth_name) >        content_type;
+           typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>   property_type;
            typedef ::reflection::content::function::context_class<identifier_type>   context_type;
 
@@ -53,9 +53,14 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>::typedef_type     argument_type;
 
+           //typedef return_name (anchor_type)(first_name,second_name,third_name,fourth_name,fifth_name);
+           typedef  context_type anchor_type;
+
          public:
            pure_class()
+            : content_type( identificator_type::template get<anchor_type>() )
             {
+             this->type( identificator_type::template get<anchor_type>() );
              this->signature().resize( 6 );
              this->signature()[0] = identificator_type::template get<return_name>();
              this->signature()[1] = identificator_type::template get< first_name>();
@@ -76,7 +81,7 @@ namespace reflection
 
       template< typename identifier_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name>
        class pure_class< identifier_name, return_name, first_name, second_name, third_name, fourth_name,void>
-        : virtual public ::reflection::content::pure_class< return_name (first_name,second_name,third_name,fourth_name) >
+        : virtual public ::reflection::content::pure_class< identifier_name >
         , virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>
         , virtual public ::reflection::content::function::context_class<identifier_name>
         {
@@ -90,23 +95,28 @@ namespace reflection
            typedef fourth_name    fourth_type;
 
 
-           typedef ::reflection::content::pure_class< return_name (first_name,second_name,third_name,fourth_name) >        content_type;
+           typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>   property_type;
+           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>::typedef_type     argument_type;
 
+           //typedef return_name (anchor_type)(first_name,second_name,third_name,fourth_name);
+           typedef  context_type anchor_type;
+
          public:
            pure_class()
+            : content_type( identificator_type::template get<anchor_type>() )
             {
+             this->type( identificator_type::template get<anchor_type>() );
              this->signature().resize( 6 );
              this->signature()[0] = identificator_type::template get< return_name >();
              this->signature()[1] = identificator_type::template get<  first_name >();
              this->signature()[2] = identificator_type::template get< second_name >();
              this->signature()[3] = identificator_type::template get<  third_name >();
              this->signature()[4] = identificator_type::template get< fourth_name >();
-             this->signature()[5] = identificator_type::template get< void >();
             }
 
          public:
@@ -120,7 +130,7 @@ namespace reflection
 
       template< typename identifier_name, typename return_name, typename first_name, typename second_name, typename third_name>
        class pure_class< identifier_name, return_name, first_name, second_name, third_name, void,void>
-        : virtual public ::reflection::content::pure_class< return_name (first_name,second_name,third_name) >
+        : virtual public ::reflection::content::pure_class< identifier_name >
         , virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>
         , virtual public ::reflection::content::function::context_class<identifier_name>
         {
@@ -132,23 +142,27 @@ namespace reflection
            typedef second_name    second_type;
            typedef  third_name     third_type;
 
-           typedef ::reflection::content::pure_class< return_name (first_name,second_name,third_name) >        content_type;
+           typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>   property_type;
+           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>::typedef_type     argument_type;
 
+           //typedef return_name (anchor_type)(first_name,second_name,third_name);
+           typedef  context_type anchor_type;
+
          public:
            pure_class()
+            : content_type( identificator_type::template get<anchor_type>() )
             {
+             this->type( identificator_type::template get<anchor_type>() );
              this->signature().resize( 6 );
              this->signature()[0] = identificator_type::template get< return_name >();
              this->signature()[1] = identificator_type::template get<  first_name >();
              this->signature()[2] = identificator_type::template get< second_name >();
              this->signature()[3] = identificator_type::template get<  third_name >();
-             this->signature()[4] = identificator_type::template get< void >();
-             this->signature()[5] = identificator_type::template get< void >();
             }
 
          public:
@@ -162,7 +176,7 @@ namespace reflection
 
       template< typename identifier_name, typename return_name, typename first_name, typename second_name>
        class pure_class< identifier_name, return_name, first_name, second_name, void, void,void>
-        : virtual public ::reflection::content::pure_class< return_name (first_name,second_name) >
+        : virtual public ::reflection::content::pure_class< identifier_name >
         , virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>
         , virtual public ::reflection::content::function::context_class<identifier_name>
         {
@@ -173,16 +187,22 @@ namespace reflection
            typedef  first_name     first_type;
            typedef second_name    second_type;
 
-           typedef ::reflection::content::pure_class< return_name (first_name,second_name) >        content_type;
+           typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>   property_type;
+           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>::typedef_type     argument_type;
 
+           //typedef return_name (anchor_type)(first_name,second_name);
+           typedef  context_type anchor_type;
+
          public:
            pure_class()
+            : content_type( identificator_type::template get<anchor_type>() )
             {
+             this->type( identificator_type::template get<anchor_type>() );
              this->signature().resize( 6 );
              this->signature()[0] = identificator_type::template get< return_name >();
              this->signature()[1] = identificator_type::template get<  first_name >();
@@ -203,7 +223,7 @@ namespace reflection
 
       template< typename identifier_name, typename return_name, typename first_name>
        class pure_class< identifier_name, return_name, first_name, void, void, void,void>
-        : virtual public ::reflection::content::pure_class< return_name (first_name) >
+        : virtual public ::reflection::content::pure_class< identifier_name >
         , virtual public ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>
         , virtual public ::reflection::content::function::context_class<identifier_name>
         {
@@ -213,23 +233,25 @@ namespace reflection
            typedef return_name    return_type;
            typedef  first_name     first_type;
 
-           typedef ::reflection::content::pure_class< return_name (first_name) >        content_type;
+           typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>   property_type;
+           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>::typedef_type     argument_type;
 
+           //typedef return_name (anchor_type)(first_name);
+           typedef  context_type anchor_type;
+
          public:
            pure_class()
+            : content_type( identificator_type::template get<anchor_type>() )
             {
+             this->type( identificator_type::template get<anchor_type>() );
              this->signature().resize( 6 );
              this->signature()[0] = identificator_type::template get< return_name >();
              this->signature()[1] = identificator_type::template get<  first_name >();
-             this->signature()[2] = identificator_type::template get< void >();
-             this->signature()[3] = identificator_type::template get< void >();
-             this->signature()[4] = identificator_type::template get< void >();
-             this->signature()[5] = identificator_type::template get< void >();
             }
 
          public:
@@ -243,7 +265,7 @@ namespace reflection
 
       template< typename identifier_name, typename return_name>
        class pure_class< identifier_name,  return_name, void, void, void, void,void>
-        : virtual public ::reflection::content::pure_class< return_name () >
+        : virtual public ::reflection::content::pure_class< identifier_name >
         , virtual public ::reflection::property::function::pure_class<return_name,void,void,void,void,void>
         , virtual public ::reflection::content::function::context_class<identifier_name>
         {
@@ -252,23 +274,24 @@ namespace reflection
 
            typedef return_name    return_type;
 
-           typedef ::reflection::content::pure_class< return_name () >        content_type;
+           typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,void,void,void,void,void>   property_type;
+           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>::typedef_type     argument_type;
 
+           //typedef return_name (anchor_type)();
+           typedef  context_type anchor_type;
+
          public:
            pure_class()
+            : content_type( identificator_type::template get<anchor_type>() )
             {
+             this->type( identificator_type::template get<anchor_type>() );
              this->signature().resize( 6 );
              this->signature()[0] = identificator_type::template get< return_name >();
-             this->signature()[1] = identificator_type::template get< void >();
-             this->signature()[2] = identificator_type::template get< void >();
-             this->signature()[3] = identificator_type::template get< void >();
-             this->signature()[4] = identificator_type::template get< void >();
-             this->signature()[5] = identificator_type::template get< void >();
             }
 
          public:

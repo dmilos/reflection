@@ -14,6 +14,7 @@
       ::memory::pointer::make                           \
        (                                                \
         ::reflection::content::direct::member           \
+         <std::string>                                  \
          (                                              \
            this                                         \
           ,&class_symbolic_name::traitor_symbolic_name  \
@@ -33,7 +34,7 @@
        (                                                \
         ::reflection::content::direct::simple           \
           <                                             \
-           type_symbolic_name                           \
+           std::string, type_symbolic_name              \
           >                                             \
           (                                             \
            value_instance                               \
@@ -57,6 +58,7 @@
       ::memory::pointer::make                           \
        (                                                \
         ::reflection::content::direct::member           \
+         <std::string>                                  \
          (                                              \
            this                                         \
           ,&class_symbolic_name::traitor_symbolic_name  \

@@ -13,10 +13,11 @@
       ::memory::pointer::make                                  \
        (                                                       \
         ::reflection::content::variable::member                \
+         <std::string>                                         \
          (                                                     \
            this                                                \
-          ,&class_symbolic_name::traitor_symbolic_name    \
-          ,&class_symbolic_name::reader_symbolic_name     \
+          ,&class_symbolic_name::traitor_symbolic_name         \
+          ,&class_symbolic_name::reader_symbolic_name          \
          )                                                     \
        )                                                       \
      )                                                         \
@@ -32,7 +33,7 @@
        (                                                \
         ::reflection::content::variable::simple         \
           <                                             \
-           type_symbolic_name                           \
+           std::string, type_symbolic_name              \
           >                                             \
           (                                             \
            value_instance                               \

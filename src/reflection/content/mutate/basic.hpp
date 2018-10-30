@@ -15,14 +15,15 @@ namespace reflection
 
       template
        <
-         typename data_name      //!< mutablize before use!
+         typename identifier_name
+        ,typename data_name      //!< mutablize before use!
         ,typename model_name     //!< mutablize before use!
         ,typename storage_name   //= data_name
         ,typename assigner_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
         ,typename report_name
        >
        class basic_class
-        :virtual public ::reflection::content::mutate::pure_class<data_name,model_name,report_name>
+        :virtual public ::reflection::content::mutate::pure_class<identifier_name,data_name,model_name,report_name>
         ,        public ::reflection::property::mutate::base_class<model_name,storage_name,assigner_name,report_name>
         {
          public:
@@ -31,7 +32,7 @@ namespace reflection
            typedef storage_name      storage_type;
            typedef assigner_name  assigner_type;
 
-           typedef ::reflection::content::mutate::pure_class<data_name,model_name, report_name > pure_type;
+           typedef ::reflection::content::mutate::pure_class<identifier_name,data_name,model_name, report_name > pure_type;
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
            typedef::reflection::property::mutate::base_class<model_name,storage_name,assigner_name, report_name> base_type;

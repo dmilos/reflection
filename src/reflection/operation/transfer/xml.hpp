@@ -4,6 +4,7 @@
 // ::reflection::operation::transfer::xml_class<output_name,key_name,type_name>
 
 #include "../../content/category.hpp"
+#include "../../content/function/context.hpp"
 #include "../../property/structure.hpp"
 #include "../../operation/transfer/observe.hpp"
 
@@ -48,9 +49,9 @@ namespace reflection
          public:
            xml_struct( observe_type & observe_param )
             {
-             observe_param.recover( observe_type::not_category_index  , &xml_struct::recover );
-             observe_param.recover( observe_type::missing_action_index, &xml_struct::recover );
-             observe_param.recover( observe_type::action_fail_index   , &xml_struct::recover );
+             observe_param.control( observe_type::recover_not_category_index  , &xml_struct::recover );
+             observe_param.control( observe_type::recover_missing_action_index, &xml_struct::recover );
+             observe_param.control( observe_type::recover_action_fail_index   , &xml_struct::recover );
 
              observe_param.insert( identificator_type::template get< std::string    >(), &xml_struct::primitive<std::string   >  );
             // TODO observe_param.insert( identificator_type::template get<  std::wstring   >(), &xml_struct::primitive<std::wstring  >  );
@@ -85,6 +86,13 @@ namespace reflection
              observe_param.insert( identificator_type::template get<  nullptr_t     >(), &xml_struct::null   );
 
              {
+              typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+              using namespace std::placeholders;
+              auto f = std::bind( &xml_struct::function, _1, _2, _3 );
+              observe_param.insert( identificator_type::template get<  context_type      >(), f );
+             }
+
+             {
               using namespace std::placeholders;
               auto f = std::bind( &xml_struct::structure, _1, std::ref(observe_param), _2, _3 );
               observe_param.insert( identificator_type::template get<  structure_type      >(), f );
@@ -92,6 +100,50 @@ namespace reflection
             }
 
            // wstring processing
+
+           static  report_type   recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << "<item ";
+             output_param << "name=\"" << key_param << "\" ";
+
+             {
+              category_type const* category = dynamic_cast< category_type const* >( &property_param );
+              if( nullptr != category )
+               {
+                output_param << "type=\"" << category->type() << "\" ";
+               }
+              else
+               {
+                output_param << "note=\"Can not detect type\" ";
+               }
+             }
+
+             output_param << "note=\"Unhandled item\" ";
+
+             output_param << ">";
+             output_param << "</item>" ;
+             output_param << std::endl;
+
+             return report_type( true );
+            }
+
+           static report_type null     ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             typedef ::reflection::property::null_class null_type;
+             auto null = dynamic_cast< null_type const* >( &property_param );
+             if( nullptr == null )
+              {
+               return report_type( false );
+              }
+
+             output_param <<  key_param << ": " <<  "null" << std::endl;
+             output_param << "<item ";
+             output_param << "name=\"" << key_param << "\" ";
+             output_param << "value=\"null";
+             output_param << "/>";
+
+             return report_type( true );
+            }
 
            template< typename simple_name >
             static report_type primitive( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
@@ -130,33 +182,49 @@ namespace reflection
               return report_type( true );
              }
 
-           static report_type recover(       output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type function ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param << "<item ";
-             output_param << "name=\"" << key_param << "\" ";
+             output_param << "name=\"" << key_param    << "\" ";
 
-             {
-              category_type const* category = dynamic_cast< category_type const* >( &property_param );
-              if( nullptr != category )
-               {
-                output_param << "type=\"" << category->type() << "\" ";
-               }
-              else
-               {
-                output_param << "note=\"Can not detect type\" ";
-               }
-             }
+             category_type const* category = dynamic_cast< category_type const* >( &property_param );
 
-             output_param << "note=\"Unhandled item\" ";
+             if( nullptr != category )
+              {
+               output_param << "type=\"" << "$function" /* category->type()*/ << "\" ";
+              }
+             else
+              {
+               output_param << "note=\"Can not detect type\" ";
+              }
 
-             output_param << ">";
-             output_param << "</item>" ;
+             typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+             context_type  const* context = dynamic_cast< context_type const* >( &property_param );
+             if( nullptr == context )
+              {
+               output_param << "note=\"Wrong type suplied.\" ";
+               output_param << ">";
+               output_param << std::endl;
+               return report_type( false );
+              }
+
+             output_param << ">" << std::endl;
+             for( std::size_t index=0; index < context->signature().size(); ++index )
+              {
+               output_param << "  <parameter ";
+               output_param << "ordinal=\"" << index << "\" ";
+               output_param << "type=\"" << context->signature()[index] << "\" ";
+               output_param << "/>";
+               output_param << std::endl;
+              }
+
+             output_param << "</item>";
              output_param << std::endl;
 
              return report_type( true );
             }
 
-           static report_type structure(     output_name & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param  )
+           static  report_type structure( output_name & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param  )
             {
              output_param << "<item ";
              output_param << "name=\"" << key_param    << "\" ";
@@ -164,7 +232,7 @@ namespace reflection
               category_type const* category = dynamic_cast< category_type const* >( &property_param );
               if( nullptr != category )
                {
-                output_param << "type=\"" << category->type() << "\" ";
+                output_param << "type=\"" << "$structure"/*category->type()*/ << "\" ";
                }
               else
                {
@@ -178,25 +246,6 @@ namespace reflection
 
              output_param << "</item>";
              output_param << std::endl;
-             return report_type( true );
-            }
-
-
-           static report_type null     ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-            {
-             typedef ::reflection::property::null_class null_type;
-             auto null = dynamic_cast< null_type const* >( &property_param );
-             if( nullptr == null )
-              {
-               return report_type( false );
-              }
-
-             output_param <<  key_param << ": " <<  "null" << std::endl;
-             output_param << "<item ";
-             output_param << "name=\"" << key_param << "\" ";
-             output_param << "value=\"null";
-             output_param << "/>";
-
              return report_type( true );
             }
 

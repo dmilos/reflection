@@ -16,7 +16,8 @@ namespace reflection
 
       template
        <
-         typename data_name
+         typename identifier_name
+        ,typename data_name
         ,typename original_name =  data_name &
        >
        struct simple_struct
@@ -29,7 +30,7 @@ namespace reflection
 
          typedef typename simple_type::extractor_type extractor_type;
 
-         typedef ::reflection::content::direct::basic_class<data_name,original_type,data_name,extractor_type> typedef_type;
+         typedef ::reflection::content::direct::basic_class<identifier_name,data_name,original_type,data_name,extractor_type> typedef_type;
 
          static typedef_type make( void )                 { return typedef_type( ); }
          static typedef_type make( data_type const& value_param ){ return typedef_type( value_param ); }
@@ -48,25 +49,27 @@ namespace reflection
         };*/
       template
        <
-         typename data_name
+         typename identifier_name
+        ,typename data_name
        >
        inline
-       typename ::reflection::content::direct::simple_struct<data_name, data_name& >::typedef_type
+       typename ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& >::typedef_type
        simple()
         {
-         typedef ::reflection::content::direct::simple_struct<data_name, data_name& > simple_type;
+         typedef ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& > simple_type;
          return simple_type::make();
         }
 
       template
        <
-         typename data_name
+         typename identifier_name
+        ,typename data_name
        >
        inline
-       typename ::reflection::content::direct::simple_struct<data_name, data_name& >::typedef_type
+       typename ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::content::direct::simple_struct<data_name, data_name& > simple_type;
+         typedef ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& > simple_type;
          return simple_type::make( data_param );
         }
 
