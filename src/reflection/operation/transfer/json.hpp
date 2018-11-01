@@ -267,7 +267,7 @@ namespace reflection
 
              output_param << "    \"type\": \"$function\", " << std::endl;
 
-             output_param << "     \"parameters\": " << std::endl;
+             output_param << "    \"parameters\": " << std::endl;
              output_param << "    [ " << std::endl;
              for( std::size_t index=0; index < context->signature().size(); ++index )
               {

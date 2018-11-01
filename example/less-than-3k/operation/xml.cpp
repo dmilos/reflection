@@ -27,7 +27,7 @@ reflection__CLASS_BEGIN_inherit( MySubsiderReflection, public, MySubsiderOrigina
   reflection__CLASS_SIMPLE_guarded(   "integer",         int, 123  )
   reflection__CLASS_SIMPLE_guarded(   "float-point",     float, 456.0  )
   reflection__CLASS_SIMPLE_guarded(   "standard-string", std::string, "standard-string"  )
-reflection__CLASS_END( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MySubsiderReflection, MySubsiderOriginal );
 
 
 class MyMainClass
@@ -65,7 +65,7 @@ reflection__CLASS_BEGIN_inherit( MyMainReflection, public, MyMainClass )
   reflection__CLASS_SIMPLE_guarded(   "extra2",     int, 1024  )
 
 
-reflection__CLASS_END( MyMainReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyMainReflection, MyMainClass );
 
 int main( int argc, char *argv[] )
  {

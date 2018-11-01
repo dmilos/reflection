@@ -53,7 +53,7 @@ namespace reflection
         };*/
       template
        <
-         typename identifier_name = std::string
+         typename identifier_name
         ,typename data_name
        >
        inline
@@ -66,7 +66,7 @@ namespace reflection
 
       template
        <
-         typename identifier_name = std::string
+         typename identifier_name
         ,typename data_name
        >
        inline

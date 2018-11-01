@@ -27,7 +27,7 @@ reflection__CLASS_BEGIN_inherit( MySubsiderReflection, public, MySubsiderOrigina
   reflection__CLASS_SIMPLE_guarded(   "integer",         int, 123  )
   reflection__CLASS_SIMPLE_guarded(   "float-point",     float, 456.0  )
   reflection__CLASS_SIMPLE_guarded(   "standard-string-name", std::string, "standard-string-content"  )
-reflection__CLASS_END( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MySubsiderReflection, MySubsiderOriginal );
 
 
 class MyMainClass
@@ -57,7 +57,7 @@ reflection__CLASS_BEGIN_inherit( MyMainReflection, public, MyMainClass )
   reflection__CLASS_MEMBER_direct  (  "m1",  MyMainClass, traitor   )
   reflection__CLASS_MEMBER_inspect (  "m2",  MyMainClass, inspector )
   reflection__CLASS_MEMBER_mutate  (  "m3",  MyMainClass, mutator   )
-  reflection__CLASS_MEMBER_inspect (  "mS",  MyMainClass, structure_get )
+  reflection__CLASS_MEMBER_inspect (  "subsider",  MyMainClass, structure_get )
   reflection__CLASS_MEMBER_guarded (  "g1",  MyMainClass, mutator, inspector )
   reflection__CLASS_MEMBER_variable(  "v1",  MyMainClass, traitor, inspector )
   reflection__CLASS_MEMBER_trinity(   "t1",  MyMainClass, traitor, mutator, inspector )
@@ -66,7 +66,7 @@ reflection__CLASS_BEGIN_inherit( MyMainReflection, public, MyMainClass )
   reflection__CLASS_SIMPLE_guarded(   "extra2",     int, 1024  )
 
 
-reflection__CLASS_END( MyMainReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyMainReflection, MyMainClass );
 
 int main( int argc, char *argv[] )
  {

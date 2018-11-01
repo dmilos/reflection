@@ -32,27 +32,58 @@ namespace reflection
              }
         };
 
-      template <> 
+      template<>
+       struct identificatorX<char*>
+        {
+         public:
+           typedef std::string   identifier_type;
+
+           typedef ::reflection::type::name::identificatorX<std::string>  rebind_type;
+
+         public:
+           static identifier_type const& NAT(){ return rebind_type::NAT(); }
+
+           template < typename type_name >
+             static identifier_type const& get(){ return rebind_type::template get<type_name>(); }
+        };
+
+      template<>
+       struct identificatorX<char[]>
+        {
+         public:
+           typedef std::string   identifier_type;
+
+           typedef ::reflection::type::name::identificatorX<std::string>  rebind_type;
+
+         public:
+           static identifier_type const& NAT(){ return rebind_type::NAT(); }
+
+           template < typename type_name >
+             static identifier_type const& get(){ return rebind_type::template get<type_name>(); }
+        };
+
+
+      template <>
        typename identificatorX<std::string>::identifier_type const&
        identificatorX<std::string>::template get<std::string          >(){ static std::string s("std::string" ); return s; }
 
-      template <> 
+      template <>
        typename identificatorX<std::string>::identifier_type const&
        identificatorX<std::string>::template get<std::string  const   >(){ static std::string s("std::string const" ); return s; }
 
-      template <> 
+      template <>
        typename identificatorX<std::string>::identifier_type const&
        identificatorX<std::string>::template get< std::string   const& >(){ static std::string s("std::string const&" ); return s; }
 
-       template <> 
+       template <>
        typename identificatorX<std::string>::identifier_type const&
          identificatorX<std::string>::template get<std::wstring        >(){ static std::string s( "std::wstring" ); return s; }
 
-       template <> 
+       template <>
        typename identificatorX<std::string>::identifier_type const&
          identificatorX<std::string>::template get<std::wstring const  >(){ static std::string s( "std::wstring const" ); return s; }
 
-       template <> 
+       template <>
        typename identificatorX<std::string>::identifier_type const&
          identificatorX<std::string>::template get< std::wstring const& >(){ static std::string s( "std::wstring const&" ); return s; }
 

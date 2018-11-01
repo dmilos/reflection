@@ -23,7 +23,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
   reflection__CLASS_SIMPLE_trinity(   "float-point",      float, 456.0  )
   reflection__CLASS_SIMPLE_trinity(   "standard-string",  std::string, "standard-string"  )
 
-reflection__CLASS_END( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )

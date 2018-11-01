@@ -29,7 +29,7 @@ namespace reflection
         ,typename report_name
        >
        class base_class
-        :  virtual public ::reflection::property::trinity::pure_class<  original_name, model_name, image_name, report_name>
+        :  virtual public ::reflection::property::trinity::pure_class<  original_name, model_name, image_name, report_name >
         ,          public ::reflection::property::direct::base_class<   original_name, storage_name, extractor_name >
         ,          public ::reflection::property::mutate::base_class<      model_name, storage_name, assigner_name, report_name >
         ,          public ::reflection::property::inspect::base_class<     image_name, storage_name, retriever_name >

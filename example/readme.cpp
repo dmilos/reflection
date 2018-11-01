@@ -26,7 +26,8 @@ class MyClassOriginal
  };
 
 // Reflect to reflection
-reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
+template< typename someType_name >     // Yeah template.
+reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
 
   reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal, MyClassOriginal::Enumerator );
     reflection__CLASS_ENUM_value( "enum1", MyClassOriginal::enum1 )
@@ -50,7 +51,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
    reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writter )
 
-reflection__CLASS_END( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_view( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )
@@ -61,7 +62,9 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
   typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
 
-  MyClassReflection r;  //!< Reflection of Original
+  MyClassOriginal o;
+  MyClassReflection<int> r( &o );  //!< Reflection of Original, with pointing to some instance
+  MyClassReflection<float> r1( &o );  //!< Reflection of Original, with pointing to same instance
 
   observe_type observe;
 

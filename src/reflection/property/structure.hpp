@@ -39,7 +39,7 @@ namespace reflection
 
          structure_class( structure_class const& that_param )
           {
-           *this = that_param; 
+           *this = that_param;
           }
 
          structure_class & operator=( structure_class const& that_param )
@@ -50,6 +50,14 @@ namespace reflection
 
         ~structure_class(){}
 
+       private:
+         container_type const& container()const{ return this->m_container; }
+         container_type      & container()     { return this->m_container; }
+
+       private:
+         container_type m_container;
+
+       public:
          const_iterator_type  begin()const { return this->container().begin(); }
          iterator_type        begin()      { return this->container().begin(); }
          const_iterator_type    end()const { return this->container().end(); }
@@ -58,20 +66,20 @@ namespace reflection
 
          key_type const key( const_iterator_type const& iterator )const
           {
-           return ::reflection::type::container::key< key_type, item_type >( this->container(), iterator ); 
+           return ::reflection::type::container::key< key_type, item_type >( this->container(), iterator );
           }
-         key_type const key( iterator_type            & iterator )    
+         key_type const key( iterator_type            & iterator )
           {
-           return ::reflection::type::container::key< key_type, item_type >( this->container(), iterator ); 
+           return ::reflection::type::container::key< key_type, item_type >( this->container(), iterator );
           }
 
          item_type const& data( const_iterator_type  const& iterator )const
-          { 
+          {
            return ::reflection::type::container::data<key_type, item_type >( this->container(), iterator );
           }
-         item_type      & data( iterator_type             & iterator )     
+         item_type      & data( iterator_type             & iterator )
           {
-           return ::reflection::type::container::data<key_type, item_type >( this->container(), iterator ); 
+           return ::reflection::type::container::data<key_type, item_type >( this->container(), iterator );
           }
 
          bool                 exists( key_type const& name )
@@ -151,12 +159,6 @@ namespace reflection
            return s_empty;
           }
 
-       private:
-         container_type const& container()const{ return this->m_container; }
-         container_type      & container()     { return this->m_container; }
-
-       private:
-         container_type m_container;
       };
 
    }

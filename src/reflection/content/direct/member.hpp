@@ -46,7 +46,7 @@ namespace reflection
 
       template
        <
-         typename identifier_name = std::string
+         typename identifier_name
         ,typename data_name
         ,typename original_name
         ,typename class_name
@@ -66,7 +66,7 @@ namespace reflection
 
       template
        <
-         typename identifier_name = std::string
+         typename identifier_name
         ,typename data_name
         ,typename class_name
         ,typename storage_name

@@ -64,7 +64,7 @@ namespace reflection
         };*/
       template
        <
-         typename identifier_name  = std::string
+         typename identifier_name
         ,typename data_name
         ,typename model_name  =  data_name const&
         ,typename image_name  =  data_name const&
@@ -80,7 +80,7 @@ namespace reflection
 
       template
        <
-         typename identifier_name   = std::string
+         typename identifier_name
         ,typename data_name
         ,typename model_name  =  data_name const&
         ,typename image_name  =  data_name const&

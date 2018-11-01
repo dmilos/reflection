@@ -20,7 +20,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
     reflection__CLASS_FUNCTION_member( "return_void_function", MyClassOriginal, return_void_function )
 
-reflection__CLASS_END( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )

@@ -6,6 +6,8 @@
 //#define reflection__CLASS_SIMPLE_direct(      member_name,     class_original::asdas   )\
 
 #define reflection__CLASS_MEMBER_direct( member_string_name, class_symbolic_name, traitor_symbolic_name )\
+ {                                                      \
+  typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   insert                                                \
    (                                                    \
      member_string_name                                 \
@@ -14,17 +16,19 @@
       ::memory::pointer::make                           \
        (                                                \
         ::reflection::content::direct::member           \
-         <std::string>                                  \
+         <identifier_type>                              \
          (                                              \
-           this                                         \
+           (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::traitor_symbolic_name  \
          )                                              \
        )                                                \
      )                                                  \
    );                                                   \
-
+ }
 
 #define reflection__CLASS_SIMPLE_direct( member_string_name, type_symbolic_name, value_instance )\
+ {                                                      \
+  typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   insert                                                \
    (                                                    \
      member_string_name                                 \
@@ -34,14 +38,16 @@
        (                                                \
         ::reflection::content::direct::simple           \
           <                                             \
-           std::string, type_symbolic_name              \
+           identifier_type, type_symbolic_name          \
           >                                             \
           (                                             \
            value_instance                               \
           )                                             \
        )                                                \
      )                                                  \
-   );                                                   \
+    );                                                  \
+ }
+
 
 #define reflection__CLASS_SUBSIDER_direct               \
  (                                                      \
@@ -50,6 +56,8 @@
   ,subsider_reflection_symbolic_name                    \
   ,traitor_symbolic_name                                \
  )                                                      \
+ {                                                      \
+  typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   insert                                                \
    (                                                    \
      member_string_name                                 \
@@ -58,14 +66,15 @@
       ::memory::pointer::make                           \
        (                                                \
         ::reflection::content::direct::member           \
-         <std::string>                                  \
+         <identifier_type>                              \
          (                                              \
-           this                                         \
+           (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::traitor_symbolic_name  \
          )                                              \
        )                                                \
      )                                                  \
-   );                                                   \
+    );                                                  \
+ }
 
 
 // TODO #define reflection__CLASS_MEMBER_direct_reference( type_symbolic_name, value_instance )\

@@ -144,16 +144,16 @@ class MyClass
        ::reflection::content::guarded::simple<std::string,int>( 1024 );
        ::reflection::content::guarded::simple<std::string,float>( );
 
-       std::cout << "content::direct::type = " << ::reflection::content::category::type<std::string>( ::reflection::content::direct::member( this, &MyClass::traitor ) ) << std::endl;
+       std::cout << "content::direct::type = " << ::reflection::content::category::type<std::string>( ::reflection::content::direct::member<std::string>( this, &MyClass::traitor ) ) << std::endl;
 
-       std::cout << "content::direct = " << ::reflection::content::direct::member( this, &MyClass::traitor ).disclose() << std::endl;
+       std::cout << "content::direct = " << ::reflection::content::direct::member<std::string>( this, &MyClass::traitor ).disclose() << std::endl;
 
        std::cout << "content::inspect = " << ::reflection::content::inspect::member<std::string>( this, &MyClass::inspector ).present() << std::endl;
 
 
        ::reflection::content::mutate::member<int>( this, &MyClass::writter ).process( 2424 );
 
-       std::cout << "content::inspect = " << ::reflection::content::inspect::member( this, &MyClass::inspector ).present() << std::endl;
+       std::cout << "content::inspect = " << ::reflection::content::inspect::member<std::string>( this, &MyClass::inspector ).present() << std::endl;
 
        ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function<int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( []( int const& i )-> std::string{ return std::to_string( i ); } ) );
 
@@ -234,18 +234,18 @@ class MyClass
         //insert(  "f2", item_type( ::reflection::property::function::member( this, &MyClass::c ) ) );
         //insert(  "f3", item_type( ::reflection::property::function::member( this, &MyClass::d ) ) );
 
-        insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) ) );
-        insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
-        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::writter   ) ) ) );
+        insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member<std::string>(  this, &MyClass::traitor   ) ) ) );
+        insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member<std::string>( this, &MyClass::inspector ) ) ) );
+        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member<std::string>(  this, &MyClass::writter   ) ) ) );
 
-        insert(  "mS",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::structure_get ) ) ) );
+        insert(  "mS",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member<std::string>( this, &MyClass::structure_get ) ) ) );
 
-        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::writter, &MyClass::inspector ) ) ) );
+        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member<std::string>( this, &MyClass::writter, &MyClass::inspector ) ) ) );
 
-        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
-        insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
+        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<            int>( 10 ) ) ) );
+        insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<std::string,int>( 1024 ) ) ) );
 
-        insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector ) ) ) );
+        insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member<std::string>( this, &MyClass::traitor, &MyClass::inspector ) ) ) );
 
         ::reflection::property::assign< int >( get( "v1" ), get( "g1" ) );
 

@@ -14,9 +14,9 @@ class MyClassA
    void init()
       {
        reflection__CLASS_SIMPLE_direct(   "extra1",         int, 123  )
-       reflection__CLASS_SIMPLE_guarded(   "extra2",         int, 123  )
-       reflection__CLASS_SIMPLE_guarded(   "extra3",         float, 123  )
-       reflection__CLASS_SIMPLE_guarded(   "extra4",         std::string, "asdfg"  )
+       reflection__CLASS_SIMPLE_guarded(  "extra2",         int, 123  )
+       reflection__CLASS_SIMPLE_guarded(  "extra3",         float, 123  )
+       reflection__CLASS_SIMPLE_guarded(  "extra4",         std::string, "asdfg"  )
       }
  };
 
@@ -72,19 +72,15 @@ class MyClass
   private:
      void init()
       {
-        insert(  "m1",     item_type( ::memory::pointer::make( ::reflection::content::direct::member(  this, &MyClass::traitor   ) ) ) );
-        insert(  "m2",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::inspector ) ) ) );
-        insert(  "m3",     item_type( ::memory::pointer::make( ::reflection::content::mutate::member(  this, &MyClass::writter   ) ) ) );
 
-        insert(  "mS",     item_type( ::memory::pointer::make( ::reflection::content::inspect::member( this, &MyClass::structure_get ) ) ) );
-
-        insert(  "g1",     item_type( ::memory::pointer::make( ::reflection::content::guarded::member( this, &MyClass::writter, &MyClass::inspector ) ) ) );
-
-        insert(  "extra1", item_type( ::memory::pointer::make( ::reflection::property::direct::simple<int>( 10 ) ) ) );
-        insert(  "extra2", item_type( ::memory::pointer::make( ::reflection::content::guarded::simple<int>( 1024 ) ) ) );
-
-        insert(  "v1",     item_type( ::memory::pointer::make( ::reflection::content::variable::member( this, &MyClass::traitor, &MyClass::inspector ) ) ) );
-
+		reflection__CLASS_MEMBER_direct(    "m1",     MyClass, traitor   );
+		reflection__CLASS_MEMBER_inspect(   "m2",     MyClass, inspector );
+		reflection__CLASS_MEMBER_mutate(    "m3",     MyClass, writter   );
+        reflection__CLASS_MEMBER_inspect(   "mS",     MyClass, structure_get );
+		reflection__CLASS_MEMBER_guarded(   "g1",     MyClass, writter, inspector );
+		reflection__CLASS_SIMPLE_direct(    "extra1", int, 10   ) ;
+		reflection__CLASS_SIMPLE_guarded(   "extra2", int, 1024 );
+		reflection__CLASS_MEMBER_variable(  "v1",      MyClass, traitor, inspector );
       }
 
  };

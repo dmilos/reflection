@@ -6,6 +6,8 @@
 
 
 #define reflection__CLASS_MEMBER_mutate( member_string_name, class_symbolic_name, writter_symbolic_name )\
+ {                                                      \
+  typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   insert                                                \
    (                                                    \
      member_string_name                                 \
@@ -14,16 +16,20 @@
       ::memory::pointer::make                           \
        (                                                \
         ::reflection::content::mutate::member           \
-         <std::string>                                  \
+         <identifier_type>                              \
          (                                              \
-           this                                         \
+           (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::writter_symbolic_name  \
          )                                              \
        )                                                \
      )                                                  \
-   );
+    );                                                  \
+ }
+
 
 #define reflection__CLASS_SIMPLE_mutate( member_string_name, type_symbolic_name, value_instance )\
+ {                                                      \
+  typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   insert                                                \
    (                                                    \
      member_string_name                                 \
@@ -33,16 +39,18 @@
        (                                                \
         ::reflection::content::mutate::simple           \
           <                                             \
-           std::string, type_symbolic_name              \
+           identifier_type, type_symbolic_name          \
           >                                             \
           (                                             \
            value_instance                               \
           )                                             \
        )                                                \
      )                                                  \
-   );                                                   \
+    );                                                  \
+ }
 
-   
+
+
 /*
 mutate\
     member.hpp

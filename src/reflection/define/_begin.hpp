@@ -12,7 +12,7 @@
       typedef class_original original_type;                                                 \
                                                                                             \
       explicit class_reflected( original_type const& original )                             \
-       {                                                                                    \
+       :original_type(original){                                                            \
         this->init();                                                                       \
        }                                                                                    \
                                                                                             \
@@ -38,7 +38,7 @@
       typedef class_original original_type;                                  \
                                                                              \
       explicit class_reflected( original_type const& original )              \
-       {                                                                     \
+       :m_original(original){                                                \
         this->init();                                                        \
        }                                                                     \
                                                                              \
@@ -52,7 +52,12 @@
         this->init();                                                        \
        }                                                                     \
    public:                                                                   \
-     original_type const& original()                                         \
+     original_type const& original()const                                    \
+     {                                                                       \
+      return m_original;                                                     \
+     }                                                                       \
+   protected:                                                                \
+     original_type & original()                                              \
      {                                                                       \
       return m_original;                                                     \
      }                                                                       \
@@ -63,27 +68,40 @@
       {
 
 
-#define reflection__CLASS_BEGIN_view( class_reflected,    class_original )   \
+#define reflection__CLASS_BEGIN_view( class_reflected, accesibility, class_original, class_pointer    )   \
   class class_reflected                                                      \
    : public ::reflection::content::class_class<class_original>               \
    {                                                                         \
     public:                                                                  \
       typedef class_original original_type;                                  \
+      typedef class_pointer  pointer_type;                                   \
                                                                              \
-      explicit class_reflected( original_type const& original )              \
-       {                                                                     \
+      explicit class_reflected( class_pointer const& pointer )               \
+       :m_pointer(pointer){                                                  \
         this->init();                                                        \
        }                                                                     \
                                                                              \
       class_reflected()                                                      \
-       {                                                                     \
+       :m_pointer(nullptr){                                                  \
         this->init();                                                        \
        }                                                                     \
                                                                              \
       explicit class_reflected( class_reflected const& other )               \
-       {                                                                     \
+       :m_pointer(nullptr){                                                  \
         this->init();                                                        \
        }                                                                     \
+   public:                                                                   \
+     pointer_type const& pointer()const                                      \
+     {                                                                       \
+      return m_pointer;                                                      \
+     }                                                                       \
+   protected:                                                                \
+     pointer_type & pointer()                                                \
+     {                                                                       \
+      return m_pointer;                                                      \
+     }                                                                       \
+   accesibility:                                                             \
+     pointer_type m_pointer;                                                 \
    private:                                                                  \
      void init()                                                             \
       {

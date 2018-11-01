@@ -35,6 +35,7 @@ namespace reflection
         {
          public:
            typedef identifier_name identifier_type;
+           typedef ::reflection::type::name::identificatorX<identifier_type>     rebind_type;
 
          public:
            static identifier_type const& NAT(){ static identifier_type id; return id; }

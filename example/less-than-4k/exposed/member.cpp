@@ -39,7 +39,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
   reflection__CLASS_MEMBER_exposed(   "float-point",      MyClassOriginal, traitor_float , writter_float      )
   reflection__CLASS_MEMBER_exposed(   "standard-string",  MyClassOriginal, traitor_string, writter_string     )
 
-reflection__CLASS_END( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )
