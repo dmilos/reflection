@@ -239,7 +239,6 @@ namespace reflection
              return report_type( true );
             }
 
-
            static report_type function ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param << "<item ";
@@ -268,6 +267,11 @@ namespace reflection
              output_param << ">" << std::endl;
              for( std::size_t index=0; index < context->signature().size(); ++index )
               {
+               if( context->signature()[index] == identificator_type::NAT() ) 
+                {
+                 continue;
+                }
+
                output_param << "  <parameter ";
                output_param << "ordinal=\"" << index << "\" ";
                output_param << "type=\"" << context->signature()[index] << "\" ";

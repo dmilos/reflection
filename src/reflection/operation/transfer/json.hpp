@@ -255,6 +255,38 @@ namespace reflection
              else
               {
               }
+
+             function_context_type  const* context = dynamic_cast< function_context_type const* >( &property_param );
+             if( nullptr == context )
+              {
+               return report_type( false );
+              }
+
+             output_param << "\"" << key_param << "\" :" << std::endl;
+             output_param << "  { " << std::endl;
+
+             output_param << "    \"type\": \"$function\", " << std::endl;
+
+             output_param << "     \"parameters\": " << std::endl;
+             output_param << "    [ " << std::endl;
+             for( std::size_t index=0; index < context->signature().size(); ++index )
+              {
+               if( context->signature()[index] == identificator_type::NAT() )
+                {
+                 continue;
+                }
+               output_param << "        { ";
+               output_param << "\"ordinal\": " << std::setw(3) << index << ", ";
+               output_param << "\"type\": "   << "\""<< context->signature()[index] << "\" ";
+
+             //output_param << "\"name\":\""   << context->container()[index].name() << "\" ";
+               output_param << "    }";
+               output_param << std::endl;
+             }
+             output_param << "    ] "<< std::endl;
+
+             output_param << "  } " << std::endl;
+
              return report_type( true );
             }
 

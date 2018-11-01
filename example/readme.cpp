@@ -10,7 +10,7 @@ class MyClassOriginal
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
 
-    MyClassOriginal(){ }
+    MyClassOriginal():m_int(123456){ }
 
     void a(){ }
     std::string const&  b( float const& f ){ static std::string s;   return s; }
@@ -59,12 +59,18 @@ int main( int argc, char *argv[] )
   // Some typedefs
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
+  typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
 
   MyClassReflection r;  //!< Reflection of Original
 
   observe_type observe;
-  xml_type xml( observe );// XMLize for example
 
+  xml_type xml( observe );// XMLize for example
+  observe.view( std::cout, r );
+
+  observe.clear();
+
+  json_type json( observe ); // JSONize also
   observe.view( std::cout, r );
 
   std::cin.get();

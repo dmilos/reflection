@@ -9,7 +9,7 @@ Description
 
 Key features:
  - Headers only
- - No additional binaries 
+ - No additional binaries
  - No third parties
  - Out of the box ready
   - No need to recompile or start some install process.
@@ -43,7 +43,7 @@ class MyClassOriginal
 
     int      &  traitor(){ return m_int; }
     int const&  reader()const{ return m_int; }
-    bool        writter( int const& a ){ m_int = a; return true; }
+    bool        writer( int const& a ){ m_int = a; return true; }
 
   private: // And private member
     int m_int;
@@ -57,20 +57,20 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
     reflection__CLASS_ENUM_value( "enum2", MyClassOriginal::enum2 )
     reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
-   reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
+  reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
 
-  reflection__CLASS_MEMBER_mutate(   "asasd3",  MyClassOriginal, writter  )
+  reflection__CLASS_MEMBER_mutate(   "asasd3",  MyClassOriginal, writer  )
   reflection__CLASS_MEMBER_direct(   "asasd4",  MyClassOriginal, traitor  )
   reflection__CLASS_MEMBER_inspect(  "asasd5",  MyClassOriginal, reader   )
 
   reflection__CLASS_MEMBER_variable( "asasd1",  MyClassOriginal, traitor, reader )
-  reflection__CLASS_MEMBER_guarded(  "asasd2",  MyClassOriginal, writter, reader  )
+  reflection__CLASS_MEMBER_guarded(  "asasd2",  MyClassOriginal, writer, reader  )
 
   reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, b )
   reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
   reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
 
-   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writter )
+  reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
 reflection__CLASS_END( MyClassReflection, MyClassOriginal );
 
@@ -81,12 +81,18 @@ int main( int argc, char *argv[] )
   // Some typedefs
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
+  typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
 
   MyClassReflection r;  //!< Reflection of Original
 
   observe_type observe;
-  xml_type xml( observe ); // XMLize for example
 
+  xml_type xml( observe ); // XMLize for example
+  observe.view( std::cout, r );
+
+  observe.clear();
+
+  json_type json( observe ); // JSONize also
   observe.view( std::cout, r );
 
   std::cin.get();

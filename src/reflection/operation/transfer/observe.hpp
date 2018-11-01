@@ -74,13 +74,20 @@ namespace reflection
          public:
            observe_class()
             {
+             this->clear();
+            }
+
+         public:
+           void clear()
+            {
              this->control( recover_not_category_index   , action_type::always_true() );
              this->control( recover_missing_action_index , action_type::always_true() );
              this->control( recover_action_fail_index    , action_type::always_true() );
              this->control( recover_null_pointer_index   , action_type::always_true() );
-             this->control( stage_prologue_index           , action_type::always_true() );
+             this->control( stage_prologue_index         , action_type::always_true() );
              this->control( stage_stasimon_index         , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
+             m_menu.clear();
             }
 
          public:

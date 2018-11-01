@@ -207,9 +207,6 @@ namespace reflection
              this->signature()[0] = identificator_type::template get< return_name >();
              this->signature()[1] = identificator_type::template get<  first_name >();
              this->signature()[2] = identificator_type::template get< second_name >();
-             this->signature()[3] = identificator_type::template get<  void >();
-             this->signature()[4] = identificator_type::template get<  void >();
-             this->signature()[5] = identificator_type::template get<  void >();
             }
 
          public:
