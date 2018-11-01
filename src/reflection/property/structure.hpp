@@ -33,8 +33,15 @@ namespace reflection
          typedef typename container_name< key_type, item_type >::iterator_type                iterator_type;
          typedef typename container_name< key_type, item_type >::const_iterator_type    const_iterator_type;
 
-         structure_class(){}
-         structure_class( structure_class const& that_param ){ *this = that_param; }
+         structure_class()
+          {
+          }
+
+         structure_class( structure_class const& that_param )
+          {
+           *this = that_param; 
+          }
+
          structure_class & operator=( structure_class const& that_param )
           {
            // Do nothing!

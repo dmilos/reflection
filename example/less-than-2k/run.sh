@@ -8,6 +8,10 @@ cd ./direct
 ./run.sh
 cd ..
 
+cd ./enum
+./run.sh
+cd ..
+
 cd ./exposed
 ./run.sh
 cd ..

@@ -8,6 +8,10 @@ cd ./direct
 ./make.sh
 cd ..
 
+cd ./enum
+./make.sh
+cd ..
+
 cd ./exposed
 ./make.sh
 cd ..

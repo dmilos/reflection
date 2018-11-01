@@ -40,7 +40,7 @@ source +=   [
 
       envObject.StaticObject( target =  os.path.join( directory_obj, 'readme'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'readme'          + '.cpp' )
 
-      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'exposed'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'less-than-2k/exposed/member'          + '.cpp' )
+      ,envObject.StaticObject( target =  os.path.join( directory_obj, 'exposed'          ) + envObject[ 'OBJSUFFIX' ],  source = '../' +'less-than-3k/exposed/member'          + '.cpp' )
      ]
 
 # Make native environment

@@ -5,6 +5,7 @@
 
 #include "../../content/category.hpp"
 #include "../../content/function/context.hpp"
+#include "../../content/enum/enum.hpp"
 #include "../../property/structure.hpp"
 #include "../../operation/transfer/observe.hpp"
 
@@ -35,9 +36,10 @@ namespace reflection
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
 
+           typedef std::size_t size_type;
+
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::content::category::pure_class<identifier_type>             category_type;
-           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef typename std::add_const< property_type >::type                          property_qualified_type;
            typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
@@ -47,6 +49,11 @@ namespace reflection
            typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
          public:
+           typedef ::reflection::property::structure_class<key_type,container_name>                       structure_type;
+           typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_context_type;
+           typedef ::reflection::content::function::context_class<identifier_type>                 function_context_type;
+
+         public:
            xml_struct( observe_type & observe_param )
             {
              observe_param.control( observe_type::recover_not_category_index  , &xml_struct::recover );
@@ -54,7 +61,7 @@ namespace reflection
              observe_param.control( observe_type::recover_action_fail_index   , &xml_struct::recover );
 
              observe_param.insert( identificator_type::template get< std::string    >(), &xml_struct::primitive<std::string   >  );
-            // TODO observe_param.insert( identificator_type::template get<  std::wstring   >(), &xml_struct::primitive<std::wstring  >  );
+     // TODO observe_param.insert( identificator_type::template get<  std::wstring  >(), &xml_struct::primitive<std::wstring  >  );
 
              observe_param.insert( identificator_type::template get<  char           >(), &xml_struct::primitive<char          >  );
              observe_param.insert( identificator_type::template get<  unsigned char  >(), &xml_struct::primitive<unsigned char >  );
@@ -86,10 +93,15 @@ namespace reflection
              observe_param.insert( identificator_type::template get<  nullptr_t     >(), &xml_struct::null   );
 
              {
-              typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+              using namespace std::placeholders;
+              auto f = std::bind( &xml_struct::enumeration, _1, _2, _3 );
+              observe_param.insert( identificator_type::template get<  enumeration_context_type      >(), f );
+             }
+
+             {
               using namespace std::placeholders;
               auto f = std::bind( &xml_struct::function, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  context_type      >(), f );
+              observe_param.insert( identificator_type::template get<  function_context_type      >(), f );
              }
 
              {
@@ -97,9 +109,13 @@ namespace reflection
               auto f = std::bind( &xml_struct::structure, _1, std::ref(observe_param), _2, _3 );
               observe_param.insert( identificator_type::template get<  structure_type      >(), f );
              }
+
             }
 
-           // wstring processing
+         private:
+           typedef    std::string       string_type;
+           typedef    std::wstring     wstring_type;
+           typedef    bool             boolean_type;
 
            static  report_type   recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
@@ -182,6 +198,48 @@ namespace reflection
               return report_type( true );
              }
 
+           static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << "<item ";
+             output_param << "name=\"" << key_param    << "\" ";
+
+             category_type const* category = dynamic_cast< category_type const* >( &property_param );
+             if( nullptr != category )
+              {
+               output_param << "type=\"" << "$enum" /* category->type()*/ << "\" ";
+              }
+             else
+              {
+               output_param << "note=\"Can not detect type\" ";
+              }
+
+             enumeration_context_type  const* context = dynamic_cast< enumeration_context_type const* >( &property_param );
+             if( nullptr == context )
+              {
+               output_param << "note=\"Wrong type supplied.\" ";
+               output_param << ">";
+               output_param << std::endl;
+               return report_type( false );
+              }
+
+             output_param << ">" << std::endl;
+             for( std::size_t index=0; index < context->container().size(); ++index )
+              {
+               output_param << "  <parameter ";
+               output_param << "ordinal=\"" << index << " ";
+               output_param << "value=\""   << context->container()[index].value() << "\" ";
+               output_param << "name=\""    << context->container()[index].name()  << "\" ";
+               output_param << "/>";
+               output_param << std::endl;
+              }
+
+             output_param << "</item>";
+             output_param << std::endl;
+
+             return report_type( true );
+            }
+
+
            static report_type function ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param << "<item ";
@@ -198,11 +256,10 @@ namespace reflection
                output_param << "note=\"Can not detect type\" ";
               }
 
-             typedef ::reflection::content::function::context_class<identifier_type>   context_type;
-             context_type  const* context = dynamic_cast< context_type const* >( &property_param );
+             function_context_type  const* context = dynamic_cast< function_context_type const* >( &property_param );
              if( nullptr == context )
               {
-               output_param << "note=\"Wrong type suplied.\" ";
+               output_param << "note=\"Wrong type supplied.\" ";
                output_param << ">";
                output_param << std::endl;
                return report_type( false );

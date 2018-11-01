@@ -37,9 +37,10 @@ namespace reflection
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
 
+           typedef std::size_t size_type;
+
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::content::category::pure_class<identifier_type>             category_type;
-           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef typename std::add_const< property_type >::type                          property_qualified_type;
            typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
@@ -48,6 +49,12 @@ namespace reflection
 
            typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
+         public:
+           typedef ::reflection::property::structure_class<key_type,container_name>                       structure_type;
+           typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_context_type;
+           typedef ::reflection::content::function::context_class<identifier_type>                 function_context_type;
+
+         public:
            json_struct( observe_type & observe_param )
             {
              observe_param.control( observe_type::recover_not_category_index  , &json_struct::recover );
@@ -95,10 +102,15 @@ namespace reflection
              observe_param.insert( identificator_type::template get<  nullptr_t      >(), &json_struct::null_value   );
 
              {
-              typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+              using namespace std::placeholders;
+              auto f = std::bind( &json_struct::enumeration, _1, _2, _3 );
+              observe_param.insert( identificator_type::template get<  enumeration_context_type      >(), f );
+             }
+
+             {
               using namespace std::placeholders;
               auto f = std::bind( &json_struct::function, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  context_type      >(), f );
+              observe_param.insert( identificator_type::template get<  function_context_type      >(), f );
              }
 
              {
@@ -197,9 +209,52 @@ namespace reflection
               return true;
              }
 
+           static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+
+             category_type const* category = dynamic_cast< category_type const* >( &property_param );
+             if( nullptr != category )
+              {
+              }
+             else
+              {
+              }
+
+             enumeration_context_type  const* context = dynamic_cast< enumeration_context_type const* >( &property_param );
+             if( nullptr == context )
+              {
+               return report_type( false );
+              }
+
+             output_param << "\"" << key_param    << "\": " << std::endl;
+             output_param <<  "  [ " << std::endl;
+
+             for( std::size_t index=0; index < context->container().size(); ++index )
+              {
+               output_param << "    { ";
+               output_param << "\"ordinal\": " << std::setw(3) << index << ", ";
+               output_param << "\"value\": "   << std::setw(4) << context->container()[index].value() << ", ";
+               output_param << "\"name\":\""   << context->container()[index].name() << "\" ";
+               output_param << "    }";
+               if( index+1< context->container().size()) output_param << ",";
+
+               output_param << std::endl;
+              }
+             output_param << "  ] ";
+
+             return report_type( true );
+            }
 
            static report_type function ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
+             category_type const* category = dynamic_cast< category_type const* >( &property_param );
+
+             if( nullptr != category )
+              {
+              }
+             else
+              {
+              }
              return report_type( true );
             }
 

@@ -12,3 +12,7 @@
 *.exe
 /example/test/msvc/2015/.vs
 /example/test/msvc/2015/Debug
+/example/test/msvc/2017/.vs
+/example/test/msvc/2017/Debug
+/example/test/msvc/2015/reflection2015.VC.db
+/example/test/msvc/2015/reflection2015.VC.VC.opendb

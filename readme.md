@@ -32,6 +32,7 @@ Example:
 class MyClassOriginal
  {
   public:
+    enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
 
     MyClassOriginal(){ }
 
@@ -50,6 +51,13 @@ class MyClassOriginal
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
+
+  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal, MyClassOriginal::Enumerator );
+    reflection__CLASS_ENUM_value( "enum1", MyClassOriginal::enum1 )
+    reflection__CLASS_ENUM_value( "enum2", MyClassOriginal::enum2 )
+    reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )
+    reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
+   reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
 
   reflection__CLASS_MEMBER_mutate(   "asasd3",  MyClassOriginal, writter  )
   reflection__CLASS_MEMBER_direct(   "asasd4",  MyClassOriginal, traitor  )
@@ -76,9 +84,8 @@ int main( int argc, char *argv[] )
 
   MyClassReflection r;  //!< Reflection of Original
 
-  // XMLize for example
   observe_type observe;
-  xml_type xml( observe );
+  xml_type xml( observe ); // XMLize for example
 
   observe.view( std::cout, r );
 

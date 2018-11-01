@@ -5,7 +5,7 @@
 #include "./big.hpp"
 
 #include "./function.hpp"
-
+#include "./enum.hpp"
 
 #include "./direct.hpp"
 #include "./inspect.hpp"
