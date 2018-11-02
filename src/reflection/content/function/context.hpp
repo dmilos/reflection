@@ -20,10 +20,10 @@ namespace reflection
        class context_class
         {
          public:
-          typedef identifier_name identifier_type;
+           typedef identifier_name identifier_type;
 
-          typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
-          typedef typename ::reflection::content::function::argument_struct<identifier_type>::typedef_type     argument_type;
+           typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
+           typedef typename ::reflection::content::function::argument_struct<identifier_type>::container_type     argument_type;
 
          public:
            virtual bool execute( argument_type & argument_param )const=0;

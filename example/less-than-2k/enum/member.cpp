@@ -31,6 +31,10 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
   reflection__CLASS_ENUM_value( "asdasdas11", MyClassOriginal::enum11 )
  reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
 
+  reflection__CLASS_MEMBER_direct(   "some-enum",          MyClassOriginal, traitor_enum      )
+
+
+
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 

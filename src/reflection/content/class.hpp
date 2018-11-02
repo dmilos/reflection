@@ -35,13 +35,13 @@ namespace reflection
          class_class( )
           :content_type( identificator_type::template get<class_name>() )
           {
-           this->type( identificator_type::template get<class_name>() );
+           this->identifier( identificator_type::template get<class_name>() );
           }
 
          class_class( class_class const& that_param )
           :content_type( identificator_type::template get<class_name>() )
           {
-           this->type( identificator_type::template get<class_name>() );
+           this->identifier( identificator_type::template get<class_name>() );
            *this = that_param; 
           }
 

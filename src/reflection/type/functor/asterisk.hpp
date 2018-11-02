@@ -27,7 +27,7 @@ namespace reflection
        typename result_name
       ,typename parameter_name  //= qualify::pointer<result_name>::typedef_type
      >
-     class asteriskC
+     class asterisk_fn
       //: public functor::unaryC< result_name, parameter_name >
       {
        public:

@@ -26,9 +26,9 @@ namespace reflection
         ,typename      report_name  = bool
        >
        struct simple_struct
-        : public ::reflection::content::direct::simple_struct<  identifier_name, data_name, original_name >
-        , public ::reflection::content::mutate::simple_struct<  identifier_name, data_name,model_name,report_name >
-        , public ::reflection::content::inspect::simple_struct<  identifier_name, data_name,image_name >
+        : public ::reflection::content::direct::simple_struct<   identifier_name, data_name, original_name >
+        , public ::reflection::content::mutate::simple_struct<   identifier_name, data_name, model_name,report_name >
+        , public ::reflection::content::inspect::simple_struct<  identifier_name, data_name, image_name >
         {
          public:
            typedef      data_name       data_type;

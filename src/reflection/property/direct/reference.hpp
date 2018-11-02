@@ -24,13 +24,12 @@ namespace reflection
 
          typedef data_type &       original_type;
 
-         //typedef std::asterisk< original_type, storage_name & >          extractor_type;
+         //typedef reflection::type::asterisk< original_type, storage_name & >          extractor_type;
 
          typedef ::reflection::property::direct::base< original_type, storage_name, extractor_type>      typedef_type;
 
          static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( storage_name const& carrier_param ){ return typedef_type( carrier_param ); }
-
         };
 
       template

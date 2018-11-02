@@ -21,15 +21,32 @@ namespace reflection
         : virtual public ::reflection::property::pure_class
         {
          public:
-           typedef report_name report_type;
            typedef model_name   model_type;
+           typedef report_name report_type;
 
                     pure_class(){}
            virtual ~pure_class(){}
 
-           // assign??, modify, 
            virtual report_name process( model_type model_param )=0;
         };
+
+
+      template
+       <
+        typename report_name
+       >
+       class pure_class< void, report_name >
+        : virtual public ::reflection::property::pure_class
+        {
+         public:
+           typedef report_name report_type;
+
+                    pure_class(){}
+           virtual ~pure_class(){}
+
+           virtual report_name process( void )=0;
+        };
+
 
       template< typename model_name, typename report_name = bool >
        inline bool check( ::reflection::property::pure_class const& property_param )

@@ -156,7 +156,7 @@ namespace reflection
                  continue;
                 }
 
-               if( false == protocolX_type::exists( this->menu(), category->type() ) )
+               if( false == protocolX_type::exists( this->menu(), category->identifier() ) )
                 {
                  if( report_type( false ) == this->control()[recover_missing_action_index]( output_param, key, property ) )
                   {
@@ -165,7 +165,7 @@ namespace reflection
                  continue;
                 }
 
-               if( report_type( false ) == protocolX_type::find( this->menu(), category->type() )( output_param, key, property ) )
+               if( report_type( false ) == protocolX_type::find( this->menu(), category->identifier() )( output_param, key, property ) )
                 {
                  if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key, property ) )
                   {

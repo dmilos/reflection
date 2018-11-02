@@ -17,13 +17,14 @@ namespace reflection
       public:
                  null_class(){}
         virtual ~null_class(){}
+      public:
+        static inline bool check( ::reflection::property::pure_class const& property_param )
+         {
+          typedef ::reflection::property::null_class null_type;
+          return nullptr != dynamic_cast< null_type const*>( &property_param );
+         }
      };
 
-     inline bool check( ::reflection::property::pure_class const& property_param )
-      {
-       typedef ::reflection::property::null_class null_type;
-       return nullptr != dynamic_cast< null_type const*>( &property_param );
-      }
 
    }
  }

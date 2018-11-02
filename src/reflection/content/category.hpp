@@ -2,7 +2,7 @@
  #define type_content_category_pure_hpp
 
 // ::reflection::content::category::pure_class<identificator_name>
-// ::reflection::content::category::type()
+// ::reflection::content::category::identifier()
 // ::reflection::content::category::check()
 
  namespace reflection
@@ -33,12 +33,12 @@
             virtual   ~pure_class(){ }
 
           public:
-            identifier_type const& type()const
+            identifier_type const& identifier()const
              {
               return m_identifier;
              }
           protected:
-            void type( identifier_type const& id_param )
+            void identifier( identifier_type const& id_param )
              {
               m_identifier = id_param;
              }
@@ -52,9 +52,9 @@
         >
         inline
         identifier_name const&
-        type( ::reflection::content::category::pure_class<identifier_name> const& instance_param )
+        identifier( ::reflection::content::category::pure_class<identifier_name> const& instance_param )
          {
-          return instance_param.type();
+          return instance_param.identifier();
          }
 
        template

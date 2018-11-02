@@ -75,9 +75,18 @@ namespace reflection
             //using base_type::process;
             //using base_type::present;
 
-            original_type disclose(){ return base_type::disclose(); }
-            report_name   process( model_type model_param ){ return base_type::process(model_param); }
-            image_type    present()const{ return base_type::present(); }
+            original_type disclose()
+             {
+              return base_type::disclose();
+             }
+            report_name   process( model_type model_param )
+             {
+              return base_type::process(model_param); 
+             }
+            image_type    present()const
+             { 
+              return base_type::present(); 
+             }
         };
 
       }

@@ -12,7 +12,10 @@ class MyClassOriginal
      {
      }
 
-    void return_void_function(){ std::cout << __FUNCTION__ << std::endl;}
+    void return_void_function()
+    {
+     std::cout << __FUNCTION__ << std::endl;
+    }
  };
 
 // Reflect to reflection
@@ -27,6 +30,7 @@ int main( int argc, char *argv[] )
  {
   MyClassReflection r;  //!< Reflection of Original
 
+  // Classic "direct" call where c++ take care about arguments type
   ::reflection::property::function::execute<void>(        r.get( "return_void_function" ) );
 
   return EXIT_SUCCESS;

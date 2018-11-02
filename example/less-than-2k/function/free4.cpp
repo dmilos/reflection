@@ -5,12 +5,6 @@
 #include "reflection/reflection.hpp"
 
 
-  int free_int_int_string_float_bool( int , std::string const&, float, bool )
-   {
-    std::cout << __FUNCTION__ << std::endl;
-    return 10;
-   }
-
 class MyClassOriginal
  {
   public:
@@ -20,6 +14,17 @@ class MyClassOriginal
      }
     //Just nothing.
  };
+
+int free_int_int_string_float_bool( int i , std::string const& s, float & f, bool b )
+ {
+  std::cout << __FUNCTION__ << std::endl;
+  std::cout << i << std::endl;
+  std::cout << s << std::endl;
+  std::cout << f << std::endl;
+  f = 987;
+  std::cout << b << std::endl;
+  return 10;
+ }
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
@@ -33,7 +38,12 @@ int main( int argc, char *argv[] )
  {
   MyClassReflection r;  //!< Reflection of Original
 
-  std::cout << ::reflection::property::function::execute< int, int, std::string const&, float, bool >( r.get("free_int_int_string_float_bool"), 10, "asdasd", 42.0, true );
+  float f = 42; 
+
+  std::cout << 
+   ::reflection::property::function::execute< int, int, std::string const&, float &, bool >( r.get("free_int_int_string_float_bool"), 10, "asdasd", f, 20 )
+
+;
 
   return EXIT_SUCCESS;
  }

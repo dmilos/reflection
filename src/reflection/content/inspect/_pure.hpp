@@ -35,9 +35,9 @@ namespace reflection
            typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
 
            pure_class()
-            :content_type( identificator_type::template get<image_name>() )
+            :content_type( identificator_type::template get<data_type>() )
             {
-             this->type( identificator_type::template get<image_name>() );
+             this->identifier( identificator_type::template get<data_type>() );
             }
 
            using property_type::present;

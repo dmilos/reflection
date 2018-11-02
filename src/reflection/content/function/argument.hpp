@@ -20,28 +20,30 @@ namespace reflection
          public:
            typedef identifier_name identifier_type;
 
-           typedef ::reflection::property::pure_class                               propert_type;
+           typedef ::reflection::property::pure_class                            propert_type;
            typedef ::reflection::content::category::pure_class<identifier_type> category_type;
 
-           typedef std::vector<  propert_type * > typedef_type;
+           typedef std::vector<  propert_type * > container_type, parameter_type;
 
-           typedef typename ::reflection::content::function::signature_struct<identifier_type>::typedef_type   signature_type;
+           typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
 
-          static bool check( typedef_type const& args_param, signature_type const& signature_param )
+         public:
+
+          static bool check( container_type const& args_param, signature_type const& signature_param )
            {
             if( args_param.size() != signature_param.size() )
              {
               return false;
              }
 
-            for( std::size_t index; index < args_param.size(); ++index )
+            for( std::size_t index=0; index < args_param.size(); ++index )
              {
-              category_type const* c = dynamic_cast< category_type const*>( args_param[index] );
-              if( nullptr == c )
+              category_type const* category_instance = dynamic_cast< category_type const*>( args_param[index] );
+              if( nullptr == category_instance )
                {
                 return false;
                }
-              if( c->identifier() != signature_param[index].identifierr() )
+              if( category_instance->identifier() != signature_param[index] )
                {
                 return false;
                }

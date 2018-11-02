@@ -25,7 +25,7 @@ namespace reflection
            //typedef std::pair< identificator_type, name_type > parameter_type;
            //typedef std::vector< parameter_type >   signature_type;
 
-           typedef std::vector< identificator_type >   typedef_type;
+           typedef std::vector< identificator_type >   container_type;
         };
 
      }

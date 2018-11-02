@@ -46,7 +46,7 @@ namespace reflection
            virtual ~member_class( ){}
 
          public:
-           return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param, fifth_type fifth_param )
+           return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param, fifth_type fifth_param )const
             {
              return (this->storage()->*m_function)( first_param, second_param, third_param, fourth_param, fifth_param );
             }
@@ -78,7 +78,7 @@ namespace reflection
                     member_class( storage_type const& storage_param, function_type function_param ):carrier_type(storage_param),m_function(function_param) { }
            virtual ~member_class( ){}
 
-           return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param )
+           return_type execute( first_type first_param, second_type second_param, third_type third_param, fourth_type fourth_param )const
             {
              return (this->storage()->*m_function)( first_param, second_param, third_param, fourth_param );
             }
@@ -107,7 +107,7 @@ namespace reflection
                     member_class( storage_type const& storage_param, function_type function_param ):carrier_type(storage_param),m_function(function_param) { }
            virtual ~member_class( ){}
 
-           return_type execute( first_type first_param, second_type second_param, third_type third_param )
+           return_type execute( first_type first_param, second_type second_param, third_type third_param )const
             {
              return (this->storage()->*m_function)( first_param, second_param, third_param);
             }
@@ -135,7 +135,7 @@ namespace reflection
                     member_class( storage_type const& storage_param, function_type function_param ):carrier_type(storage_param),m_function(function_param) { }
            virtual ~member_class( ){}
 
-           return_type execute( first_type first_param, second_type second_param )
+           return_type execute( first_type first_param, second_type second_param )const
             {
              return (this->storage()->*m_function)( first_param, second_param);
             }
@@ -163,7 +163,7 @@ namespace reflection
                     member_class( storage_type const& storage_param, function_type function_param ):carrier_type(storage_param),m_function(function_param) { }
            virtual ~member_class( ){}
 
-           return_type execute( first_type first_param )
+           return_type execute( first_type first_param )const
             {
              return (this->storage()->*m_function)( first_param );
             }
@@ -189,7 +189,7 @@ namespace reflection
            member_class( storage_type const& storage_param, function_type function_param ):carrier_type(storage_param),m_function(function_param) { }
            virtual ~member_class( ){}
 
-           return_type execute( )
+           return_type execute( )const
             {
              return (this->storage()->*m_function)();
             }

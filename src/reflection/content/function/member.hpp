@@ -51,7 +51,7 @@ namespace reflection
            virtual ~member_class( ){}
 
          public:
-           return_type execute( first_name first, second_name second, third_name third, fourth_name fourth, fifth_name fifth )
+           return_type execute( first_name first, second_name second, third_name third, fourth_name fourth, fifth_name fifth )const
             {
              return this->member_type::execute( first, second, third, fourth, fifth );
             }
@@ -82,7 +82,7 @@ namespace reflection
            virtual ~member_class( ){}
 
          public:
-           return_type execute( first_name first, second_name second, third_name third, fourth_name fourth )
+           return_type execute( first_name first, second_name second, third_name third, fourth_name fourth )const
             {
              return this->member_type::execute( first, second, third, fourth );
             }
@@ -112,7 +112,7 @@ namespace reflection
            virtual ~member_class( ){}
 
          public:
-           return_type execute( first_name first, second_name second, third_name third )
+           return_type execute( first_name first, second_name second, third_name third )const
             {
              return this->member_type::execute( first, second, third );
             }
@@ -143,7 +143,7 @@ namespace reflection
            virtual ~member_class( ){}
 
          public:
-           return_type execute( first_name first, second_name second )
+           return_type execute( first_name first, second_name second )const
             {
              return this->member_type::execute( first, second );
             }
@@ -172,7 +172,7 @@ namespace reflection
            virtual ~member_class( ){}
 
          public:
-           return_type execute( first_name first )
+           return_type execute( first_name first )const
             {
              return this->member_type::execute( first );
             }
@@ -198,7 +198,7 @@ namespace reflection
            virtual ~member_class( ){}
 
          public:
-           return_type execute()
+           return_type execute()const
             {
              return this->member_type::execute();
             }

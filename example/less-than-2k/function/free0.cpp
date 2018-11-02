@@ -5,11 +5,6 @@
 #include "reflection/reflection.hpp"
 
 
-void free_void_void()
- {
-  std::cout << __FUNCTION__ << std::endl;
- }
-
 class MyClassOriginal
  {
   public:
@@ -19,6 +14,12 @@ class MyClassOriginal
      }
     //Just nothing.
  };
+
+void free_void_void()
+ {
+  std::cout << __FUNCTION__ << std::endl;
+ }
+
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
@@ -32,6 +33,7 @@ int main( int argc, char *argv[] )
  {
   MyClassReflection r;  //!< Reflection of Original
 
+  // Classic "direct" call where c++ take care about arguments type
   ::reflection::property::function::execute< void >( r.get("free_void_void") );
 
   return EXIT_SUCCESS;

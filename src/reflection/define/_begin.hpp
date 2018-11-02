@@ -92,9 +92,14 @@
        }                                                                     \
    public:                                                                   \
      pointer_type const& pointer()const                                      \
-     {                                                                       \
-      return m_pointer;                                                      \
-     }                                                                       \
+      {                                                                      \
+       return m_pointer;                                                     \
+      }                                                                      \
+     void pointer( pointer_type const& pointer_param )                       \
+      {                                                                      \
+       m_pointer = pointer_param;                                            \
+       ::reflection::operation::reroute< pointer_type >( *this, this->pointer() );  \
+      }                                                                      \
    protected:                                                                \
      pointer_type & pointer()                                                \
      {                                                                       \

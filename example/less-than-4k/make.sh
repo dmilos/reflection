@@ -4,6 +4,10 @@ cd ./exposed
 ./make.sh
 cd ..
 
+cd ./function
+./make.sh
+cd ..
+
 cd ./operation
 ./make.sh
 cd ..

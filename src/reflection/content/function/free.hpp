@@ -143,7 +143,7 @@ namespace reflection
            using content_type::signature;
            // TODO using free_type::execute;
 
-           return_type execute( first_name first, second_name second )
+           return_type execute( first_name first, second_name second ) const
             {
              return this->free_type::execute( first, second );
             }
@@ -172,7 +172,7 @@ namespace reflection
            using content_type::signature;
            // TODO using free_type::execute;
 
-           return_type execute( first_name first )
+           return_type execute( first_name first )const
             {
              return this->free_type::execute( first );
             }
@@ -197,9 +197,9 @@ namespace reflection
 
          public:
            using content_type::signature;
-           // TODO using free_type::execute;
+           using content_type::execute;
 
-           return_type execute()
+           return_type execute()const
             {
              return this->free_type::execute();
             }

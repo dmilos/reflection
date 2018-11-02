@@ -37,7 +37,7 @@ namespace reflection
            pure_class()
             :content_type( identificator_type::template get<data_type>() )
             {
-             this->type( identificator_type::template get<data_type>() );
+             this->identifier( identificator_type::template get<data_type>() );
             }
 
            using property_type::process;

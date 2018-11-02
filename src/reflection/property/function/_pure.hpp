@@ -37,7 +37,7 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
 
-           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param, fifth_name fifth_param )=0;
+           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param, fifth_name fifth_param )const=0;
          //virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param, fifth_name fifth_param )const=0;
         };
 
@@ -55,7 +55,7 @@ namespace reflection
                     pure_class(){}
            virtual ~pure_class(){}
          public:
-           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param )=0;
+           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param )const=0;
          //virtual return_name execute( first_name first_param, second_name second_param, third_name third_param, fourth_name fourth_param )const=0;
         };
 
@@ -73,7 +73,7 @@ namespace reflection
            virtual ~pure_class(){}
 
          public:
-           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param )=0;/*{ return this->execute( first_param,second_param,third_param ); }*/
+           virtual return_name execute( first_name first_param, second_name second_param, third_name third_param )const=0;/*{ return this->execute( first_param,second_param,third_param ); }*/
          //virtual return_name execute( first_name first_param, second_name second_param, third_name third_param )const=0;
         };
 
@@ -90,7 +90,7 @@ namespace reflection
            virtual ~pure_class(){}
 
          public:
-           virtual return_name execute( first_name first_param, second_name second_param )=0;/*{ return this->execute( first_param,second_param ); }*/
+           virtual return_name execute( first_name first_param, second_name second_param )const=0;/*{ return this->execute( first_param,second_param ); }*/
          //virtual return_name execute( first_name first_param, second_name second_param )const=0;
         };
 
@@ -106,7 +106,7 @@ namespace reflection
            virtual ~pure_class(){}
 
          public:
-           virtual return_name execute( first_name first_param )=0;/*{ return this->execute( first_param ); }*/
+           virtual return_name execute( first_name first_param )const=0;/*{ return this->execute( first_param ); }*/
          //virtual return_name execute( first_name first_param )const=0;
         };
 
@@ -121,7 +121,7 @@ namespace reflection
            virtual ~pure_class(){}
 
          public:
-           virtual return_name execute()=0;/*{ return this->execute( ); }*/
+           virtual return_name execute()const=0;/*{ return this->execute( ); }*/
          //virtual return_name execute()const=0;
         };
 

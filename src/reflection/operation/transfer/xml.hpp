@@ -126,7 +126,7 @@ namespace reflection
               category_type const* category = dynamic_cast< category_type const* >( &property_param );
               if( nullptr != category )
                {
-                output_param << "type=\"" << category->type() << "\" ";
+                output_param << "type=\"" << category->identifier() << "\" ";
                }
               else
                {
@@ -171,7 +171,7 @@ namespace reflection
                category_type const* category = dynamic_cast< category_type const* >( &property_param );
                if( nullptr != category )
                 {
-                 output_param << "type=\"" << category->type() << "\" ";
+                 output_param << "type=\"" << category->identifier() << "\" ";
                 }
                else
                 {
