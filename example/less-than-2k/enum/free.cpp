@@ -45,6 +45,5 @@ int main( int argc, char *argv[] )
 
   observe.view( std::cout, r );
 
-  std::cin.get();
   return EXIT_SUCCESS;
 }

@@ -20,6 +20,7 @@ class MyClassA
        reflection__CLASS_SIMPLE_guarded(  "extra2",         int, 123  )
        reflection__CLASS_SIMPLE_guarded(  "extra3",         float, 123  )
        reflection__CLASS_SIMPLE_guarded(  "extra4",         std::string, "asdfg"  )
+       ::reflection::operation::reroute< MyClassA* >( *this, this );
       }
  };
 
@@ -86,14 +87,17 @@ class MyClass
         insert(  "f2", item_type( ::memory::pointer::make( ::reflection::property::function::member( this, &MyClass::c ) ) ) );
         insert(  "f3", item_type( ::memory::pointer::make( ::reflection::property::function::member( this, &MyClass::d ) ) ) );
 
-		reflection__CLASS_MEMBER_direct(    "m1",     MyClass, traitor   );
-		reflection__CLASS_MEMBER_inspect(   "m2",     MyClass, inspector );
-		reflection__CLASS_MEMBER_mutate(    "m3",     MyClass, writter   );
-        reflection__CLASS_MEMBER_inspect(   "mS",     MyClass, structure_get );
-		reflection__CLASS_MEMBER_guarded(   "g1",     MyClass, writter, inspector );
-		reflection__CLASS_SIMPLE_direct(    "extra1", int, 10   ) ;
-		reflection__CLASS_SIMPLE_guarded(   "extra2", int, 1024 );
-		reflection__CLASS_MEMBER_variable(  "v1",      MyClass, traitor, inspector );
+       reflection__CLASS_MEMBER_direct(    "m1",     MyClass, traitor   );
+       reflection__CLASS_MEMBER_inspect(   "m2",     MyClass, inspector );
+       reflection__CLASS_MEMBER_mutate(    "m3",     MyClass, writter   );
+       reflection__CLASS_MEMBER_inspect(   "mS",     MyClass, structure_get );
+       reflection__CLASS_MEMBER_guarded(   "g1",     MyClass, writter, inspector );
+       reflection__CLASS_SIMPLE_direct(    "extra1", int, 10   ) ;
+       reflection__CLASS_SIMPLE_guarded(   "extra2", int, 1024 );
+       reflection__CLASS_MEMBER_variable(  "v1",      MyClass, traitor, inspector );
+
+    ::reflection::operation::reroute< MyClass* >( *this, this );
+
 
         ::reflection::property::assign< int >( get( "v1" ), get( "g1" ) );
       }
@@ -122,6 +126,5 @@ int main( int argc, char *argv[] )
 
   observe.view( i, m );
 
-  std::cin.get();
   return EXIT_SUCCESS;
  }

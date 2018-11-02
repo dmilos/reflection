@@ -17,7 +17,7 @@ Key features:
  - Strong type check
  - Obey existing encapsulation
  - No bloat of existing code
-
+ - Extra: sterilize to XML and JSON
 
 Example:
 ```c++

@@ -83,6 +83,5 @@ int main( int argc, char *argv[] )
 
  auto const& m = r.get("extra2");
 
-  std::cin.get();
   return EXIT_SUCCESS;
  }

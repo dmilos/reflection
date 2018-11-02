@@ -319,6 +319,5 @@ int main( int argc, char *argv[] )
 
   observe_assign.view( m, q );
 
-  std::cin.get();
   return EXIT_SUCCESS;
  }
