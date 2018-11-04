@@ -1,7 +1,7 @@
 #ifndef reflection_define_enum
 #define reflection_define_enum
 
-#define reflection__CLASS_ENUM_begin(  enumerator_string_name, class_symbolic_name, enumerator_symbolic_name ) \
+#define reflection__CLASS_ENUM_begin(  enumerator_string_name, enumerator_symbolic_name ) \
  { \
   typedef /*decltype( enumerator_string_name)*/ std::string identifier_type;     \
   typedef enumerator_symbolic_name enumarator_type; \

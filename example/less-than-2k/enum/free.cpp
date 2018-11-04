@@ -20,7 +20,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
- reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal, Enumerator );
+ reflection__CLASS_ENUM_begin( "enum-for-something", Enumerator );
   reflection__CLASS_ENUM_value( "asdasdas1",  enum1 )
   reflection__CLASS_ENUM_value( "asdasdas2",  enum2 )
   reflection__CLASS_ENUM_value( "asdasdas10", enum10 )

@@ -2,6 +2,7 @@
 
 #include "./function/function.hpp"
 #include "./enum/enum.hpp"
+#include "./typedef/typedef.hpp"
 
 #include "./direct/direct.hpp"
 #include "./inspect/inspect.hpp"

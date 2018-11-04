@@ -5,6 +5,7 @@
 
 #include "../../content/category.hpp"
 #include "../../content/function/context.hpp"
+#include "../../content/typedef/typedef.hpp"
 #include "../../content/enum/enum.hpp"
 #include "../../property/structure.hpp"
 #include "../../operation/transfer/observe.hpp"
@@ -52,6 +53,7 @@ namespace reflection
            typedef ::reflection::property::structure_class<key_type,container_name>                       structure_type;
            typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_context_type;
            typedef ::reflection::content::function::context_class<identifier_type>                 function_context_type;
+           typedef ::reflection::property::typedefinition::pure_class                        typedefinition_context_type;
 
          public:
            xml_struct( observe_type & observe_param )
@@ -102,6 +104,12 @@ namespace reflection
               using namespace std::placeholders;
               auto f = std::bind( &xml_struct::function, _1, _2, _3 );
               observe_param.insert( identificator_type::template get<  function_context_type      >(), f );
+             }
+
+             {
+              using namespace std::placeholders;
+              auto f = std::bind( &xml_struct::typedefinition, _1, _2, _3 );
+              observe_param.insert( identificator_type::template get<  typedefinition_context_type      >(), f );
              }
 
              {
@@ -267,7 +275,7 @@ namespace reflection
              output_param << ">" << std::endl;
              for( std::size_t index=0; index < context->signature().size(); ++index )
               {
-               if( context->signature()[index] == identificator_type::NAT() ) 
+               if( context->signature()[index] == identificator_type::NAT() )
                 {
                  continue;
                 }
@@ -281,6 +289,38 @@ namespace reflection
 
              output_param << "</item>";
              output_param << std::endl;
+
+             return report_type( true );
+            }
+
+           static report_type typedefinition ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << "<item ";
+             output_param << "name=\"" << key_param    << "\" ";
+
+             category_type const* category = dynamic_cast< category_type const* >( &property_param );
+
+             if( nullptr != category )
+              {
+               output_param << "type=\"" << "$typedef" /* category->type()*/ << "\" ";
+              }
+             else
+              {
+               output_param << "note=\"Can not detect type\" ";
+              }
+
+             typedefinition_context_type  const* context = dynamic_cast< typedefinition_context_type const* >( &property_param );
+             if( nullptr == context )
+              {
+               output_param << "note=\"Wrong type supplied.\" ";
+               output_param << ">";
+               output_param << std::endl;
+               return report_type( false );
+              }
+
+             output_param << "original=\"" << context->name() << "\" ";
+
+             output_param << "/>" << std::endl;
 
              return report_type( true );
             }

@@ -28,7 +28,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_member( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal, MyClassOriginal::Enumerator );
+  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
     reflection__CLASS_ENUM_value( "enum1", MyClassOriginal::enum1 )
     reflection__CLASS_ENUM_value( "enum2", MyClassOriginal::enum2 )
     reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )

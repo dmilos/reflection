@@ -15,3 +15,7 @@ cd ..
 cd ./trinity
 ./make.sh
 cd ..
+
+cd ./typedef
+./make.sh
+cd ..

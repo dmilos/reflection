@@ -4,6 +4,7 @@
 
 #include "reflection/reflection.hpp"
 
+
 class MyClassOriginal
  {
   public:

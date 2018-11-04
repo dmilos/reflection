@@ -9,6 +9,8 @@ class MyClassOriginal
  {
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
+    
+    typedef std::array<float,2> MyTypDef;
 
     MyClassOriginal():m_int(123456){ }
 
@@ -29,12 +31,14 @@ class MyClassOriginal
 template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
 
-  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal, MyClassOriginal::Enumerator );
+  reflection__CLASS_TYPEDEF( "typedef-of-something", MyClassOriginal::MyTypDef );
+
+  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
     reflection__CLASS_ENUM_value( "enum1", MyClassOriginal::enum1 )
     reflection__CLASS_ENUM_value( "enum2", MyClassOriginal::enum2 )
     reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
-   reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
+   reflection__CLASS_ENUM_end( MyClassOriginal::Enumerator )
 
   reflection__CLASS_MEMBER_mutate(    "asasd3",  MyClassOriginal, writter  )
   reflection__CLASS_MEMBER_direct(    "asasd4",  MyClassOriginal, traitor  )

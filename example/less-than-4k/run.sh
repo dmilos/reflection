@@ -15,3 +15,7 @@ cd ..
 cd ./trinity
 ./run.sh
 cd ..
+
+cd ./typedef
+./run.sh
+cd ..
