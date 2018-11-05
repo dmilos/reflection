@@ -66,24 +66,26 @@ namespace reflection
       template
        <
          typename data_name
+        ,typename original_name = data_name & 
        >
        inline
-       typename ::reflection::property::direct::simple_struct< data_name, data_name & >::typedef_type
-       simple( )
+       typename ::reflection::property::direct::simple_struct< data_name, original_name >::typedef_type
+       simple()
         {
-         typedef ::reflection::property::direct::simple_struct< data_name, data_name & > simple_type;
+         typedef ::reflection::property::direct::simple_struct< data_name, original_name > simple_type;
          return simple_type::make();
         }
 
       template
        <
          typename data_name
+        ,typename original_name = data_name & 
        >
        inline
-       typename ::reflection::property::direct::simple_struct< data_name, data_name & >::typedef_type
+       typename ::reflection::property::direct::simple_struct< data_name, original_name >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::property::direct::simple_struct< data_name, data_name & > simple_type;
+         typedef ::reflection::property::direct::simple_struct< data_name, original_name > simple_type;
          return simple_type::make( data_param );
         }
 

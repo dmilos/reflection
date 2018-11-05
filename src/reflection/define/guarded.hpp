@@ -1,11 +1,11 @@
 #ifndef reflection_define_guarded
 #define reflection_define_guarded
 
-// reflection__CLASS_MEMBER_guarded( member_string_name, writter_full_symbolic_name  reader_full_symbolic_name   )\
+// reflection__CLASS_MEMBER_guarded( member_string_name, writer_full_symbolic_name  reader_full_symbolic_name   )\
 
 
 
-#define reflection__CLASS_MEMBER_guarded( member_string_name, class_symbolic_name, writter_symbolic_name, reader_symbolic_name   )\
+#define reflection__CLASS_MEMBER_guarded( member_string_name, class_symbolic_name, writer_symbolic_name, reader_symbolic_name   )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   insert                                                \
@@ -19,7 +19,7 @@
          <identifier_type>                              \
          (                                              \
            (class_symbolic_name*)(nullptr)              \
-          ,&class_symbolic_name::writter_symbolic_name  \
+          ,&class_symbolic_name::writer_symbolic_name   \
           ,&class_symbolic_name::reader_symbolic_name   \
          )                                              \
        )                                                \

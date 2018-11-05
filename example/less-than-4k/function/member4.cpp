@@ -13,7 +13,7 @@ class MyClassOriginal
      {
      }
 
-    bool  writter_int(    int       const& i )
+    bool  writer_int(    int       const& i )
      {
       std::cout << __FUNCTION__ << std::endl;
       m_int  = i; 
@@ -39,7 +39,7 @@ class MyClassOriginal
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
   reflection__CLASS_FUNCTION_member( "member_int_int_string_float_bool", MyClassOriginal, member_int_int_string_float_bool )
-  reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writter_int ,   reader_int    )
+  reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writer_int ,   reader_int    )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
@@ -51,7 +51,7 @@ int main( int argc, char *argv[] )
   float f = 42;
 
   // Classic "direct" call where c++ take care about arguments type
-  ::reflection::property::function::execute<int, int, std::string , float &, bool>( r.get( "member_int_int_string_float_bool" ), 10, "asdasd", f );
+  ::reflection::property::function::execute<int, int, std::string , float &, bool>( r.get( "member_int_int_string_float_bool" ), 10, "asdasd", f, true );
   std::cout << f << std::endl;
 
   ::reflection::content::function::argument_struct<std::string>::container_type argument;
@@ -68,7 +68,7 @@ int main( int argc, char *argv[] )
   auto p3 = ::reflection::content::trinity::simple<std::string,float>( 42 );
   argument.push_back( &p3 );
 
-  auto p4 = ::reflection::content::trinity::simple<std::string,bool>( flase );
+  auto p4 = ::reflection::content::trinity::simple<std::string,bool>( false );
   argument.push_back( &p4 );
 
   std::cout << p1.present() << std::endl;

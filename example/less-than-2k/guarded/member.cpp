@@ -17,9 +17,9 @@ class MyClassOriginal
      }
 
     // Do some processing, expect assigning
-    bool  writter_integer(  int         const& i ) {  m_int    = i; return true; }
-    bool  writter_float(    float       const& f ){  m_float  = f; return true; }
-    bool  writter_string(   std::string const& s ){  m_string = s; return true; }
+    bool  writer_integer(  int         const& i ) {  m_int    = i; return true; }
+    bool  writer_float(    float       const& f ){  m_float  = f; return true; }
+    bool  writer_string(   std::string const& s ){  m_string = s; return true; }
 
     // Traitors. return reference to member it self
     int         const&  reader_int()   const{ return m_int; }
@@ -35,9 +35,9 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_MEMBER_guarded(   "integer",          MyClassOriginal, writter_integer,  reader_int      )
-  reflection__CLASS_MEMBER_guarded(   "float-point",      MyClassOriginal, writter_float ,   reader_float    )
-  reflection__CLASS_MEMBER_guarded(   "standard-string",  MyClassOriginal, writter_string,   reader_string   )
+  reflection__CLASS_MEMBER_guarded(   "integer",          MyClassOriginal, writer_integer,  reader_int      )
+  reflection__CLASS_MEMBER_guarded(   "float-point",      MyClassOriginal, writer_float ,   reader_float    )
+  reflection__CLASS_MEMBER_guarded(   "standard-string",  MyClassOriginal, writer_string,   reader_string   )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

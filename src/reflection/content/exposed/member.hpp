@@ -44,14 +44,14 @@ namespace reflection
            typedef typename direct_type::traitor_type       traitor_type;
            typedef typename direct_type::extractor_type  extractor_type;
 
-           typedef typename mutate_type::writter_type      writter_type;
+           typedef typename mutate_type::writer_type      writer_type;
            typedef typename mutate_type::assigner_type    assigner_type;
 
            typedef ::reflection::content::exposed::basic_class<identifier_name,data_type,original_type,model_type,storage_type,extractor_type,assigner_type,report_type > typedef_type;
 
-           static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param, writter_type const& writter_param  )
+           static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param, writer_type const& writer_param  )
             {
-             return typedef_type( storage_param, extractor_type(traitor_param), assigner_type(writter_param) );
+             return typedef_type( storage_param, extractor_type(traitor_param), assigner_type(writer_param) );
             }
         };
 
@@ -83,11 +83,11 @@ namespace reflection
         (
           storage_name     const&             storage_param
          ,original_name    (class_name::*traitor_param )( void )
-         ,report_name      (class_name::*writter_param )( model_name )
+         ,report_name      (class_name::*writer_param )( model_name )
         )
         {
          typedef ::reflection::content::exposed::member_struct<identifier_name,data_name,original_name,model_name,class_name,storage_name,report_name> member_type;
-         return member_type::make( storage_param, traitor_param, writter_param );
+         return member_type::make( storage_param, traitor_param, writer_param );
         }
 
 
@@ -105,11 +105,11 @@ namespace reflection
         (
           storage_name   const &             storage_param
          ,data_name            &    (class_name::*traitor_param )( void )
-         ,report_name      (class_name::*writter_param )( data_name const& )              //!< <data_name,model_name,class_name,storage_name>::T_traitor const& writter_param
+         ,report_name      (class_name::*writer_param )( data_name const& )              //!< <data_name,model_name,class_name,storage_name>::T_traitor const& writer_param
         )
         {
          typedef ::reflection::content::exposed::member_struct<identifier_name,data_name,data_name &,data_name const&,class_name,storage_name,report_name> member_type;
-         return  member_type::make( storage_param, traitor_param, writter_param );
+         return  member_type::make( storage_param, traitor_param, writer_param );
         }
 
 

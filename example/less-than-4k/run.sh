@@ -8,9 +8,18 @@ cd ./function
 ./run.sh
 cd ..
 
+cd ./idspec
+./run.sh
+cd ..
+
 cd ./operation
 ./run.sh
 cd ..
+
+cd ./store
+./run.sh
+cd ..
+
 
 cd ./trinity
 ./run.sh

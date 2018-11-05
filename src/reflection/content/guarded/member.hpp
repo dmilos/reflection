@@ -40,8 +40,8 @@ namespace reflection
 
            typedef ::reflection::content::mutate::member_struct< identifier_name, data_name,model_name,class_name,storage_name,report_name >  mutate_type;
            typedef ::reflection::content::inspect::member_struct< identifier_name, data_name,image_name,class_name,storage_name >            inspect_type;
-
-           typedef typename mutate_type::writter_type       writter_type;
+ 
+           typedef typename mutate_type::writer_type         writer_type;
            typedef typename mutate_type::assigner_type     assigner_type;
 
            typedef typename inspect_type::reader_type        reader_type;
@@ -49,9 +49,9 @@ namespace reflection
 
            typedef ::reflection::content::guarded::basic_class<identifier_name, data_name,image_name,model_name,storage_type,assigner_type, retriever_type, report_name  > typedef_type;
 
-           static typedef_type make( storage_type const& storage_param, writter_type const& writter_param, reader_type const& reader_param  )
+           static typedef_type make( storage_type const& storage_param, writer_type const& writer_param, reader_type const& reader_param  )
             {
-             return typedef_type( storage_param, assigner_type(writter_param), retriever_type(reader_param) );
+             return typedef_type( storage_param, assigner_type(writer_param), retriever_type(reader_param) );
             }
         };
 
@@ -82,12 +82,12 @@ namespace reflection
        member
         (
           storage_name     const&             storage_param
-         ,report_name       (class_name::*writter_param)( model_name )
+         ,report_name       (class_name::*writer_param)( model_name )
          ,image_name        (class_name::*reader_param )()const//!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
          typedef ::reflection::content::guarded::member_struct<data_name,model_name,image_name,class_name,storage_name,report_name> member_type;
-         return member_type::make( storage_param, writter_param, reader_param );
+         return member_type::make( storage_param, writer_param, reader_param );
         }
 
       template
@@ -103,12 +103,12 @@ namespace reflection
        member
         (
           storage_name  const&                  storage_param
-         ,report_name             (class_name::*writter_param)( data_name const& )
+         ,report_name             (class_name::*writer_param)( data_name const& )
          ,data_name     const&    (class_name::*reader_param )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
          typedef ::reflection::content::guarded::member_struct<identifier_name, data_name,  data_name const&, data_name const&,class_name,storage_name,report_name> member_type;
-         return member_type::make( storage_param, writter_param, reader_param );
+         return member_type::make( storage_param, writer_param, reader_param );
         }
 
      }

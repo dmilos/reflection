@@ -17,9 +17,9 @@ class MyClassOriginal
      }
 
     // Do some processing, expect assigning
-    bool  writter_integer(  int         const& i ){ std::cout<< __FUNCTION__ << std::endl;  m_int    = i; return true; }
-    bool  writter_float  (  float       const& f ){ std::cout<< __FUNCTION__ << std::endl;  m_float  = f; return true; }
-    bool  writter_string (  std::string const& s ){ std::cout<< __FUNCTION__ << std::endl;  m_string = s; return true; }
+    bool  writer_integer(  int         const& i ){ std::cout<< __FUNCTION__ << std::endl;  m_int    = i; return true; }
+    bool  writer_float  (  float       const& f ){ std::cout<< __FUNCTION__ << std::endl;  m_float  = f; return true; }
+    bool  writer_string (  std::string const& s ){ std::cout<< __FUNCTION__ << std::endl;  m_string = s; return true; }
 
     // Traitors. return reference to member it self
     int         const&  reader_int()   const{ std::cout<< __FUNCTION__ << std::endl; return m_int; }
@@ -40,9 +40,9 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_MEMBER_trinity(   "integer",          MyClassOriginal,  traitor_int   , writter_integer ,reader_int     )
-  reflection__CLASS_MEMBER_trinity(   "float-point",      MyClassOriginal,  traitor_float , writter_float   ,reader_float   )
-  reflection__CLASS_MEMBER_trinity(   "standard-string",  MyClassOriginal,  traitor_string, writter_string  ,reader_string  )
+  reflection__CLASS_MEMBER_trinity(   "integer",          MyClassOriginal,  traitor_int   , writer_integer ,reader_int     )
+  reflection__CLASS_MEMBER_trinity(   "float-point",      MyClassOriginal,  traitor_float , writer_float   ,reader_float   )
+  reflection__CLASS_MEMBER_trinity(   "standard-string",  MyClassOriginal,  traitor_string, writer_string  ,reader_string  )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

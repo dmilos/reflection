@@ -1,11 +1,11 @@
 #ifndef reflection_define_trinity
 #define reflection_define_trinity
 
-// reflection__CLASS_MEMBER_trinity( member_string_name, traitir_full_symbolic_name, writter_symbolic_name  reader_symbolic_name   )\
+// reflection__CLASS_MEMBER_trinity( member_string_name, traitir_full_symbolic_name, writer_symbolic_name  reader_symbolic_name   )\
 
 
 
-#define reflection__CLASS_MEMBER_trinity( member_string_name, class_symbolic_name, traitir_symbolic_name, writter_symbolic_name, reader_symbolic_name   )\
+#define reflection__CLASS_MEMBER_trinity( member_string_name, class_symbolic_name, traitir_symbolic_name, writer_symbolic_name, reader_symbolic_name   )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   insert                                                \
@@ -20,7 +20,7 @@
          (                                              \
            (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::traitir_symbolic_name  \
-          ,&class_symbolic_name::writter_symbolic_name  \
+          ,&class_symbolic_name::writer_symbolic_name   \
           ,&class_symbolic_name::reader_symbolic_name   \
          )                                              \
        )                                                \

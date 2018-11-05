@@ -1,1 +1,2 @@
+pwd
 ./simple.exe

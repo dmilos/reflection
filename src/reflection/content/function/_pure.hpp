@@ -50,7 +50,7 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>   property_type;
-           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>   algorithm_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
@@ -58,7 +58,7 @@ namespace reflection
 
 
            //typedef return_name (anchor_type)(first_name,second_name,third_name,fourth_name,fifth_name);
-           typedef  context_type anchor_type;
+           typedef  algorithm_type anchor_type;
 
          public:
            pure_class()
@@ -122,14 +122,14 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>   property_type;
-           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>   algorithm_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
            //typedef return_name (anchor_type)(first_name,second_name,third_name,fourth_name);
-           typedef  context_type anchor_type;
+           typedef  algorithm_type anchor_type;
 
          public:
            pure_class()
@@ -189,14 +189,14 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>   property_type;
-           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>   algorithm_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
            //typedef return_name (anchor_type)(first_name,second_name,third_name);
-           typedef  context_type anchor_type;
+           typedef  algorithm_type anchor_type;
 
          public:
            pure_class()
@@ -252,14 +252,14 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>   property_type;
-           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>   algorithm_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
            //typedef return_name (anchor_type)(first_name,second_name);
-           typedef  context_type anchor_type;
+           typedef  algorithm_type anchor_type;
 
          public:
            pure_class()
@@ -310,14 +310,14 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>   property_type;
-           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>   algorithm_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                    argument_type;
 
            //typedef return_name (anchor_type)(first_name);
-           typedef  context_type anchor_type;
+           typedef  algorithm_type anchor_type;
 
          public:
            pure_class()
@@ -363,14 +363,14 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<return_name,void,void,void,void,void>   property_type;
-           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>   algorithm_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
            //typedef return_name (anchor_type)();
-           typedef  context_type anchor_type;
+           typedef  algorithm_type anchor_type;
 
          public:
            pure_class()
@@ -414,14 +414,14 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >        content_type;
            typedef ::reflection::property::function::pure_class<void,void,void,void,void,void>   property_type;
-           typedef ::reflection::content::function::context_class<identifier_type>   context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>   algorithm_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
            //typedef void (anchor_type)();
-           typedef  context_type anchor_type;
+           typedef  algorithm_type anchor_type;
 
          public:
            pure_class()

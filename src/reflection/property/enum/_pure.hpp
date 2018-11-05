@@ -4,6 +4,8 @@
 // ::reflection::property::enumeration::pure_class<size_name>
 // ::reflection::property::enumeration::check<size_name>()
 
+#include "../../type/name/id.hpp"
+#include "../../define/idspec.hpp"
 #include "../_pure.hpp"
 #include "./subject.hpp"
 
@@ -64,8 +66,12 @@ namespace reflection
          return nullptr != dynamic_cast< enumeration_type const*>( &property_param );
         }
 
+       typedef ::reflection::property::enumeration::pure_class<std::string, std::size_t>   standard_t;
      }
    }
  }
+
+reflection__IDSPEC( std::string, "$enum", ::reflection::property::enumeration::standard_t )
+
 
 #endif

@@ -7,6 +7,7 @@
 
 #include "../../type/name/id.hpp"
 #include "../../property/function/_pure.hpp"
+#include "../../define/idspec.hpp"
 
 #include "../_pure.hpp"
 
@@ -54,7 +55,6 @@ namespace reflection
            using context_type::execute;
         };
 
-
       template< typename identifier_type >
        inline
        bool
@@ -85,5 +85,7 @@ namespace reflection
       }
     }
   }
+
+reflection__IDSPEC( std::string, "$function", ::reflection::content::function::algorithm_class<std::string> )
 
 #endif

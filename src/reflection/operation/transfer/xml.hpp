@@ -4,7 +4,7 @@
 // ::reflection::operation::transfer::xml_class<output_name,key_name,type_name>
 
 #include "../../content/category.hpp"
-#include "../../content/function/context.hpp"
+#include "../../content/function/algorithm.hpp"
 #include "../../content/typedef/typedef.hpp"
 #include "../../content/enum/enum.hpp"
 #include "../../property/structure.hpp"
@@ -52,15 +52,18 @@ namespace reflection
          public:
            typedef ::reflection::property::structure_class<key_type,container_name>                       structure_type;
            typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_context_type;
-           typedef ::reflection::content::function::context_class<identifier_type>                 function_context_type;
+           typedef ::reflection::content::function::algorithm_class<identifier_type>                      algorithm_type;
            typedef ::reflection::property::typedefinition::pure_class                        typedefinition_context_type;
 
          public:
            xml_struct( observe_type & observe_param )
             {
              observe_param.control( observe_type::recover_not_category_index  , &xml_struct::recover );
-             observe_param.control( observe_type::recover_missing_action_index, &xml_struct::recover );
+           //observe_param.control( observe_type::recover_missing_action_index, &xml_struct::recover );
              observe_param.control( observe_type::recover_action_fail_index   , &xml_struct::recover );
+
+             observe_param.control( observe_type::stage_prologue_index,   &xml_struct::prologue );
+             observe_param.control( observe_type::stage_exodus_index,     &xml_struct::exodus   );
 
              observe_param.insert( identificator_type::template get< std::string    >(), &xml_struct::primitive<std::string   >  );
      // TODO observe_param.insert( identificator_type::template get<  std::wstring  >(), &xml_struct::primitive<std::wstring  >  );
@@ -103,7 +106,7 @@ namespace reflection
              {
               using namespace std::placeholders;
               auto f = std::bind( &xml_struct::function, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  function_context_type      >(), f );
+              observe_param.insert( identificator_type::template get<  algorithm_type      >(), f );
              }
 
              {
@@ -116,6 +119,7 @@ namespace reflection
               using namespace std::placeholders;
               auto f = std::bind( &xml_struct::structure, _1, std::ref(observe_param), _2, _3 );
               observe_param.insert( identificator_type::template get<  structure_type      >(), f );
+              observe_param.control( observe_type::recover_missing_action_index, f );
              }
 
             }
@@ -124,6 +128,24 @@ namespace reflection
            typedef    std::string       string_type;
            typedef    std::wstring     wstring_type;
            typedef    bool             boolean_type;
+
+           static  report_type   prologue( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param <<  "<element>" << std::endl;
+             return report_type( true );
+            }
+
+           static  report_type   stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             return report_type( true );
+            }
+
+           static  report_type   exodus ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << std::endl;
+             output_param <<  "</element>" << std::endl;
+             return report_type( true );
+            }
 
            static  report_type   recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
@@ -188,21 +210,38 @@ namespace reflection
               }
 
               output_param << ">";
+              boolean_type pass = true;
 
-              if( true == ::reflection::property::inspect::check< simple_name const&>( property_param ) )
+              if( true == pass )
                {
-                output_param << ::reflection::property::inspect::present<simple_name const&>( property_param );
-               }
-              else
-               {
-                if( true == ::reflection::property::direct::check< simple_name &>( const_cast< property_type &>( property_param ) ) )
+                typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
+                auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+                if( nullptr != inspect_instance )
                  {
-                  output_param << ::reflection::property::direct::disclose<simple_name &>( const_cast< property_type &>( property_param ) );
+                  output_param << inspect_instance->present();
+                  pass = false;
                  }
+               }
+
+              if( true == pass )
+               {
+                typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
+                direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+                if( nullptr != direct_instance )
+                 {
+                  output_param << direct_instance->disclose();
+                  pass = false;
+                 }
+               }
+
+              if( true == pass )
+               { 
+                output_param << "   <note message=\"Can not retrieve value\" />";
                }
 
               output_param << "</item>";
               output_param << std::endl;
+
               return report_type( true );
              }
 
@@ -214,7 +253,7 @@ namespace reflection
              category_type const* category = dynamic_cast< category_type const* >( &property_param );
              if( nullptr != category )
               {
-               output_param << "type=\"" << "$enum" /* category->type()*/ << "\" ";
+               output_param << "type=\"" << category->identifier() << "\" ";
               }
              else
               {
@@ -256,14 +295,14 @@ namespace reflection
 
              if( nullptr != category )
               {
-               output_param << "type=\"" << "$function" /* category->type()*/ << "\" ";
+               output_param << "type=\"" << category->identifier() << "\" ";
               }
              else
               {
                output_param << "note=\"Can not detect type\" ";
               }
 
-             function_context_type  const* context = dynamic_cast< function_context_type const* >( &property_param );
+             algorithm_type  const* context = dynamic_cast< algorithm_type const* >( &property_param );
              if( nullptr == context )
               {
                output_param << "note=\"Wrong type supplied.\" ";
@@ -299,10 +338,9 @@ namespace reflection
              output_param << "name=\"" << key_param    << "\" ";
 
              category_type const* category = dynamic_cast< category_type const* >( &property_param );
-
              if( nullptr != category )
               {
-               output_param << "type=\"" << "$typedef" /* category->type()*/ << "\" ";
+               output_param << "type=\"" << category->identifier() << "\" ";
               }
              else
               {
@@ -325,7 +363,7 @@ namespace reflection
              return report_type( true );
             }
 
-           static  report_type structure( output_name & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param  )
+           static  report_type structure( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param  )
             {
              output_param << "<item ";
              output_param << "name=\"" << key_param    << "\" ";
@@ -333,7 +371,7 @@ namespace reflection
               category_type const* category = dynamic_cast< category_type const* >( &property_param );
               if( nullptr != category )
                {
-                output_param << "type=\"" << "$structure"/*category->type()*/ << "\" ";
+                output_param << "type=\"" << category->identifier() << "\" ";
                }
               else
                {
@@ -342,8 +380,34 @@ namespace reflection
              }
              output_param << ">";
              output_param << std::endl;
+             boolean_type pass = true;
 
-             observe_param.view( output_param, ::reflection::property::inspect::present< structure_type const& >( property_param )  );
+             if( true == pass )
+              {
+               typedef  ::reflection::property::inspect::pure_class<structure_type const&>         inspect_type;
+               inspect_type const*inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+               if( nullptr != inspect_instance )
+                {
+                 observe_param.view( output_param, inspect_instance->present() );
+                 pass = false;
+                }
+               }
+
+             if( true == pass )
+              {
+               typedef  ::reflection::property::direct::pure_class<structure_type &>         direct_type;
+               direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+               if( nullptr != direct_instance )
+                {
+                 observe_param.view( output_param, direct_instance->disclose() );
+                 pass = false;
+                }
+              }
+
+             if( true == pass )
+              {
+               output_param << "<note message=\"Not a structure\" /> ";
+              }
 
              output_param << "</item>";
              output_param << std::endl;

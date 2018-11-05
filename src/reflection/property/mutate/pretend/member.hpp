@@ -1,7 +1,7 @@
 #ifndef reflection_property_mutate_pretend_member
 #define reflection_property_mutate_pretend_member
 
-// ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writter_name,report_name>
+// ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writer_name,report_name>
 
  #include "./base.hpp"
 
@@ -35,14 +35,14 @@
             typedef       report_type       (class_type::*method_type)( model_type );
 
 
-            typedef class writter_class
+            typedef class writer_class
              {
               public:
                 typedef model_name    model_type,    T_2nd;
                 typedef storage_name  storage_type;
                 typedef report_name   report_type,   T_0th;
 
-                explicit writter_class( method_type const& method_param /*= std::nullptr_t()*/ )
+                explicit writer_class( method_type const& method_param /*= std::nullptr_t()*/ )
                  :m_method( method_param )
                  {
                  }
@@ -52,14 +52,14 @@
                  }
               private:
                method_type  m_method;
-             } writter_type;
+             } writer_type;
 
-            typedef ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writter_type,report_type> base_type;
-            typedef typename ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writter_type,report_type>::typedef_type typedef_type;
+            typedef ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writer_type,report_type> base_type;
+            typedef typename ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writer_type,report_type>::typedef_type typedef_type;
 
             static typedef_type make( storage_type const& storage_param, method_type const& method_param, converter_type const& convert_param = converter_type() )
              {
-              return base_type::make( storage_param, writter_type( method_param ), convert_param );
+              return base_type::make( storage_param, writer_type( method_param ), convert_param );
              }
            };
 

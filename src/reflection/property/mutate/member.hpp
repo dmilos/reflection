@@ -26,7 +26,7 @@
           typedef storage_name  storage_type;
           typedef report_name   report_type;
 
-          typedef       report_type       (class_name::*writter_type)( model_type );
+          typedef       report_type       (class_name::*writer_type)( model_type );
 
           typedef class assigner_class
            {
@@ -35,23 +35,23 @@
               typedef storage_name  storage_type;
               typedef report_name   report_type,   T_0th;
 
-              explicit assigner_class( writter_type const& writter_param = NULL )
-               :m_writter( writter_param )
+              explicit assigner_class( writer_type const& writer_param = NULL )
+               :m_writer( writer_param )
                {
                }
               report_type operator()( storage_type & carrier_param, model_type input_param )const
                {
-                return  ( (*carrier_param).*m_writter)( input_param );
+                return  ( (*carrier_param).*m_writer)( input_param );
                }
             private:
-             writter_type  m_writter;
+             writer_type  m_writer;
            } assigner_type;
 
           typedef ::reflection::property::mutate::base_class <model_name,storage_name,assigner_type,report_name>      typedef_type;
 
-          static typedef_type make( storage_type const& carrier_param, writter_type const& writter_param )
+          static typedef_type make( storage_type const& carrier_param, writer_type const& writer_param )
                  {
-                  return typedef_type( carrier_param, assigner_type( writter_param ) );
+                  return typedef_type( carrier_param, assigner_type( writer_param ) );
                  }
 
          };
@@ -68,11 +68,11 @@
        member
         (
           storage_name const& carrier_param
-        , report_name (class_name::*writter_param)( model_name )
+        , report_name (class_name::*writer_param)( model_name )
         )
         {
          typedef ::reflection::property::mutate::member_struct<model_name,class_name,storage_name,report_name> member_type;
-         return member_type::make( carrier_param, writter_param );
+         return member_type::make( carrier_param, writer_param );
         }
 
      }

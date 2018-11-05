@@ -13,7 +13,7 @@ class MyClassOriginal
      {
      }
 
-    bool  writter_int(    int       const& i )
+    bool  writer_int(    int       const& i )
      {
       std::cout << __FUNCTION__ << std::endl;
       m_int  = i; 
@@ -37,7 +37,7 @@ class MyClassOriginal
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
     reflection__CLASS_FUNCTION_free( "free_int_int_string", free_int_int_string )
-  reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writter_int ,   reader_int    )
+  reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writer_int ,   reader_int    )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

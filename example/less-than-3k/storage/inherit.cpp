@@ -19,7 +19,7 @@ class MyClassOriginal
 
     int      &  traitor(){ return m_int; }
     int const&  reader()const{ return m_int; }
-    bool        writter( int const& a ){ m_int = a; return true; }
+    bool        writer( int const& a ){ m_int = a; return true; }
 
   private: // And private member
     int m_int;
@@ -35,18 +35,18 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
    reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
 
-  reflection__CLASS_MEMBER_mutate(    "asasd3",  MyClassOriginal, writter  )
+  reflection__CLASS_MEMBER_mutate(    "asasd3",  MyClassOriginal, writer  )
   reflection__CLASS_MEMBER_direct(    "asasd4",  MyClassOriginal, traitor  )
   reflection__CLASS_MEMBER_inspect(   "asasd5",  MyClassOriginal, reader   )
 
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyClassOriginal, traitor, reader )
-  reflection__CLASS_MEMBER_guarded(   "asasd2",  MyClassOriginal, writter, reader  )
+  reflection__CLASS_MEMBER_guarded(   "asasd2",  MyClassOriginal, writer, reader  )
 
   reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, b )
   reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
   reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
 
-  reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writter )
+  reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

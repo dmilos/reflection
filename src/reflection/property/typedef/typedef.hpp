@@ -1,8 +1,9 @@
 #ifndef reflection_property_typedefinition_pure
 #define reflection_property_typedefinition_pure
 
-// ::reflection::property::typedefinition::pure_class<size_name>
-// ::reflection::property::typedefinition::check<size_name>()
+#include "../../type/name/id.hpp"
+// ::reflection::property::typedefinition::pure_class
+// ::reflection::property::typedefinition::check()
 
 
 namespace reflection
@@ -52,5 +53,8 @@ namespace reflection
      }
    }
  }
+
+reflection__IDSPEC( std::string, "$typedef", ::reflection::property::typedefinition::pure_class )
+
 
 #endif

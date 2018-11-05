@@ -49,7 +49,7 @@ namespace reflection
            typedef typename direct_type::traitor_type       traitor_type;
            typedef typename direct_type::extractor_type   extractor_type;
 
-           typedef typename mutate_type::writter_type       writter_type;
+           typedef typename mutate_type::writer_type         writer_type;
            typedef typename mutate_type::assigner_type     assigner_type;
 
            typedef typename inspect_type::reader_type        reader_type;
@@ -57,9 +57,9 @@ namespace reflection
 
            typedef ::reflection::content::trinity::basic_class< identifier_name, data_name,original_type,image_name,model_name,storage_type,extractor_type, assigner_type, retriever_type, report_name  > typedef_type;
 
-           static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param, writter_type const& writter_param, reader_type const& reader_param  )
+           static typedef_type make( storage_type const& storage_param, traitor_type const& traitor_param, writer_type const& writer_param, reader_type const& reader_param  )
             {
-             return typedef_type( storage_param, extractor_type(traitor_param),assigner_type(writter_param), retriever_type(reader_param) );
+             return typedef_type( storage_param, extractor_type(traitor_param),assigner_type(writer_param), retriever_type(reader_param) );
             }
         };
 
@@ -92,12 +92,12 @@ namespace reflection
         (
           storage_name  const&             storage_param
          ,original_name  (class_name::*traitor_param)(void )
-         ,report_name    (class_name::*writter_param)( model_name )
+         ,report_name    (class_name::*writer_param)( model_name )
          ,image_name     (class_name::*reader_param )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
          typedef ::reflection::content::trinity::member_struct< identifier_name, data_name,data_name const&,data_name const&,class_name,storage_name,report_name> member_type;
-         return member_type::make( storage_param, traitor_param, writter_param, reader_param );
+         return member_type::make( storage_param, traitor_param, writer_param, reader_param );
         }
 
 
@@ -115,12 +115,12 @@ namespace reflection
         (
           storage_name  const&             storage_param
          ,data_name&         (class_name::*traitor_param)( )
-         ,report_name        (class_name::*writter_param)( data_name const& )
+         ,report_name        (class_name::*writer_param)( data_name const& )
          ,data_name const&   (class_name::*reader_param )()const               //!< <data_name,image_name,class_name,storage_name>::T_traitor const& reader_param
         )
         {
          typedef ::reflection::content::trinity::member_struct< identifier_name, data_name,data_name&, data_name const&,data_name const&,class_name,storage_name,report_name> member_type;
-         return member_type::make( storage_param, traitor_param, writter_param, reader_param );
+         return member_type::make( storage_param, traitor_param, writer_param, reader_param );
         }
 
      }

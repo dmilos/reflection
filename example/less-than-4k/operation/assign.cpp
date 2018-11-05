@@ -41,7 +41,7 @@ class MyClass
       return m_int;
       }
 
-    bool        writter( int const& a )
+    bool        writer( int const& a )
      {
       std::cout << __FUNCTION__ << "::a = " << a <<std::endl;
       m_int = a;
@@ -77,9 +77,9 @@ class MyClass
 
        reflection__CLASS_MEMBER_direct(    "m1",     MyClass, traitor   );
        reflection__CLASS_MEMBER_inspect(   "m2",     MyClass, inspector );
-       reflection__CLASS_MEMBER_mutate(    "m3",     MyClass, writter   );
+       reflection__CLASS_MEMBER_mutate(    "m3",     MyClass, writer   );
        reflection__CLASS_MEMBER_inspect(   "mS",     MyClass, structure_get );
-       reflection__CLASS_MEMBER_guarded(   "g1",     MyClass, writter, inspector );
+       reflection__CLASS_MEMBER_guarded(   "g1",     MyClass, writer, inspector );
        reflection__CLASS_SIMPLE_direct(    "extra1", int, 10   ) ;
        reflection__CLASS_SIMPLE_guarded(   "extra2", int, 1024 );
        reflection__CLASS_MEMBER_variable(  "v1",      MyClass, traitor, inspector );

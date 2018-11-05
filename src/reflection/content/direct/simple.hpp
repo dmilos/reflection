@@ -51,12 +51,13 @@ namespace reflection
        <
          typename identifier_name
         ,typename data_name
+        ,typename original_name =  data_name &
        >
        inline
-       typename ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& >::typedef_type
+       typename ::reflection::content::direct::simple_struct<identifier_name, data_name, original_name >::typedef_type
        simple()
         {
-         typedef ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& > simple_type;
+         typedef ::reflection::content::direct::simple_struct<identifier_name, data_name, original_name > simple_type;
          return simple_type::make();
         }
 
@@ -64,12 +65,13 @@ namespace reflection
        <
          typename identifier_name
         ,typename data_name
+        ,typename original_name =  data_name &
        >
        inline
-       typename ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& >::typedef_type
+       typename ::reflection::content::direct::simple_struct<identifier_name, data_name, original_name >::typedef_type
        simple( data_name const& data_param )
         {
-         typedef ::reflection::content::direct::simple_struct<identifier_name, data_name, data_name& > simple_type;
+         typedef ::reflection::content::direct::simple_struct<identifier_name, data_name, original_name > simple_type;
          return simple_type::make( data_param );
         }
 

@@ -8,20 +8,21 @@
 class MyClassOriginal
  {
   public:
-    typedef std::array<float,2> MyTypeDef;
 
     MyClassOriginal()
      {
      }
 
  };
+ 
+typedef std::array<float,2> MyGlobalTypeDef;
 
 // Reflect to reflection
-reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
+reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_TYPEDEF( "typedef-of-something", MyClassOriginal::MyTypeDef );
+  reflection__CLASS_TYPEDEF( "injected-global-typedef-of-something", MyGlobalTypeDef );
 
-reflection__CLASS_END_view( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )
@@ -33,7 +34,7 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
 
   MyClassOriginal o;
-  MyClassReflection r( &o );  //!< Reflection of Original, with pointing to some instance
+  MyClassReflection r;  //!< Reflection of Original, with pointing to some instance
 
   observe_type observe;
 

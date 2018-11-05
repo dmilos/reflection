@@ -17,9 +17,9 @@ class MyClassOriginal
      }
 
     // Do some processing, expect assigning
-    bool  writter_integer(  int         const& i ){ std::cout<< __FUNCTION__ << std::endl;  m_int    = i; return true; }
-    bool  writter_float(    float       const& f ){ std::cout<< __FUNCTION__ << std::endl;  m_float  = f; return true; }
-    bool  writter_string(   std::string const& s ){ std::cout<< __FUNCTION__ << std::endl;  m_string = s; return true; }
+    bool  writer_integer(  int         const& i ){ std::cout<< __FUNCTION__ << std::endl;  m_int    = i; return true; }
+    bool  writer_float(    float       const& f ){ std::cout<< __FUNCTION__ << std::endl;  m_float  = f; return true; }
+    bool  writer_string(   std::string const& s ){ std::cout<< __FUNCTION__ << std::endl;  m_string = s; return true; }
 
   private: // And private members
     int          m_int;
@@ -30,9 +30,9 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
- reflection__CLASS_MEMBER_mutate( "integer",          MyClassOriginal, writter_integer  )
- reflection__CLASS_MEMBER_mutate( "float-point",      MyClassOriginal, writter_float    )
- reflection__CLASS_MEMBER_mutate( "standard-string",  MyClassOriginal, writter_string   )
+ reflection__CLASS_MEMBER_mutate( "integer",          MyClassOriginal, writer_integer  )
+ reflection__CLASS_MEMBER_mutate( "float-point",      MyClassOriginal, writer_float    )
+ reflection__CLASS_MEMBER_mutate( "standard-string",  MyClassOriginal, writer_string   )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

@@ -1,3 +1,4 @@
+pwd
 ./free1.exe
 ./free2.exe
 ./free3.exe

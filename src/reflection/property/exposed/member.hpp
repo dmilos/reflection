@@ -39,11 +39,11 @@
           typedef ::reflection::property::exposed::base_class <original_name, model_name, storage_name, extractor_type, assigner_type, report_name>      typedef_type;
 
           typedef typename  direct_type::traitor_type   traitor_type;
-          typedef typename mutate_type::writter_type     writter_type;
+          typedef typename mutate_type::writer_type     writer_type;
 
-          static typedef_type make( storage_type const& carrier_param, traitor_type const& traitor_param, writter_type const& writter_param )
+          static typedef_type make( storage_type const& carrier_param, traitor_type const& traitor_param, writer_type const& writer_param )
            {
-            return typedef_type( carrier_param, extractor_type( traitor_param ), assigner_type( writter_param ) );
+            return typedef_type( carrier_param, extractor_type( traitor_param ), assigner_type( writer_param ) );
            }
          };
 
@@ -61,11 +61,11 @@
         (
           storage_name const& carrier_param
          ,original_name    (class_name::*traitor_param )(  )
-         ,report_name      (class_name::*writter_param)( model_name )
+         ,report_name      (class_name::*writer_param)( model_name )
         )
         {
          typedef ::reflection::property::exposed::member_struct<original_name,model_name,class_name,storage_name,report_name> member_type;
-         return member_type::make( carrier_param, traitor_param, writter_param );
+         return member_type::make( carrier_param, traitor_param, writer_param );
         }
 
      }

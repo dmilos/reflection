@@ -3,6 +3,8 @@
 
 // ::reflection::property::structure_class<key_name,container_name>
 
+#include "../type/name/id.hpp"
+#include "../define/idspec.hpp"
 #include "../type/ptr/ptr.hpp"
 #include "../property/_pure.hpp"
 #include "../type/container/container.hpp"
@@ -123,7 +125,7 @@ namespace reflection
             {
              return empty();
             }
-           return *::reflection::type::container::data<key_type, item_type >( this->container(), iterator );;
+           return *::reflection::type::container::data<key_type, item_type >( this->container(), iterator );
           }
 
          bool               set(    key_type const& name, item_type const& item_param )
@@ -163,5 +165,9 @@ namespace reflection
 
    }
  }
+
+
+reflection__IDSPEC( std::string, "$structure", ::reflection::property::structure_class<> )
+
 
 #endif

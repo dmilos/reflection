@@ -8,20 +8,30 @@
 class MyClassOriginal
  {
   public:
-    typedef std::array<float,2> MyTypeDef;
+    MyClassOriginal():m_int(123456){ }
 
-    MyClassOriginal()
-     {
-     }
+    void a(){ }
 
+    int      &  traitor(){ return m_int; }
+    int const&  reader()const{ return m_int; }
+    bool        writer( int const& a ){ m_int = a; return true; }
+
+  private: // And private member
+    int m_int;
  };
 
+void myFunction( MyClassOriginal &instance )
+ {
+  instance.writer( 12 );
+ }
+
+
 // Reflect to reflection
-reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
+reflection__CLASS_BEGIN_member( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_TYPEDEF( "typedef-of-something", MyClassOriginal::MyTypeDef );
+   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
-reflection__CLASS_END_view( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_member( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )
@@ -32,8 +42,9 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
   typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
 
-  MyClassOriginal o;
-  MyClassReflection r( &o );  //!< Reflection of Original, with pointing to some instance
+  MyClassReflection r;  //!< Reflection of Original
+
+  //myFunction( r.original() );
 
   observe_type observe;
 

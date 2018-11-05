@@ -1,2 +1,3 @@
+pwd
 ./member.exe
-./simple.exe
+./free.exe

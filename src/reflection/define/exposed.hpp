@@ -1,7 +1,7 @@
 #ifndef reflection_define_exposed
 #define reflection_define_exposed
 
-// reflection__CLASS_MEMBER_exposed( member_string_name, writter_full_symbolic_name  reader_full_symbolic_name   )\
+// reflection__CLASS_MEMBER_exposed( member_string_name, writer_full_symbolic_name  reader_full_symbolic_name   )\
 
 
 
