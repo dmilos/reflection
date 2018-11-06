@@ -1,5 +1,5 @@
-#ifndef reflection_object_transfer_action
-#define reflection_object_transfer_action
+#ifndef reflection_operation_transfer_action
+#define reflection_operation_transfer_action
 
 // ::reflection::operation::transfer::action_struct< key_type, output_type, qualificator_name>::typedef_type
 

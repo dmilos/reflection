@@ -1,5 +1,5 @@
-#ifndef reflection_object_transfer_observe
-#define reflection_object_transfer_observe
+#ifndef reflection_operation_transfer_observe
+#define reflection_operation_transfer_observe
 
 // ::reflection::operation::observe_class<output_name,key_name,identifier_name>
 
@@ -59,7 +59,6 @@ namespace reflection
            typedef typename protocolX_type::menu_type         menu_type;
            typedef typename protocolX_type::action_type       action_type;
 
-           typedef std::array< function_type, 7 > control_type;
            enum control_enum
             {
               recover_not_category_index     = 0
@@ -67,9 +66,12 @@ namespace reflection
              ,recover_action_fail_index      = 2
              ,recover_null_pointer_index     = 3
              ,stage_prologue_index           = 4
-             ,stage_stasimon_index           = 5
-             ,stage_exodus_index             = 6
+             ,stage_argument_index           = 5 // beginning of epeisodia
+             ,stage_contrast_index           = 6 // end of epeisodia
+             ,stage_stasimon_index           = 7
+             ,stage_exodus_index             = 8
              };
+           typedef std::array< function_type, stage_exodus_index + 1 > control_type;
 
          public:
            observe_class()
@@ -85,6 +87,8 @@ namespace reflection
              this->control( recover_action_fail_index    , action_type::always_true() );
              this->control( recover_null_pointer_index   , action_type::always_true() );
              this->control( stage_prologue_index         , action_type::always_true() );
+             this->control( stage_argument_index         , action_type::always_true() );
+             this->control( stage_contrast_index         , action_type::always_true() );
              this->control( stage_stasimon_index         , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
              m_menu.clear();
@@ -165,6 +169,14 @@ namespace reflection
                  continue;
                 }
 
+               {
+                auto report = this->control()[stage_argument_index]( output_param, key, property );
+                if( report_type( false ) == report )
+                {
+                  return report;
+                }
+               }
+
                if( report_type( false ) == protocolX_type::find( this->menu(), category->identifier() )( output_param, key, property ) )
                 {
                  if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key, property ) )
@@ -173,6 +185,14 @@ namespace reflection
                   }
                  continue;
                 }
+
+               {
+                auto report = this->control()[stage_contrast_index]( output_param, key, property );
+                if( report_type( false ) == report )
+                {
+                  return report;
+                }
+               }
 
                if( index + 1 < struct_param.size() )
                 {

@@ -1,7 +1,7 @@
 #ifndef reflection_archive_collector_class
 #define reflection_archive_collector_class
 
-// ::reflection::archive::collector_class
+// ::reflection::archive::collector_class<data_name, identifier_name, key_name, container_name>
 
 #include "../content/class.hpp"
 

@@ -5,6 +5,30 @@
 
 
 
+
+
+#define reflection__CLASS_FIELD_exposed( field_string_name, class_symbolic_name, field_symbolic_name )\
+ {                                                      \
+  typedef /*decltype( field_string_name )*/ std::string identifier_type;     \
+  insert                                                \
+   (                                                    \
+     field_string_name                                  \
+    ,item_type                                          \
+     (                                                  \
+      ::memory::pointer::make                           \
+       (                                                \
+        ::reflection::content::exposed::field            \
+         <identifier_type>                              \
+         (                                              \
+           (class_symbolic_name*)(nullptr)              \
+          ,&class_symbolic_name::field_symbolic_name    \
+         )                                              \
+       )                                                \
+     )                                                  \
+   );                                                   \
+ }
+
+
 #define reflection__CLASS_MEMBER_exposed( member_string_name, class_symbolic_name, traitor_symbolic_name, writer_symbolic_name   )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \

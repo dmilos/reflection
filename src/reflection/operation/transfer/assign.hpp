@@ -1,5 +1,5 @@
-#ifndef reflection_object_assign
-#define reflection_object_assign
+#ifndef reflection_operation_assign
+#define reflection_operation_assign
 
 // ::reflection::operation::transfer::assign<key_name>
 

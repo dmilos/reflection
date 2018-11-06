@@ -18,11 +18,10 @@ class MyFirstClassOriginal
     float m_float;
  };
 
-class MyClassOriginal
+class MyClassOriginal //!< Original condition. Not bloated with any other code.
  {
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
-
     typedef std::array<float,2> MyTypDef;
 
     MyClassOriginal():m_int(123456){ }
@@ -37,16 +36,15 @@ class MyClassOriginal
     bool        writer( int const& a ){ m_int = a; return true; }
 
     MyFirstClassOriginal & subsider_traitor(){ return m_subsider; }
-
+  public:
+   double m_public = 456;
   private: // And private member
     int m_int;
     MyFirstClassOriginal m_subsider;
  };
 
 reflection__CLASS_BEGIN_view( MyFirstClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal* )
-
    reflection__CLASS_MEMBER_exposed(   "number", MyFirstClassOriginal, traitor, writer )
-
 reflection__CLASS_END_view( MyFirstClassReflectionView, MyFirstClassOriginal );
 
 
@@ -57,14 +55,14 @@ reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClas
   reflection__CLASS_TYPEDEF( "typedef-of-something", MyClassOriginal::MyTypDef );
  
   reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
-    reflection__CLASS_ENUM_value( "enum1", MyClassOriginal::enum1 )
-    reflection__CLASS_ENUM_value( "enum2", MyClassOriginal::enum2 )
+    reflection__CLASS_ENUM_value( "enum1",  MyClassOriginal::enum1 )
+    reflection__CLASS_ENUM_value( "enum2",  MyClassOriginal::enum2 )
     reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
    reflection__CLASS_ENUM_end( MyClassOriginal::Enumerator )
  
   reflection__CLASS_MEMBER_mutate(    "asasd3",  MyClassOriginal, writer  )
-  reflection__CLASS_MEMBER_direct(    "member-direct-asasd4",  MyClassOriginal, traitor  )
+  reflection__CLASS_MEMBER_direct(    "asasd4",  MyClassOriginal, traitor  )
   reflection__CLASS_MEMBER_inspect(   "asasd5",  MyClassOriginal, reader   )
  
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyClassOriginal, traitor, reader )
@@ -74,7 +72,18 @@ reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClas
   reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
   reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
 
-  reflection__CLASS_SUBSIDER_direct( "subsider", MyClassOriginal, MyFirstClassOriginal, MyFirstClassReflectionView, subsider_traitor )
+  //reflection__CLASS_SUBSIDER_direct( "subsider", MyClassOriginal, MyFirstClassOriginal, MyFirstClassReflectionView, subsider_traitor )
+
+  reflection__CLASS_FIELD_direct(  "some-doubleD", MyClassOriginal, m_public )
+  reflection__CLASS_FIELD_mutate(  "some-doubleM", MyClassOriginal, m_public )
+  reflection__CLASS_FIELD_inspect( "some-doubleI", MyClassOriginal, m_public )
+
+  reflection__CLASS_FIELD_exposed(  "some-doubleE", MyClassOriginal, m_public )
+  reflection__CLASS_FIELD_guarded(  "some-doubleG", MyClassOriginal, m_public )
+  reflection__CLASS_FIELD_variable( "some-doubleV", MyClassOriginal, m_public )
+
+  reflection__CLASS_FIELD_trinity( "some-doubleT", MyClassOriginal, m_public )
+
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 

@@ -39,7 +39,7 @@ namespace reflection
                 {
                  throw (void*)NULL;
                 }
-               return  ((*carrier_param).* m_traitor)( );
+               return  ((*carrier_param).*m_traitor)( );
               }
 
            private:

@@ -1,10 +1,11 @@
-#ifndef reflection_object_class
-#define reflection_object_class
+#ifndef reflection_content_class
+#define reflection_content_class
 
-// ::reflection::content::class_class<data_name,key_name,container_name>
+// ::reflection::content::class_class<class_name,identifier_name,key_name,container_name>
 
 #include "../content/content.hpp"
 #include "../property/structure.hpp"
+#include "./composition.hpp"
 
 namespace reflection
  {
@@ -19,8 +20,7 @@ namespace reflection
       ,template < typename, typename > class container_name = ::reflection::type::container::map
      >
      class class_class
-      : virtual public ::reflection::content::pure_class<identifier_name>
-      , /*virtual */public ::reflection::property::structure_class<key_name, container_name >
+      : public ::reflection::content::composition_class<identifier_name,key_name,container_name>
       {
        public:
          typedef class_name             class_type;
@@ -29,20 +29,19 @@ namespace reflection
 
          typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
 
-         typedef ::reflection::content::pure_class<identifier_name>                   content_type;
-         typedef ::reflection::property::structure_class<key_name, container_name >  structure_type;
+         typedef ::reflection::content::composition_class<identifier_name,key_name,container_name> composition_type;
 
          class_class( )
-          :content_type( identificator_type::template get<class_name>() )
+          :composition_type( identificator_type::template get<class_name>() )
           {
            this->identifier( identificator_type::template get<class_name>() );
           }
 
          class_class( class_class const& that_param )
-          :content_type( identificator_type::template get<class_name>() )
+          :composition_type( identificator_type::template get<class_name>() )
           {
            this->identifier( identificator_type::template get<class_name>() );
-           *this = that_param; 
+           *this = that_param;
           }
 
          class_class & operator=( class_class const& that_param )

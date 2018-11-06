@@ -24,12 +24,14 @@ namespace reflection
            {
            }
 
+          virtual ~carrier_class(){}
+
         public:
           storage_type   const&  storage ( void )const
            {
             return m_storage;
            }
-          void                   storage( storage_type const& storage_param )
+          virtual void                   storage( storage_type const& storage_param )
            {
             m_storage = storage_param;
            }

@@ -2,7 +2,7 @@
 #define reflection_operation_view
 // ::reflection::operation::view_
 
-#include "../content/class.hpp"
+#include "../content/composition.hpp"
 
 namespace reflection
  {
@@ -17,8 +17,8 @@ namespace reflection
      >
      void view
       (
-       ::reflection::content::class_class<data_name,key_name, container_name >      & v
-       ::reflection::content::class_class<data_name,key_name, container_name > const& reflection
+       ::reflection::content::composition_class<data_name,key_name, container_name >      & v
+       ::reflection::content::composition_class<data_name,key_name, container_name > const& reflection
       )
       {
        v.container() = reflection.container();

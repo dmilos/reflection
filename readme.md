@@ -16,8 +16,8 @@ Key features:
  - One file to include to start the fun
  - Strong type check
  - Obey existing encapsulation
- - No bloat of existing code
- - Extra: sterilize to XML and JSON
+ - No bloat of existing code and require no change aether.
+ - Extra: serialize to XML and JSON
 
 Example:
 ```c++
@@ -29,12 +29,13 @@ Example:
 
 #include "reflection/reflection.hpp"
 
-class MyClassOriginal
+class MyClassOriginal //!< Original condition. Not bloated with any other code.
  {
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
+    typedef std::array<float,2> MyTypDef;
 
-    MyClassOriginal(){ }
+    MyClassOriginal():m_int(123456){ }
 
     void a(){ }
     std::string const&  b( float const& f ){ static std::string s;   return s; }
@@ -45,16 +46,19 @@ class MyClassOriginal
     int const&  reader()const{ return m_int; }
     bool        writer( int const& a ){ m_int = a; return true; }
 
+  public:
+   double m_public = 456;
   private: // And private member
     int m_int;
  };
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
+  reflection__CLASS_TYPEDEF( "typedef-of-something", MyClassOriginal::MyTypDef );
 
-  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal, MyClassOriginal::Enumerator );
-    reflection__CLASS_ENUM_value( "enum1", MyClassOriginal::enum1 )
-    reflection__CLASS_ENUM_value( "enum2", MyClassOriginal::enum2 )
+  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
+    reflection__CLASS_ENUM_value( "enum1",  MyClassOriginal::enum1 )
+    reflection__CLASS_ENUM_value( "enum2",  MyClassOriginal::enum2 )
     reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
   reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
@@ -70,9 +74,10 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
   reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
   reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
 
+  reflection__CLASS_FIELD_guarded(  "some-doubleG", MyClassOriginal, m_public )
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
-reflection__CLASS_END( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )

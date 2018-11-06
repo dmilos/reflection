@@ -1,5 +1,5 @@
-#ifndef reflection_object_transfer_python
-#define reflection_object_transfer_python
+#ifndef reflection_operation_transfer_python
+#define reflection_operation_transfer_python
 
 // ::reflection::operation::transfer::python_class<output_name,key_name,type_name>
 

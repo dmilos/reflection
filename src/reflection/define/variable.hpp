@@ -1,8 +1,33 @@
 #ifndef reflection_define_variable
 #define reflection_define_variable
 
+// reflection__CLASS_FIELD_variable( field_string_name, class_symbolic_name, field_symbolic_name )
 // reflection__CLASS_MEMBER_variable( member_string_name, reader_full_symbolic_name, traitor_full_symbolic_name  )
 // reflection__CLASS_SIMPLE_variable( member_string_name, type_symbolic_name, value_instance )
+
+
+
+#define reflection__CLASS_FIELD_variable( field_string_name, class_symbolic_name, field_symbolic_name )\
+ {                                                      \
+  typedef /*decltype( field_string_name )*/ std::string identifier_type;     \
+  insert                                                \
+   (                                                    \
+     field_string_name                                  \
+    ,item_type                                          \
+     (                                                  \
+      ::memory::pointer::make                           \
+       (                                                \
+        ::reflection::content::variable::field          \
+         <identifier_type>                              \
+         (                                              \
+           (class_symbolic_name*)(nullptr)              \
+          ,&class_symbolic_name::field_symbolic_name    \
+         )                                              \
+       )                                                \
+     )                                                  \
+   );                                                   \
+ }
+
 
 #define reflection__CLASS_MEMBER_variable( member_string_name, class_symbolic_name, traitor_symbolic_name, reader_symbolic_name  )\
  {                                                              \

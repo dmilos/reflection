@@ -3,3 +3,5 @@
 - static members and functions ???
 - serialize to python object
 - serialize to Lua object
+- member data without methods
+

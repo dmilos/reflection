@@ -1,5 +1,5 @@
-#ifndef reflection_object_transfer_xml
-#define reflection_object_transfer_xml
+#ifndef reflection_operation_transfer_xml
+#define reflection_operation_transfer_xml
 
 // ::reflection::operation::transfer::xml_class<output_name,key_name,type_name>
 
@@ -63,6 +63,8 @@ namespace reflection
              observe_param.control( observe_type::recover_action_fail_index   , &xml_struct::recover );
 
              observe_param.control( observe_type::stage_prologue_index,   &xml_struct::prologue );
+             observe_param.control( observe_type::stage_argument_index,     &xml_struct::argument );
+             observe_param.control( observe_type::stage_contrast_index,     &xml_struct::contrast );
              observe_param.control( observe_type::stage_exodus_index,     &xml_struct::exodus   );
 
              observe_param.insert( identificator_type::template get< std::string    >(), &xml_struct::primitive<std::string   >  );
@@ -135,6 +137,38 @@ namespace reflection
              return report_type( true );
             }
 
+
+           static  report_type   argument( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             report_type result = true;
+
+             output_param << "<item ";
+             output_param << "name=\"" << key_param << "\" ";
+
+             {
+              category_type const* category = dynamic_cast< category_type const* >( &property_param );
+              if( nullptr != category )
+               {
+                output_param << "type=\"" << category->identifier() << "\" ";
+                result = true;
+               }
+              else
+               {
+                output_param << "note=\"Can not detect type\" ";
+                result = false;
+               }
+             }
+
+             output_param << ">";
+             return report_type( result );
+            }
+
+           static  report_type   contrast( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param <<  "</item>" << std::endl;
+             return report_type( true );
+            }
+
            static  report_type   stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              return report_type( true );
@@ -149,26 +183,7 @@ namespace reflection
 
            static  report_type   recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             output_param << "<item ";
-             output_param << "name=\"" << key_param << "\" ";
-
-             {
-              category_type const* category = dynamic_cast< category_type const* >( &property_param );
-              if( nullptr != category )
-               {
-                output_param << "type=\"" << category->identifier() << "\" ";
-               }
-              else
-               {
-                output_param << "note=\"Can not detect type\" ";
-               }
-             }
-
-             output_param << "note=\"Unhandled item\" ";
-
-             output_param << ">";
-             output_param << "</item>" ;
-             output_param << std::endl;
+             output_param << "<message content=\"Continue like nothig happen.\" /> ";
 
              return report_type( true );
             }
@@ -182,11 +197,7 @@ namespace reflection
                return report_type( false );
               }
 
-             output_param <<  key_param << ": " <<  "null" << std::endl;
-             output_param << "<item ";
-             output_param << "name=\"" << key_param << "\" ";
-             output_param << "value=\"null";
-             output_param << "/>";
+             output_param << "<value content=\"null\" />";
 
              return report_type( true );
             }
@@ -194,22 +205,6 @@ namespace reflection
            template< typename simple_name >
             static report_type primitive( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
              {
-              output_param << "<item ";
-              output_param << "name=\"" << key_param << "\" ";
-
-              {
-               category_type const* category = dynamic_cast< category_type const* >( &property_param );
-               if( nullptr != category )
-                {
-                 output_param << "type=\"" << category->identifier() << "\" ";
-                }
-               else
-                {
-                 output_param << "note=\"Can not detect type\" ";
-                }
-              }
-
-              output_param << ">";
               boolean_type pass = true;
 
               if( true == pass )
@@ -235,41 +230,23 @@ namespace reflection
                }
 
               if( true == pass )
-               { 
+               {
                 output_param << "   <note message=\"Can not retrieve value\" />";
                }
-
-              output_param << "</item>";
-              output_param << std::endl;
 
               return report_type( true );
              }
 
            static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             output_param << "<item ";
-             output_param << "name=\"" << key_param    << "\" ";
-
-             category_type const* category = dynamic_cast< category_type const* >( &property_param );
-             if( nullptr != category )
-              {
-               output_param << "type=\"" << category->identifier() << "\" ";
-              }
-             else
-              {
-               output_param << "note=\"Can not detect type\" ";
-              }
-
              enumeration_context_type  const* context = dynamic_cast< enumeration_context_type const* >( &property_param );
              if( nullptr == context )
               {
-               output_param << "note=\"Wrong type supplied.\" ";
-               output_param << ">";
-               output_param << std::endl;
+               output_param << "< note=\"Wrong type supplied.\" /> ";
                return report_type( false );
               }
 
-             output_param << ">" << std::endl;
+             output_param << std::endl;
              for( std::size_t index=0; index < context->container().size(); ++index )
               {
                output_param << "  <parameter ";
@@ -280,34 +257,17 @@ namespace reflection
                output_param << std::endl;
               }
 
-             output_param << "</item>";
-             output_param << std::endl;
+             //output_param << std::endl;
 
              return report_type( true );
             }
 
            static report_type function ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             output_param << "<item ";
-             output_param << "name=\"" << key_param    << "\" ";
-
-             category_type const* category = dynamic_cast< category_type const* >( &property_param );
-
-             if( nullptr != category )
-              {
-               output_param << "type=\"" << category->identifier() << "\" ";
-              }
-             else
-              {
-               output_param << "note=\"Can not detect type\" ";
-              }
-
              algorithm_type  const* context = dynamic_cast< algorithm_type const* >( &property_param );
              if( nullptr == context )
               {
-               output_param << "note=\"Wrong type supplied.\" ";
-               output_param << ">";
-               output_param << std::endl;
+               output_param << "< note=\"Wrong type supplied.\" /> ";
                return report_type( false );
               }
 
@@ -326,60 +286,28 @@ namespace reflection
                output_param << std::endl;
               }
 
-             output_param << "</item>";
-             output_param << std::endl;
-
+             //output_param << std::endl;
              return report_type( true );
             }
 
            static report_type typedefinition ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             output_param << "<item ";
-             output_param << "name=\"" << key_param    << "\" ";
-
-             category_type const* category = dynamic_cast< category_type const* >( &property_param );
-             if( nullptr != category )
-              {
-               output_param << "type=\"" << category->identifier() << "\" ";
-              }
-             else
-              {
-               output_param << "note=\"Can not detect type\" ";
-              }
-
              typedefinition_context_type  const* context = dynamic_cast< typedefinition_context_type const* >( &property_param );
              if( nullptr == context )
               {
-               output_param << "note=\"Wrong type supplied.\" ";
-               output_param << ">";
-               output_param << std::endl;
+               output_param << "<note=\"Wrong type supplied.\" .>";
                return report_type( false );
               }
 
-             output_param << "original=\"" << context->name() << "\" ";
+             output_param << "<name original=\"" << context->name() << "\" />";
 
-             output_param << "/>" << std::endl;
+             //output_param << std::endl;
 
              return report_type( true );
             }
 
            static  report_type structure( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param  )
             {
-             output_param << "<item ";
-             output_param << "name=\"" << key_param    << "\" ";
-             {
-              category_type const* category = dynamic_cast< category_type const* >( &property_param );
-              if( nullptr != category )
-               {
-                output_param << "type=\"" << category->identifier() << "\" ";
-               }
-              else
-               {
-                output_param << "note=\"Can not detect type\" ";
-               }
-             }
-             output_param << ">";
-             output_param << std::endl;
              boolean_type pass = true;
 
              if( true == pass )
@@ -409,8 +337,7 @@ namespace reflection
                output_param << "<note message=\"Not a structure\" /> ";
               }
 
-             output_param << "</item>";
-             output_param << std::endl;
+             //output_param << std::endl;
              return report_type( true );
             }
 

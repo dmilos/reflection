@@ -1,5 +1,5 @@
-#ifndef reflection_object_transfer_json
-#define reflection_object_transfer_json
+#ifndef reflection_operation_transfer_json
+#define reflection_operation_transfer_json
 
 // ::reflection::operation::transfer::json_class<output_name,key_name,type_name>
 
@@ -65,6 +65,8 @@ namespace reflection
 
              observe_param.control( observe_type::stage_prologue_index,   &json_struct::prologue );
              observe_param.control( observe_type::stage_stasimon_index ,  &json_struct::stasimon );
+             observe_param.control( observe_type::stage_argument_index,   &json_struct::argument );
+             observe_param.control( observe_type::stage_contrast_index,   &json_struct::contrast );
              observe_param.control( observe_type::stage_exodus_index ,    &json_struct::exodus   );
 
              observe_param.insert( identificator_type::template get<  std::string   >(), &json_struct::string   );
@@ -136,7 +138,39 @@ namespace reflection
 
            static  report_type   prologue( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             output_param <<  "{ " << std::endl;
+             output_param <<  "{" << std::endl;
+             return report_type( true );
+            }
+
+           static  report_type   argument( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             report_type result = true;
+
+             output_param << "\"" << key_param << "\"" << ":" << std::endl ;
+             output_param << "  {" << std::endl ;
+
+             {
+              category_type const* category = dynamic_cast< category_type const* >( &property_param );
+              if( nullptr != category )
+               {
+                output_param << "    \"type\" : \"" << category->identifier() << "\", " << std::endl;
+                result = true;
+               }
+              else
+               {
+                output_param << "    \"note\" : \"" << "Can not detect type" << "\", " << std::endl;
+                result = false;
+               }
+             }
+
+             return report_type( result );
+            }
+
+           static  report_type   contrast( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << std::endl;
+             output_param <<  "  }";
+             //output_param << std::endl;
              return report_type( true );
             }
 
@@ -186,7 +220,7 @@ namespace reflection
                 return report_type( false );
                }
 
-              output_param << "\"" << key_param << "\"" << ": " << "\""<<  inspect->present() << "\"";
+              output_param << "\"" << "value" << "\"" << ": " << "\""<<  inspect->present() << "\"";
              return report_type( true );
             }
 
@@ -199,28 +233,13 @@ namespace reflection
                  return false;
                }
 
-             // TODO output_param << "\"" << key_param << "\"" << ": " << "\""<<  inspect->present() << "\"";
+             // TODO output_param << "\"" << "value" << "\"" << ": " << "\""<<  inspect->present() << "\"";
              return report_type( true );
             }
 
            template< typename simple_name >
             static report_type primitive(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
              {
-              output_param << "\"" << key_param << "\"" << ":" << std::endl ;
-              output_param << "  {" << std::endl ;
-
-              {
-               category_type const* category = dynamic_cast< category_type const* >( &property_param );
-               if( nullptr != category )
-                {
-                 output_param << "    \"type\" : \"" << category->identifier() << "\", " << std::endl;
-                }
-               else
-                {
-                 output_param << "    \"note\" : \"" << "Can not detect type" << "\", " << std::endl;
-                }
-              }
-
               bool pass = true;
 
               if( true == pass )
@@ -246,39 +265,28 @@ namespace reflection
                }
 
               if( true == pass )
-               { 
+               {
                 output_param << "    \"note\" : " << "\"Can not retrieve value.\"";
                }
-
-              output_param <<  std::endl ;
-              output_param << "  }" << "";
 
               return report_type( true );
              }
 
            static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-
-             category_type const* category = dynamic_cast< category_type const* >( &property_param );
-             if( nullptr != category )
-              {
-              }
-             else
-              {
-              }
-
              enumeration_context_type  const* context = dynamic_cast< enumeration_context_type const* >( &property_param );
              if( nullptr == context )
               {
+               // TODO
                return report_type( false );
               }
+             output_param << "    \"values\": " << std::endl;
 
-             output_param << "\"" << key_param    << "\": " << std::endl;
-             output_param <<  "  [ " << std::endl;
+             output_param << "      [ " << std::endl;
 
              for( std::size_t index=0; index < context->container().size(); ++index )
               {
-               output_param << "    { ";
+               output_param << "        { ";
                output_param << "\"ordinal\": " << std::setw(3) << index << ", ";
                output_param << "\"value\": "   << std::setw(4) << context->container()[index].value() << ", ";
                output_param << "\"name\":\""   << context->container()[index].name() << "\" ";
@@ -287,35 +295,22 @@ namespace reflection
 
                output_param << std::endl;
               }
-             output_param << "  ] ";
+             output_param << "      ] ";
 
              return report_type( true );
             }
 
            static report_type function ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             category_type const* category = dynamic_cast< category_type const* >( &property_param );
-
-             if( nullptr != category )
-              {
-              }
-             else
-              {
-              }
-
              algorithm_type  const* context = dynamic_cast< algorithm_type const* >( &property_param );
              if( nullptr == context )
               {
+               // TODO
                return report_type( false );
               }
 
-             output_param << "\"" << key_param << "\" :" << std::endl;
-             output_param << "  { " << std::endl;
-
-             output_param << "    \"type\": \"" << category->identifier() <<  "\", " << std::endl;
-
              output_param << "    \"parameters\": " << std::endl;
-             output_param << "    [ " << std::endl;
+             output_param << "      [ " << std::endl;
              for( std::size_t index=0; index < context->signature().size(); ++index )
               {
                if( context->signature()[index] == identificator_type::NAT() )
@@ -325,58 +320,33 @@ namespace reflection
                output_param << "        { ";
                output_param << "\"ordinal\": " << std::setw(3) << index << ", ";
                output_param << "\"type\": "   << "\""<< context->signature()[index] << "\" ";
-
              //output_param << "\"name\":\""   << context->container()[index].name() << "\" ";
                output_param << "    }";
+               if( index +1 < context->signature().size() ) {  output_param << ",";  }
+
                output_param << std::endl;
              }
-             output_param << "    ] "<< std::endl;
-
-             output_param << "  } " << std::endl;
-
+             output_param << "      ] ";
+             //output_param << std::endl;
              return report_type( true );
             }
 
            static report_type typedefinition ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             category_type const* category = dynamic_cast< category_type const* >( &property_param );
-             if( nullptr != category )
-              {
-              }
-             else
-              {
-              }
-
              typedefinition_context_type  const* context = dynamic_cast< typedefinition_context_type const* >( &property_param );
              if( nullptr == context )
               {
+               // TODO
                return report_type( false );
               }
 
-             output_param << "\"" << key_param << "\" :" << std::endl;
-             output_param << "  { " << std::endl;
-
-             output_param << "    \"type\": " << category->identifier() << ", " << std::endl;
-             output_param << "    \"original\": \"" << context->name()<< "\""  << std::endl;
-             output_param << "  } " << std::endl;
-
+             output_param << "    \"original\": \"" << context->name()<< "\"";
+             //output_param << std::endl;
              return report_type( true );
             }
 
            static report_type structure ( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             output_param << "\"" << key_param << "\"" << ": ";
-
-             {
-              category_type const* category = dynamic_cast< category_type const* >( &property_param );
-              if( nullptr != category )
-               {
-               }
-              else
-               {
-               }
-             }
-
              bool pass = true;
 
              if( true == pass )
@@ -406,7 +376,7 @@ namespace reflection
                // TODO(or not)output_param << "<note message=\"Not a structure\" /> ";
               }
 
-             output_param << std::endl;
+             //output_param << std::endl;
              return report_type( true );
            }
 

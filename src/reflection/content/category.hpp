@@ -60,13 +60,13 @@
        template
         <
           typename identifier_name
-         ,typename whatever_name
+         ,typename composition_name
         >
         inline
-        bool check( whatever_name const& whatever_param )
+        bool check( composition_name const& composition_param )
          {
           typedef ::reflection::content::category::pure_class<identifier_name> category_type;
-          return nullptr != dynamic_cast< category_type const*>( &whatever_param );
+          return nullptr != dynamic_cast< category_type const*>( &composition_param );
          }
 
       }

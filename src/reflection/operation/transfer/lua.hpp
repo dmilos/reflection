@@ -1,5 +1,5 @@
-#ifndef reflection_object_transfer_lua
-#define reflection_object_transfer_lua
+#ifndef reflection_operation_transfer_lua
+#define reflection_operation_transfer_lua
 
 // ::reflection::operation::transfer::lua_class<output_name,key_name,type_name>
 

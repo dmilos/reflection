@@ -1,9 +1,33 @@
 #ifndef reflection_define_direct
 #define reflection_define_direct
 
+// reflection__CLASS_FIELD_direct( member_string_name, traitor_full_symbolic_name )
 // reflection__CLASS_MEMBER_direct( member_string_name, traitor_full_symbolic_name )
+// reflection__CLASS_SIMPLE_direct( member_string_name, traitor_full_symbolic_name )
 
-//#define reflection__CLASS_SIMPLE_direct(      member_name,     class_original::asdas   )\
+
+
+#define reflection__CLASS_FIELD_direct( field_string_name, class_symbolic_name, field_symbolic_name )\
+ {                                                                                                   \
+  typedef /*decltype( field_string_name )*/ std::string identifier_type;                             \
+  insert                                                                                             \
+   (                                                                                                 \
+    field_string_name                                                                                \
+    ,item_type                                                                                       \
+     (                                                                                               \
+      ::memory::pointer::make                                                                        \
+       (                                                                                             \
+        ::reflection::content::direct::field                                                         \
+        <identifier_type>                                                                            \
+         (                                                                                           \
+           (class_symbolic_name*)(nullptr)                                                           \
+          ,&class_symbolic_name::field_symbolic_name                                                 \
+         )                                                                                           \
+       )                                                                                             \
+     )                                                                                               \
+   );                                                                                                \
+  }
+
 
 #define reflection__CLASS_MEMBER_direct( member_string_name, class_symbolic_name, traitor_symbolic_name )\
  {                                                      \
