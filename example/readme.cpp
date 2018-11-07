@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "reflection/reflection.hpp"
+
 class MyFirstClassOriginal
  {
   public:
@@ -36,12 +37,19 @@ class MyClassOriginal //!< Original condition. Not bloated with any other code.
     bool        writer( int const& a ){ m_int = a; return true; }
 
     MyFirstClassOriginal & subsider_traitor(){ return m_subsider; }
+
+    static int   some_static_function( float const&f ){ return 12; }
+
   public:
    double m_public = 456;
+  public:
+   static double m_static;
   private: // And private member
     int m_int;
     MyFirstClassOriginal m_subsider;
  };
+
+double MyClassOriginal::m_static; //!< TODO
 
 reflection__CLASS_BEGIN_view( MyFirstClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal* )
    reflection__CLASS_MEMBER_exposed(   "number", MyFirstClassOriginal, traitor, writer )
@@ -49,7 +57,7 @@ reflection__CLASS_END_view( MyFirstClassReflectionView, MyFirstClassOriginal );
 
 
 // Reflect to reflection
-template< typename someType_name >     // Yeah template.
+//template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
 
   reflection__CLASS_TYPEDEF( "typedef-of-something", MyClassOriginal::MyTypDef );
@@ -72,6 +80,8 @@ reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClas
   reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
   reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
 
+  reflection__CLASS_FUNCTION_static( "my_static", MyClassOriginal, some_static_function )
+
   //reflection__CLASS_SUBSIDER_direct( "subsider", MyClassOriginal, MyFirstClassOriginal, MyFirstClassReflectionView, subsider_traitor )
 
   reflection__CLASS_FIELD_direct(  "some-doubleD", MyClassOriginal, m_public )
@@ -84,6 +94,15 @@ reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClas
 
   reflection__CLASS_FIELD_trinity( "some-doubleT", MyClassOriginal, m_public )
 
+ reflection__CLASS_COMMON_direct( "some-common-doubleD", MyClassOriginal, m_static )
+ reflection__CLASS_COMMON_inspect( "some-common-doubleI", MyClassOriginal, m_static )
+ reflection__CLASS_COMMON_mutate( "some-common-doubleM", MyClassOriginal, m_static )
+
+ reflection__CLASS_COMMON_variable( "some-common-doubleV", MyClassOriginal, m_static )
+ reflection__CLASS_COMMON_guarded( "some-common-doubleG", MyClassOriginal, m_static )
+ reflection__CLASS_COMMON_exposed( "some-common-doubleE", MyClassOriginal, m_static )
+
+ reflection__CLASS_COMMON_trinity( "some-common-doubleT", MyClassOriginal, m_static )
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
@@ -97,21 +116,32 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
   typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
+  typedef ::reflection::operation::transfer::cpp_struct<std::ostream> cpp_type;
 
   MyClassOriginal o;
-  MyClassReflection<int>   r( &o );  //!< Reflection of Original, with pointing to some instance
+  MyClassReflection   r( &o );  //!< Reflection of Original, with pointing to some instance
   //MyClassReflection<int>   r0;  //!< Reflection of Original, with pointing to some instance
-  MyClassReflection<float> r1( &o );  //!< Reflection of Original, with pointing to same instance
+  //MyClassReflection<float> r1( &o );  //!< Reflection of Original, with pointing to same instance
 
   observe_type observe;
 
+  cpp_type cpp( observe );// CPPize for example
+  observe.view( std::cout, r );
+
+  observe.clear();
   xml_type xml( observe );// XMLize for example
   observe.view( std::cout, r );
 
   observe.clear();
-
   json_type json( observe ); // JSONize also
   observe.view( std::cout, r );
+
+  for( auto & v: r )
+   {
+    std::cout << ::reflection::content::category::pure<std::string>( *v.second).identifier() << "  ";
+    std::cout << v.first  <<";";
+    std::cout << std::endl;
+   }
 
   return EXIT_SUCCESS;
  }

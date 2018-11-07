@@ -2,3 +2,4 @@
 #include "./simple.hpp"
 #include "./basic.hpp"
 #include "./field.hpp"
+#include "./common.hpp"

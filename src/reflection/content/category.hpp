@@ -4,6 +4,7 @@
 // ::reflection::content::category::pure_class<identificator_name>
 // ::reflection::content::category::identifier()
 // ::reflection::content::category::check()
+// ::reflection::content::category::pure()
 
  namespace reflection
   {
@@ -48,25 +49,35 @@
 
        template
         <
-         typename identifier_name
+          typename identifier_name
         >
         inline
-        identifier_name const&
-        identifier( ::reflection::content::category::pure_class<identifier_name> const& instance_param )
+        bool check( ::reflection::property::pure_class const& property_param )
          {
-          return instance_param.identifier();
+          typedef ::reflection::content::category::pure_class<identifier_name> category_type;
+          return nullptr != dynamic_cast< category_type const*>( &property_param );
          }
 
        template
         <
           typename identifier_name
-         ,typename composition_name
         >
-        inline
-        bool check( composition_name const& composition_param )
+        ::reflection::content::category::pure_class<identifier_name> const&
+        pure( ::reflection::property::pure_class const& property_param )
          {
           typedef ::reflection::content::category::pure_class<identifier_name> category_type;
-          return nullptr != dynamic_cast< category_type const*>( &composition_param );
+          return dynamic_cast< category_type const&>( property_param );
+         }
+
+       template
+        <
+          typename identifier_name
+        >
+        ::reflection::content::category::pure_class<identifier_name> const&
+        pure( ::reflection::property::pure_class & property_param )
+         {
+          typedef ::reflection::content::category::pure_class<identifier_name> category_type;
+          return dynamic_cast< category_type &>( property_param );
          }
 
       }

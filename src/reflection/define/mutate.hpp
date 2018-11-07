@@ -29,6 +29,28 @@
  }
 
 
+#define reflection__CLASS_COMMON_mutate( common_string_name, class_symbolic_name, common_symbolic_name )  \
+ {                                                                                                        \
+  typedef /*decltype( common_string_name )*/ std::string identifier_type;                                 \
+  insert                                                                                                  \
+   (                                                                                                      \
+    common_string_name                                                                                    \
+    ,item_type                                                                                            \
+     (                                                                                                    \
+      ::memory::pointer::make                                                                             \
+       (                                                                                                  \
+        ::reflection::content::mutate::common                                                             \
+        <identifier_type,class_symbolic_name>                                                             \
+         (                                                                                                \
+          &class_symbolic_name::common_symbolic_name                                                      \
+         )                                                                                                \
+       )                                                                                                  \
+     )                                                                                                    \
+   );                                                                                                     \
+  }
+
+
+
 #define reflection__CLASS_MEMBER_mutate( member_string_name, class_symbolic_name, writer_symbolic_name )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \

@@ -18,7 +18,7 @@ namespace reflection
 
       template
        <
-         typename name_name  //= identifier_name
+         typename name_name  //= might be identifier_name or std::string
         ,typename value_name //= delete std::size_t
        >
        class pure_class
@@ -33,9 +33,18 @@ namespace reflection
            typedef  std::vector<subject_type>    container_type;
            typedef typename container_type::size_type size_type;
 
-                    pure_class(){}
+         public:
+           explicit pure_class( name_name const& name ):m_name( name ){}
            virtual ~pure_class(){}
 
+         public:
+           name_type const& name()const{ return m_name; }
+         protected:
+           name_type      & name()     { return m_name; }
+         private:
+           name_type m_name;
+
+         public:
            size_type size()const
             {
              return this->container();

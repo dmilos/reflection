@@ -10,3 +10,11 @@ g++ -fexceptions -std=c++11 -g -I../../../src member0.cpp               -o  memb
 g++ -fexceptions -std=c++11 -g -I../../../src member1.cpp               -o  member1
 g++ -fexceptions -std=c++11 -g -I../../../src member2.cpp               -o  member2
 g++ -fexceptions -std=c++11 -g -I../../../src member3.cpp               -o  member3
+g++ -fexceptions -std=c++11 -g -I../../../src member4.cpp               -o  member3
+
+
+g++ -fexceptions -std=c++11 -g -I../../../src static0.cpp               -o  free0
+g++ -fexceptions -std=c++11 -g -I../../../src static1.cpp               -o  free1
+g++ -fexceptions -std=c++11 -g -I../../../src static2.cpp               -o  free2
+g++ -fexceptions -std=c++11 -g -I../../../src static3.cpp               -o  free3
+g++ -fexceptions -std=c++11 -g -I../../../src static4.cpp               -o  free4

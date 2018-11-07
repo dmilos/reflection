@@ -7,3 +7,9 @@ pwd
 ./member1.exe
 ./member2.exe
 ./member3.exe
+./member4.exe
+./static0.exe
+./static1.exe
+./static2.exe
+./static3.exe
+./static4.exe

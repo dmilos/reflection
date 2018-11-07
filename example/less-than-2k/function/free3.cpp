@@ -15,7 +15,7 @@ class MyClassOriginal
     //Just nothing.
  };
 
-  int member_int_int_string_float( int i, std::string const& s, float f )
+  int free_int_int_string_float( int i, std::string const& s, float f )
    {
     std::cout << __FUNCTION__ << std::endl;
     std::cout << i << std::endl;
@@ -28,7 +28,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_free( "member_int_int_string_float", member_int_int_string_float )
+    reflection__CLASS_FUNCTION_free( "free_int_int_string_float", free_int_int_string_float )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
@@ -39,7 +39,7 @@ int main( int argc, char *argv[] )
 
   // Classic "direct" call where c++ take care about arguments type
   std::cout << 
-    ::reflection::property::function::execute< int, int, std::string const&, float >(  r.get("member_int_int_string_float"), 10, "asdasd", 42.0 ) 
+    ::reflection::property::function::execute< int, int, std::string const&, float >(  r.get("free_int_int_string_float"), 10, "asdasd", 42.0 ) 
     << std::endl;
 
   return EXIT_SUCCESS;

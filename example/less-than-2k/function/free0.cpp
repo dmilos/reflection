@@ -23,7 +23,7 @@ void free_void_void()
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
-
+    // Inject foreign function
     reflection__CLASS_FUNCTION_free( "free_void_void", free_void_void )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );

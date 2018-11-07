@@ -23,7 +23,7 @@ namespace reflection
        >
        class pure_class
         : virtual public ::reflection::content::pure_class< identifier_name >
-        , virtual public ::reflection::property::enumeration::base_class<enumarator_name,name_name, value_name>
+        , /*virtual*/ public ::reflection::property::enumeration::base_class<enumarator_name,name_name, value_name>
         {
          public:
            typedef  identifier_name  identifier_type;
@@ -32,15 +32,17 @@ namespace reflection
            typedef       value_name       value_type;
 
            typedef ::reflection::content::pure_class< identifier_type >                                           content_type;
-           typedef ::reflection::property::enumeration::pure_class<name_name, value_name>                   property_pure_type;
            typedef ::reflection::property::enumeration::base_class<enumarator_name,name_name, value_name>    property_base_type;
 
+           typedef ::reflection::property::enumeration::pure_class<name_name, value_name>                   property_pure_type;
            typedef property_pure_type data_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
 
-           pure_class()
+           explicit pure_class( name_type const& name )
             :content_type( identificator_type::template get<data_type>() )
+            ,property_base_type( name )
+            ,property_pure_type( name )
             {
              this->identifier( identificator_type::template get<data_type>() );
             }

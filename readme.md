@@ -8,16 +8,19 @@ Description
    Link: https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29
 
 Key features:
- - Headers only
- - No additional binaries
- - No third parties
- - Out of the box ready
-  - No need to recompile or start some install process.
- - One file to include to start the fun
- - Strong type check
- - Obey existing encapsulation
- - No bloat of existing code and require no change aether.
- - Extra: serialize to XML and JSON
+ - General:
+  * Headers only
+  * No additional binaries
+  * No third parties
+  * Out of the box ready
+  * No need to recompile or start some install process.
+  * One file to include to start the fun
+  * Strong type check
+ - Specific:
+  * Obey existing encapsulation
+  * No bloat of existing code and require no change aether.
+  * Extra: serialize to XML and JSON
+
 
 Example:
 ```c++
@@ -29,7 +32,7 @@ Example:
 
 #include "reflection/reflection.hpp"
 
-class MyClassOriginal //!< Original condition. Not bloated with any other code.
+class MyClassOriginal //!< In original condition. Not bloated with any other code.
  {
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
@@ -45,6 +48,8 @@ class MyClassOriginal //!< Original condition. Not bloated with any other code.
     int      &  traitor(){ return m_int; }
     int const&  reader()const{ return m_int; }
     bool        writer( int const& a ){ m_int = a; return true; }
+
+    static int   some_static_function( float const&f ){ return 12; }
 
   public:
    double m_public = 456;
@@ -74,6 +79,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
   reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
   reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
 
+  reflection__CLASS_FUNCTION_static( "my_static", MyClassOriginal, some_static_function )
   reflection__CLASS_FIELD_guarded(  "some-doubleG", MyClassOriginal, m_public )
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
@@ -105,3 +111,4 @@ int main( int argc, char *argv[] )
  }
 
  ```
+

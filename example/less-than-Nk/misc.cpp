@@ -144,7 +144,7 @@ class MyClass
        ::reflection::content::guarded::simple<std::string,int>( 1024 );
        ::reflection::content::guarded::simple<std::string,float>( );
 
-       std::cout << "content::direct::identifier = " << ::reflection::content::category::identifier<std::string>( ::reflection::content::direct::member<std::string>( this, &MyClass::traitor ) ) << std::endl;
+       std::cout << "content::direct::identifier = " << ::reflection::content::direct::member<std::string>( this, &MyClass::traitor ).identifier() << std::endl;
 
        std::cout << "content::direct = " << ::reflection::content::direct::member<std::string>( this, &MyClass::traitor ).disclose() << std::endl;
 
@@ -269,7 +269,7 @@ class MyClass
 
        std::cout << "category::check == " << ::reflection::content::category::check< std::string >( get("m3") )<< std::endl;
 
-       std::cout << "category::identifier = " << ::reflection::content::category::identifier< std::string >( dynamic_cast< ::reflection::content::category::pure_class< std::string > const& >( get("m3") ) )  << std::endl;
+       std::cout << "category::identifier = " << dynamic_cast< ::reflection::content::category::pure_class< std::string > const& >( get("m3") ).identifier()  << std::endl;
 
        std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
