@@ -9,17 +9,17 @@ Description
 
 Key features:
  - General:
-  - * Headers only
-  - * No additional binaries
-  - * No third parties
-  - * Out of the box ready
-  - * No need to recompile or start some install process.
-  - * One file to include to start the fun
-  - * Strong type check
+    * Headers only
+    * No additional binaries
+    * No third parties
+    * Out of the box ready
+    * No need to recompile or start some install process.
+    * One file to include to start the fun
+    * Strong type check
  - Specific:
-  - * Obey existing encapsulation
-  - * No bloat of existing code and require no change aether.
-  - * Extra: serialize to XML and JSON
+    * Obey existing encapsulation
+    * No bloat of existing code and require no change aether.
+    * Extra: serialize to XML and JSON
 
 
 Example:
