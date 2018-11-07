@@ -14,6 +14,7 @@
 #include "./context.hpp"
 #include "./argument.hpp"
 #include "./unpack.hpp"
+#include "./call.hpp"
 
 
 namespace reflection
@@ -56,8 +57,6 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
-
-           //typedef return_name (anchor_type)(first_name,second_name,third_name,fourth_name,fifth_name);
            typedef  algorithm_type anchor_type;
 
          public:
@@ -84,23 +83,17 @@ namespace reflection
                return false;
               }
 
-             typedef typename ::reflection::type::trait<return_type>::image_type image_type;
+             typedef ::reflection::content::function::call_struct< return_name, first_name, second_name, third_name,fourth_name,fifth_name >   call_type;
 
-             typedef ::reflection::content::function::unpack_struct<return_name>   p0_type;
-             typedef ::reflection::content::function::unpack_struct< first_name>   p1_type;
-             typedef ::reflection::content::function::unpack_struct<second_name>   p2_type;
-             typedef ::reflection::content::function::unpack_struct< third_name>   p3_type;
-             typedef ::reflection::content::function::unpack_struct<fourth_name>   p4_type;
-             typedef ::reflection::content::function::unpack_struct< fifth_name>   p5_type;
+             auto  * a0 = call_type::u0_type::return_get( *(argument_param[0]) );if( nullptr == a0 ) return false;
+             auto  * a1 = call_type::u1_type::get( *(argument_param[1]) );if( nullptr == a1 ) return false;
+             auto  * a2 = call_type::u2_type::get( *(argument_param[2]) );if( nullptr == a2 ) return false;
+             auto  * a3 = call_type::u3_type::get( *(argument_param[3]) );if( nullptr == a3 ) return false;
+             auto  * a4 = call_type::u3_type::get( *(argument_param[4]) );if( nullptr == a4 ) return false;
+             auto  * a5 = call_type::u3_type::get( *(argument_param[5]) );if( nullptr == a5 ) return false;
 
-             typename p0_type::return_type * a0 = p0_type::get( argument_param[0] );
-             typename p1_type::return_type * a1 = p1_type::get( argument_param[1] );
-             typename p2_type::return_type * a2 = p2_type::get( argument_param[2] );
-             typename p3_type::return_type * a3 = p3_type::get( argument_param[3] );
-             typename p4_type::return_type * a4 = p4_type::get( argument_param[4] );
-             typename p5_type::return_type * a5 = p5_type::get( argument_param[5] );
+             call_type::process( *this, *a0, *a1, *a2, *a3, *a4 , *a5 );
 
-             a0->process(  property_type::execute( p1_type::value(*a1), p2_type::value(*a2), p3_type::value(*a3), p4_type::value(*a4), p5_type::value(*a5) ) );
              return true;
             }
         };
@@ -128,7 +121,6 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
-           //typedef return_name (anchor_type)(first_name,second_name,third_name,fourth_name);
            typedef  algorithm_type anchor_type;
 
          public:
@@ -154,21 +146,15 @@ namespace reflection
                return false;
               }
 
-             typedef typename ::reflection::type::trait<return_type>::image_type image_type;
+             typedef ::reflection::content::function::call_struct< return_name, first_name, second_name, third_name,fourth_name >   call_type;
 
-             typedef ::reflection::property::mutate::pure_class<image_type,bool>   p0_type;
-             typedef ::reflection::content::function::unpack_struct< first_name>   p1_type;
-             typedef ::reflection::content::function::unpack_struct<second_name>   p2_type;
-             typedef ::reflection::content::function::unpack_struct< third_name>   p3_type;
-             typedef ::reflection::content::function::unpack_struct<fourth_name>   p4_type;
+             auto  * a0 = call_type::u0_type::return_get( *(argument_param[0]) );if( nullptr == a0 ) return false;
+             auto  * a1 = call_type::u1_type::get( *(argument_param[1]) );if( nullptr == a1 ) return false;
+             auto  * a2 = call_type::u2_type::get( *(argument_param[2]) );if( nullptr == a2 ) return false;
+             auto  * a3 = call_type::u3_type::get( *(argument_param[3]) );if( nullptr == a3 ) return false;
+             auto  * a4 = call_type::u4_type::get( *(argument_param[4]) );if( nullptr == a4 ) return false;
 
-             p0_type              * a0 = dynamic_cast<p0_type*>(  argument_param[0] );
-             typename p1_type::result_type * a1 = p1_type::get( *(argument_param[1]) );
-             typename p2_type::result_type * a2 = p2_type::get( *(argument_param[2]) );
-             typename p3_type::result_type * a3 = p3_type::get( *(argument_param[3]) );
-             typename p4_type::result_type * a4 = p4_type::get( *(argument_param[4]) );
-
-             a0->process( this->execute( p1_type::value(*a1), p2_type::value(*a2), p3_type::value(*a3), p4_type::value(*a4) ) );
+             call_type::process( *this, *a0, *a1, *a2, *a3, *a4 );
 
              return true;
             }
@@ -195,7 +181,6 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
-           //typedef return_name (anchor_type)(first_name,second_name,third_name);
            typedef  algorithm_type anchor_type;
 
          public:
@@ -220,19 +205,14 @@ namespace reflection
                return false;
               }
 
-             typedef typename ::reflection::type::trait<return_type>::image_type image_type;
+             typedef ::reflection::content::function::call_struct< return_name, first_name, second_name, third_name >   call_type;
 
-             typedef ::reflection::property::mutate::pure_class<image_type,bool>   p0_type;
-             typedef ::reflection::content::function::unpack_struct< first_name>   p1_type;
-             typedef ::reflection::content::function::unpack_struct<second_name>   p2_type;
-             typedef ::reflection::content::function::unpack_struct< third_name>   p3_type;
+             auto  * a0 = call_type::u0_type::return_get( *(argument_param[0]) );if( nullptr == a0 ) return false;
+             auto  * a1 = call_type::u1_type::get( *(argument_param[1]) );if( nullptr == a1 ) return false;
+             auto  * a2 = call_type::u2_type::get( *(argument_param[2]) );if( nullptr == a2 ) return false;
+             auto  * a3 = call_type::u3_type::get( *(argument_param[3]) );if( nullptr == a3 ) return false;
 
-             p0_type              * a0 = dynamic_cast<p0_type*>(  argument_param[0] );
-             typename p1_type::result_type * a1 = p1_type::get( *(argument_param[1]) );
-             typename p2_type::result_type * a2 = p2_type::get( *(argument_param[2]) );
-             typename p3_type::result_type * a3 = p3_type::get( *(argument_param[3]) );
-
-             a0->process( this->execute( p1_type::value(*a1), p2_type::value(*a2), p3_type::value(*a3) ) );
+             call_type::process( *this, *a0, *a1, *a2, *a3 );
 
              return true;
             }
@@ -258,7 +238,6 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
-           //typedef return_name (anchor_type)(first_name,second_name);
            typedef  algorithm_type anchor_type;
 
          public:
@@ -282,22 +261,19 @@ namespace reflection
                return false;
               }
 
-             typedef typename ::reflection::type::trait<return_type>::image_type image_type;
+             typedef ::reflection::content::function::call_struct< return_name, first_name, second_name >   call_type;
 
-             typedef ::reflection::property::mutate::pure_class<image_type,bool>   p0_type;
-             typedef ::reflection::content::function::unpack_struct< first_name>   p1_type;
-             typedef ::reflection::content::function::unpack_struct<second_name>   p2_type;
+             auto  * a0 = call_type::u0_type::return_get( *(argument_param[0]) );if( nullptr == a0 ) return false;
+             auto  * a1 = call_type::u1_type::get( *(argument_param[1]) );if( nullptr == a1 ) return false;
+             auto  * a2 = call_type::u2_type::get( *(argument_param[2]) );if( nullptr == a2 ) return false;
 
-             p0_type              * a0 = dynamic_cast<p0_type*>(  argument_param[0] );
-             typename p1_type::result_type * a1 = p1_type::get( *(argument_param[1]) );
-             typename p2_type::result_type * a2 = p2_type::get( *(argument_param[2]) );
+             call_type::process( *this, *a0, *a1, *a2 );
 
-             a0->process( this->execute( p1_type::value(*a1), p2_type::value(*a2) ) );
              return true;
             }
         };
 
-      template< typename identifier_name, typename return_name, typename first_name>
+      template< typename identifier_name, typename return_name, typename first_name >
        class pure_class< identifier_name, return_name, first_name, void, void, void,void>
         : virtual public ::reflection::content::function::algorithm_class< identifier_name >
         , virtual public ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>
@@ -316,7 +292,6 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                    argument_type;
 
-           //typedef return_name (anchor_type)(first_name);
            typedef  algorithm_type anchor_type;
 
          public:
@@ -338,15 +313,12 @@ namespace reflection
                return false;
               }
 
-             typedef typename ::reflection::type::trait<return_type>::image_type image_type;
+             typedef ::reflection::content::function::call_struct< return_name, first_name >   call_type;
 
-             typedef ::reflection::property::mutate::pure_class<image_type,bool>   p0_type;
-             typedef ::reflection::content::function::unpack_struct< first_name>   p1_type;
+             auto  * a0 = call_type::u0_type::return_get( *(argument_param[0]) );if( nullptr == a0 ) return false;
+             auto  * a1 = call_type::u1_type::get( *(argument_param[1]) );if( nullptr == a1 ) return false;
 
-                      p0_type              * a0 = dynamic_cast<p0_type*>( argument_param[0] );
-             typename p1_type::result_type * a1 = p1_type::get( *(argument_param[1]) );
-
-             a0->process( this->execute( p1_type::value(*a1) ) );
+             call_type::process( *this, *a0, *a1 );
              return true;
             }
         };
@@ -369,7 +341,6 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
-           //typedef return_name (anchor_type)();
            typedef  algorithm_type anchor_type;
 
          public:
@@ -390,13 +361,11 @@ namespace reflection
                return false;
               }
 
-             typedef typename ::reflection::type::trait<return_type>::image_type image_type;
+             typedef ::reflection::content::function::call_struct< return_name >   call_type;
 
-             typedef ::reflection::property::mutate::pure_class<image_type,bool>   p0_type;
+             auto  * a0 = call_type::u0_type::return_get( *(argument_param[0]) );if( nullptr == a0 ) return false;
 
-             p0_type              * a0 = dynamic_cast<p0_type*>( argument_param[0] );
-
-             a0->process( this->execute( ) );
+             call_type::process( *this, *a0 );
              return true;
             }
         };
@@ -420,7 +389,6 @@ namespace reflection
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
            typedef typename ::reflection::content::function::argument_struct<identifier_type>                   argument_type;
 
-           //typedef void (anchor_type)();
            typedef  algorithm_type anchor_type;
 
          public:
@@ -428,8 +396,9 @@ namespace reflection
             : content_type( identificator_type::template get<anchor_type>() )
             {
              this->identifier( identificator_type::template get<anchor_type>() );
-             this->signature().resize( 0 );
-            }
+             this->signature().resize( 1 );
+             this->signature()[0] = identificator_type::template get< typename ::reflection::type::trait<void>::instance_type >();
+           }
 
          public:
            using property_type::execute;

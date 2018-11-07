@@ -44,25 +44,6 @@ namespace reflection
          static typedef_type make( storage_type const& storage_param ){ return typedef_type( storage_param ); }
         };
 
-       /*
-      template
-       <
-       >
-       struct simple_struct<void,void>
-        {
-         typedef void   data_type;
-         typedef void   original_type;
-
-         typedef void   storage_type;
-
-         //TODO typedef std::original<data_name>  extractor_type;
-
-         typedef ::reflection::property::direct::base< void, void, extractor_type > typedef_type;
-
-         static typedef_type make(  ){ return typedef_type( ); }
-        };
-       */
-
       template
        <
          typename data_name

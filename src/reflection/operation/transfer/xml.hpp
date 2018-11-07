@@ -31,16 +31,28 @@ namespace reflection
        >
        struct xml_struct
         {
+         private:
+           typedef std::size_t size_type;
+           struct internal_struct
+            {
+              size_type m_ident=0;
+              void inc(){ ++m_ident; }
+              void dec(){ --m_ident; }
+             };
+
+           typedef std::shared_ptr< internal_struct > internalPtr_type;
+
          public:
            typedef      output_name        output_type;
            typedef         key_name           key_type;
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
 
-           typedef std::size_t size_type;
+           typedef ::reflection::operation::transfer::xml_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
 
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::content::category::pure_class<identifier_type>             category_type;
+           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef typename std::add_const< property_type >::type                          property_qualified_type;
            typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
@@ -50,76 +62,64 @@ namespace reflection
            typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
          public:
-           typedef ::reflection::property::structure_class<key_type,container_name>                       structure_type;
-           typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_context_type;
+           typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_type;
            typedef ::reflection::content::function::algorithm_class<identifier_type>                      algorithm_type;
-           typedef ::reflection::property::typedefinition::pure_class                        typedefinition_context_type;
+           typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
 
          public:
            xml_struct( observe_type & observe_param )
             {
-             observe_param.control( observe_type::recover_not_category_index  , &xml_struct::recover );
-           //observe_param.control( observe_type::recover_missing_action_index, &xml_struct::recover );
-             observe_param.control( observe_type::recover_action_fail_index   , &xml_struct::recover );
+             observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
+           //observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
+             observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
 
-             observe_param.control( observe_type::stage_prologue_index,   &xml_struct::prologue );
-             observe_param.control( observe_type::stage_argument_index,     &xml_struct::argument );
-             observe_param.control( observe_type::stage_contrast_index,     &xml_struct::contrast );
-             observe_param.control( observe_type::stage_exodus_index,     &xml_struct::exodus   );
+             observe_param.control( observe_type::stage_fundamenta_index,       &this_type::fundamenta     );
+             observe_param.control( observe_type::stage_statement_index,     &this_type::statement   );
+             observe_param.control( observe_type::stage_summae_index,        &this_type::summae      );
+             observe_param.control( observe_type::stage_conclusio_index,     &this_type::conclusio   );
 
-             observe_param.insert( identificator_type::template get< std::string    >(), &xml_struct::primitive<std::string   >  );
-     // TODO observe_param.insert( identificator_type::template get<  std::wstring  >(), &xml_struct::primitive<std::wstring  >  );
+             observe_param.insert( identificator_type::template get< std::string    >(), &this_type::primitive<std::string   >  );
+     // TODO observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::primitive<std::wstring  >  );
 
-             observe_param.insert( identificator_type::template get<  char           >(), &xml_struct::primitive<char          >  );
-             observe_param.insert( identificator_type::template get<  unsigned char  >(), &xml_struct::primitive<unsigned char >  );
-             observe_param.insert( identificator_type::template get<  wchar_t        >(), &xml_struct::primitive<wchar_t  >  );
-             observe_param.insert( identificator_type::template get<  std::wint_t    >(), &xml_struct::primitive<std::wint_t   >  );
+             // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &this_type::vector  );
+             // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &this_type::set     );
 
-             observe_param.insert( identificator_type::template get<  std::int8_t    >(), &xml_struct::primitive<std::int8_t   >  );
-             observe_param.insert( identificator_type::template get<  std::int16_t   >(), &xml_struct::primitive<std::int16_t  >  );
-             observe_param.insert( identificator_type::template get<  std::int32_t   >(), &xml_struct::primitive<std::int32_t  >  );
-             observe_param.insert( identificator_type::template get<  std::int64_t   >(), &xml_struct::primitive<std::int64_t  >  );
+             observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
+             observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
+             observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t  >  );
+             observe_param.insert( identificator_type::template get<  std::wint_t    >(), &this_type::primitive<std::wint_t   >  );
 
-             observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &xml_struct::primitive<std::uint8_t  >  );
-             observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &xml_struct::primitive<std::uint16_t >  );
-             observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &xml_struct::primitive<std::uint32_t >  );
-             observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &xml_struct::primitive<std::uint64_t >  );
+             observe_param.insert( identificator_type::template get<  std::int8_t    >(), &this_type::primitive<std::int8_t   >  );
+             observe_param.insert( identificator_type::template get<  std::int16_t   >(), &this_type::primitive<std::int16_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int32_t   >(), &this_type::primitive<std::int32_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int64_t   >(), &this_type::primitive<std::int64_t  >  );
 
-             observe_param.insert( identificator_type::template get<       float     >(), &xml_struct::primitive<     float    >  );
-             observe_param.insert( identificator_type::template get<      double     >(), &xml_struct::primitive<    double    >  );
-             observe_param.insert( identificator_type::template get<  long double    >(), &xml_struct::primitive<long double   >  );
+             observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &this_type::primitive<std::uint8_t  >  );
+             observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &this_type::primitive<std::uint16_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &this_type::primitive<std::uint32_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &this_type::primitive<std::uint64_t >  );
 
-             observe_param.insert( identificator_type::template get<  void*          >(), &xml_struct::primitive<void*         >  );
-             observe_param.insert( identificator_type::template get<  short          >(), &xml_struct::primitive<short         >  );
-             observe_param.insert( identificator_type::template get<  unsigned short >(), &xml_struct::primitive<unsigned short>  );
-             observe_param.insert( identificator_type::template get<  int            >(), &xml_struct::primitive<int           >  );
-             observe_param.insert( identificator_type::template get<  unsigned       >(), &xml_struct::primitive<unsigned      >  );
-             observe_param.insert( identificator_type::template get<  long           >(), &xml_struct::primitive<long          >  );
-             observe_param.insert( identificator_type::template get<  long long      >(), &xml_struct::primitive<long long     >  );
+             observe_param.insert( identificator_type::template get<       float     >(), &this_type::primitive<     float    >  );
+             observe_param.insert( identificator_type::template get<      double     >(), &this_type::primitive<    double    >  );
+             observe_param.insert( identificator_type::template get<  long double    >(), &this_type::primitive<long double   >  );
 
-             observe_param.insert( identificator_type::template get<  nullptr_t     >(), &xml_struct::null   );
+             observe_param.insert( identificator_type::template get<  void*          >(), &this_type::primitive<void*         >  );
+             observe_param.insert( identificator_type::template get<  short          >(), &this_type::primitive<short         >  );
+             observe_param.insert( identificator_type::template get<  unsigned short >(), &this_type::primitive<unsigned short>  );
+             observe_param.insert( identificator_type::template get<  int            >(), &this_type::primitive<int           >  );
+             observe_param.insert( identificator_type::template get<  unsigned       >(), &this_type::primitive<unsigned      >  );
+             observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
+             observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
 
-             {
-              using namespace std::placeholders;
-              auto f = std::bind( &xml_struct::enumeration, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  enumeration_context_type      >(), f );
-             }
+             observe_param.insert( identificator_type::template get<  nullptr_t     >(), &this_type::null_value   );
 
-             {
-              using namespace std::placeholders;
-              auto f = std::bind( &xml_struct::function, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  algorithm_type      >(), f );
-             }
+              observe_param.insert( identificator_type::template get<  enumeration_type      >(), &this_type::enumeration );
+              observe_param.insert( identificator_type::template get<  algorithm_type      >(), &this_type::function);
+              observe_param.insert( identificator_type::template get<          typedefinition_type      >(), &this_type::typedefinition );
 
              {
               using namespace std::placeholders;
-              auto f = std::bind( &xml_struct::typedefinition, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  typedefinition_context_type      >(), f );
-             }
-
-             {
-              using namespace std::placeholders;
-              auto f = std::bind( &xml_struct::structure, _1, std::ref(observe_param), _2, _3 );
+              auto f = std::bind( &this_type::structure, _1, std::ref(observe_param), _2, _3 );
               observe_param.insert( identificator_type::template get<  structure_type      >(), f );
               observe_param.control( observe_type::recover_missing_action_index, f );
              }
@@ -131,14 +131,27 @@ namespace reflection
            typedef    std::wstring     wstring_type;
            typedef    bool             boolean_type;
 
-           static  report_type   prologue( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << "<message content=\"Continue like nothig happen.\" /> ";
+
+             return report_type( true );
+            }
+
+           static report_type fundamenta( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param <<  "<element>" << std::endl;
              return report_type( true );
             }
 
+           static report_type conclusio ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << std::endl;
+             output_param <<  "</element>" << std::endl;
+             return report_type( true );
+            }
 
-           static  report_type   argument( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type statement( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              report_type result = true;
 
@@ -163,32 +176,18 @@ namespace reflection
              return report_type( result );
             }
 
-           static  report_type   contrast( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type summae( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param <<  "</item>" << std::endl;
              return report_type( true );
             }
 
-           static  report_type   stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              return report_type( true );
             }
 
-           static  report_type   exodus ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-            {
-             output_param << std::endl;
-             output_param <<  "</element>" << std::endl;
-             return report_type( true );
-            }
-
-           static  report_type   recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-            {
-             output_param << "<message content=\"Continue like nothig happen.\" /> ";
-
-             return report_type( true );
-            }
-
-           static report_type null     ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type null_value( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              typedef ::reflection::property::null_class null_type;
              auto null = dynamic_cast< null_type const* >( &property_param );
@@ -239,7 +238,7 @@ namespace reflection
 
            static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             enumeration_context_type  const* context = dynamic_cast< enumeration_context_type const* >( &property_param );
+             enumeration_type  const* context = dynamic_cast< enumeration_type const* >( &property_param );
              if( nullptr == context )
               {
                output_param << "< note=\"Wrong type supplied.\" /> ";
@@ -250,7 +249,7 @@ namespace reflection
              for( std::size_t index=0; index < context->container().size(); ++index )
               {
                output_param << "  <parameter ";
-               output_param << "ordinal=\"" << index << " ";
+               output_param << "ordinal=\"" << index << "\" ";
                output_param << "value=\""   << context->container()[index].value() << "\" ";
                output_param << "name=\""    << context->container()[index].name()  << "\" ";
                output_param << "/>";
@@ -292,17 +291,18 @@ namespace reflection
 
            static report_type typedefinition ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             typedefinition_context_type  const* context = dynamic_cast< typedefinition_context_type const* >( &property_param );
+             typedefinition_type  const* context = dynamic_cast<         typedefinition_type const* >( &property_param );
              if( nullptr == context )
               {
                output_param << "<note=\"Wrong type supplied.\" .>";
                return report_type( false );
               }
 
-             output_param << "<name original=\"" << context->name() << "\" />";
-
-             //output_param << std::endl;
-
+             output_param << std::endl;
+             output_param << "    <name   value=\"" << context->name() << "\" />";
+             output_param << std::endl;
+             output_param << "    <object value=\"" << context->object() << "\" />";
+             output_param << std::endl;
              return report_type( true );
             }
 

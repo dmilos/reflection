@@ -31,10 +31,10 @@ namespace reflection
            typedef model_name      model_type;
            typedef storage_name      storage_type;
            typedef assigner_name  assigner_type;
+           typedef report_name  report_type;
 
-           typedef ::reflection::content::mutate::pure_class<identifier_name,data_name,model_name, report_name > pure_type;
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
-
+           typedef ::reflection::content::mutate::pure_class<identifier_name,data_name,model_name, report_name > pure_type;
            typedef::reflection::property::mutate::base_class<model_name,storage_name,assigner_name, report_name> base_type;
 
                      basic_class()

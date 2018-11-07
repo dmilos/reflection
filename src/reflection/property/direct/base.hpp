@@ -57,7 +57,6 @@ namespace reflection
            extractor_type      &   F1_extractor(){ return m_extractor; }
          private:
            extractor_type          m_extractor;
-
         };
 
       }

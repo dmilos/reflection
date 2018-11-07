@@ -20,7 +20,7 @@ typedef std::array<float,2> MyGlobalTypeDef;
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_TYPEDEF( "injected-global-typedef-of-something", MyGlobalTypeDef );
+  reflection__CLASS_TYPEDEF_free( "injected-global-typedef-of-something", MyGlobalTypeDef );
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

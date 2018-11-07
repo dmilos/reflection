@@ -31,16 +31,28 @@ namespace reflection
        >
        struct json_struct
         {
+         private:
+           typedef std::size_t size_type;
+           struct internal_struct
+            {
+              size_type m_ident=0;
+              void inc(){ ++m_ident; }
+              void dec(){ --m_ident; }
+             };
+
+           typedef std::shared_ptr< internal_struct > internalPtr_type;
+
          public:
            typedef      output_name        output_type;
            typedef         key_name           key_type;
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
 
-           typedef std::size_t size_type;
+           typedef ::reflection::operation::transfer::json_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
 
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::content::category::pure_class<identifier_type>             category_type;
+           typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef typename std::add_const< property_type >::type                          property_qualified_type;
            typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
@@ -50,81 +62,69 @@ namespace reflection
            typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
          public:
-           typedef ::reflection::property::structure_class<key_type,container_name>                       structure_type;
-           typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_context_type;
+           typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_type;
            typedef ::reflection::content::function::algorithm_class<identifier_type>                      algorithm_type;
-           typedef ::reflection::property::typedefinition::pure_class                        typedefinition_context_type;
+           typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
 
          public:
            json_struct( observe_type & observe_param )
             {
-             observe_param.control( observe_type::recover_not_category_index  , &json_struct::recover );
-             observe_param.control( observe_type::recover_missing_action_index, &json_struct::recover );
-           //observe_param.control( observe_type::recover_action_fail_index   , &json_struct::recover );
-             observe_param.control( observe_type::recover_null_pointer_index  , &json_struct::null_recover    );
+             auto indent = std::make_shared<internal_struct>( );
+             using namespace std::placeholders;
 
-             observe_param.control( observe_type::stage_prologue_index,   &json_struct::prologue );
-             observe_param.control( observe_type::stage_stasimon_index ,  &json_struct::stasimon );
-             observe_param.control( observe_type::stage_argument_index,   &json_struct::argument );
-             observe_param.control( observe_type::stage_contrast_index,   &json_struct::contrast );
-             observe_param.control( observe_type::stage_exodus_index ,    &json_struct::exodus   );
+             observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
+             observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
+           //observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
+             observe_param.control( observe_type::recover_null_pointer_index  , &this_type::null_recover    );
 
-             observe_param.insert( identificator_type::template get<  std::string   >(), &json_struct::string   );
-             observe_param.insert( identificator_type::template get<  std::wstring  >(), &json_struct::wstring  );
+             observe_param.control( observe_type::stage_fundamenta_index,   std::bind( &this_type::fundamenta, indent, _1, _2, _3 ) );
+             observe_param.control( observe_type::stage_stasimon_index ,  &this_type::stasimon );
+             observe_param.control( observe_type::stage_statement_index,   &this_type::statement );
+             observe_param.control( observe_type::stage_summae_index,   &this_type::summae );
+             observe_param.control( observe_type::stage_conclusio_index ,    std::bind( &this_type::conclusio, indent, _1, _2, _3 )   );
 
-             // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &json_struct::vector  );
-             // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &json_struct::set     );
+             observe_param.insert( identificator_type::template get<  std::string   >(), &this_type::string   );
+             observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
 
-             observe_param.insert( identificator_type::template get<  char           >(), &json_struct::primitive<char          >  );
-             observe_param.insert( identificator_type::template get<  unsigned char  >(), &json_struct::primitive<unsigned char >  );
-             observe_param.insert( identificator_type::template get<  wchar_t        >(), &json_struct::primitive<wchar_t       >  );
-             observe_param.insert( identificator_type::template get<  std::wint_t    >(), &json_struct::primitive<std::wint_t   >  );
+             // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &this_type::vector  );
+             // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &this_type::set     );
 
-             observe_param.insert( identificator_type::template get<  std::int8_t    >(), &json_struct::primitive<std::int8_t   >  );
-             observe_param.insert( identificator_type::template get<  std::int16_t   >(), &json_struct::primitive<std::int16_t  >  );
-             observe_param.insert( identificator_type::template get<  std::int32_t   >(), &json_struct::primitive<std::int32_t  >  );
-             observe_param.insert( identificator_type::template get<  std::int64_t   >(), &json_struct::primitive<std::int64_t  >  );
+             observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
+             observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
+             observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t       >  );
+             observe_param.insert( identificator_type::template get<  std::wint_t    >(), &this_type::primitive<std::wint_t   >  );
 
-             observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &json_struct::primitive<std::uint8_t  >  );
-             observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &json_struct::primitive<std::uint16_t >  );
-             observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &json_struct::primitive<std::uint32_t >  );
-             observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &json_struct::primitive<std::uint64_t >  );
+             observe_param.insert( identificator_type::template get<  std::int8_t    >(), &this_type::primitive<std::int8_t   >  );
+             observe_param.insert( identificator_type::template get<  std::int16_t   >(), &this_type::primitive<std::int16_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int32_t   >(), &this_type::primitive<std::int32_t  >  );
+             observe_param.insert( identificator_type::template get<  std::int64_t   >(), &this_type::primitive<std::int64_t  >  );
 
-             observe_param.insert( identificator_type::template get<       float     >(), &json_struct::primitive<     float    >  );
-             observe_param.insert( identificator_type::template get<      double     >(), &json_struct::primitive<    double    >  );
-             observe_param.insert( identificator_type::template get<  long double    >(), &json_struct::primitive<long double   >  );
+             observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &this_type::primitive<std::uint8_t  >  );
+             observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &this_type::primitive<std::uint16_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &this_type::primitive<std::uint32_t >  );
+             observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &this_type::primitive<std::uint64_t >  );
 
-             observe_param.insert( identificator_type::template get<  void*          >(), &json_struct::primitive<void*         >  );
-             observe_param.insert( identificator_type::template get<  short          >(), &json_struct::primitive<short         >  );
-             observe_param.insert( identificator_type::template get<  unsigned short >(), &json_struct::primitive<unsigned short>  );
-             observe_param.insert( identificator_type::template get<  int            >(), &json_struct::primitive<int           >  );
-             observe_param.insert( identificator_type::template get<  unsigned       >(), &json_struct::primitive<unsigned      >  );
-             observe_param.insert( identificator_type::template get<  long           >(), &json_struct::primitive<long          >  );
-             observe_param.insert( identificator_type::template get<  long long      >(), &json_struct::primitive<long long     >  );
+             observe_param.insert( identificator_type::template get<       float     >(), &this_type::primitive<     float    >  );
+             observe_param.insert( identificator_type::template get<      double     >(), &this_type::primitive<    double    >  );
+             observe_param.insert( identificator_type::template get<  long double    >(), &this_type::primitive<long double   >  );
 
-             observe_param.insert( identificator_type::template get<  nullptr_t      >(), &json_struct::null_value   );
+             observe_param.insert( identificator_type::template get<  void*          >(), &this_type::primitive<void*         >  );
+             observe_param.insert( identificator_type::template get<  short          >(), &this_type::primitive<short         >  );
+             observe_param.insert( identificator_type::template get<  unsigned short >(), &this_type::primitive<unsigned short>  );
+             observe_param.insert( identificator_type::template get<  int            >(), &this_type::primitive<int           >  );
+             observe_param.insert( identificator_type::template get<  unsigned       >(), &this_type::primitive<unsigned      >  );
+             observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
+             observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
 
-             {
-              using namespace std::placeholders;
-              auto f = std::bind( &json_struct::enumeration, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  enumeration_context_type      >(), f );
-             }
+             observe_param.insert( identificator_type::template get<  nullptr_t      >(), &this_type::null_value   );
 
-             {
-              using namespace std::placeholders;
-              auto f = std::bind( &json_struct::function, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  algorithm_type      >(), f );
-             }
+             observe_param.insert( identificator_type::template get<  enumeration_type     >(), &this_type::enumeration    );
+             observe_param.insert( identificator_type::template get<  algorithm_type               >(), &this_type::function       );
+             observe_param.insert( identificator_type::template get<          typedefinition_type  >(), &this_type::typedefinition );
 
              {
               using namespace std::placeholders;
-              auto f = std::bind( &json_struct::typedefinition, _1, _2, _3 );
-              observe_param.insert( identificator_type::template get<  typedefinition_context_type      >(), f );
-             }
-
-             {
-              using namespace std::placeholders;
-              auto f = std::bind( &json_struct::structure, _1, std::ref(observe_param), _2, _3 );
+              auto f = std::bind( &this_type::structure, _1, std::ref(observe_param), _2, _3 );
               observe_param.insert( identificator_type::template get<  structure_type      >(), f );
               observe_param.control( observe_type::recover_missing_action_index   , f );
              }
@@ -136,13 +136,27 @@ namespace reflection
            typedef    std::wstring     wstring_type;
            typedef    bool             boolean_type;
 
-           static  report_type   prologue( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
+             return report_type( true );
+            }
+
+           static report_type fundamenta( internalPtr_type indent,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             indent->inc();
              output_param <<  "{" << std::endl;
              return report_type( true );
             }
 
-           static  report_type   argument( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type conclusio  ( internalPtr_type indent,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            {
+             output_param << std::endl;
+             output_param <<  "}" << std::endl;
+             indent->dec();
+             return report_type( true );
+            }
+
+           static report_type statement( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              report_type result = true;
 
@@ -153,12 +167,12 @@ namespace reflection
               category_type const* category = dynamic_cast< category_type const* >( &property_param );
               if( nullptr != category )
                {
-                output_param << "    \"type\" : \"" << category->identifier() << "\", " << std::endl;
+                output_param << "    \"type\"  : \"" << category->identifier() << "\", " << std::endl;
                 result = true;
                }
               else
                {
-                output_param << "    \"note\" : \"" << "Can not detect type" << "\", " << std::endl;
+                output_param << "    \"note\"  : \"" << "Can not detect type" << "\", " << std::endl;
                 result = false;
                }
              }
@@ -166,7 +180,7 @@ namespace reflection
              return report_type( result );
             }
 
-           static  report_type   contrast( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type summae( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param << std::endl;
              output_param <<  "  }";
@@ -174,31 +188,19 @@ namespace reflection
              return report_type( true );
             }
 
-           static  report_type   stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param <<  "," << std::endl;
              return report_type( true );
             }
 
-           static  report_type   exodus ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-            {
-             output_param << std::endl;
-             output_param <<  "}" << std::endl;
-             return report_type( true );
-            }
-
-           static  report_type   recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-            {
-             return report_type( true );
-            }
-
-           static bool null_recover      ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type null_recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param <<  "null" << std::endl;
              return true;
             }
 
-           static report_type null_value      ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type null_value  ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              typedef ::reflection::property::null_class null_type;
              auto null = dynamic_cast< null_type const* >( &property_param );
@@ -211,70 +213,87 @@ namespace reflection
              return report_type( true );
             }
 
-           static bool string(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type string(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             typedef ::reflection::property::inspect::pure_class<string_type const& > inspect_type;
-             auto inspect = dynamic_cast< inspect_type const* >( &property_param );
-              if( nullptr == inspect )
+             {
+              typedef ::reflection::property::inspect::pure_class<string_type const& > inspect_type;
+              auto inspect = dynamic_cast< inspect_type const* >( &property_param );
+              if( nullptr != inspect )
                {
-                return report_type( false );
+                output_param << "    \"" << "value" << "\"" << ": " << "\""<<  inspect->present() << "\"";
+                return report_type( true );
                }
-
-              output_param << "\"" << "value" << "\"" << ": " << "\""<<  inspect->present() << "\"";
+             }
+             {
+              typedef  ::reflection::property::direct::pure_class<string_type &>         direct_type;
+              direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+              if( nullptr != direct_instance )
+               {
+                output_param << "    \"" << "value" << "\"" << ": " << "\""<<  direct_instance->disclose() << "\"";
+                return report_type( true );
+               }
+             }
+             output_param << "    \"" << "note" << "\"" << ": " << "\""<<  "Can not retrieve the value." << "\"";
              return report_type( true );
             }
 
-           static bool wstring(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type wstring(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             typedef ::reflection::property::inspect::pure_class<wstring_type const& > inspect_type;
-             auto inspect = dynamic_cast< inspect_type const* >( &property_param );
-              if( nullptr == inspect )
+             {
+              typedef ::reflection::property::inspect::pure_class<string_type const& > inspect_type;
+              auto inspect = dynamic_cast< inspect_type const* >( &property_param );
+              if( nullptr != inspect )
                {
-                 return false;
+                // TODO output_param << "    \"" << "value" << "\"" << ": " << "\""<<  inspect->present() << "\"";
+                return report_type( true );
                }
+             }
+             {
+              typedef  ::reflection::property::direct::pure_class<string_type &>         direct_type;
+              direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+              if( nullptr != direct_instance )
+               {
+                // TODO output_param << "    \"" << "value" << "\"" << ": " << "\""<<  direct_instance->disclose() << "\"";
+                return report_type( true );
+               }
+             }
 
-             // TODO output_param << "\"" << "value" << "\"" << ": " << "\""<<  inspect->present() << "\"";
              return report_type( true );
             }
 
            template< typename simple_name >
             static report_type primitive(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
              {
-              bool pass = true;
+              {
+               typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
+               auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+               if( nullptr != inspect_instance )
+                {
+                 output_param << "    \"value\" : " << inspect_instance->present();
+                 return report_type( true );
+                }
+              }
 
-              if( true == pass )
-               {
-                typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
-                auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
-                if( nullptr != inspect_instance )
-                 {
-                  output_param << "    \"value\" : " << inspect_instance->present();
-                  pass = false;
-                 }
-               }
+              {
+               typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
+               direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+               if( nullptr != direct_instance )
+                {
+                 output_param << "    \"value\" : " << direct_instance->disclose();
+                 return report_type( true );
+                }
+              }
 
-              if( true == pass )
-               {
-                typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
-                direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
-                if( nullptr != direct_instance )
-                 {
-                  output_param << "    \"value\" : " << direct_instance->disclose();
-                  pass = false;
-                 }
-               }
-
-              if( true == pass )
-               {
-                output_param << "    \"note\" : " << "\"Can not retrieve value.\"";
-               }
+              {
+               output_param << "    \"note\" : " << "\"Can not retrieve value.\"";
+              }
 
               return report_type( true );
              }
 
            static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             enumeration_context_type  const* context = dynamic_cast< enumeration_context_type const* >( &property_param );
+             enumeration_type  const* context = dynamic_cast< enumeration_type const* >( &property_param );
              if( nullptr == context )
               {
                // TODO
@@ -333,21 +352,22 @@ namespace reflection
 
            static report_type typedefinition ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             typedefinition_context_type  const* context = dynamic_cast< typedefinition_context_type const* >( &property_param );
+             typedefinition_type  const* context = dynamic_cast<         typedefinition_type const* >( &property_param );
              if( nullptr == context )
               {
                // TODO
                return report_type( false );
               }
 
-             output_param << "    \"original\": \"" << context->name()<< "\"";
+             output_param << "    \"object\": \"" << context->object() << "\"," << std::endl;
+             output_param << "    \"name\"  : \""   << context->name()   << "\"";
              //output_param << std::endl;
              return report_type( true );
             }
 
            static report_type structure ( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
-             bool pass = true;
+             boolean_type pass = true;
 
              if( true == pass )
               {

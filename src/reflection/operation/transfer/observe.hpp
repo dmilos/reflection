@@ -61,17 +61,27 @@ namespace reflection
 
            enum control_enum
             {
-              recover_not_category_index     = 0
-             ,recover_missing_action_index   = 1
-             ,recover_action_fail_index      = 2
-             ,recover_null_pointer_index     = 3
-             ,stage_prologue_index           = 4
-             ,stage_argument_index           = 5 // beginning of epeisodia
-             ,stage_contrast_index           = 6 // end of epeisodia
-             ,stage_stasimon_index           = 7
-             ,stage_exodus_index             = 8
+              recover_not_category_index     =  0
+             ,recover_missing_action_index
+             ,recover_action_fail_index
+             ,recover_null_pointer_index
+
+             ,stage_prolog_index             // At the beginning of everything
+             ,stage_exodus_index             // at the end  of everything
+
+             ,stage_fundamenta_index         // At the beginning of structure
+             ,stage_conclusio_index         // at the end  of structure
+
+             ,stage_statement_index          // beginning of episodia before checking if action exists
+             ,stage_argument_index           // beginning of episodia before action starts
+
+             ,stage_summae_index             // end of episodia
+
+             ,stage_stasimon_index           // something in between episodia
+
+             ,control__end
              };
-           typedef std::array< function_type, stage_exodus_index + 1 > control_type;
+           typedef std::array< function_type, control__end > control_type;
 
          public:
            observe_class()
@@ -86,12 +96,16 @@ namespace reflection
              this->control( recover_missing_action_index , action_type::always_true() );
              this->control( recover_action_fail_index    , action_type::always_true() );
              this->control( recover_null_pointer_index   , action_type::always_true() );
-             this->control( stage_prologue_index         , action_type::always_true() );
-             this->control( stage_argument_index         , action_type::always_true() );
-             this->control( stage_contrast_index         , action_type::always_true() );
-             this->control( stage_stasimon_index         , action_type::always_true() );
+             this->control( stage_prolog_index           , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
-             m_menu.clear();
+             this->control( stage_fundamenta_index       , action_type::always_true() );
+             this->control( stage_conclusio_index        , action_type::always_true() );
+             this->control( stage_statement_index        , action_type::always_true() );
+             this->control( stage_argument_index         , action_type::always_true() );
+             this->control( stage_summae_index           , action_type::always_true() );
+             this->control( stage_stasimon_index         , action_type::always_true() );
+             this->m_menu.clear();
+             this->m_pass = 0;
             }
 
          public:
@@ -113,7 +127,8 @@ namespace reflection
             {
              protocolX_type::insert( this->menu(), key, function );
             }
-
+         public:
+           mutable std::size_t m_pass;
          public:
            report_type view
             (
@@ -122,18 +137,27 @@ namespace reflection
             )const
             {
 
+             if( 0 == m_pass++ )
               {
-                auto report = this->control()[stage_prologue_index]( output_param, key_type{}, struct_param );
-                if( report_type( false ) == report )
+               auto report = this->control()[stage_prolog_index]( output_param, key_type{}, struct_param );
+               if( report_type( false ) == report )
                 {
-                  return report;
+                 goto label_exosud;
                 }
               }
 
-             std::size_t index=0;
+              {
+               auto report = this->control()[stage_fundamenta_index]( output_param, key_type{}, struct_param );
+               if( report_type( false ) == report )
+                {
+                 goto label_conclusio;
+                }
+              }
+
+             { std::size_t index = struct_param.size();
              for( auto iterator  =  struct_param.begin();
                        iterator !=  struct_param.end();
-                     ++iterator, ++index )
+                     ++iterator, --index )
               {
                auto  const            key = struct_param.key(  iterator );
                item_qualified_type   data = struct_param.data( iterator );
@@ -155,16 +179,24 @@ namespace reflection
                 {
                  if( report_type( false ) == this->control()[recover_not_category_index]( output_param, key, property ) )
                   {
-                   return report_type( false );
+                   goto label_conclusio;
                   }
                  continue;
                 }
+
+               {
+                auto report = this->control()[stage_statement_index]( output_param, key, property );
+                if( report_type( false ) == report )
+                 {
+                  goto label_conclusio;
+                 }
+               }
 
                if( false == protocolX_type::exists( this->menu(), category->identifier() ) )
                 {
                  if( report_type( false ) == this->control()[recover_missing_action_index]( output_param, key, property ) )
                   {
-                   return report_type( false );
+                   goto label_conclusio;
                   }
                  continue;
                 }
@@ -172,40 +204,54 @@ namespace reflection
                {
                 auto report = this->control()[stage_argument_index]( output_param, key, property );
                 if( report_type( false ) == report )
-                {
-                  return report;
-                }
+                 {
+                  goto label_conclusio;
+                 }
                }
 
                if( report_type( false ) == protocolX_type::find( this->menu(), category->identifier() )( output_param, key, property ) )
                 {
                  if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key, property ) )
                   {
-                   return report_type( false );
+                   goto label_conclusio;
                   }
                  continue;
                 }
 
                {
-                auto report = this->control()[stage_contrast_index]( output_param, key, property );
+                auto report = this->control()[stage_summae_index]( output_param, key, property );
                 if( report_type( false ) == report )
-                {
-                  return report;
-                }
+                 {
+                  goto label_conclusio;
+                 }
                }
 
-               if( index + 1 < struct_param.size() )
+               if( 1 == index )
                 {
                  auto report = this->control()[stage_stasimon_index]( output_param, key, property );
                  if( report_type( false ) == report )
                   {
-                   return report;
+                   goto label_conclusio;
                   }
                 }
 
+              }}
+
+             label_conclusio:
+              {
+               auto report = this->control()[stage_conclusio_index]( output_param, key_type{}, struct_param );
               }
 
-             return this->control()[stage_exodus_index]( output_param, key_type{}, struct_param );
+             label_exosud:
+             if( 0 == --m_pass )
+              {
+               auto report = this->control()[stage_exodus_index]( output_param, key_type{}, struct_param );
+               if( report_type( false ) == report )
+                {
+                 return report;
+                }
+              }
+             return report_type( true );
             }
 
        };

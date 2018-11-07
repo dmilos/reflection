@@ -1,13 +1,13 @@
 # C++ Reflection
 
-Status
+### Status
 - In progress
 
-Description
+### Description
  - Yet another implementation of reflection in C++. \
    Link: https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29
 
-Key features:
+### Key features:
  - General:
     * Headers only
     * No additional binaries
@@ -19,10 +19,11 @@ Key features:
  - Specific:
     * Obey existing encapsulation
     * No bloat of existing code and require no change aether.
-    * Extra: serialize to XML and JSON
+    * Add or remove some properties in run-time.
+    * Extra: serialize to XML, JSON, YAML, Protobuf and CPP.
 
 
-Example:
+### Example:
 ```c++
 
 #include <iostream>
@@ -59,7 +60,7 @@ class MyClassOriginal //!< In original condition. Not bloated with any other cod
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
-  reflection__CLASS_TYPEDEF( "typedef-of-something", MyClassOriginal::MyTypDef );
+  reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyClassOriginal, MyTypDef );
 
   reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
     reflection__CLASS_ENUM_value( "enum1",  MyClassOriginal::enum1 )
@@ -112,3 +113,9 @@ int main( int argc, char *argv[] )
 
  ```
 
+### Note:
+  Tested against : 
+    - gcc 6.4.0
+    - gcc 7.3.0
+    - MSVC 2015  14.0 Update 3
+    - MSVC 2017 15.5.6 

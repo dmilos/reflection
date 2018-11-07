@@ -1,0 +1,64 @@
+digraph color_conversion {
+
+	prolog     [shape = box, label="Stage: Prolog"];
+	fundamenta [shape = box, label="Stage: Fundamenta"];
+	statement[shape = box, label="Stage: Statement"];
+	argument[shape = box, label="Stage: Argument"];
+	summae[shape = box, label="Stage: Summae"];
+	stasimon[shape = box, label="Stage: Stasimon"];
+	conclusio[shape = box, label="Stage: Conslusion"];
+	exodus[shape = box, label="Stage: Exodus"];
+	ACTION  [ label = "Action"  ];
+
+	acquisition  [ label = "Internal: Item acquisition."  ];
+
+	check_type    [shape = box, label="Internal: Check Type"];
+	find_action   [shape = box, label="Internal Find Action"];
+
+	fail_action   [shape = box, label="Recover: Fail Action"];
+	fail_type     [shape = box, label="Recover: Type acquisition"];
+	fail_no_action[shape = box, label="Recover: No action"];
+
+	prolog  -> fundamenta [ label = "succes" , dir=forward ];
+	prolog  -> exodus [ label = "fail" , dir=forward ];
+
+	fundamenta -> acquisition[ label = "succes", dir=forward  ];
+	fundamenta -> conclusio[ label = "fail", dir=forward  ];
+
+	acquisition -> check_type[ label = "success", dir=forward  ];
+	acquisition -> conclusio[ label = "fail", dir=forward  ];
+
+	check_type  -> statement  [ label = "success", dir=forward  ];
+	check_type  -> fail_type  [ label = "fail", dir=forward  ];
+
+	statement  -> find_action  [ label = "success", dir=forward  ];
+	statement  -> conclusio  [ label = "fail", dir=forward  ];
+
+	find_action ->argument       [ label = "success", dir=forward  ];
+	find_action ->fail_no_action [ label = "fail", dir=forward  ];
+
+	argument  -> ACTION  [ label = "success", dir=forward  ];
+	argument  -> conclusio  [ label = "fail", dir=forward  ];
+
+	ACTION  -> stasimon  [ label = "success", dir=forward  ];
+	ACTION  -> fail_action  [ label = "fail", dir=forward  ];
+	ACTION  -> summae  [ label = "success", dir=forward  ];
+
+
+	summae  -> stasimon  [ label = "", dir=forward  ];
+	summae  -> conclusio  [ label = "", dir=forward  ];
+	conclusio  -> fundamenta   [ label = "", dir=forward  ];
+	conclusio -> exodus[ label = "", dir=forward  ];
+
+	stasimon  -> acquisition  [ label = "", dir=forward  ];
+
+	fail_type -> acquisition[ label = "success", dir=forward  ];
+	fail_type -> conclusio[ label = "fail", dir=forward  ];
+
+	fail_action -> acquisition[ label = "success", dir=forward  ];
+	fail_action -> conclusio[ label = "fail", dir=forward  ];
+
+	fail_no_action-> acquisition[ label = "succes", dir=forward  ];
+	fail_no_action-> conclusio[ label = "fail", dir=forward  ];
+
+}

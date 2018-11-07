@@ -52,8 +52,9 @@ namespace reflection
 
         ~structure_class(){}
 
-       private:
+       public:
          container_type const& container()const{ return this->m_container; }
+       private:
          container_type      & container()     { return this->m_container; }
 
        private:

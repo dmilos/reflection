@@ -6,4 +6,7 @@
 #include "./json.hpp"
 #include "./cpp.hpp"
 
+#include "./yaml.hpp"
+#include "./protobuf.hpp"
+
 #include "./assign.hpp"

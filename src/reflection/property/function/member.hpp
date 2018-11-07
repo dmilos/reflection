@@ -25,7 +25,7 @@ namespace reflection
         >
        class member_class
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
-        , virtual public ::reflection::property::_internal::carrier_class<class_name*>
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef   class_name     class_type;
@@ -59,7 +59,7 @@ namespace reflection
       template< typename class_name,typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
        class member_class< class_name,storage_name,return_name,first_name,second_name,third_name,fourth_name,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>
-        , virtual public ::reflection::property::_internal::carrier_class<class_name*>
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef  class_name     class_type;
@@ -89,7 +89,7 @@ namespace reflection
       template< typename class_name,typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name >
        class member_class< class_name,storage_name,return_name,first_name,second_name,third_name,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>
-        , virtual public ::reflection::property::_internal::carrier_class<class_name*>
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef  class_name     class_type;
@@ -118,7 +118,7 @@ namespace reflection
       template< typename class_name,typename storage_name, typename return_name, typename first_name, typename second_name >
        class member_class< class_name,storage_name,return_name,first_name,second_name,void,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>
-        , virtual public ::reflection::property::_internal::carrier_class<class_name*>
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef  class_name     class_type;
@@ -147,7 +147,7 @@ namespace reflection
       template< typename class_name,typename storage_name, typename return_name, typename first_name >
        class member_class< class_name,storage_name,return_name,first_name,void,void,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>
-        , virtual public ::reflection::property::_internal::carrier_class<class_name*>
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef  class_name     class_type;
@@ -174,7 +174,7 @@ namespace reflection
       template< typename class_name,typename storage_name, typename return_name >
        class member_class< class_name,storage_name,return_name,void,void,void,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,void,void,void,void,void>
-        , virtual public ::reflection::property::_internal::carrier_class<class_name*>
+        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
          public:
            typedef  class_name     class_type;

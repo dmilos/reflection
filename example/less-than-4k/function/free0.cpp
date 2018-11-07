@@ -12,10 +12,19 @@ class MyClassOriginal
     MyClassOriginal()
      {
      }
-    //Just nothing.
+
+    bool  writer_int(    int       const& i )
+     {
+      std::cout << __FUNCTION__ << std::endl;
+      m_int  = i; 
+      return true; 
+     }
+    int       const&  reader_int() const{ return m_int; }
+  private:
+    int m_int;
  };
 
-void free_void_void()
+void free_void()
  {
   std::cout << __FUNCTION__ << std::endl;
  }
@@ -24,7 +33,9 @@ void free_void_void()
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_free( "free_void_void", free_void_void )
+    reflection__CLASS_FUNCTION_free( "free_void", free_void )
+
+  reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writer_int ,   reader_int    )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
@@ -33,12 +44,24 @@ int main( int argc, char *argv[] )
  {
   MyClassReflection r;  //!< Reflection of Original
 
-  // Classic "direct" call where c++ take care about arguments type
-  ::reflection::property::function::execute< void >( r.get("free_void_void") );
+  int i=20;
+
+  // Classic "direct" call where c++ take care about arguments type check
+
+  ::reflection::property::function::execute<void>( r.get( "free_void" ) );
+  std::cout << i << std::endl;
+
 
   ::reflection::content::function::argument_struct<std::string>::container_type argument;
+  argument.resize(1);
 
-  ::reflection::content::function::execute<std::string>( r.get("free_void_void"), argument );
+  auto p0v = ::reflection::content::trinity::void_class<std::string,bool> {} ;
+
+
+  argument[0]= &p0v;
+
+  ::reflection::content::function::execute<std::string>( r.get("free_void"), argument );
+
 
   return EXIT_SUCCESS;
  }

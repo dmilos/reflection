@@ -82,7 +82,5 @@ int main( int argc, char *argv[] )
 
   observe.view( std::cout, r );
 
- auto const& m = r.get("extra2");
-
   return EXIT_SUCCESS;
  }

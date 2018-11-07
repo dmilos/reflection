@@ -1,2 +1,2 @@
 ./member.exe
-./static.exe
+./free.exe

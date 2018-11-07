@@ -24,19 +24,26 @@ class MyClassOriginal
     int m_int;
  };
 
-  int free_int_int_string( int i, std::string const& s )
-   {
-    std::cout << __FUNCTION__ << std::endl;
-    std::cout << i << std::endl;
-    std::cout << s << std::endl;
-    return 10;
-   }
+void free_void_int( int &i )
+ {
+  std::cout << __FUNCTION__ << std::endl;
+  std::cout << i << std::endl;
+  i = 12345;
+ }
 
+int  free_int_int( int &i  )
+ {
+  std::cout << __FUNCTION__ << std::endl;
+  std::cout << i << std::endl;
+  i = 98765;
+  return 10;
+ }
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_FUNCTION_free( "free_int_int_string", free_int_int_string )
+    reflection__CLASS_FUNCTION_free( "free_void_int", free_void_int )
+    reflection__CLASS_FUNCTION_free( "free_int_int",  free_int_int )
   reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writer_int ,   reader_int    )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
@@ -47,26 +54,37 @@ int main( int argc, char *argv[] )
   MyClassReflection r;  //!< Reflection of Original
 
   int i=20;
-  // Classic "direct" call where c++ take care about arguments type
-  //std::cout <<
-   ::reflection::property::function::execute< int, int, std::string const& >( r.get("free_int_int_string"), i, "aaa" )
-  // << std::endl
-  ;
+
+  // Classic "direct" call where c++ take care about arguments type check
+
+  std::cout <<  i << std::endl;
+  ::reflection::property::function::execute<int, int& >( r.get( "free_int_int" ), i );
+  std::cout << i << std::endl;
+
+  ::reflection::property::function::execute<void, int&>( r.get( "free_void_int" ), i );
+  std::cout << i << std::endl;
+
 
   ::reflection::content::function::argument_struct<std::string>::container_type argument;
+  argument.resize(2);
 
-  //auto p0 = ::reflection::content::trinity::simple<std::string,int>( 1024 );
-  argument.push_back( &r.get("int-point") );
+  auto p0i = ::reflection::content::trinity::simple<std::string,int>( 100 );
+  auto p0v = ::reflection::content::trinity::void_class<std::string,bool> {} ;
 
   auto p1 = ::reflection::content::trinity::simple<std::string,int>( 1024 );
-  argument.push_back( &p1 );
 
-  auto p2 = ::reflection::content::trinity::simple<std::string,std::string>( "test-string" );
-  argument.push_back( &p2 );
+  argument[0]= &p0v;
+  argument[1]= &p1;
 
-  //std::cout << p0.present() << std::endl;
-  ::reflection::content::function::execute<std::string>( r.get("free_int_int_string"), argument );
-  //std::cout << p0.present() << std::endl;
+  std::cout << p1.present() << std::endl;
+  ::reflection::content::function::execute<std::string>( r.get("free_void_int"), argument );
+  std::cout << p1.present() << std::endl;
+
+  argument[0]= &r.get("int-point");
+  p1.disclose() = 4567;
+  std::cout << p1.present() << std::endl;
+  ::reflection::content::function::execute<std::string>( r.get("free_int_int"), argument );
+  std::cout << p1.present() << std::endl;
 
   return EXIT_SUCCESS;
  }

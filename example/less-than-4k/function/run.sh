@@ -2,7 +2,10 @@
 ./free2.exe
 ./free3.exe
 ./free4.exe
+./free5.exe
 ./member0.exe
 ./member1.exe
 ./member2.exe
 ./member3.exe
+./member4.exe
+./member5.exe
