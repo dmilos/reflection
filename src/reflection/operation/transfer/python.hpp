@@ -34,6 +34,8 @@ namespace reflection
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
 
+           typedef ::reflection::operation::transfer::python_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
+
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::content::category::pure_class<identifier_type>             category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;

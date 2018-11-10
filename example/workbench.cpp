@@ -122,6 +122,7 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::cpp_struct<std::ostream> cpp_type;
   typedef ::reflection::operation::transfer::yaml_struct<std::ostream> yaml_type;
   typedef ::reflection::operation::transfer::protobuf_struct<std::ostream> protobuf_type;
+  typedef ::reflection::operation::transfer::ini_struct<std::ostream> ini_type;
 
   MyClassOriginal o;
   MyClassReflection   r( &o );  //!< Reflection of Original, with pointing to some instance
@@ -149,12 +150,16 @@ int main( int argc, char *argv[] )
   { protobuf_type protobuf( observe ); } // Protobufferize
   observe.view( std::cout, r );
 
-  for( auto & v: r )
-   {
-    std::cout << ::reflection::content::category::pure<std::string>( *v.second ).identifier() << "  ";
-    std::cout << v.first  <<";";
-    std::cout << std::endl;
-   }
+  observe.clear();
+  { ini_type ini( observe ); } // INIrize
+  observe.view( std::cout, r );
+
+  //for( auto & v: r )
+  // {
+  //  std::cout << ::reflection::content::category::pure<std::string>( *v.second ).identifier() << "  ";
+  //  std::cout << v.first  <<";";
+  //  std::cout << std::endl;
+  // }
 
   return EXIT_SUCCESS;
  }

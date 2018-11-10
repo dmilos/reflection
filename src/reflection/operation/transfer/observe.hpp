@@ -69,13 +69,13 @@ namespace reflection
              ,stage_prolog_index             // At the beginning of everything
              ,stage_exodus_index             // at the end  of everything
 
-             ,stage_fundamenta_index         // At the beginning of structure
-             ,stage_conclusio_index         // at the end  of structure
+             ,stage_introductum_index        // At the beginning of structure
+             ,stage_conclusio_index          // at the end  of structure
 
-             ,stage_statement_index          // beginning of episodia before checking if action exists
+             ,stage_prefix_index             // beginning of episodia before checking if action exists
              ,stage_argument_index           // beginning of episodia before action starts
 
-             ,stage_summae_index             // end of episodia
+             ,stage_suffix_index             // end of episodia
 
              ,stage_stasimon_index           // something in between episodia
 
@@ -98,11 +98,11 @@ namespace reflection
              this->control( recover_null_pointer_index   , action_type::always_true() );
              this->control( stage_prolog_index           , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
-             this->control( stage_fundamenta_index       , action_type::always_true() );
+             this->control( stage_introductum_index       , action_type::always_true() );
              this->control( stage_conclusio_index        , action_type::always_true() );
-             this->control( stage_statement_index        , action_type::always_true() );
+             this->control( stage_prefix_index        , action_type::always_true() );
              this->control( stage_argument_index         , action_type::always_true() );
-             this->control( stage_summae_index           , action_type::always_true() );
+             this->control( stage_suffix_index           , action_type::always_true() );
              this->control( stage_stasimon_index         , action_type::always_true() );
              this->m_menu.clear();
              this->m_pass = 0;
@@ -147,7 +147,7 @@ namespace reflection
               }
 
               {
-               auto report = this->control()[stage_fundamenta_index]( output_param, key_type{}, struct_param );
+               auto report = this->control()[stage_introductum_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
                 {
                  goto label_conclusio;
@@ -179,16 +179,16 @@ namespace reflection
                 {
                  if( report_type( false ) == this->control()[recover_not_category_index]( output_param, key, property ) )
                   {
-                   goto label_conclusio;
+                   goto label_suffix;
                   }
                  continue;
                 }
 
                {
-                auto report = this->control()[stage_statement_index]( output_param, key, property );
+                auto report = this->control()[stage_prefix_index]( output_param, key, property );
                 if( report_type( false ) == report )
                  {
-                  goto label_conclusio;
+                  goto label_suffix;
                  }
                }
 
@@ -196,7 +196,7 @@ namespace reflection
                 {
                  if( report_type( false ) == this->control()[recover_missing_action_index]( output_param, key, property ) )
                   {
-                   goto label_conclusio;
+                   goto label_suffix;
                   }
                  continue;
                 }
@@ -205,7 +205,7 @@ namespace reflection
                 auto report = this->control()[stage_argument_index]( output_param, key, property );
                 if( report_type( false ) == report )
                  {
-                  goto label_conclusio;
+                  goto label_suffix;
                  }
                }
 
@@ -213,20 +213,21 @@ namespace reflection
                 {
                  if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key, property ) )
                   {
-                   goto label_conclusio;
+                   goto label_suffix;
                   }
                  continue;
                 }
 
+               label_suffix:
                {
-                auto report = this->control()[stage_summae_index]( output_param, key, property );
+                auto report = this->control()[stage_suffix_index]( output_param, key, property );
                 if( report_type( false ) == report )
                  {
                   goto label_conclusio;
                  }
                }
 
-               if( 1 == index )
+               if( 1 != index )
                 {
                  auto report = this->control()[stage_stasimon_index]( output_param, key, property );
                  if( report_type( false ) == report )

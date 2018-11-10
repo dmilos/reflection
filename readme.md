@@ -20,7 +20,7 @@
     * Obey existing encapsulation
     * No bloat of existing code and require no change aether.
     * Add or remove some properties in run-time.
-    * Extra: serialize to XML, JSON, YAML, Protobuf and CPP.
+    * Extra: serialize to XML, JSON, YAML, Protobuf, CPP and INI.
 
 
 ### Example:

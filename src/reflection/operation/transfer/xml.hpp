@@ -73,10 +73,10 @@ namespace reflection
            //observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
              observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
 
-             observe_param.control( observe_type::stage_fundamenta_index,       &this_type::fundamenta     );
-             observe_param.control( observe_type::stage_statement_index,     &this_type::statement   );
-             observe_param.control( observe_type::stage_summae_index,        &this_type::summae      );
-             observe_param.control( observe_type::stage_conclusio_index,     &this_type::conclusio   );
+             observe_param.control( observe_type::stage_introductum_index,    &this_type::introductum );
+             observe_param.control( observe_type::stage_prefix_index,     &this_type::prefix  );
+             observe_param.control( observe_type::stage_suffix_index,        &this_type::suffix     );
+             observe_param.control( observe_type::stage_conclusio_index,     &this_type::conclusio  );
 
              observe_param.insert( identificator_type::template get< std::string    >(), &this_type::primitive<std::string   >  );
      // TODO observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::primitive<std::wstring  >  );
@@ -86,7 +86,7 @@ namespace reflection
 
              observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
              observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
-             observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t  >  );
+             observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t       >  );
              observe_param.insert( identificator_type::template get<  std::wint_t    >(), &this_type::primitive<std::wint_t   >  );
 
              observe_param.insert( identificator_type::template get<  std::int8_t    >(), &this_type::primitive<std::int8_t   >  );
@@ -111,7 +111,7 @@ namespace reflection
              observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
              observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
 
-             observe_param.insert( identificator_type::template get<  nullptr_t     >(), &this_type::null_value   );
+             observe_param.insert( identificator_type::template get<  nullptr_t      >(), &this_type::null_value   );
 
               observe_param.insert( identificator_type::template get<  enumeration_type      >(), &this_type::enumeration );
               observe_param.insert( identificator_type::template get<  algorithm_type      >(), &this_type::function);
@@ -138,7 +138,7 @@ namespace reflection
              return report_type( true );
             }
 
-           static report_type fundamenta( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type introductum( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param <<  "<element>" << std::endl;
              return report_type( true );
@@ -151,7 +151,7 @@ namespace reflection
              return report_type( true );
             }
 
-           static report_type statement( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type prefix( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              report_type result = true;
 
@@ -176,7 +176,7 @@ namespace reflection
              return report_type( result );
             }
 
-           static report_type summae( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type suffix( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              output_param <<  "</item>" << std::endl;
              return report_type( true );
@@ -197,7 +197,6 @@ namespace reflection
               }
 
              output_param << "<value content=\"null\" />";
-
              return report_type( true );
             }
 

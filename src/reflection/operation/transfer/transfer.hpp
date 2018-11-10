@@ -5,6 +5,7 @@
 #include "./xml.hpp"
 #include "./json.hpp"
 #include "./cpp.hpp"
+#include "./ini.hpp"
 
 #include "./yaml.hpp"
 #include "./protobuf.hpp"

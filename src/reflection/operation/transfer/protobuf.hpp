@@ -79,9 +79,9 @@ namespace reflection
              auto internal = std::make_shared<internal_struct>( );
              using namespace std::placeholders;
 
-             observe_param.control( observe_type::stage_fundamenta_index,   std::bind( &this_type::fundamenta, internal, _1, _2, _3 )  );
+             observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, internal, _1, _2, _3 )  );
              observe_param.control( observe_type::stage_conclusio_index,    std::bind( &this_type::conclusio,  internal, _1, _2, _3 ) );
-             observe_param.control( observe_type::stage_statement_index,    std::bind( &this_type::statement,  internal, _1, _2, _3 ) );
+             observe_param.control( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,  internal, _1, _2, _3 ) );
 
              // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &this_type::vector  );
              // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &this_type::set     );
@@ -104,7 +104,7 @@ namespace reflection
              return report_type( true );
             }
 
-           static report_type fundamenta( internalPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type introductum( internalPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              report_type result = true;
              output_param <<  "message ";
@@ -136,7 +136,7 @@ namespace reflection
              return report_type( true );
             }
 
-           static report_type statement( internalPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static report_type prefix( internalPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              report_type result = true;
 
