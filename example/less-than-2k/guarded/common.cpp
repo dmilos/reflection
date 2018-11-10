@@ -21,9 +21,9 @@ std::string  MyStructOriginal::m_string;
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyStructReflection, public, MyStructOriginal )
 
-  reflection__CLASS_COMMON_guarded(   "integer",          MyStructOriginal, m_int     )
-  reflection__CLASS_COMMON_guarded(   "float-point",      MyStructOriginal, m_float   )
-  reflection__CLASS_COMMON_guarded(   "standard-string",  MyStructOriginal, m_string  )
+  reflection__CLASS_STATIC_guarded(   "integer",          MyStructOriginal, m_int     )
+  reflection__CLASS_STATIC_guarded(   "float-point",      MyStructOriginal, m_float   )
+  reflection__CLASS_STATIC_guarded(   "standard-string",  MyStructOriginal, m_string  )
 
 reflection__CLASS_END_inherit( MyStructReflection, MyStructOriginal );
 

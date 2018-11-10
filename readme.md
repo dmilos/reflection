@@ -54,9 +54,22 @@ class MyClassOriginal //!< In original condition. Not bloated with any other cod
 
   public:
    double m_public = 456;
-  private: // And private member
+  public:
+   static std::string m_static;
+  private:
     int m_int;
  };
+
+int  free_int_int_string( int &i , std::string const& s )
+ {
+  std::cout << __FUNCTION__ << std::endl;
+  std::cout << i << std::endl;
+  i = 98765;
+  std::cout << s << std::endl;
+  return 10;
+ }
+
+std::string MyClassOriginal::m_static;
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
@@ -69,20 +82,24 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
   reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
 
-  reflection__CLASS_MEMBER_mutate(   "asasd3",  MyClassOriginal, writer  )
-  reflection__CLASS_MEMBER_direct(   "asasd4",  MyClassOriginal, traitor  )
-  reflection__CLASS_MEMBER_inspect(  "asasd5",  MyClassOriginal, reader   )
+  reflection__CLASS_MEMBER_mutate(   "asasd3",  MyClassOriginal, writer   )//!< Access to member by using only writer
+  reflection__CLASS_MEMBER_direct(   "asasd4",  MyClassOriginal, traitor  )//!< Access to member by using only traitor
+  reflection__CLASS_MEMBER_inspect(  "asasd5",  MyClassOriginal, reader   )//!< Access to member by using only reader
 
-  reflection__CLASS_MEMBER_variable( "asasd1",  MyClassOriginal, traitor, reader )
-  reflection__CLASS_MEMBER_guarded(  "asasd2",  MyClassOriginal, writer, reader  )
+  reflection__CLASS_MEMBER_variable( "asasd1",  MyClassOriginal, traitor, reader ) //!< Access to member by using traitor and reader
+  reflection__CLASS_MEMBER_guarded(  "asasd2",  MyClassOriginal, writer, reader  ) //!< Access to member by using writer  and reader
+  reflection__CLASS_MEMBER_exposed(  "asasd2",  MyClassOriginal, traitor, writer ) //!< Access to member by using traitor and writer
 
-  reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, b )
-  reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
-  reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
+  reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, b ) //!< Member function
+  reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c ) //!< Member function
+  reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d ) //!< Member function
 
-  reflection__CLASS_FUNCTION_static( "my_static", MyClassOriginal, some_static_function )
-  reflection__CLASS_FIELD_guarded(  "some-doubleG", MyClassOriginal, m_public )
-  reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
+  reflection__CLASS_FUNCTION_free( "free_int_int_string",  free_int_int_string ) //!< Inject non-member function.
+
+  reflection__CLASS_FUNCTION_static(  "my_static",           MyClassOriginal, some_static_function )
+
+  reflection__CLASS_FIELD_guarded(    "some-doubleG",        MyClassOriginal, m_public          )
+  reflection__CLASS_STATIC_mutate(    "some-common-stringI", MyClassOriginal, m_static   )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
@@ -97,15 +114,15 @@ int main( int argc, char *argv[] )
 
   MyClassReflection r;  //!< Reflection of Original
 
-  observe_type observe;
+  observe_type observe; //!< Have generalized serialization algorithm
 
-  xml_type xml( observe ); // XMLize for example
-  observe.view( std::cout, r );
+  xml_type xml( observe ); //!< Fill them with specific things about XML
+  observe.view( std::cout, r );//!< XMLize
 
   observe.clear();
 
-  json_type json( observe ); // JSONize also
-  observe.view( std::cout, r );
+  json_type json( observe ); //!< Fill them with specific thing about JSON
+  observe.view( std::cout, r );//!< JSONize also
 
   std::cin.get();
   return EXIT_SUCCESS;
@@ -114,8 +131,8 @@ int main( int argc, char *argv[] )
  ```
 
 ### Note:
-  Tested against : 
-    - gcc 6.4.0
-    - gcc 7.3.0
-    - MSVC 2015  14.0 Update 3
-    - MSVC 2017 15.5.6 
+Tested against :
+ - gcc 6.4.0
+ - gcc 7.3.0
+ - MSVC 2015 14.0 Update 3
+ - MSVC 2017 15.5.6

@@ -129,6 +129,72 @@ namespace reflection
             }
          public:
            mutable std::size_t m_pass;
+
+         public:
+           report_type view
+            (
+              output_type                       &   output_param
+             ,key_type                     const&      key_param
+             ,property_qualified_reference_type   property_param
+            )const
+            {
+
+             category_qualified_type *  category = dynamic_cast< category_qualified_type * >( &property_param );
+             if( nullptr == category )
+              {
+               if( report_type( false ) == this->control()[recover_not_category_index]( output_param, key_param, property_param ) )
+                {
+                 goto label_suffix;
+                }
+               return report_type( false );
+              }
+
+             {
+              auto report = this->control()[stage_prefix_index]( output_param, key_param, property_param );
+              if( report_type( false ) == report )
+               {
+                goto label_suffix;
+               }
+             }
+
+             if( false == protocolX_type::exists( this->menu(), category->identifier() ) )
+              {
+               if( report_type( false ) == this->control()[recover_missing_action_index]( output_param, key_param, property_param ) )
+                {
+                 goto label_suffix;
+                }
+               return report_type( false );
+              }
+
+             {
+              auto report = this->control()[stage_argument_index]( output_param, key_param, property_param );
+              if( report_type( false ) == report )
+               {
+                goto label_suffix;
+               }
+             }
+
+             if( report_type( false ) == protocolX_type::find( this->menu(), category->identifier() )( output_param, key_param, property_param ) )
+              {
+               if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key_param, property_param ) )
+                {
+                 goto label_suffix;
+                }
+               return report_type( false );
+              }
+
+             label_suffix:
+             {
+              auto report = this->control()[stage_suffix_index]( output_param, key_param, property_param );
+              if( report_type( false ) == report )
+               {
+                return report;
+               }
+             }
+
+             return report_type( true );
+            }
+
          public:
            report_type view
             (
@@ -173,69 +239,22 @@ namespace reflection
                 }
 
                property_qualified_reference_type   property = *( data.get() );
-
-               category_qualified_type *  category = dynamic_cast< category_qualified_type * >( data.get() );
-               if( nullptr == category )
+               auto report = this->view( output_param, key, property );
+               if( report = report_type( false ) )
                 {
-                 if( report_type( false ) == this->control()[recover_not_category_index]( output_param, key, property ) )
-                  {
-                   goto label_suffix;
-                  }
-                 continue;
+                 goto label_stasimon;
                 }
+               goto label_stasimon;
 
-               {
-                auto report = this->control()[stage_prefix_index]( output_param, key, property );
-                if( report_type( false ) == report )
+               label_stasimon:
+                if( 1 != index )
                  {
-                  goto label_suffix;
+                  auto report = this->control()[stage_stasimon_index]( output_param, key, property );
+                  if( report_type( false ) == report )
+                   {
+                    goto label_conclusio;
+                   }
                  }
-               }
-
-               if( false == protocolX_type::exists( this->menu(), category->identifier() ) )
-                {
-                 if( report_type( false ) == this->control()[recover_missing_action_index]( output_param, key, property ) )
-                  {
-                   goto label_suffix;
-                  }
-                 continue;
-                }
-
-               {
-                auto report = this->control()[stage_argument_index]( output_param, key, property );
-                if( report_type( false ) == report )
-                 {
-                  goto label_suffix;
-                 }
-               }
-
-               if( report_type( false ) == protocolX_type::find( this->menu(), category->identifier() )( output_param, key, property ) )
-                {
-                 if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key, property ) )
-                  {
-                   goto label_suffix;
-                  }
-                 continue;
-                }
-
-               label_suffix:
-               {
-                auto report = this->control()[stage_suffix_index]( output_param, key, property );
-                if( report_type( false ) == report )
-                 {
-                  goto label_conclusio;
-                 }
-               }
-
-               if( 1 != index )
-                {
-                 auto report = this->control()[stage_stasimon_index]( output_param, key, property );
-                 if( report_type( false ) == report )
-                  {
-                   goto label_conclusio;
-                  }
-                }
-
               }}
 
              label_conclusio:

@@ -2,7 +2,7 @@
 #define reflection_define_direct
 
 // reflection__CLASS_FIELD_direct( member_string_name, traitor_full_symbolic_name )
-// reflection__CLASS_COMMON_direct( member_string_name, traitor_full_symbolic_name )
+// reflection__CLASS_STATIC_direct( member_string_name, traitor_full_symbolic_name )
 // reflection__CLASS_MEMBER_direct( member_string_name, traitor_full_symbolic_name )
 // reflection__CLASS_SIMPLE_direct( member_string_name, traitor_full_symbolic_name )
 
@@ -30,7 +30,7 @@
  }
 
 
-#define reflection__CLASS_COMMON_direct( common_string_name, class_symbolic_name, common_symbolic_name )  \
+#define reflection__CLASS_STATIC_direct( common_string_name, class_symbolic_name, common_symbolic_name )  \
  {                                                                                                        \
   typedef /*decltype( common_string_name )*/ std::string identifier_type;                                 \
   insert                                                                                                  \

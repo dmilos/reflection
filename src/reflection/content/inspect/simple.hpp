@@ -36,18 +36,6 @@ namespace reflection
          static typedef_type make( data_type const& value_param ){ return typedef_type( value_param ); }
         };
 
-      /*template
-       <
-       >
-       struct simple_struct<void>
-        //: S_storage::GC_simple<data_name>::T_inspect
-        {
-         //! @todo
-         //typedef void     data_type;
-
-         //static typedef_type make( void ){ return typedef_type(); }
-        };*/
-
       template
        <
          typename identifier_name

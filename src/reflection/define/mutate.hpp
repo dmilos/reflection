@@ -29,7 +29,7 @@
  }
 
 
-#define reflection__CLASS_COMMON_mutate( common_string_name, class_symbolic_name, common_symbolic_name )  \
+#define reflection__CLASS_STATIC_mutate( common_string_name, class_symbolic_name, common_symbolic_name )  \
  {                                                                                                        \
   typedef /*decltype( common_string_name )*/ std::string identifier_type;                                 \
   insert                                                                                                  \

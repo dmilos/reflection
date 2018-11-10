@@ -53,18 +53,6 @@ namespace reflection
             }
         };
 
-      /*template
-       <
-       >
-       struct member_struct<void>
-        //: S_storage::GC_member<data_name>::T_direct
-        {
-         //! @todo
-         //typedef void     data_type;
-
-         //static typedef_type make( void ){ return typedef_type(); }
-        };*/
-
       template
        <
          typename  identifier_name

@@ -97,15 +97,15 @@ reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClas
 
   reflection__CLASS_FIELD_trinity( "some-doubleT", MyClassOriginal, m_public )
 
- reflection__CLASS_COMMON_direct(  "some-common-stringD", MyClassOriginal, m_static )
- reflection__CLASS_COMMON_inspect( "some-common-stringI", MyClassOriginal, m_static )
- reflection__CLASS_COMMON_mutate(  "some-common-stringM", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_direct(  "some-common-stringD", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_inspect( "some-common-stringI", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_mutate(  "some-common-stringM", MyClassOriginal, m_static )
 
- reflection__CLASS_COMMON_variable( "some-common-stringV", MyClassOriginal, m_static )
- reflection__CLASS_COMMON_guarded(  "some-common-stringG", MyClassOriginal, m_static )
- reflection__CLASS_COMMON_exposed(  "some-common-stringE", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_variable( "some-common-stringV", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_guarded(  "some-common-stringG", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_exposed(  "some-common-stringE", MyClassOriginal, m_static )
 
- reflection__CLASS_COMMON_trinity( "some-common-stringT", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_trinity( "some-common-stringT", MyClassOriginal, m_static )
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
