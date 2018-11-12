@@ -5,6 +5,7 @@
 
 #include "../../property/exposed/void.hpp"
 
+#include "../void.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -20,7 +21,8 @@ namespace reflection
         ,typename     report_name
        >
        class void_class
-        :virtual public ::reflection::content::exposed::pure_class<identifier_name,void,void,void,report_name>
+        :virtual public ::reflection::content::void_class< identifier_name >
+        ,virtual public ::reflection::content::exposed::pure_class<identifier_name,void,void,void,report_name>
         ,        public ::reflection::property::exposed::void_class< report_name >
         {
          public:
@@ -50,4 +52,4 @@ namespace reflection
     }
   }
 
-#endif 
+#endif

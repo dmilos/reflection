@@ -5,6 +5,8 @@
 
 #include "./_pure.hpp"
 
+#include "../../ornament/visibility.hpp"
+
 namespace reflection
  {
   namespace property
@@ -26,6 +28,7 @@ namespace reflection
        class member_class
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::ornament::visibility_class
         {
          public:
            typedef   class_name     class_type;
@@ -60,6 +63,7 @@ namespace reflection
        class member_class< class_name,storage_name,return_name,first_name,second_name,third_name,fourth_name,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::ornament::visibility_class
         {
          public:
            typedef  class_name     class_type;
@@ -90,6 +94,7 @@ namespace reflection
        class member_class< class_name,storage_name,return_name,first_name,second_name,third_name,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::ornament::visibility_class
         {
          public:
            typedef  class_name     class_type;
@@ -119,6 +124,7 @@ namespace reflection
        class member_class< class_name,storage_name,return_name,first_name,second_name,void,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::ornament::visibility_class
         {
          public:
            typedef  class_name     class_type;
@@ -148,6 +154,7 @@ namespace reflection
        class member_class< class_name,storage_name,return_name,first_name,void,void,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::ornament::visibility_class
         {
          public:
            typedef  class_name     class_type;
@@ -175,6 +182,7 @@ namespace reflection
        class member_class< class_name,storage_name,return_name,void,void,void,void,void>
         : virtual public ::reflection::property::function::pure_class<return_name,void,void,void,void,void>
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::ornament::visibility_class
         {
          public:
            typedef  class_name     class_type;

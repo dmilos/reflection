@@ -1,7 +1,7 @@
-#ifndef reflection_property_enumeration_base
-#define reflection_property_enumeration_base
+#ifndef reflection_property_enumeration_distinctive
+#define reflection_property_enumeration_distinctive
 
-// ::reflection::property::enumeration::base_class<enumarator_name,size_name>
+// ::reflection::property::enumeration::distinctive_class<enumarator_name,size_name>
 
 #include "../_pure.hpp"
 #include "./_pure.hpp"
@@ -19,7 +19,7 @@ namespace reflection
         ,typename       name_name //= std::string
         ,typename      value_name //= std::size_t
        >
-       class base_class
+       class distinctive_class
         : virtual public ::reflection::property::enumeration::pure_class<name_name,value_name >
         {
          public:
@@ -30,8 +30,8 @@ namespace reflection
            typedef ::reflection::property::enumeration::pure_class<name_name,value_name> pure_type;
 
          public:
-                    base_class( name_name const& name ):pure_type( name ){}
-           virtual ~base_class(){}
+                    distinctive_class( name_name const& name ):pure_type( name ){}
+           virtual ~distinctive_class(){}
 
          public:
            void push( name_type const& n, enumarator_type const& v )
@@ -41,7 +41,7 @@ namespace reflection
 
            //enumarator_type value( size_type const& index )
            // {
-           //  return enumarator_type { this->container()[index]; }
+           //  return enumarator_type { this->distinctive()[index]; }
            // }
         };
 

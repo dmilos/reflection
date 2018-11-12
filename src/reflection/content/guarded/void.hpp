@@ -1,9 +1,11 @@
 #ifndef reflection_content_guarded_void_hpp
 #define reflection_content_guarded_void_hpp
- // ::reflection::content::guarded::void_class<data_name,image_name,storage_name,extractor_name >
+
+ // ::reflection::content::guarded::void_class<report_name,report_name >
 
 #include "../../property/guarded/void.hpp"
 
+#include "../void.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -19,7 +21,8 @@ namespace reflection
         ,typename         report_name
        >
        class void_class
-        :virtual public ::reflection::content::guarded::pure_class<identifier_name,void,void,void,report_name>
+        :virtual public ::reflection::content::void_class< identifier_name >
+        ,virtual public ::reflection::content::guarded::pure_class<identifier_name,void,void,void,report_name>
         ,        public ::reflection::property::guarded::void_class< report_name >
         {
          public:

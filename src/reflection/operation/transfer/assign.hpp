@@ -32,7 +32,7 @@ namespace reflection
            typedef    identifier_name       identifier_type;
 
            typedef ::reflection::property::pure_class                                 property_type;
-           typedef ::reflection::content::category::pure_class<identifier_type>       category_type;
+           typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef typename qualificator_name< property_type >::type                       property_qualified_type;

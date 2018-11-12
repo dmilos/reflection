@@ -50,7 +50,7 @@
                 method_type  m_method;
              } reader_type;
 
-            typedef ::reflection::property::inspect::pretend::base_class<pretend_name,converter_type,storage_type,reader_type> base_type;
+            typedef ::reflection::property::inspect::pretend::basic_class<pretend_name,converter_type,storage_type,reader_type> base_type;
             typedef typename base_type::typedef_type typedef_type;
 
             static typedef_type make( storage_type const& storage_param, method_type const& method_param, converter_type const& convert_param = converter_type() )

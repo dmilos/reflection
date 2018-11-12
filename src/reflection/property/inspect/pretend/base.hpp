@@ -1,9 +1,9 @@
 #ifndef reflection_property_inspect_pretend_base
 #define reflection_property_inspect_pretend_base
 
-// ::reflection::property::inspect::pretend::base_class<pretend_name,converter_type,storage_name,reader_name>
+// ::reflection::property::inspect::pretend::basic_class<pretend_name,converter_type,storage_name,reader_name>
 
- #include "../base.hpp"
+ #include "../basic.hpp"
 
  namespace reflection
   {
@@ -21,7 +21,7 @@
            ,typename storage_name
            ,typename reader_name
            >
-          struct   base_class
+          struct   basic_class
            {
             typedef  pretend_name    pretend_type;
             typedef  storage_name    storage_type;
@@ -47,7 +47,7 @@
                 mutable convert_type  m_convert;
              } retriever_type;
 
-            typedef ::reflection::property::inspect::base_class<pretend_name,storage_name,retriever_type>      typedef_type;
+            typedef ::reflection::property::inspect::basic_class<pretend_name,storage_name,retriever_type>      typedef_type;
 
             static typedef_type make( storage_type const& storage_param, reader_type const& reader_param, convert_type const& convert_param )
              {

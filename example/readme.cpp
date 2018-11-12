@@ -45,7 +45,7 @@ std::string MyClassOriginal::m_static;
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
-  reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyClassOriginal, MyTypDef );
+  reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyClassOriginal, public, MyTypDef );
 
   reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
     reflection__CLASS_ENUM_value( "enum1",  MyClassOriginal::enum1 )
@@ -70,8 +70,8 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
   reflection__CLASS_FUNCTION_static(  "my_static",           MyClassOriginal, some_static_function )
 
-  reflection__CLASS_FIELD_guarded(    "some-doubleG",        MyClassOriginal, m_public          )
-  reflection__CLASS_STATIC_mutate(    "some-common-stringI", MyClassOriginal, m_static   )
+  reflection__CLASS_FIELD_guarded(    "some-doubleG",        MyClassOriginal, public, m_public   )
+  reflection__CLASS_STATIC_mutate(    "some-common-stringI", MyClassOriginal, public, m_static   )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

@@ -21,7 +21,7 @@ namespace reflection
            typedef identifier_name identifier_type;
 
            typedef ::reflection::property::pure_class                            propert_type;
-           typedef ::reflection::content::category::pure_class<identifier_type> category_type;
+           typedef ::reflection::ornament::category_class<identifier_type> category_type;
 
            typedef std::vector<  propert_type * > container_type, parameter_type;
 

@@ -51,7 +51,7 @@ namespace reflection
            typedef ::reflection::operation::transfer::cpp_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
 
            typedef ::reflection::property::pure_class                                 property_type;
-           typedef ::reflection::content::category::pure_class<identifier_type>             category_type;
+           typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef typename std::add_const< property_type >::type                          property_qualified_type;
@@ -169,13 +169,16 @@ namespace reflection
 
            static report_type prefix( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
+             output_param <<"    ";
+             decoration_accessibility( output_param, property_param );
+             decoration_linkage( output_param, property_param );
+
              report_type result = true;
 
              {
               category_type const* category = dynamic_cast< category_type const* >( &property_param );
               if( nullptr != category )
                {
-                output_param <<"    ";
                 if( category->identifier() == identificator_type::template get<  algorithm_type      >()  ) return report_type( true );
                 if( category->identifier() == identificator_type::template get<  typedefinition_type >()  ) return report_type( true );
                 if( category->identifier() == identificator_type::template get<  enumeration_type    >()  ) return report_type( true );
@@ -197,6 +200,42 @@ namespace reflection
             {
              output_param <<  ";" << std::endl;
              return report_type( true );
+            }
+
+           static void decoration_accessibility( output_type & output_param, property_qualified_reference_type property_param)
+            {
+             typedef ::reflection::ornament::visibility_class visibility_type;
+             visibility_type  const* visibility = dynamic_cast< visibility_type const* >( &property_param );
+             if( nullptr != visibility )
+              {
+               switch( visibility->visibility() )
+                {
+                 default:
+                 case( visibility_type::public_index    ): output_param << "public";    break;
+               //case( visibility_type::gloabal_index   ): output_param << "global";    break;
+                 case( visibility_type::protected_index ): output_param << "protected"; break;
+                 case( visibility_type::private_index   ): output_param << "private";   break;
+               //case( visibility_type::unknown_index   ): output_param << "unknown";   break;
+                }
+               output_param << ": ";
+              }
+            }
+
+           static void decoration_linkage( output_type & output_param, property_qualified_reference_type property_param)
+            {
+             typedef ::reflection::ornament::linkage_class linkage_type;
+             linkage_type  const* linkage = dynamic_cast< linkage_type const* >( &property_param );
+             if( nullptr != linkage )
+              {
+               switch( linkage->linkage() )
+                {
+                 case( linkage_type::inline_index    ): output_param << "inline ";    break;
+                 case( linkage_type::static_index    ): output_param  << "static ";    break;
+               //case( linkage_type::extern_index    ): output_param << "extern"; break;
+               //case( linkage_type::dll_index       ): output_param << "dll";   break;
+               //case( linkage_type::default_index   ): output_param << "default";   break;
+                }
+              }
             }
 
            static report_type null_value  ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
@@ -249,6 +288,7 @@ namespace reflection
                 return report_type( true );
                }
              }
+
              {
               typedef  ::reflection::property::direct::pure_class<wstring_type &>         direct_type;
               direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
@@ -293,7 +333,7 @@ namespace reflection
 
               if( true == pass )
                {
-                output_param << "  // <note message=\"Can not retrieve value\" />";
+                output_param << "  /*!< @note: \"Can not retrieve value\" */ ";
                }
 
               return report_type( true );
@@ -329,7 +369,7 @@ namespace reflection
              algorithm_type  const* context = dynamic_cast< algorithm_type const* >( &property_param );
              if( nullptr == context )
               {
-               output_param << " // < note=\"Wrong type supplied.\" /> ";
+               output_param << " //!< @note \"Wrong type supplied.\" />";
                return report_type( false );
               }
 

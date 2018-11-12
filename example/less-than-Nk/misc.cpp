@@ -20,6 +20,27 @@ class MyClassA
       }
  };
 
+void allvoid()
+ {
+  ::reflection::property::void_class           p1;
+  ::reflection::property::direct::void_class   p2;
+  ::reflection::property::exposed::void_class<bool>  p3;
+  ::reflection::property::guarded::void_class<bool>  p4;
+  ::reflection::property::inspect::void_class  p5;
+  ::reflection::property::mutate::void_class<bool>   p6;
+  ::reflection::property::trinity::void_class<bool>  p7;
+  ::reflection::property::variable::void_class p8;
+  
+  ::reflection::content::void_class<std::string>           c1;
+  ::reflection::content::direct::void_class<std::string>   c2;
+  ::reflection::content::exposed::void_class<std::string,bool>  c3;
+  ::reflection::content::guarded::void_class<std::string,bool>  c4;
+  ::reflection::content::inspect::void_class<std::string>  c5;
+  ::reflection::content::mutate::void_class<std::string,bool>   c6;
+  ::reflection::content::trinity::void_class<std::string,bool>  c7;
+  ::reflection::content::variable::void_class<std::string> c8;
+ }
+
 void free_void_void()
  {
   std::cout << __FUNCTION__ << std::endl;
@@ -104,12 +125,12 @@ class MyClass
        ::reflection::property::direct::simple<float>();
 
        ::reflection::property::inspect::member( this, &MyClass::inspector );
-       ::reflection::property::inspect::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::inspector );
+       //::reflection::property::inspect::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::inspector );
        ::reflection::property::inspect::simple( 150 );
        ::reflection::property::inspect::simple<double>();
 
        ::reflection::property::mutate::member( this, &MyClass::writer );
-       ::reflection::property::mutate::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::writer );
+       //::reflection::property::mutate::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::writer );
        ::reflection::property::mutate::simple< int, bool >( 512 );
        ::reflection::property::mutate::simple< int, bool >( );
 
@@ -155,7 +176,7 @@ class MyClass
 
        std::cout << "content::inspect = " << ::reflection::content::inspect::member<std::string>( this, &MyClass::inspector ).present() << std::endl;
 
-       ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function<int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( []( int const& i )-> std::string{ return std::to_string( i ); } ) );
+       //::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function<int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( []( int const& i )-> std::string{ return std::to_string( i ); } ) );
 
        ::reflection::property::function::member( this, &MyClass::a );
        ::reflection::property::function::member( this, &MyClass::executor );
@@ -185,14 +206,14 @@ class MyClass
         auto x0 = ::reflection::property::direct::member( this, &MyClass::traitor );       ::reflection::property::direct::disclose<int&>( x0 ) = 6;
 
         ::reflection::property::inspect::present<int const&>( ::reflection::property::inspect::member( this, &MyClass::inspector ) );
-       ::reflection::property::inspect::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::inspector ).present();
+       //::reflection::property::inspect::pretend::member< bool, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::inspector ).present();
        {
         auto st =[]( int const& i )-> std::string
          {
           return std::to_string( i );
          };
 
-        std::cout << "Inspect::pretend = " <<  ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function <int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( st ) ).present() << std::endl;
+        //std::cout << "Inspect::pretend = " <<  ::reflection::property::inspect::pretend::member< std::string, std::pointer_to_unary_function <int const&, std::string > >( this, &MyClass::inspector, std::pointer_to_unary_function <int const&, std::string >( st ) ).present() << std::endl;
        }
 
 
@@ -206,14 +227,14 @@ class MyClass
 
         auto x1 = ::reflection::property::mutate::member( this, &MyClass::writer );  ::reflection::property::mutate::process<int const&, bool>( x1, 10 );
 
-       ::reflection::property::mutate::pretend::member< int, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::writer ).process( 10 );
+       //::reflection::property::mutate::pretend::member< int, ::reflection::type::convert::identity< bool, int > >( this, &MyClass::writer ).process( 10 );
        {
         auto ts =[]( std::string const& s )-> int
          {
           return std::stoi( s );
          };
 
-        ::reflection::property::mutate::pretend::member< std::string, std::pointer_to_unary_function <std::string const&, int > >( this, &MyClass::writer, std::pointer_to_unary_function <std::string const&, int>( ts ) ).process( "42" );
+        //::reflection::property::mutate::pretend::member< std::string, std::pointer_to_unary_function <std::string const&, int > >( this, &MyClass::writer, std::pointer_to_unary_function <std::string const&, int>( ts ) ).process( "42" );
        }
 
 
@@ -267,9 +288,9 @@ class MyClass
        ::reflection::property::mutate::process<  int const& >( get("extra2"), 2424 );
        std::cout << "extra2::category::simple::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("extra2") )<< std::endl;
 
-       std::cout << "category::check == " << ::reflection::content::category::check< std::string >( get("m3") )<< std::endl;
+       std::cout << "category::check == " << ::reflection::ornament::category_class<std::string>::check( get("m3") )<< std::endl;
 
-       std::cout << "category::identifier = " << dynamic_cast< ::reflection::content::category::pure_class< std::string > const& >( get("m3") ).identifier()  << std::endl;
+       std::cout << "category::identifier = " << dynamic_cast< ::reflection::ornament::category_class< std::string > const& >( get("m3") ).identifier()  << std::endl;
 
        std::cout << "guarded1::category::inspect::present== " << ::reflection::property::inspect::present< int const& >( get("g1") ) << std::endl;
 
@@ -297,14 +318,14 @@ int main( int argc, char *argv[] )
   ::reflection::operation::transfer::observe_class<int> observe;
 
   int i;
-  observe.insert( typeid(                             std::string ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 
+  observe.insert( typeid(                             std::string ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } );
   observe.insert( typeid(                                   float ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "float  - " << __FUNCTION__ << std::endl; return true; } );
   observe.insert( typeid(                                     int ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "int    - " << __FUNCTION__ << std::endl; return true; } );
   observe.insert( typeid( ::reflection::property::structure_class<> ).name(), [&observe]( int & i, std::string const& name, ::reflection::property::pure_class const& p  )
    {
-    std::cout << "struct - " << __FUNCTION__ << std::endl; 
+    std::cout << "struct - " << __FUNCTION__ << std::endl;
     observe.view( i, ::reflection::property::inspect::present< ::reflection::property::structure_class<> const& >( p ) );
-    return true; 
+    return true;
    } );
 
   observe.view( i, m );

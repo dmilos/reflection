@@ -17,7 +17,7 @@ namespace reflection
         ,typename storage_name    //= type_name
         ,typename agent_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
-       class base_class
+       class basic_class
         : virtual public ::reflection::property::reset::pure_class< report_name >
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
@@ -28,16 +28,17 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-                     base_class(){ }
+                     basic_class(){ }
 
-            explicit base_class( agent_type const& agent_param )
+            explicit basic_class( agent_type const& agent_param )
               : m_agent( agent_param )
               {
               }
 
-            explicit base_class( storage_type   const& carrier_param, agent_type const& agent_param = agent_type() )
-              : carrier_type( carrier_param ), m_agent( agent_param )
+            explicit basic_class( storage_type   const& storage_param, agent_type const& agent_param = agent_type() )
+              : m_agent( agent_param )
               {
+               this->storage( storage_param );
               }
 
          public:

@@ -1,10 +1,17 @@
 #ifndef reflection_property_guarded_void
 #define reflection_property_guarded_void
 
+// ::reflection::property::guarded::void_class<report_name>
+
+#include "../void.hpp"
+#include "./_pure.hpp"
+
+
 #include "../mutate/void.hpp"
 #include "../inspect/void.hpp"
 
-#include "./_pure.hpp"
+
+
 
 namespace reflection
  {
@@ -18,9 +25,10 @@ namespace reflection
          typename report_name
        >
        class void_class
-        :  virtual public ::reflection::property::guarded::pure_class<void,void,report_name>
-        ,          public ::reflection::property::mutate::void_class<  report_name >
-        ,          public ::reflection::property::inspect::void_class
+        : virtual public ::reflection::property::void_class
+        , virtual public ::reflection::property::guarded::pure_class<void,void,report_name>
+        ,         public ::reflection::property::mutate::void_class<  report_name >
+        ,         public ::reflection::property::inspect::void_class
         {
          public:
            typedef void           model_type;

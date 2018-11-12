@@ -7,50 +7,98 @@
 #include "../mutate/common.hpp"
 #include "../inspect/common.hpp"
 
- namespace reflection
-  {
-   namespace property
-    {
-     namespace trinity
-      {
+namespace reflection
+ {
+  namespace property
+   {
+    namespace trinity
+     {
+
+      namespace _internal
+       {
+
+        template
+          <
+           typename     data_name
+          ,typename original_name
+          ,typename model_name
+          ,typename image_name
+          ,typename class_name
+          ,typename report_name
+          >
+         struct  common_struct
+          {
+           public:
+           typedef data_name           data_type;
+             typedef original_name original_type;
+             typedef model_name       model_type;
+             typedef image_name       image_type;
+             typedef class_name       class_type;
+             typedef report_name     report_type;
+
+             typedef ::reflection::property::direct::_internal::common_struct<data_type,original_type,class_type>          direct_type;
+             typedef ::reflection::property::inspect::_internal::common_struct<data_type,image_type,class_type>           inspect_type;
+             typedef ::reflection::property::mutate::_internal::common_struct<data_type,model_type,class_type,report_type> mutate_type;
+
+             typedef typename  direct_type::storage_type   storage_type;
+
+             typedef typename  direct_type::extractor_class    extractor_type;
+             typedef typename  mutate_type::assigner_class      assigner_type;
+             typedef typename inspect_type::retriever_class    retriever_type;
+
+             typedef ::reflection::property::trinity::basic_class <original_type,model_name, image_name, storage_type, extractor_type, assigner_type, retriever_type, report_name>      typedef_type;
+
+
+             static typedef_type make( storage_type const& carrier_param )
+              {
+               return typedef_type( carrier_param, extractor_type( ), assigner_type( ), retriever_type( ) );
+              }
+          };
+
+       }
 
        template
-         <
-          typename     data_name
-         ,typename original_name
-         ,typename model_name
-         ,typename image_name
-         ,typename class_name
-         ,typename report_name
-         >
-        struct  common_struct
+        <
+         typename     data_name
+        ,typename original_name
+        ,typename model_name
+        ,typename image_name
+        ,typename class_name
+        ,typename report_name
+        >
+        class common_class
+         : public ::reflection::ornament::relation_class
+         , public ::reflection::ornament::visibility_class
+         , public ::reflection::ornament::linkage_class
+         , public ::reflection::property::trinity::_internal::common_struct<data_name,original_name,model_name,image_name,class_name,report_name>::typedef_type
          {
-          public:
-          typedef data_name           data_type;
-            typedef original_name original_type;
-            typedef model_name       model_type;
-            typedef image_name       image_type;
-            typedef class_name       class_type;
-            typedef report_name     report_type;
+         public:
+          typedef ::reflection::ornament::relation_class relation_type;
+          typedef ::reflection::ornament::visibility_class visibility_type;
 
-            typedef ::reflection::property::direct::common_struct<data_type,original_type,class_type>          direct_type;
-            typedef ::reflection::property::inspect::common_struct<data_type,image_type,class_type>           inspect_type;
-            typedef ::reflection::property::mutate::common_struct<data_type,model_type,class_type,report_type> mutate_type;
+          typedef typename ::reflection::property::trinity::_internal::common_struct<data_name,original_name,model_name,image_name,class_name,report_name>  basic_type;
+          typedef typename basic_type::typedef_type  base_type;
 
-            typedef typename  direct_type::storage_type   storage_type;
-            
-            typedef typename  direct_type::extractor_class    extractor_type;
-            typedef typename  mutate_type::assigner_class      assigner_type;
-            typedef typename inspect_type::retriever_class    retriever_type;
+          typedef typename basic_type::extractor_type     extractor_type;
+          typedef typename basic_type::assigner_type       assigner_type;
+          typedef typename basic_type::retriever_type     retriever_type;
 
-            typedef ::reflection::property::trinity::base_class <original_type,model_name, image_name, storage_type, extractor_type, assigner_type, retriever_type, report_name>      typedef_type;
+          typedef typename basic_type::storage_type     storage_type;
+
+          explicit common_class( storage_type   const& storage_param )
+            : relation_type( relation_type::member_index )
+            , visibility_type( visibility_type::unknown_index )
+            , linkage_class( linkage_class::static_index )
+            , base_type( storage_param, extractor_type(), assigner_type(), retriever_type() )
+            {
+            }
+
+          using base_type::disclose;
+          // TODO using base_type::disclose;
 
 
-            static typedef_type make( storage_type const& carrier_param )
-             {
-              return typedef_type( carrier_param, extractor_type( ), assigner_type( ), retriever_type( ) );
-             }
          };
+
 
        template
         <
@@ -62,14 +110,14 @@
          ,typename    report_name = bool
         >
        inline
-       typename ::reflection::property::trinity::common_struct<data_name,original_name,model_name,image_name,class_name,report_name>::typedef_type
+       ::reflection::property::trinity::common_class<data_name,original_name,model_name,image_name,class_name,report_name>
        common
         (
           data_name      class_name::*carrier_param
         )
         {
-         typedef ::reflection::property::trinity::common_struct<data_name,original_name,model_name,image_name,class_name,report_name> common_type;
-         return common_type::make( carrier_param );
+         typedef ::reflection::property::trinity::common_class<data_name,original_name,model_name,image_name,class_name,report_name> common_type;
+         return common_type( carrier_param );
         }
 
      }

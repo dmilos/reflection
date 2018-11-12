@@ -28,7 +28,7 @@ namespace reflection
        >
        class basic_class
         :virtual public ::reflection::content::exposed::pure_class<identifier_name,data_name,original_name,model_name,report_name>
-        ,        public ::reflection::property::exposed::base_class< original_name, model_name, storage_name, extractor_name, assigner_name, report_name >
+        ,        public ::reflection::property::exposed::basic_class< original_name, model_name, storage_name, extractor_name, assigner_name, report_name >
         {
          public:
            typedef      data_name       data_type;
@@ -42,7 +42,7 @@ namespace reflection
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
            typedef ::reflection::content::exposed::pure_class<identifier_name,data_name,original_name,model_name,report_name> pure_type;
-           typedef ::reflection::property::exposed::base_class< original_name, model_name, storage_name, extractor_name, assigner_name, report_name > base_type;
+           typedef ::reflection::property::exposed::basic_class< original_name, model_name, storage_name, extractor_name, assigner_name, report_name > base_type;
 
 
                     basic_class()

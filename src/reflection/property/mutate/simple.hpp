@@ -41,7 +41,7 @@ namespace reflection
 
           } assigner_type;
 
-         typedef ::reflection::property::mutate::base_class< model_type, storage_type, assigner_type, report_name > typedef_type;
+         typedef ::reflection::property::mutate::basic_class< model_type, storage_type, assigner_type, report_name > typedef_type;
 
          static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( storage_type const& carrier_param ){ return typedef_type( carrier_param ); }

@@ -1,6 +1,12 @@
 #ifndef reflection_define_idspec
 #define reflection_define_idspec
 
+// reflection__IDSPEC( identificator_symbolic_name, class_string_name, class_symbolic_name )
+
+
+
+
+
 #define reflection__IDSPEC( identificator_symbolic_name, class_string_name, class_symbolic_name )     \
 namespace reflection                                                                                  \
  {                                                                                                    \

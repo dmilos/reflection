@@ -19,7 +19,7 @@ namespace reflection
        >
       class member_class
        : virtual public ::reflection::property::big::pure_class< std::size_t, std::vector< std::uint8_t > >
-       ,                ::reflection::property::direct::member_struct<std::vector< std::uint8_t > & ,class_name,::reflection::property::big::member_class<class_name> >
+       ,                ::reflection::property::direct::_internal::member_struct<std::vector< std::uint8_t > & ,class_name,::reflection::property::big::member_class<class_name> >
        {
         public:
           typedef class_name class_type;

@@ -1,7 +1,7 @@
 #ifndef reflection_property_mutate_base
 #define reflection_property_mutate_base
 
-// ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name >
+// ::reflection::property::mutate::basic_class< model_name, storage_name, assigner_name, report_name >
 
 #include "./_pure.hpp"
 #include "../_carrier.hpp"
@@ -20,7 +20,7 @@
          ,typename assigner_name   //= stl_ext::assign_ref_to_ref< storage_name, model_name >
          ,typename report_name     //= bool
         >
-        class base_class
+        class basic_class
          : virtual public ::reflection::property::mutate::pure_class<model_name,report_name>
          , virtual public ::reflection::property::_internal::carrier_class<storage_name>
          {
@@ -33,7 +33,7 @@
 
             typedef ::reflection::property::_internal::carrier_class<storage_name>  carrier_type;
 
-            explicit base_class
+            explicit basic_class
               (
                assigner_type  const& assigner_param   = assigner_type()
               )
@@ -41,17 +41,17 @@
               {
               }
 
-            explicit base_class
+            explicit basic_class
               (
                 storage_type   const& storage_param
                ,assigner_type  const& assigner_param   = assigner_type()
               )
-              :carrier_type( storage_param )
-              ,m_assigner( assigner_param )
+              :m_assigner( assigner_param )
               {
+               this->storage( storage_param );
               }
 
-            ~base_class( void ){ }
+            ~basic_class( void ){ }
 
           public:
             report_type       process( model_type model_param )

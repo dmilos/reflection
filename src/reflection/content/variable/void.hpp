@@ -1,9 +1,11 @@
 #ifndef reflection_content_variable_void_hpp
 #define reflection_content_variable_void_hpp
- // ::reflection::content::variable::void_class<data_name,original_name,image_name,storage_name,extractor_name,retriever_name >
+
+ // ::reflection::content::variable::void_class<identifier_name>
 
 #include "../../property/variable/void.hpp"
 
+#include "../void.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -18,7 +20,8 @@ namespace reflection
          typename  identifier_name
        >
        class void_class
-        :virtual public ::reflection::content::variable::pure_class<identifier_name, void,void,void>
+        :virtual public ::reflection::content::void_class< identifier_name >
+        ,virtual public ::reflection::content::variable::pure_class<identifier_name, void,void,void>
         ,        public ::reflection::property::variable::void_class
         {
          public:

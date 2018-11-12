@@ -25,7 +25,7 @@ namespace reflection
        >
        class basic_class
         :virtual public ::reflection::content::variable::pure_class<identifier_name, data_name,original_name,image_name>
-        ,        public ::reflection::property::variable::base_class< original_name, image_name, storage_name,extractor_name, retriever_name >
+        ,        public ::reflection::property::variable::basic_class< original_name, image_name, storage_name,extractor_name, retriever_name >
         {
          public:
            typedef      data_name       data_type;
@@ -36,7 +36,7 @@ namespace reflection
            typedef retriever_name  retriever_type;
 
            typedef ::reflection::content::variable::pure_class<identifier_name, data_name,original_name,image_name> pure_type;
-           typedef ::reflection::property::variable::base_class< original_name, image_name, storage_name,extractor_name, retriever_name> base_type;
+           typedef ::reflection::property::variable::basic_class< original_name, image_name, storage_name,extractor_name, retriever_name> base_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 

@@ -5,6 +5,12 @@
 
  #include "./base.hpp"
 
+ #include "../../ornament/relation.hpp"
+ #include "../../ornament/visibility.hpp"
+ #include "../../ornament/linkage.hpp"
+
+
+
 namespace reflection
  {
   namespace property
@@ -12,44 +18,82 @@ namespace reflection
     namespace direct
      {
 
+      namespace _internal
+       {
+
+        template
+         <
+           typename     data_name
+          ,typename original_name // = data_name &
+          ,typename    class_name
+         >
+         struct common_struct
+          {
+           typedef data_name            data_type;
+           typedef original_name    original_type;
+           typedef class_name          class_type;
+           typedef data_type *       storage_type;
+
+           typedef data_type         *pointer_type; //!< By design
+
+           typedef class extractor_class
+            {
+             public:
+               explicit extractor_class()
+                {
+                }
+
+               original_type operator()( storage_type & carrier_param )const
+                {
+                 return  *carrier_param;
+                }
+
+             private:
+            } extractor_type;
+
+           typedef ::reflection::property::direct::basic_class< original_type, storage_type, extractor_type >      typedef_type;
+
+           static typedef_type make( storage_type const& carrier_param )
+            {
+             return typedef_type( carrier_param, extractor_type() );
+            }
+
+          };
+
+       }
+
       template
        <
          typename     data_name
-        ,typename original_name // = data_name &
+        ,typename  original_name // = data_name &
         ,typename    class_name
        >
-       struct common_struct
+       class common_class
+        : public ::reflection::ornament::relation_class
+        , public ::reflection::ornament::visibility_class
+        , public ::reflection::ornament::linkage_class
+        , public ::reflection::property::direct::_internal::common_struct<data_name,original_name,class_name>::typedef_type
         {
-         typedef data_name            data_type;
-         typedef original_name    original_type;
-         typedef class_name          class_type;
-         typedef data_type *       storage_type;
+         public:
+          typedef ::reflection::ornament::relation_class relation_type;
+          typedef ::reflection::ornament::visibility_class visibility_type;
 
-         typedef data_type         *pointer_type; //!< By design
+          typedef typename ::reflection::property::direct::_internal::common_struct<data_name,original_name,class_name>  basic_type;
+          typedef typename basic_type::typedef_type  base_type;
 
-         typedef class extractor_class
-          {
-           public:
-             explicit extractor_class()
-              {
-              }
+          typedef typename basic_type::extractor_type extractor_type;
+          typedef typename basic_type::storage_type     storage_type;
 
-             original_type operator()( storage_type & carrier_param )const
-              {
-               return  *carrier_param;
-              }
+          explicit common_class( storage_type   const& storage_param )
+            : relation_type( relation_type::member_index )
+            , visibility_type( visibility_type::unknown_index )
+            , base_type( storage_param, extractor_type() )
+            {
+            }
 
-           private:
-          } extractor_type;
-
-         typedef ::reflection::property::direct::base_class< original_type, storage_type, extractor_type >      typedef_type;
-
-         static typedef_type make( storage_type const& carrier_param )
-          {
-           return typedef_type( carrier_param, extractor_type() );
-          }
-
+          using base_type::disclose;
         };
+
 
       template
        <
@@ -58,14 +102,14 @@ namespace reflection
         ,typename original_name = data_name &
        >
        inline
-       typename ::reflection::property::direct::common_struct<data_name,original_name,class_name>::typedef_type
+       typename ::reflection::property::direct::common_class<data_name,original_name,class_name>
        common
         (
           data_name      *carrier_param
         )
         {
-         typedef ::reflection::property::direct::common_struct<data_name,original_name,class_name> common_type;
-         return common_type::make( carrier_param );
+         typedef ::reflection::property::direct::common_class<data_name,original_name,class_name> common_type;
+         return common_type( carrier_param );
         }
 
      }

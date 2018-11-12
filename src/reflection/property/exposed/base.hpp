@@ -21,10 +21,10 @@ namespace reflection
         ,typename assigner_name   //= stl_ext::identity_cast<  type_name const&, storage_name const& >
         ,typename report_name
        >
-       class base_class
+       class basic_class
         :  virtual public ::reflection::property::exposed::pure_class<original_name,model_name,report_name>
-        ,          public ::reflection::property::direct::base_class< original_name, storage_name, extractor_name >
-        ,          public ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name >
+        ,          public ::reflection::property::direct::basic_class< original_name, storage_name, extractor_name >
+        ,          public ::reflection::property::mutate::basic_class< model_name, storage_name, assigner_name, report_name >
         {
          public:
            typedef original_name    original_type;
@@ -36,14 +36,14 @@ namespace reflection
 
            typedef ::reflection::property::exposed::pure_class<original_name,model_name,report_name>      pure_type;
 
-           typedef ::reflection::property::direct::base_class< original_name,storage_name, extractor_name > direct_type;
-           typedef ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name > mutate_type;
+           typedef ::reflection::property::direct::basic_class< original_name,storage_name, extractor_name > direct_type;
+           typedef ::reflection::property::mutate::basic_class< model_name, storage_name, assigner_name, report_name > mutate_type;
 
-                    base_class()
+                    basic_class()
                      {
                      }
 
-           explicit base_class
+           explicit basic_class
             (
               extractor_type const& extractor_param =   extractor_type()
              ,assigner_type const& assigner_param =    assigner_type()
@@ -53,17 +53,17 @@ namespace reflection
             {
             }
 
-           explicit base_class
+           explicit basic_class
             (
               storage_type   const& storage_param
              ,extractor_type const& extractor_param = extractor_type()
              ,assigner_type  const& assigner_param  = assigner_type()
             )
-            :carrier_type(   storage_param )
-            , direct_type( extractor_param )
+            : direct_type( extractor_param )
             ,mutate_type( assigner_param )
-            {
-            }
+              {
+               this->storage( storage_param );
+              }
 
          public:
            using direct_type::disclose;

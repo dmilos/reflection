@@ -23,27 +23,22 @@ namespace reflection
         ,typename storage_name
         ,typename report_name
        >
-       struct member_struct
-        : ::reflection::property::mutate::member_struct<model_name, class_name, storage_name, report_name >
+       class member_class
+        : public ::reflection::content::distinctive_class<identifier_name,data_name>
+        , public ::reflection::property::mutate::member_class< model_name, class_name, storage_name, report_name >
         {
-         typedef data_name     data_type;
-         typedef model_name    model_type;
-         typedef class_name    class_type;
-         typedef storage_name  storage_type;
+          typedef identifier_name  identifier_type;
+          typedef data_name        data_type;
+          typedef model_name    model_type;
+          typedef class_name       class_type;
+          typedef storage_name     storage_type;
 
-         typedef ::reflection::property::mutate::member_struct<model_name, class_name, storage_name, report_name > property_type;
+         typedef ::reflection::content::distinctive_class<identifier_name,data_name>                     distinctive_type;
+         typedef ::reflection::property::mutate::member_class< model_name, class_name, storage_name, report_name >   member_type;
 
-         typedef typename property_type::writer_type       writer_type;
-         typedef typename property_type::assigner_class  assigner_type;
+         using member_type::member_type;
+        };
 
-         typedef ::reflection::content::mutate::basic_class<identifier_name,data_name,model_name,storage_name,assigner_type, report_name>      typedef_type;
-
-         static typedef_type make( storage_type const& storage_param, writer_type const& writer_param )
-          {
-           return typedef_type( storage_param, assigner_type( writer_param ) );
-          }
-
-       };
 
       template
        <
@@ -55,15 +50,15 @@ namespace reflection
         ,typename report_name
        >
        inline
-       typename ::reflection::content::mutate::member_struct<identifier_name,data_name,model_name,class_name,storage_name,report_name>::typedef_type
+       typename ::reflection::content::mutate::member_class<identifier_name,data_name,model_name,class_name,storage_name,report_name>
        member
         (
           storage_name const&             storage_param
          ,report_name       (class_name::*writer_param)( model_name )
         )
         {
-         typedef ::reflection::content::mutate::member_struct<identifier_name,data_name,model_name,class_name,storage_name,report_name> member_type;
-         return member_type::make( storage_param, writer_param );
+         typedef ::reflection::content::mutate::member_class<identifier_name,data_name,model_name,class_name,storage_name,report_name> member_type;
+         return member_type( storage_param, writer_param );
         }
 
       template
@@ -75,15 +70,15 @@ namespace reflection
         ,typename report_name
        >
        inline
-       typename ::reflection::content::mutate::member_struct<identifier_name, data_name, data_name const&,class_name,storage_name,report_name>::typedef_type
+       typename ::reflection::content::mutate::member_class<identifier_name, data_name, data_name const&,class_name,storage_name,report_name>
        member
         (
           storage_name const&             storage_param
          ,report_name       (class_name::*writer_param)( data_name const& )
         )
         {
-         typedef ::reflection::content::mutate::member_struct<identifier_name,data_name,data_name const&,class_name,storage_name,report_name> member_type;
-         return member_type::make( storage_param, writer_param );
+         typedef ::reflection::content::mutate::member_class<identifier_name,data_name,data_name const&,class_name,storage_name,report_name> member_type;
+         return member_type( storage_param, writer_param );
         }
 
       }

@@ -3,7 +3,7 @@
 
  // ::reflection::content::enumeration::pure_class<identifier_name,enumarator_name, size_name>
 
- #include "../../property/enum/base.hpp"
+ #include "../../property/enum/distinctive.hpp"
 
  #include "../_pure.hpp"
 
@@ -23,7 +23,7 @@ namespace reflection
        >
        class pure_class
         : virtual public ::reflection::content::pure_class< identifier_name >
-        , /*virtual*/ public ::reflection::property::enumeration::base_class<enumarator_name,name_name, value_name>
+        , /*virtual*/ public ::reflection::property::enumeration::distinctive_class<enumarator_name,name_name, value_name>
         {
          public:
            typedef  identifier_name  identifier_type;
@@ -32,7 +32,7 @@ namespace reflection
            typedef       value_name       value_type;
 
            typedef ::reflection::content::pure_class< identifier_type >                                           content_type;
-           typedef ::reflection::property::enumeration::base_class<enumarator_name,name_name, value_name>    property_base_type;
+           typedef ::reflection::property::enumeration::distinctive_class<enumarator_name,name_name, value_name>    property_base_type;
 
            typedef ::reflection::property::enumeration::pure_class<name_name, value_name>                   property_pure_type;
            typedef property_pure_type data_type;

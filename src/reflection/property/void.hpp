@@ -2,7 +2,6 @@
 #define reflection_property_void_class
 
 // ::reflection::property::void_class
-// ::reflection::property::check
 
 #include "./_pure.hpp"
 
@@ -17,6 +16,7 @@ namespace reflection
       public:
                  void_class(){}
         virtual ~void_class(){}
+
       public:
         static inline bool check( ::reflection::property::pure_class const& property_param )
          {

@@ -55,7 +55,7 @@ int main( int argc, char *argv[] )
 
   ::reflection::property::function::execute<int >( r.get( "member_int" ) );
 
-  ::reflection::property::function::execute<void >( r.get( "member_void_" ) );
+  ::reflection::property::function::execute<void >( r.get( "member_void" ) );
 
 
   ::reflection::content::function::argument_struct<std::string>::container_type argument;

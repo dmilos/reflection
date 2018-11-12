@@ -2,7 +2,7 @@
 #define reflection_content_inspect_basic_hpp
  // ::reflection::content::inspect::basic_class<data_name,image_name,storage_name,extractor_name >
 
-#include "../../property/inspect/base.hpp"
+#include "../../property/inspect/basic.hpp"
 
 #include "./_pure.hpp"
 
@@ -23,7 +23,7 @@ namespace reflection
        >
        class basic_class
         :virtual public ::reflection::content::inspect::pure_class<identifier_name,data_name,image_name>
-        ,        public ::reflection::property::inspect::base_class<image_name,storage_name,retriever_name>
+        ,        public ::reflection::property::inspect::basic_class<image_name,storage_name,retriever_name>
         {
          public:
            typedef data_name            data_type;
@@ -34,7 +34,7 @@ namespace reflection
            typedef ::reflection::content::inspect::pure_class<identifier_name,data_name,image_name > pure_type;
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef::reflection::property::inspect::base_class<image_name,storage_name,retriever_name> base_type;
+           typedef::reflection::property::inspect::basic_class<image_name,storage_name,retriever_name> base_type;
 
                      basic_class()
                       {

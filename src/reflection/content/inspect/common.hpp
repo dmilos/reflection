@@ -21,26 +21,21 @@ namespace reflection
         ,typename image_name
         ,typename class_name
        >
-       struct common_struct
-        : ::reflection::property::inspect::common_struct<data_name,image_name, class_name >
+       class common_class
+        : public ::reflection::content::distinctive_class<identifier_name,data_name>
+        , public ::reflection::property::inspect::common_class<data_name,image_name, class_name >
         {
-         typedef data_name     data_type;
-         typedef image_name    image_type;
-         typedef class_name    class_type;
+         public:
+           typedef identifier_name  identifier_type;
+           typedef data_name        data_type;
+           typedef image_name    image_type;
+           typedef class_name       class_type;
 
-         typedef ::reflection::property::inspect::common_struct<data_name,image_name, class_name > property_type;
+           typedef ::reflection::content::distinctive_class<identifier_name,data_name>                     distinctive_type;
+           typedef ::reflection::property::inspect::common_class<data_name, image_name, class_name >   common_type;
 
-         typedef typename property_type::storage_type  storage_type;
-         typedef typename property_type::retriever_type  retriever_type;
-
-         typedef ::reflection::content::inspect::basic_class<identifier_name,data_name,image_name,storage_type,retriever_type>      typedef_type;
-
-         static typedef_type make( storage_type const& storage_param )
-          {
-           return typedef_type( storage_param, retriever_type(  ) );
-          }
-
-       };
+           using common_type::common_type;
+        };
 
       template
        <
@@ -50,14 +45,14 @@ namespace reflection
         ,typename image_name   = data_name const&
        >
        inline
-       typename ::reflection::content::inspect::common_struct<identifier_name,data_name,image_name,class_name>::typedef_type
+       typename ::reflection::content::inspect::common_class<identifier_name,data_name,image_name,class_name>
        common
         (
           data_name       *storage_param
         )
         {
-         typedef ::reflection::content::inspect::common_struct<identifier_name,data_name,image_name,class_name> common_type;
-         return common_type::make( storage_param );
+         typedef ::reflection::content::inspect::common_class<identifier_name,data_name,image_name,class_name> common_type;
+         return common_type( storage_param );
         }
 
       }

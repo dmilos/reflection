@@ -41,7 +41,7 @@ namespace reflection
            typedef typename direct_type::extractor_class  extractor_type;
            typedef typename mutate_type::assigner_class   assigner_type;
 
-           typedef ::reflection::property::exposed::base_class<original_name,model_name,storage_type,extractor_type,assigner_type, report_name > typedef_type;
+           typedef ::reflection::property::exposed::basic_class<original_name,model_name,storage_type,extractor_type,assigner_type, report_name > typedef_type;
 
            static typedef_type make( void )                 { return typedef_type(); }
            static typedef_type make( data_type const& value_param )

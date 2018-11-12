@@ -5,6 +5,8 @@
 
 # TODO REFLECTION_USE_PP2FILE
 
+reset
+
 g++ -fexceptions -std=c++11 -g -I../src readme.cpp               -o  readme
 
 cd ./less-than-1k

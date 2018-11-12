@@ -1,7 +1,7 @@
 #ifndef reflection_property_mutate_pretend_base
 #define reflection_property_mutate_pretend_base
 
-// ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writer_name,report_name>
+// ::reflection::property::mutate::pretend::basic_class<pretend_name,converter_name,storage_name,writer_name,report_name>
 
  #include "../base.hpp"
 
@@ -22,7 +22,7 @@
            ,typename writer_name
            ,typename report_name
            >
-          struct   base_class
+          struct   basic_class
            {
             typedef  pretend_name    pretend_type;
             typedef  converter_name    converter_type;
@@ -48,7 +48,7 @@
                 mutable converter_type  m_convert;
              } assigner_type;
 
-            typedef ::reflection::property::mutate::base_class<pretend_name,storage_name,assigner_type,report_name>      typedef_type;
+            typedef ::reflection::property::mutate::basic_class<pretend_name,storage_name,assigner_type,report_name>      typedef_type;
 
             static typedef_type make( storage_type const& storage_param, writer_type const& writer_param, converter_type const& convert_param )
                    {

@@ -1,9 +1,11 @@
 #ifndef reflection_content_inspect_void_hpp
 #define reflection_content_inspect_void_hpp
+
  // ::reflection::content::inspect::void_class<identifier_name >
 
-#include "../../property/inspect/base.hpp"
+#include "../../property/inspect/basic.hpp"
 
+#include "../void.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -18,7 +20,8 @@ namespace reflection
          typename identifier_name
        >
        class void_class
-        :virtual public ::reflection::content::inspect::pure_class<identifier_name,void,void>
+        :virtual public ::reflection::content::void_class< identifier_name >
+        ,virtual public ::reflection::content::inspect::pure_class<identifier_name,void,void>
         ,        public ::reflection::property::inspect::void_class
         {
          public:

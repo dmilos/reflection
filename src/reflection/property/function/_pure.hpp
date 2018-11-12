@@ -6,6 +6,7 @@
 // ::reflection::property::function::execute<return_name,first_name,second_name,third_name,fourth_name,fifth_name>()
 
 #include "../_pure.hpp"
+#include "../../ornament/linkage.hpp"
 
 namespace reflection
  {
@@ -25,6 +26,7 @@ namespace reflection
         >
        class pure_class
         : virtual public ::reflection::property::pure_class
+        , virtual public ::reflection::ornament::linkage_class
         {
          public:
            typedef return_name    return_type;
@@ -44,6 +46,7 @@ namespace reflection
       template< typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
        class pure_class< return_name,first_name,second_name,third_name,fourth_name,void>
         : virtual public ::reflection::property::pure_class
+        , virtual public ::reflection::ornament::linkage_class
         {
          public:
            typedef return_name    return_type;
@@ -62,6 +65,7 @@ namespace reflection
       template< typename return_name, typename first_name, typename second_name, typename third_name >
        class pure_class< return_name,first_name,second_name,third_name,void,void>
         : virtual public ::reflection::property::pure_class
+        , virtual public ::reflection::ornament::linkage_class
         {
          public:
            typedef return_name    return_type;
@@ -80,6 +84,7 @@ namespace reflection
       template< typename return_name, typename first_name, typename second_name >
        class pure_class< return_name,first_name,second_name,void,void,void>
         : virtual public ::reflection::property::pure_class
+        , virtual public ::reflection::ornament::linkage_class
         {
          public:
            typedef return_name    return_type;
@@ -97,6 +102,7 @@ namespace reflection
       template< typename return_name, typename first_name >
        class pure_class< return_name,first_name,void,void,void,void>
         : virtual public ::reflection::property::pure_class
+        , virtual public ::reflection::ornament::linkage_class
         {
          public:
            typedef return_name    return_type;
@@ -113,6 +119,7 @@ namespace reflection
       template< typename return_name >
        class pure_class< return_name,void,void,void,void,void>
         : virtual public ::reflection::property::pure_class
+        , virtual public ::reflection::ornament::linkage_class
         {
          public:
            typedef return_name    return_type;
@@ -148,7 +155,7 @@ namespace reflection
       // TODO  execute( ::reflection::property::pure_class const& property_param )
       // TODO   {
       // TODO    typedef ::reflection::property::function::pure_class<return_name,void,void,void,void,void> function_type;
-      // TODO 
+      // TODO
       // TODO    return dynamic_cast< function_type &>( property_param ).execute();
       // TODO   }
 

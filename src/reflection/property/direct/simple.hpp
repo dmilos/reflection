@@ -38,7 +38,7 @@ namespace reflection
 
           } extractor_type;
 
-         typedef ::reflection::property::direct::base_class< original_type, storage_type, extractor_type > typedef_type;
+         typedef ::reflection::property::direct::basic_class< original_type, storage_type, extractor_type > typedef_type;
 
          static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( storage_type const& storage_param ){ return typedef_type( storage_param ); }

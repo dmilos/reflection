@@ -28,7 +28,7 @@ namespace reflection
 
          typedef ::reflection::type::functor::asterisk< original_type, storage_name >          extractor_type;
 
-         typedef ::reflection::property::direct::base_class< original_type, storage_name, extractor_type>      typedef_type;
+         typedef ::reflection::property::direct::basic_class< original_type, storage_name, extractor_type>      typedef_type;
 
          static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( storage_name const& carrier_param ){ return typedef_type( carrier_param ); }

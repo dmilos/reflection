@@ -1,9 +1,11 @@
 #ifndef reflection_content_mutate_void_hpp
 #define reflection_content_mutate_void_hpp
- // ::reflection::content::mutate::void_class<data_name,model_name,storage_name,assigner_name >
+
+ // ::reflection::content::mutate::void_class<identifier_name,report_name >
 
 #include "../../property/mutate/void.hpp"
 
+#include "../void.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -19,7 +21,8 @@ namespace reflection
         ,typename report_name
        >
        class void_class
-        :virtual public ::reflection::content::mutate::pure_class<identifier_name,void,void,report_name>
+        :virtual public ::reflection::content::void_class< identifier_name >
+        ,virtual public ::reflection::content::mutate::pure_class<identifier_name,void,void,report_name>
         ,        public ::reflection::property::mutate::void_class<report_name>
         {
          public:

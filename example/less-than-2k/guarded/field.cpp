@@ -16,9 +16,9 @@ struct MyStructOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyStructReflection, public, MyStructOriginal )
 
-  reflection__CLASS_FIELD_guarded(   "integer",          MyStructOriginal, m_int     )
-  reflection__CLASS_FIELD_guarded(   "float-point",      MyStructOriginal, m_float   )
-  reflection__CLASS_FIELD_guarded(   "standard-string",  MyStructOriginal, m_string  )
+  reflection__CLASS_FIELD_guarded(   "integer",          MyStructOriginal, public, m_int     )
+  reflection__CLASS_FIELD_guarded(   "float-point",      MyStructOriginal, public, m_float   )
+  reflection__CLASS_FIELD_guarded(   "standard-string",  MyStructOriginal, public, m_string  )
 
 reflection__CLASS_END_inherit( MyStructReflection, MyStructOriginal );
 

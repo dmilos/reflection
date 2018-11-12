@@ -54,7 +54,7 @@
                method_type  m_method;
              } writer_type;
 
-            typedef ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writer_type,report_type> base_type;
+            typedef ::reflection::property::mutate::pretend::basic_class<pretend_name,converter_name,storage_name,writer_type,report_type> base_type;
             typedef typename ::reflection::property::mutate::pretend::base_class<pretend_name,converter_name,storage_name,writer_type,report_type>::typedef_type typedef_type;
 
             static typedef_type make( storage_type const& storage_param, method_type const& method_param, converter_type const& convert_param = converter_type() )

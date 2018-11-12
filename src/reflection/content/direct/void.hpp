@@ -1,9 +1,11 @@
 #ifndef reflection_content_direct_void_hpp
 #define reflection_content_direct_void_hpp
- // ::reflection::content::direct::void_class<data_name,original_name,storage_name,extractor_name >
+
+ // ::reflection::content::direct::void_class<identifier_name>
 
 #include "../../property/direct/void.hpp"
 
+#include "../void.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -18,7 +20,8 @@ namespace reflection
          typename identifier_name
        >
        class void_class
-        :virtual public ::reflection::content::direct::pure_class<identifier_name,void,void>
+        :virtual public ::reflection::content::void_class < identifier_name >
+        ,virtual public ::reflection::content::direct::pure_class<identifier_name,void,void>
         ,        public ::reflection::property::direct::void_class
         {
          public:

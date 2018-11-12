@@ -23,7 +23,7 @@ namespace reflection
        >
        class basic_class
         :virtual public ::reflection::content::direct::pure_class<identifier_name,data_name,original_name>
-        ,        public ::reflection::property::direct::base_class<original_name,storage_name,extractor_name>
+        ,        public ::reflection::property::direct::basic_class<original_name,storage_name,extractor_name>
         {
          public:
            typedef data_name       data_type;
@@ -34,7 +34,7 @@ namespace reflection
            typedef ::reflection::content::direct::pure_class<identifier_name,data_name,original_name > pure_type;
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef::reflection::property::direct::base_class<original_name,storage_name,extractor_name> base_type;
+           typedef::reflection::property::direct::basic_class<original_name,storage_name,extractor_name> base_type;
 
                      basic_class()
                       {

@@ -1,8 +1,9 @@
 #ifndef reflection_property_inspect_base
-#define reflection_property_inspect_base
+ #define reflection_property_inspect_base
 
-#include "./_pure.hpp"
-#include "../_carrier.hpp"
+// ::reflection::property::inspect::base_struct<image_name,class_name,storage_name>
+
+ #include "./basic.hpp"
 
 namespace reflection
  {
@@ -13,57 +14,43 @@ namespace reflection
 
       template
        <
-         typename image_name
-        ,typename storage_name    //= type_name
-        ,typename retriever_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
+         typename    base_name
+        ,typename derived_name
+        ,typename storage_name
        >
-       class base_class
-        : virtual public ::reflection::property::inspect::pure_class< image_name >
-        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+       struct base_struct
         {
-         public:
-           typedef image_name        image_type;
-           typedef storage_name    storage_type;
-           typedef retriever_name  retriever_type;
+         typedef base_name              data_type;
+         typedef base_name const&      image_type;
+         typedef derived_name          class_type;
+         typedef storage_name        storage_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name>  carrier_type;
+         typedef class retriever_class
+          {
+           public:
+             explicit retriever_class()
+              {
+              }
+             image_type operator()( storage_type const& carrier_param )const
+              {
+               return (data_type)carrier_param;
+              }
 
-            explicit base_class
-             (
-              retriever_type const& retriever_param = retriever_type()
-             )
-             : m_retriever( retriever_param )
-             {
-             }
+           private:
+             pointer_type  m_pointer;
+          } retriever_type;
 
-            explicit base_class
-             (
-               storage_type   const& carrier_param
-              ,retriever_type const& retriever_param = retriever_type()
-             )
-             : carrier_type( carrier_param ), m_retriever( retriever_param )
-             {
-             }
+         typedef ::reflection::property::inspect::basic_class<image_name,storage_name,retriever_type>      typedef_type;
 
-         public:
-           image_type present( void )const
-            {
-             return this->retriever()( this->carrier_type::storage() );
-            }
-
-         public:
-           retriever_type const&   retriever()const{ return m_retriever; }
-           void                 retriever( retriever_type const& retriever_param ){ m_retriever = retriever_param; }
-         //retriever_type   &   retriever(){ return m_retriever; }
-         protected:
-           retriever_type      &   F1_retriever(){ return m_retriever; }
-         private:
-           retriever_type          m_retriever;
+         static typedef_type make( storage_type const& carrier_param, pointer_type const& pointer_param )
+          {
+           return typedef_type( carrier_param, retriever_type( pointer_param ) );
+          }
 
         };
 
-      }
-    }
-  }
+     }
+   }
+ }
 
 #endif

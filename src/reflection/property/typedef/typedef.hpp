@@ -13,20 +13,24 @@ namespace reflection
     namespace typedefinition
      {
 
-     template 
-      < 
-       typename identifier_name 
+     template
+      <
+       typename identifier_name
       >
       class pure_class
        : virtual public ::reflection::property::pure_class
+       ,         public ::reflection::ornament::visibility_class
        {
         public:
           typedef identifier_name identifier_type;
           typedef std::string string_type;
 
-//                   pure_class( ){}
+          typedef ::reflection::ornament::visibility_class  visibility_type;
+        public:
+//                 pure_class( ){}
                    pure_class( identifier_type const& object, string_type const& name )
                     :m_object(object),m_name(name)
+                    ,visibility_type( visibility_type::public_index )
                     {
                     }
           virtual ~pure_class( ){}

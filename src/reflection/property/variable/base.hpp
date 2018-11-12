@@ -1,8 +1,8 @@
-#ifndef reflection_property_variable_base
+ #ifndef reflection_property_variable_base
 #define reflection_property_variable_base
 
 #include "../direct/base.hpp"
-#include "../inspect/base.hpp"
+#include "../inspect/basic.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -20,10 +20,10 @@ namespace reflection
         ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
         ,typename retriever_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
-       class base_class
+       class basic_class
         :  virtual public ::reflection::property::variable::pure_class<original_name,image_name>
-        ,          public ::reflection::property::direct::base_class< original_name,storage_name, extractor_name >
-        ,          public ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name >
+        ,          public ::reflection::property::direct::basic_class< original_name,storage_name, extractor_name >
+        ,          public ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name >
         {
          public:
            typedef original_name   original_type;
@@ -33,14 +33,14 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef ::reflection::property::direct::base_class< original_name,storage_name, extractor_name > direct_type;
-           typedef ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name > inspect_type;
+           typedef ::reflection::property::direct::basic_class< original_name,storage_name, extractor_name > direct_type;
+           typedef ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name > inspect_type;
 
-                    base_class()
+                    basic_class()
                      {
                      }
 
-           explicit base_class
+           explicit basic_class
             (
               extractor_type const& extractor_param
              ,retriever_type const& retriever_param
@@ -50,17 +50,17 @@ namespace reflection
             {
             }
 
-           explicit base_class
+           explicit basic_class
             (
               storage_type   const& storage_param
              ,extractor_type const& extractor_param = extractor_type()
              ,retriever_type const& retriever_param = retriever_type()
             )
-            :carrier_type(   storage_param )
-            , direct_type( extractor_param )
+            : direct_type( extractor_param )
             ,inspect_type( retriever_param )
-            {
-            }
+              {
+               this->storage( storage_param );
+              }
 
          public:
            using direct_type::disclose;

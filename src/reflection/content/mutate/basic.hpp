@@ -24,7 +24,7 @@ namespace reflection
        >
        class basic_class
         :virtual public ::reflection::content::mutate::pure_class<identifier_name,data_name,model_name,report_name>
-        ,        public ::reflection::property::mutate::base_class<model_name,storage_name,assigner_name,report_name>
+        ,        public ::reflection::property::mutate::basic_class<model_name,storage_name,assigner_name,report_name>
         {
          public:
            typedef data_name       data_type;
@@ -35,7 +35,7 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
            typedef ::reflection::content::mutate::pure_class<identifier_name,data_name,model_name, report_name > pure_type;
-           typedef::reflection::property::mutate::base_class<model_name,storage_name,assigner_name, report_name> base_type;
+           typedef::reflection::property::mutate::basic_class<model_name,storage_name,assigner_name, report_name> base_type;
 
                      basic_class()
                       {

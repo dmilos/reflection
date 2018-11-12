@@ -3,9 +3,9 @@
 
 
 
-#define reflection__CLASS_BEGIN_inherit( class_reflected, accesibility, class_original  )   \
+#define reflection__CLASS_BEGIN_inherit( class_reflected, visibility_name, class_original  )   \
   class class_reflected                                                                     \
-   : accesibility class_original                                                            \
+   : visibility_name class_original                                                         \
    , public ::reflection::content::class_class<class_original>                              \
    {                                                                                        \
     public:                                                                                 \
@@ -30,7 +30,7 @@
      void init()                                                                            \
       {
 
-#define reflection__CLASS_BEGIN_member( class_reflected, accesibility, class_original  )   \
+#define reflection__CLASS_BEGIN_member( class_reflected, visibility_name, class_original  )   \
   class class_reflected                                                      \
    : public ::reflection::content::class_class<class_original>               \
    {                                                                         \
@@ -61,14 +61,14 @@
      {                                                                       \
       return m_original;                                                     \
      }                                                                       \
-   accesibility:                                                             \
+   visibility_name:                                                             \
      original_type m_original;                                               \
    private:                                                                  \
      void init()                                                             \
       {
 
 
-#define reflection__CLASS_BEGIN_view( class_reflected, accesibility, class_original, class_pointer    )   \
+#define reflection__CLASS_BEGIN_view( class_reflected, visibility_name, class_original, class_pointer    )   \
   class class_reflected                                                      \
    : public ::reflection::content::class_class<class_original>               \
    {                                                                         \
@@ -105,7 +105,7 @@
      {                                                                       \
       return m_pointer;                                                      \
      }                                                                       \
-   accesibility:                                                             \
+   visibility_name:                                                             \
      pointer_type m_pointer;                                                 \
    private:                                                                  \
      void init()                                                             \

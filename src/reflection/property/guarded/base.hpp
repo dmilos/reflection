@@ -2,7 +2,7 @@
 #define reflection_property_guarded_base
 
 #include "../mutate/base.hpp"
-#include "../inspect/base.hpp"
+#include "../inspect/basic.hpp"
 
 namespace reflection
  {
@@ -20,10 +20,10 @@ namespace reflection
         ,typename retriever_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
         ,typename report_name
        >
-       class base_class
+       class basic_class
         :  virtual public ::reflection::property::guarded::pure_class<model_name,image_name,report_name>
-        ,          public ::reflection::property::mutate::base_class< model_name, storage_name, assigner_name, report_name >
-        ,          public ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name >
+        ,          public ::reflection::property::mutate::basic_class< model_name, storage_name, assigner_name, report_name >
+        ,          public ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name >
         {
          public:
            typedef model_name          model_type;
@@ -34,14 +34,14 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef ::reflection::property::mutate::base_class< model_name,storage_name, assigner_name, report_name  > mutate_type;
-           typedef ::reflection::property::inspect::base_class< image_name, storage_name, retriever_name > inspect_type;
+           typedef ::reflection::property::mutate::basic_class< model_name,storage_name, assigner_name, report_name  > mutate_type;
+           typedef ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name > inspect_type;
 
-                    base_class()
+                    basic_class()
                      {
                      }
 
-           explicit base_class
+           explicit basic_class
             (
               assigner_type  const&  assigner_param
              ,retriever_type const& retriever_param
@@ -51,16 +51,16 @@ namespace reflection
             {
             }
 
-           explicit base_class
+           explicit basic_class
             (
               storage_type   const& storage_param
              ,assigner_type  const&  assigner_param = assigner_type()
              ,retriever_type const& retriever_param = retriever_type()
             )
-            :carrier_type(   storage_param )
-            , mutate_type(  assigner_param )
+            :mutate_type(  assigner_param )
             ,inspect_type( retriever_param )
             {
+             this->storage( storage_param );
             }
 
          public:

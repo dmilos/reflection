@@ -19,13 +19,29 @@ class MyFirstClassOriginal //!< Original condition. Not bloated with any other c
     float m_float;
  };
 
-class MyClassOriginal //!< Original condition. Not bloated with any other code.
+
+class MyBaseClass //!< Original condition. Not bloated with any other code.
+ {
+  public:
+    MyBaseClass():m_float(98765){ }
+
+    void a(){ }
+    float      &  traitor(){ return m_float; }
+    float const&  reader()const{ return m_float; }
+    bool          writer( float const& a ){ m_float = a; return true; }
+
+  private: // And private member
+    float m_float;
+ };
+
+class MyMainClass //!< Original condition. Not bloated with any other code.
+ : public MyBaseClass
  {
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
     typedef std::array<float,2> MyTypDef;
 
-    MyClassOriginal():m_int(123456){ }
+    MyMainClass():m_int(123456){ }
 
     void a(){ }
     std::string const&  b1( float const& f ){ static std::string s;   return s; }
@@ -50,7 +66,7 @@ class MyClassOriginal //!< Original condition. Not bloated with any other code.
     MyFirstClassOriginal m_subsider;
  };
 
-std::string MyClassOriginal::m_static="blahblahfoofoo"; //!< TODO
+std::string MyMainClass::m_static="blahblahfoofoo"; //!< TODO
 
 reflection__CLASS_BEGIN_view( MyFirstClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal* )
    reflection__CLASS_MEMBER_exposed(   "number", MyFirstClassOriginal, traitor, writer )
@@ -59,57 +75,60 @@ reflection__CLASS_END_view( MyFirstClassReflectionView, MyFirstClassOriginal );
 
 // Reflect to reflection
 //template< typename someType_name >     // Yeah template.
-reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
+reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-  reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyClassOriginal, MyTypDef );
+reflection__CLASS_BASE_inspect( "base-something", MyMainClass, public , MyClassBase );
 
-  reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
-    reflection__CLASS_ENUM_value( "enum1",  MyClassOriginal::enum1 )
-    reflection__CLASS_ENUM_value( "enum2",  MyClassOriginal::enum2 )
-    reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )
-    reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
-   reflection__CLASS_ENUM_end( MyClassOriginal::Enumerator )
+
+  reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
+
+  reflection__CLASS_ENUM_begin( "enum-for-something", MyMainClass::Enumerator );
+    reflection__CLASS_ENUM_value( "enum1",  MyMainClass::enum1 )
+    reflection__CLASS_ENUM_value( "enum2",  MyMainClass::enum2 )
+    reflection__CLASS_ENUM_value( "enum10", MyMainClass::enum10 )
+    reflection__CLASS_ENUM_value( "enum11", MyMainClass::enum11 )
+   reflection__CLASS_ENUM_end( MyMainClass::Enumerator )
  
-  reflection__CLASS_MEMBER_mutate(    "asasd3",  MyClassOriginal, writer  )
-  reflection__CLASS_MEMBER_direct(    "asasd4",  MyClassOriginal, traitor  )
-  reflection__CLASS_MEMBER_inspect(   "asasd5",  MyClassOriginal, reader   )
+  reflection__CLASS_MEMBER_mutate(    "asasd3",  MyMainClass, writer  )
+  reflection__CLASS_MEMBER_direct(    "asasd4",  MyMainClass, traitor  )
+  reflection__CLASS_MEMBER_inspect(   "asasd5",  MyMainClass, reader   )
  
-  reflection__CLASS_MEMBER_variable(  "asasd1",  MyClassOriginal, traitor, reader )
-  reflection__CLASS_MEMBER_guarded(   "asasd2",  MyClassOriginal, writer, reader  )
+  reflection__CLASS_MEMBER_variable(  "asasd1",  MyMainClass, traitor, reader )
+  reflection__CLASS_MEMBER_guarded(   "asasd2",  MyMainClass, writer, reader  )
 
-  //reflection__CLASS_FUNCTION_member( "f10", MyClassOriginal, b0 )
-  reflection__CLASS_FUNCTION_member( "f11", MyClassOriginal, b1 )
+  //reflection__CLASS_FUNCTION_member( "f10", MyMainClass, b0 )
+  reflection__CLASS_FUNCTION_member( "f11", MyMainClass, b1 )
 
-  reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
-  reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
+  reflection__CLASS_FUNCTION_member( "f2", MyMainClass, c )
+  reflection__CLASS_FUNCTION_member( "f3", MyMainClass, d )
 
-  reflection__CLASS_FUNCTION_static( "my_static", MyClassOriginal, some_static_function )
+  reflection__CLASS_FUNCTION_static( "my_static", MyMainClass, some_static_function )
 
-  //reflection__CLASS_SUBSIDER_direct( "subsider", MyClassOriginal, MyFirstClassOriginal, MyFirstClassReflectionView, subsider_traitor )
+  //reflection__CLASS_SUBSIDER_direct( "subsider", MyMainClass, MyFirstClassOriginal, MyFirstClassReflectionView, subsider_traitor )
 
-  reflection__CLASS_FIELD_direct(  "some-doubleD", MyClassOriginal, m_public )
-  reflection__CLASS_FIELD_mutate(  "some-doubleM", MyClassOriginal, m_public )
-  reflection__CLASS_FIELD_inspect( "some-doubleI", MyClassOriginal, m_public )
+  reflection__CLASS_FIELD_direct(  "some-field-doubleD", MyMainClass, public, m_public )
+  reflection__CLASS_FIELD_mutate(  "some-field-doubleM", MyMainClass, public, m_public )
+  reflection__CLASS_FIELD_inspect( "some-field-doubleI", MyMainClass, public, m_public )
 
-  reflection__CLASS_FIELD_exposed(  "some-doubleE", MyClassOriginal, m_public )
-  reflection__CLASS_FIELD_guarded(  "some-doubleG", MyClassOriginal, m_public )
-  reflection__CLASS_FIELD_variable( "some-doubleV", MyClassOriginal, m_public )
+  reflection__CLASS_FIELD_exposed(  "some-field-doubleE", MyMainClass, public, m_public )
+  reflection__CLASS_FIELD_guarded(  "some-field-doubleG", MyMainClass, public, m_public )
+  reflection__CLASS_FIELD_variable( "some-field-doubleV", MyMainClass, public, m_public )
 
-  reflection__CLASS_FIELD_trinity( "some-doubleT", MyClassOriginal, m_public )
+  reflection__CLASS_FIELD_trinity( "some-field-doubleT", MyMainClass, public, m_public )
 
- reflection__CLASS_STATIC_direct(  "some-common-stringD", MyClassOriginal, m_static )
- reflection__CLASS_STATIC_inspect( "some-common-stringI", MyClassOriginal, m_static )
- reflection__CLASS_STATIC_mutate(  "some-common-stringM", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_direct(  "some-common-stringD", MyMainClass, public, m_static )
+ reflection__CLASS_STATIC_inspect( "some-common-stringI", MyMainClass, public, m_static )
+ reflection__CLASS_STATIC_mutate(  "some-common-stringM", MyMainClass, public, m_static )
 
- reflection__CLASS_STATIC_variable( "some-common-stringV", MyClassOriginal, m_static )
- reflection__CLASS_STATIC_guarded(  "some-common-stringG", MyClassOriginal, m_static )
- reflection__CLASS_STATIC_exposed(  "some-common-stringE", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_variable( "some-common-stringV", MyMainClass, public, m_static )
+ reflection__CLASS_STATIC_guarded(  "some-common-stringG", MyMainClass, public, m_static )
+ reflection__CLASS_STATIC_exposed(  "some-common-stringE", MyMainClass, public, m_static )
 
- reflection__CLASS_STATIC_trinity( "some-common-stringT", MyClassOriginal, m_static )
+ reflection__CLASS_STATIC_trinity( "some-common-stringT", MyMainClass,public,  m_static )
 
-  reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
+  reflection__CLASS_MEMBER_exposed(   "asasd2", MyMainClass, traitor,  writer )
 
-reflection__CLASS_END_view( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_inherit( MyClassReflection, MyMainClass );
 
 
 int main( int argc, char *argv[] )
@@ -124,8 +143,8 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::protobuf_struct<std::ostream> protobuf_type;
   typedef ::reflection::operation::transfer::ini_struct<std::ostream> ini_type;
 
-  MyClassOriginal o;
-  MyClassReflection   r( &o );  //!< Reflection of Original, with pointing to some instance
+  MyMainClass o;
+  MyClassReflection   r;  //!< Reflection of Original, with pointing to some instance
   //MyClassReflection<int>   r0;  //!< Reflection of Original, with pointing to some instance
   //MyClassReflection<float> r1( &o );  //!< Reflection of Original, with pointing to same instance
 
@@ -161,5 +180,14 @@ int main( int argc, char *argv[] )
   //  std::cout << std::endl;
   // }
 
+ ::reflection::property::direct::field_class<int, int const&,MyClassReflection,MyClassReflection*>   aa0(  nullptr,nullptr);
+ ::reflection::property::mutate::field_class<int, int const&,MyClassReflection,MyClassReflection*,bool>   aa1(  nullptr,nullptr);
+
+ ::reflection::property::inspect::field_class<int, int const&,MyClassReflection,MyClassReflection*>   aa2(  nullptr,nullptr);
+ ::reflection::property::variable::field_class<int, int const&,int const&,MyClassReflection,MyClassReflection*>   aa3(  nullptr,nullptr);
+ ::reflection::property::guarded::field_class<int, int const&,int const&,MyClassReflection,MyClassReflection*,bool>   aa4(  nullptr,nullptr);
+
+ ::reflection::property::exposed::field_class<int, int &,int const&,MyClassReflection,MyClassReflection*,bool>   aa5(  nullptr,nullptr);
+ ::reflection::property::trinity::field_class<int, int &,int const&,int const&,MyClassReflection,MyClassReflection*,bool>   aa6(  nullptr,nullptr);
   return EXIT_SUCCESS;
  }

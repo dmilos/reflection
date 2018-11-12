@@ -4,7 +4,7 @@
 // ::reflection::property::inspect::simple_struct<data_name,image_name>
 // ::reflection::property::inspect::simple<data_name>( data_name const& )
 
-#include "./base.hpp"
+#include "./basic.hpp"
 
 namespace reflection
  {
@@ -39,7 +39,7 @@ namespace reflection
 
           } retriever_type;
 
-         typedef ::reflection::property::inspect::base_class< image_type, storage_type, retriever_type > typedef_type;
+         typedef ::reflection::property::inspect::basic_class< image_type, storage_type, retriever_type > typedef_type;
 
          static typedef_type make( ){ return typedef_type( ); }
          static typedef_type make( storage_type const& storage_param ){ return typedef_type( storage_param ); }

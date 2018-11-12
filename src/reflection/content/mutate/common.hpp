@@ -22,28 +22,21 @@ namespace reflection
         ,typename class_name
         ,typename report_name
        >
-       struct common_struct
-        : ::reflection::property::mutate::common_struct<data_name, model_name, class_name, report_name >
+       class common_class
+        : public ::reflection::content::distinctive_class<identifier_name,data_name>
+        , public ::reflection::property::mutate::common_class< data_name, model_name, class_name, report_name >
         {
          public:
-           typedef data_name     data_type;
+           typedef identifier_name  identifier_type;
+           typedef data_name        data_type;
            typedef model_name    model_type;
-           typedef class_name    class_type;
+           typedef class_name       class_type;
 
-           typedef ::reflection::property::mutate::common_struct<data_name,model_name, class_name, report_name > property_type;
+           typedef ::reflection::content::distinctive_class<identifier_name,data_name>                     distinctive_type;
+           typedef ::reflection::property::mutate::common_class< data_name, model_name, class_name, report_name >   common_type;
 
-           typedef typename property_type::assigner_class  assigner_type;
-            typedef typename property_type::storage_type       storage_type;
-
-           typedef ::reflection::content::mutate::basic_class<identifier_name,data_name,model_name,storage_type,assigner_type, report_name>      typedef_type;
-
-
-           static typedef_type make( storage_type const& storage_param )
-           {
-            return typedef_type( storage_param, assigner_type( ) );
-           }
-
-       };
+           using common_type::common_type;
+        };
 
       template
        <
@@ -54,14 +47,14 @@ namespace reflection
         ,typename report_name  = bool
        >
        inline
-       typename ::reflection::content::mutate::common_struct<identifier_name,data_name,model_name,class_name,report_name>::typedef_type
+       typename ::reflection::content::mutate::common_class<identifier_name,data_name,model_name,class_name,report_name>
        common
         (
           data_name       *storage_param
         )
         {
-         typedef ::reflection::content::mutate::common_struct<identifier_name,data_name,model_name,class_name,report_name> common_type;
-         return common_type::make( storage_param );
+         typedef ::reflection::content::mutate::common_class<identifier_name,data_name,model_name,class_name,report_name> common_type;
+         return common_type( storage_param );
         }
 
       }

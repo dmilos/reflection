@@ -38,7 +38,7 @@ namespace reflection
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
 
-           typedef ::reflection::content::category::pure_class<identifier_type>       category_type;
+           typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
@@ -98,9 +98,9 @@ namespace reflection
              this->control( recover_null_pointer_index   , action_type::always_true() );
              this->control( stage_prolog_index           , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
-             this->control( stage_introductum_index       , action_type::always_true() );
+             this->control( stage_introductum_index      , action_type::always_true() );
              this->control( stage_conclusio_index        , action_type::always_true() );
-             this->control( stage_prefix_index        , action_type::always_true() );
+             this->control( stage_prefix_index           , action_type::always_true() );
              this->control( stage_argument_index         , action_type::always_true() );
              this->control( stage_suffix_index           , action_type::always_true() );
              this->control( stage_stasimon_index         , action_type::always_true() );
@@ -109,17 +109,17 @@ namespace reflection
             }
 
          public:
-           control_type    const&control()const{ return m_control; }
-           void                  control( control_enum const& index_param, function_type const& action_param ){ m_control[index_param] = action_param; }
-           control_type        & control(){ return m_control; }
+           control_type    const& control()const{ return m_control; }
+           void                   control( control_enum const& index_param, function_type const& action_param ){ m_control[index_param] = action_param; }
+           control_type         & control(){ return m_control; }
          private:
            control_type m_control;
 
          public:
-           menu_type    const&menu()const{ return m_menu; }
-           bool               menu( menu_type const& menu_param ){ m_menu = menu_param; return bool( report_type(true) ); }
+           menu_type    const& menu()const{ return m_menu; }
+           bool                menu( menu_type const& menu_param ){ m_menu = menu_param; return bool( report_type(true) ); }
          private:
-           menu_type        & menu(){ return m_menu; }
+           menu_type         & menu(){ return m_menu; }
            menu_type m_menu;
 
          public:
@@ -138,7 +138,6 @@ namespace reflection
              ,property_qualified_reference_type   property_param
             )const
             {
-
              category_qualified_type *  category = dynamic_cast< category_qualified_type * >( &property_param );
              if( nullptr == category )
               {
@@ -202,7 +201,6 @@ namespace reflection
              ,structure_qualified_reference_type struct_param
             )const
             {
-
              if( 0 == m_pass++ )
               {
                auto report = this->control()[stage_prolog_index]( output_param, key_type{}, struct_param );

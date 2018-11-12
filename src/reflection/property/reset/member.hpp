@@ -45,7 +45,7 @@ namespace reflection
              executor_type  m_executor;
           } agent_type;
 
-         typedef ::reflection::property::reset::base_class< report_name, storage_name, agent_type>      typedef_type;
+         typedef ::reflection::property::reset::basic_class< report_name, storage_name, agent_type>      typedef_type;
 
          static typedef_type make(  storage_type const& carrier_param, executor_type const& executor_param )
           {

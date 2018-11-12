@@ -1,5 +1,6 @@
 #ifndef reflection_content_trinity_void_hpp
 #define reflection_content_trinity_void_hpp
+
  // ::reflection::content::trinity::void_class<identifier_name,report_name>
 
 #include "../../property/trinity/base.hpp"
@@ -8,6 +9,7 @@
 #include "../mutate/basic.hpp"
 #include "../inspect/basic.hpp"
 
+#include "../void.hpp"
 #include "./_pure.hpp"
 
 namespace reflection
@@ -23,7 +25,8 @@ namespace reflection
         ,typename          report_name
        >
        class void_class
-        :virtual public ::reflection::content::trinity::pure_class<  identifier_name, void, void, void,void,report_name>
+        :virtual public ::reflection::content::void_class< identifier_name >
+        ,virtual public ::reflection::content::trinity::pure_class<  identifier_name, void, void, void,void,report_name>
         ,        public ::reflection::property::trinity::void_class< report_name >
         {
          public:

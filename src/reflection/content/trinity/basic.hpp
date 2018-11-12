@@ -32,7 +32,7 @@ namespace reflection
        >
        class basic_class
         :virtual public ::reflection::content::trinity::pure_class<  identifier_name, data_name, original_name, model_name,image_name,report_name>
-        ,        public ::reflection::property::trinity::base_class< original_name, model_name, image_name, storage_name, extractor_name, assigner_name, retriever_name, report_name >
+        ,        public ::reflection::property::trinity::basic_class< original_name, model_name, image_name, storage_name, extractor_name, assigner_name, retriever_name, report_name >
         {
          public:
            typedef        data_name        data_type;
@@ -48,7 +48,7 @@ namespace reflection
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
            typedef ::reflection::content::trinity::pure_class< identifier_name, data_name,original_name,model_name,image_name,report_name> pure_type;
-           typedef ::reflection::property::trinity::base_class< original_name,image_name, model_name, storage_name, extractor_name, assigner_name, retriever_name, report_name > base_type;
+           typedef ::reflection::property::trinity::basic_class< original_name,image_name, model_name, storage_name, extractor_name, assigner_name, retriever_name, report_name > base_type;
 
 
                      basic_class()
