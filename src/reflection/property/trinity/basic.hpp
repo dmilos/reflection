@@ -6,8 +6,8 @@
 
 #include "./_pure.hpp"
 
-#include "../direct/base.hpp"
-#include "../mutate/base.hpp"
+#include "../direct/basic.hpp"
+#include "../mutate/basic.hpp"
 #include "../inspect/basic.hpp"
 
 namespace reflection

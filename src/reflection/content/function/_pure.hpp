@@ -71,7 +71,7 @@ namespace reflection
              this->signature()[2] = identificator_type::template get< typename ::reflection::type::trait<second_name>::instance_type >();
              this->signature()[3] = identificator_type::template get< typename ::reflection::type::trait< third_name>::instance_type >();
              this->signature()[4] = identificator_type::template get< typename ::reflection::type::trait<fourth_name>::instance_type >();
-             this->signature()[5] = identificator_type::template get<typename ::reflection::type::trait<  fifth_name>::instance_type >();
+             this->signature()[5] = identificator_type::template get< typename ::reflection::type::trait< fifth_name>::instance_type >();
             }
 
          public:

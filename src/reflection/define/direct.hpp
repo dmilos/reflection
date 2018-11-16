@@ -16,7 +16,8 @@
            (class_symbolic_name*)(nullptr)                                                           \
           ,&class_symbolic_name::field_symbolic_name                                                 \
          );                                                                                          \
-  instance.visibility( ::reflection::ornament::visibility_class::public_index );                     \
+  instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                         \
+  instance.qualification( ::reflection::ornament::qualification_class::get< decltype(class_symbolic_name::field_symbolic_name) >( ) ); \
   insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \
@@ -34,7 +35,7 @@
          (                                                                                                \
           &class_symbolic_name::common_symbolic_name                                                      \
          );                                                                                               \
-  instance.visibility(    ::reflection::ornament::visibility_class::public_index   );                     \
+  instance.accessibility(    ::reflection::ornament::accessibility_class::from_string( #accessibility_name )   );                     \
   instance.linkage(    ::reflection::ornament::linkage_class::static_index   );                           \
   insert                                                                                                  \
    (                                                                                                      \
@@ -53,7 +54,7 @@
            (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::traitor_symbolic_name  \
          );                                                   \
-   instance.visibility(    ::reflection::ornament::visibility_class::public_index   );   \
+   instance.accessibility(    ::reflection::ornament::accessibility_class::public_index   );   \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
@@ -125,21 +126,6 @@
     );                                                  \
  }
 
-
-#define reflection__CLASS_SUBSIDER_direct( member_string_name, class_symbolic_name, subsider_symbolic_name, subsider_reflection_name, traitor_symbolic_name ) \
- reflection__CLASS_SIMPLE_directX(   member_string_name, MyFirstClassReflectionView, ::reflection::property::structure_class<>& )  \
- {     \
-   typedef  ::reflection::property::direct::pure_class<structure_type &>         direct_type; \
-   auto &subsder_reflection = dynamic_cast< direct_type &>( this->get(member_string_name) );  \
-   subsder_reflection.disclose();            \
-   if( nullptr != this->pointer() )          \
-    {                                        \
-     ::reflection::operation::reroute< subsider_symbolic_name* >  \
-      (                                                                 \
-       subsder_reflection.disclose(), &this->pointer()->traitor_symbolic_name()   \
-      );                                                                     \
-    }                  \
-  }
 
 // TODO #define reflection__CLASS_MEMBER_direct_reference( type_symbolic_name, value_instance )\
 

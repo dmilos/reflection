@@ -3,7 +3,7 @@
 
 // ::reflection::property::common::common_struct<data_name,model_name,class_name,storage_name,report_name>
 
- #include "./base.hpp"
+ #include "./basic.hpp"
 
 namespace reflection
  {
@@ -65,13 +65,13 @@ namespace reflection
         >
         class common_class
          : public ::reflection::ornament::relation_class
-         , public ::reflection::ornament::visibility_class
+         , public ::reflection::ornament::accessibility_class
          , public ::reflection::ornament::linkage_class
          , public ::reflection::property::mutate::_internal::common_struct<data_name,model_name,class_name,report_name>::typedef_type
          {
          public:
           typedef ::reflection::ornament::relation_class relation_type;
-          typedef ::reflection::ornament::visibility_class visibility_type;
+          typedef ::reflection::ornament::accessibility_class accessibility_type;
           typedef ::reflection::ornament::linkage_class linkage_type;
 
           typedef typename ::reflection::property::mutate::_internal::common_struct<data_name,model_name,class_name,report_name>  basic_type;
@@ -82,7 +82,7 @@ namespace reflection
 
           explicit common_class( storage_type   const& storage_param )
             : relation_type( relation_type::member_index )
-            , visibility_type( visibility_type::unknown_index )
+            , accessibility_type( accessibility_type::unknown_index )
             , linkage_type( linkage_type::static_index )
             , base_type( storage_param, assigner_type() )
             {

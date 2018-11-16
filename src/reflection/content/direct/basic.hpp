@@ -2,7 +2,7 @@
 #define reflection_content_direct_basic_hpp
  // ::reflection::content::direct::basic_class<data_name,original_name,storage_name,extractor_name >
 
-#include "../../property/direct/base.hpp"
+#include "../../property/direct/basic.hpp"
 
 #include "./_pure.hpp"
 

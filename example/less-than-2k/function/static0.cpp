@@ -21,7 +21,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_static( "static_void_void", MyClassOriginal, static_void_void )
+    reflection__CLASS_FUNCTION_static( "static_void_void", MyClassOriginal, public, static_void_void )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

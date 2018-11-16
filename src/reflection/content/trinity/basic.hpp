@@ -2,7 +2,7 @@
 #define reflection_content_trinity_basic_hpp
  // ::reflection::content::trinity::basic_class<data_name,image_name,storage_name,extractor_name >
 
-#include "../../property/trinity/base.hpp"
+#include "../../property/trinity/basic.hpp"
 
 #include "../direct/basic.hpp"
 #include "../mutate/basic.hpp"

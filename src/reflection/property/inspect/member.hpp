@@ -66,12 +66,12 @@ namespace reflection
        >
        class member_class
         : public ::reflection::ornament::relation_class
-        , public ::reflection::ornament::visibility_class
+        , public ::reflection::ornament::accessibility_class
         , public ::reflection::property::inspect::_internal::member_struct<image_name,class_name,storage_name>::typedef_type
         {
          public:
           typedef ::reflection::ornament::relation_class relation_type;
-          typedef ::reflection::ornament::visibility_class visibility_type;
+          typedef ::reflection::ornament::accessibility_class accessibility_type;
 
           typedef typename ::reflection::property::inspect::_internal::member_struct<image_name,class_name,storage_name>  basic_type;
           typedef typename basic_type::typedef_type  base_type;
@@ -82,7 +82,7 @@ namespace reflection
 
           explicit member_class( storage_type   const& storage_param, reader_type const& reader_param )
             : relation_type( relation_type::member_index )
-            , visibility_type( visibility_type::unknown_index )
+            , accessibility_type( accessibility_type::unknown_index )
             , base_type( storage_param, retriever_class( reader_param ) )
             {
             }

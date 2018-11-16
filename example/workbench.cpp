@@ -44,25 +44,32 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
     MyMainClass():m_int(123456){ }
 
     void a(){ }
-    std::string const&  b1( float const& f ){ static std::string s;   return s; }
     void                b0( float const& f ){ static std::string s;   }
+    std::string const&  b1( float const& f ){ static std::string s;   return s; }
     int  c( float const& f, std::string const& str ){  return 1; }
     int  d( float const& f, std::string const& str, bool const& b ){  return 1; }
 
     int      &  traitor(){ return m_int; }
     int const&  reader()const{ return m_int; }
     bool        writer( int const& a ){ m_int = a; return true; }
+    bool        writerV( int const& a )volatile{ m_int = a; return true; }
 
-    MyFirstClassOriginal & subsider_traitor(){ return m_subsider; }
+    MyFirstClassOriginal      & subsider_traitor(){ return m_subsider; }
+    MyFirstClassOriginal const& subsider_reader()const{ return m_subsider; }
 
     static int   some_static_function( float const&f ){ return 12; }
 
   public:
    double m_public = 456;
+   const double          m_const_public          = 123;
+   volatile const double m_volatile_const_public = 456;
+   volatile double       m_volatile_public       = 789;
+
   public:
    static std::string m_static;
   private: // And private member
     int m_int;
+    volatile int m_cv;
     MyFirstClassOriginal m_subsider;
  };
 
@@ -72,13 +79,16 @@ reflection__CLASS_BEGIN_view( MyFirstClassReflectionView, public, MyFirstClassOr
    reflection__CLASS_MEMBER_exposed(   "number", MyFirstClassOriginal, traitor, writer )
 reflection__CLASS_END_view( MyFirstClassReflectionView, MyFirstClassOriginal );
 
+reflection__CLASS_BEGIN_view( MyBaseClasssReflectionView, public, MyBaseClass, MyBaseClass* )
+   reflection__CLASS_MEMBER_exposed(   "number-float", MyBaseClass, traitor, writer )
+reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
+
 
 // Reflect to reflection
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-reflection__CLASS_BASE_inspect( "base-something", MyMainClass, public , MyClassBase );
-
+reflection__CLASS_BASE_direct( "1base-something", MyMainClass, public , MyBaseClass );
 
   reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
 
@@ -87,8 +97,8 @@ reflection__CLASS_BASE_inspect( "base-something", MyMainClass, public , MyClassB
     reflection__CLASS_ENUM_value( "enum2",  MyMainClass::enum2 )
     reflection__CLASS_ENUM_value( "enum10", MyMainClass::enum10 )
     reflection__CLASS_ENUM_value( "enum11", MyMainClass::enum11 )
-   reflection__CLASS_ENUM_end( MyMainClass::Enumerator )
- 
+  reflection__CLASS_ENUM_end( MyMainClass::Enumerator )
+
   reflection__CLASS_MEMBER_mutate(    "asasd3",  MyMainClass, writer  )
   reflection__CLASS_MEMBER_direct(    "asasd4",  MyMainClass, traitor  )
   reflection__CLASS_MEMBER_inspect(   "asasd5",  MyMainClass, reader   )
@@ -96,17 +106,27 @@ reflection__CLASS_BASE_inspect( "base-something", MyMainClass, public , MyClassB
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyMainClass, traitor, reader )
   reflection__CLASS_MEMBER_guarded(   "asasd2",  MyMainClass, writer, reader  )
 
-  //reflection__CLASS_FUNCTION_member( "f10", MyMainClass, b0 )
-  reflection__CLASS_FUNCTION_member( "f11", MyMainClass, b1 )
+     reflection__CLASS_FUNCTION_member( "traitor", MyMainClass, public, traitor )
+     reflection__CLASS_FUNCTION_member( "reader", MyMainClass, public, reader  )
+   //reflection__CLASS_FUNCTION_member( "writerV", MyMainClass, public, writerV)
+     reflection__CLASS_FUNCTION_member( "writer", MyMainClass, public, writer  )
 
-  reflection__CLASS_FUNCTION_member( "f2", MyMainClass, c )
-  reflection__CLASS_FUNCTION_member( "f3", MyMainClass, d )
+  reflection__CLASS_FUNCTION_member( "f10", MyMainClass, public, b0 )
+  reflection__CLASS_FUNCTION_member( "f11", MyMainClass, public, b1 )
 
-  reflection__CLASS_FUNCTION_static( "my_static", MyMainClass, some_static_function )
+  reflection__CLASS_FUNCTION_member( "f2", MyMainClass, public, c )
+  reflection__CLASS_FUNCTION_member( "f3", MyMainClass, public, d )
 
-  //reflection__CLASS_SUBSIDER_direct( "subsider", MyMainClass, MyFirstClassOriginal, MyFirstClassReflectionView, subsider_traitor )
+  reflection__CLASS_FUNCTION_static( "my_static", MyMainClass, public, some_static_function )
+
+   reflection__CLASS_MEMBER_variable(  "0subsider-traitor", MyMainClass, subsider_traitor, subsider_reader )
 
   reflection__CLASS_FIELD_direct(  "some-field-doubleD", MyMainClass, public, m_public )
+  reflection__CLASS_FIELD_direct(  "some-const-field-doubleD", MyMainClass, public, m_const_public )
+  reflection__CLASS_FIELD_direct(  "some-const-volatile-field-doubleD", MyMainClass, public, m_volatile_const_public )
+  reflection__CLASS_FIELD_direct(  "some-volatile-field-doubleD", MyMainClass, public, m_volatile_public )
+
+
   reflection__CLASS_FIELD_mutate(  "some-field-doubleM", MyMainClass, public, m_public )
   reflection__CLASS_FIELD_inspect( "some-field-doubleI", MyMainClass, public, m_public )
 
@@ -124,7 +144,7 @@ reflection__CLASS_BASE_inspect( "base-something", MyMainClass, public , MyClassB
  reflection__CLASS_STATIC_guarded(  "some-common-stringG", MyMainClass, public, m_static )
  reflection__CLASS_STATIC_exposed(  "some-common-stringE", MyMainClass, public, m_static )
 
- reflection__CLASS_STATIC_trinity( "some-common-stringT", MyMainClass,public,  m_static )
+ reflection__CLASS_STATIC_trinity( "some-common-stringT", MyMainClass, public,  m_static )
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyMainClass, traitor,  writer )
 
@@ -150,44 +170,50 @@ int main( int argc, char *argv[] )
 
   observe_type observe;
 
-  cpp_type cpp( observe );// CPPize for example
-  observe.view( std::cout, r );
+  { cpp_type cpp( observe );
+                    observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                    observe.insert<MyBaseClass, MyBaseClasssReflectionView>( ); 
+  }
+  observe.view( std::cout, r ); // CPPize for example
 
   observe.clear();
-  { xml_type xml( observe ); } // XMLize
-  observe.view( std::cout, r );
+  { xml_type xml( observe ); observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); } 
+  observe.view( std::cout, r ); // XMLize
 
   observe.clear();
-  { json_type json( observe ); } // JSONize
-  observe.view( std::cout, r );
+  { json_type json( observe );
+                    observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                    observe.insert<MyBaseClass, MyBaseClasssReflectionView>( ); 
+  }
+  observe.view( std::cout, r ); // JSONize
 
   observe.clear();
-  { yaml_type yaml( observe ); } // YAMLize
-  observe.view( std::cout, r );
+  { yaml_type yaml( observe ); observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); }
+  observe.view( std::cout, r ); // YAMLize
 
   observe.clear();
-  { protobuf_type protobuf( observe ); } // Protobufferize
-  observe.view( std::cout, r );
+  { protobuf_type protobuf( observe ); 
+                            observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                            observe.insert<MyBaseClass, MyBaseClasssReflectionView>( ); 
+  }
+
+  observe.view( std::cout, r ); // Protobufferize
 
   observe.clear();
-  { ini_type ini( observe ); } // INIrize
-  observe.view( std::cout, r );
+  { ini_type ini( observe );  
+                  observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); }
+  observe.view( std::cout, r );  // INIrize
 
-  //for( auto & v: r )
+  //for( auto & v: r )  //! Iterato over the members
   // {
   //  std::cout << ::reflection::content::category::pure<std::string>( *v.second ).identifier() << "  ";
   //  std::cout << v.first  <<";";
   //  std::cout << std::endl;
   // }
 
- ::reflection::property::direct::field_class<int, int const&,MyClassReflection,MyClassReflection*>   aa0(  nullptr,nullptr);
- ::reflection::property::mutate::field_class<int, int const&,MyClassReflection,MyClassReflection*,bool>   aa1(  nullptr,nullptr);
+  // TODO int i;
+  // TODO ::reflection::execute< int, int, std::string const& >( r.get("free_int_int_string"), i, "aaa" );
 
- ::reflection::property::inspect::field_class<int, int const&,MyClassReflection,MyClassReflection*>   aa2(  nullptr,nullptr);
- ::reflection::property::variable::field_class<int, int const&,int const&,MyClassReflection,MyClassReflection*>   aa3(  nullptr,nullptr);
- ::reflection::property::guarded::field_class<int, int const&,int const&,MyClassReflection,MyClassReflection*,bool>   aa4(  nullptr,nullptr);
-
- ::reflection::property::exposed::field_class<int, int &,int const&,MyClassReflection,MyClassReflection*,bool>   aa5(  nullptr,nullptr);
- ::reflection::property::trinity::field_class<int, int &,int const&,int const&,MyClassReflection,MyClassReflection*,bool>   aa6(  nullptr,nullptr);
   return EXIT_SUCCESS;
  }
+

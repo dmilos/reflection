@@ -3,7 +3,7 @@
 
 // ::reflection::property::field::field_struct<data_name,model_name,class_name,storage_name,report_name>
 
- #include "./base.hpp"
+ #include "./basic.hpp"
 
  namespace reflection
   {
@@ -65,22 +65,24 @@
 
         }
 
-       template
-         <
-          typename    data_name
-         ,typename   model_name
-         ,typename   class_name
-         ,typename storage_name
-         ,typename  report_name
-         >
-        class  field_class
-        : public ::reflection::ornament::relation_class
-        , public ::reflection::ornament::visibility_class
-        , public ::reflection::property::mutate::_internal::field_struct<data_name,model_name,class_name,storage_name,report_name>::typedef_type
+      template
+       <
+         typename    data_name
+        ,typename   model_name
+        ,typename   class_name
+        ,typename storage_name
+        ,typename  report_name
+       >
+       class  field_class
+        : public ::reflection::property::mutate::_internal::field_struct<data_name,model_name,class_name,storage_name,report_name>::typedef_type
+        , public ::reflection::ornament::relation_class
+        , public ::reflection::ornament::accessibility_class
+        , public ::reflection::ornament::linkage_class
+        , public ::reflection::ornament::qualification_class
         {
          public:
           typedef ::reflection::ornament::relation_class relation_type;
-          typedef ::reflection::ornament::visibility_class visibility_type;
+          typedef ::reflection::ornament::accessibility_class accessibility_type;
 
           typedef typename ::reflection::property::mutate::_internal::field_struct<data_name,model_name,class_name,storage_name,report_name>  basic_type;
           typedef typename basic_type::typedef_type  base_type;
@@ -91,7 +93,7 @@
 
           field_class( storage_type   const& storage_param, pointer_type const& pointer_param )
             : relation_type( relation_type::member_index )
-            , visibility_type( visibility_type::unknown_index )
+            , accessibility_type( accessibility_type::unknown_index )
             , base_type( storage_param, assigner_type( pointer_param ) )
             {
             }

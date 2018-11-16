@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="reflection::content::function::member_class&lt;identifier_name, class_name, return_name, void, void, void, void, void&gt;" Collapsed="true">
+  <Class Name="reflection::content::function::member_class&lt;identifier_name, class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name&gt;" Collapsed="true">
     <Position X="6.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAAAAACA=</HashCode>
@@ -9,62 +9,24 @@
   </Class>
   <Class Name="reflection::content::function::pure_class&lt;identifier_name, return_name, void, void, void, void, void&gt;" Collapsed="true">
     <Position X="3.5" Y="6" Width="1.5" />
-    <InheritanceLine Type="reflection::content::pure_class&lt;identifier_name&gt;" FixedFromPoint="true">
-      <Path>
-        <Point X="3.75" Y="3.07" />
-        <Point X="3.75" Y="5.625" />
-        <Point X="4.25" Y="5.625" />
-        <Point X="4.25" Y="6" />
-      </Path>
-    </InheritanceLine>
-    <InheritanceLine Type="reflection::property::function::pure_class&lt;return_name, void, void, void, void, void&gt;" ManuallyRouted="true">
-      <Path>
-        <Point X="8" Y="2.941" />
-        <Point X="8" Y="3.373" />
-        <Point X="7.712" Y="3.373" />
-        <Point X="7.712" Y="4.25" />
-        <Point X="4.25" Y="4.25" />
-        <Point X="4.25" Y="6" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>Z:\work\code\cpp\prj\github\reflection\work\src\reflection\content\function\_pure.hpp</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="reflection::property::function::member_class&lt;class_name, return_name, void, void, void, void, void&gt;" Collapsed="true">
+  <Class Name="reflection::property::function::member_class&lt;class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name&gt;" Collapsed="true">
     <Position X="7.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAQAAAAAEAAIAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAAAEAAIAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>Z:\work\code\cpp\prj\github\reflection\work\src\reflection\property\function\member.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="reflection::content::pure_class&lt;identifier_name&gt;" Collapsed="true">
     <Position X="3.25" Y="2.25" Width="1.5" />
-    <NestedTypes>
-      <Typedef Name="reflection::content::pure_class&lt;identifier_name&gt;::identifier_type" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Z:\work\code\cpp\prj\github\reflection\work\src\reflection\content\_pure.hpp</NewMemberFileName>
-        </TypeIdentifier>
-      </Typedef>
-      <Typedef Name="reflection::content::pure_class&lt;identifier_name&gt;::category_type" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Z:\work\code\cpp\prj\github\reflection\work\src\reflection\content\_pure.hpp</NewMemberFileName>
-        </TypeIdentifier>
-      </Typedef>
-    </NestedTypes>
     <InheritanceLine Type="reflection::property::pure_class" FixedFromPoint="true">
       <Path>
         <Point X="6.688" Y="1.062" />
         <Point X="6.688" Y="1.875" />
-        <Point X="4" Y="1.875" />
-        <Point X="4" Y="2.25" />
-      </Path>
-    </InheritanceLine>
-    <InheritanceLine Type="reflection::content::category::pure_class&lt;identifier_name&gt;" FixedFromPoint="true">
-      <Path>
-        <Point X="3.125" Y="1.062" />
-        <Point X="3.125" Y="1.875" />
         <Point X="4" Y="1.875" />
         <Point X="4" Y="2.25" />
       </Path>
@@ -101,20 +63,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAIAAA=</HashCode>
       <FileName>Z:\work\code\cpp\prj\github\reflection\work\src\reflection\property\_pure.hpp</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="reflection::content::category::pure_class&lt;identifier_name&gt;" Collapsed="true">
-    <Position X="2.75" Y="0.5" Width="1.5" />
-    <NestedTypes>
-      <Typedef Name="reflection::content::category::pure_class&lt;identifier_name&gt;::identifier_type" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Z:\work\code\cpp\prj\github\reflection\work\src\reflection\content\category.hpp</NewMemberFileName>
-        </TypeIdentifier>
-      </Typedef>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAARAAAAAAAAAAAIAAA=</HashCode>
-      <FileName>Z:\work\code\cpp\prj\github\reflection\work\src\reflection\content\category.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

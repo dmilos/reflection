@@ -2,7 +2,7 @@
 #define reflection_property_trinity_member
 // ::reflection::property::trinity::member_struct<model_name,class_name,carrier_name,report_name>
 
- #include "./base.hpp"
+ #include "./basic.hpp"
 
 #include "../mutate/member.hpp"
 #include "../inspect/member.hpp"
@@ -69,12 +69,12 @@
          >
         class member_class
         : public ::reflection::ornament::relation_class
-        , public ::reflection::ornament::visibility_class
+        , public ::reflection::ornament::accessibility_class
         , public ::reflection::property::trinity::_internal::member_struct<original_name,model_name,image_name,class_name,storage_name,report_name>::typedef_type
         {
          public:
           typedef ::reflection::ornament::relation_class relation_type;
-          typedef ::reflection::ornament::visibility_class visibility_type;
+          typedef ::reflection::ornament::accessibility_class accessibility_type;
 
           typedef typename ::reflection::property::trinity::_internal::member_struct<original_name,model_name,image_name,class_name,storage_name,report_name>  basic_type;
           typedef typename basic_type::typedef_type  base_type;
@@ -92,7 +92,7 @@
 
           explicit member_class( storage_type   const& storage_param, traitor_type const& traitor_param,writer_type const& writer_param, reader_type const& reader_param )
            : relation_type( relation_type::member_index )
-           , visibility_type( visibility_type::unknown_index )
+           , accessibility_type( accessibility_type::unknown_index )
            , base_type( storage_param, extractor_type( traitor_param ), assigner_type( writer_param ), retriever_type( reader_param ) )
            {
            }

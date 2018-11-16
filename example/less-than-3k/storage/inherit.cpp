@@ -42,9 +42,9 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyClassOriginal, traitor, reader )
   reflection__CLASS_MEMBER_guarded(   "asasd2",  MyClassOriginal, writer, reader  )
 
-  reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, b )
-  reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c )
-  reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d )
+  reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, public, b )
+  reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, public, c )
+  reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, public, d )
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 

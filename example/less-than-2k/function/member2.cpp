@@ -25,7 +25,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_member( "return_int_accept_int", MyClassOriginal, return_int_accept_int )
+    reflection__CLASS_FUNCTION_member( "return_int_accept_int", MyClassOriginal, public, return_int_accept_int )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

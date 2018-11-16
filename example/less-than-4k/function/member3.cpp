@@ -45,8 +45,8 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_FUNCTION_member( "member_void_int_string", MyClassOriginal, member_void_int_string )
-  reflection__CLASS_FUNCTION_member( "member_int_int_string",  MyClassOriginal, member_int_int_string )
+  reflection__CLASS_FUNCTION_member( "member_void_int_string", MyClassOriginal, public, member_void_int_string )
+  reflection__CLASS_FUNCTION_member( "member_int_int_string",  MyClassOriginal, public, member_int_int_string )
 
   reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writer_int ,   reader_int    )
 

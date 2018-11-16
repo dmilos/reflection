@@ -8,14 +8,21 @@
 #include <vector>
 #include <typeinfo>
 #include <memory>
-#include <algorithm> 
-#include <functional> 
-#include <type_traits> 
+#include <algorithm>
+#include <functional>
+#include <type_traits>
 
 #if defined REFLECTION_USE_PP2FILE
 #include "./reflection.pp2f.hpp"
 #else
 #include "./reflection.body.hpp"
 #endif
+
+
+namespace reflection
+ {
+  using ::reflection::property::function::execute;
+  using ::reflection::content::function::execute;
+ }
 
 #endif

@@ -2,7 +2,7 @@
 #define reflection_content_guarded_basic_hpp
  // ::reflection::content::guarded::basic_class<data_name,image_name,storage_name,extractor_name >
 
-#include "../../property/guarded/base.hpp"
+#include "../../property/guarded/basic.hpp"
 
 #include "../mutate/basic.hpp"
 #include "../inspect/basic.hpp"

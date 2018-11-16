@@ -2,7 +2,7 @@
 #define reflection_property_guarded_common
 // ::reflection::property::guarded::common_struct<model_name,class_name,carrier_name,report_name>
 
- #include "./base.hpp"
+ #include "./basic.hpp"
 
 #include "../mutate/common.hpp"
 #include "../inspect/common.hpp"
@@ -62,13 +62,13 @@ namespace reflection
         >
         class common_class
          : public ::reflection::ornament::relation_class
-         , public ::reflection::ornament::visibility_class
+         , public ::reflection::ornament::accessibility_class
          , public ::reflection::ornament::linkage_class
          , public ::reflection::property::guarded::_internal::common_struct<data_name,model_name,image_name,class_name,report_name>::typedef_type
          {
          public:
           typedef ::reflection::ornament::relation_class relation_type;
-          typedef ::reflection::ornament::visibility_class visibility_type;
+          typedef ::reflection::ornament::accessibility_class accessibility_type;
 
           typedef typename ::reflection::property::guarded::_internal::common_struct<data_name,model_name,image_name,class_name,report_name>  basic_type;
           typedef typename basic_type::typedef_type  base_type;

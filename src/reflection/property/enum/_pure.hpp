@@ -23,13 +23,13 @@ namespace reflection
        >
        class pure_class
         : virtual public ::reflection::property::pure_class
-        ,         public ::reflection::ornament::visibility_class
+        ,         public ::reflection::ornament::accessibility_class
         {
          public:
            typedef name_name    name_type;
            typedef value_name  value_type;
            
-           typedef ::reflection::ornament::visibility_class  visibility_type;
+           typedef ::reflection::ornament::accessibility_class  accessibility_type;
 
            typedef ::reflection::property::enumeration::subject_class<name_name,value_name> subject_type;
 
@@ -37,7 +37,7 @@ namespace reflection
            typedef typename container_type::size_type size_type;
 
          public:
-           explicit pure_class( name_name const& name ):m_name( name ),visibility_type( visibility_type::public_index ){}
+           explicit pure_class( name_name const& name ):m_name( name ),accessibility_type( accessibility_type::public_index ){}
            virtual ~pure_class(){}
 
          public:

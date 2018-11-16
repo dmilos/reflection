@@ -20,8 +20,8 @@
     * Obey existing encapsulation
     * No bloat of existing code and require no change aether.
     * Add or remove some properties in run-time.
+    * Track: accessibility, enums, typedefs, (static/const/volatile)data members, member/static/const functions,
     * Extra: serialize to XML, JSON, YAML, Protobuf, CPP and INI.
-
 
 ### Example:
 ```c++
@@ -82,21 +82,21 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
   reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
 
-  reflection__CLASS_MEMBER_mutate(   "asasd3",  MyClassOriginal, writer   )//!< Access to member by using only writer
-  reflection__CLASS_MEMBER_direct(   "asasd4",  MyClassOriginal, traitor  )//!< Access to member by using only traitor
+  reflection__CLASS_MEMBER_mutate(   "asasd1",  MyClassOriginal, writer   )//!< Access to member by using only writer
+  reflection__CLASS_MEMBER_direct(   "asasd2",  MyClassOriginal, traitor  )//!< Access to member by using only traitor
   reflection__CLASS_MEMBER_inspect(  "asasd5",  MyClassOriginal, reader   )//!< Access to member by using only reader
 
-  reflection__CLASS_MEMBER_variable( "asasd1",  MyClassOriginal, traitor, reader ) //!< Access to member by using traitor and reader
-  reflection__CLASS_MEMBER_guarded(  "asasd2",  MyClassOriginal, writer, reader  ) //!< Access to member by using writer  and reader
-  reflection__CLASS_MEMBER_exposed(  "asasd2",  MyClassOriginal, traitor, writer ) //!< Access to member by using traitor and writer
+  reflection__CLASS_MEMBER_variable( "asasd3",  MyClassOriginal, traitor, reader ) //!< Access to member by using traitor and reader
+  reflection__CLASS_MEMBER_guarded(  "asasd4",  MyClassOriginal, writer, reader  ) //!< Access to member by using writer  and reader
+  reflection__CLASS_MEMBER_exposed(  "asasd5",  MyClassOriginal, traitor, writer ) //!< Access to member by using traitor and writer
 
-  reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, b ) //!< Member function
-  reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, c ) //!< Member function
-  reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, d ) //!< Member function
+  reflection__CLASS_FUNCTION_member( "f1", MyClassOriginal, public, b ) //!< Member function
+  reflection__CLASS_FUNCTION_member( "f2", MyClassOriginal, public, c ) //!< Member function
+  reflection__CLASS_FUNCTION_member( "f3", MyClassOriginal, public, d ) //!< Member function
 
   reflection__CLASS_FUNCTION_free( "free_int_int_string",  free_int_int_string ) //!< Inject non-member function.
 
-  reflection__CLASS_FUNCTION_static(  "my_static",           MyClassOriginal, some_static_function )
+  reflection__CLASS_FUNCTION_static(  "my_static",           MyClassOriginal, public, some_static_function )
 
   reflection__CLASS_FIELD_guarded(    "some-doubleG",        MyClassOriginal, public, m_public   )
   reflection__CLASS_STATIC_mutate(    "some-common-stringI", MyClassOriginal, public, m_static   )

@@ -30,10 +30,10 @@ namespace reflection
         {
          public:
 
-           typedef output_name       output_type;
-           typedef     key_name         key_type;
-           typedef    identificator_name        identificator_type;
-           typedef    report_name    report_type;
+           typedef         output_name           output_type;
+           typedef            key_name              key_type;
+           typedef  identificator_name    identificator_type;
+           typedef         report_name           report_type;
 
            typedef typename ::reflection::operation::transfer::action_struct< output_type, identificator_type, qualificator_name, report_type > action_type;
 

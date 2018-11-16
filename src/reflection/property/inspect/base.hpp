@@ -23,7 +23,7 @@ namespace reflection
          typedef base_name              data_type;
          typedef base_name const&      image_type;
          typedef derived_name          class_type;
-         typedef storage_name        storage_type;
+         typedef storage_name*       storage_type;
 
          typedef class retriever_class
           {
@@ -33,16 +33,15 @@ namespace reflection
               }
              image_type operator()( storage_type const& carrier_param )const
               {
-               return (data_type)carrier_param;
+               return (image_type)(*carrier_param);
               }
 
            private:
-             pointer_type  m_pointer;
           } retriever_type;
 
-         typedef ::reflection::property::inspect::basic_class<image_name,storage_name,retriever_type>      typedef_type;
+         typedef ::reflection::property::inspect::basic_class<image_type,storage_type,retriever_type>      typedef_type;
 
-         static typedef_type make( storage_type const& carrier_param, pointer_type const& pointer_param )
+         static typedef_type make( storage_type const& carrier_param )
           {
            return typedef_type( carrier_param, retriever_type( pointer_param ) );
           }

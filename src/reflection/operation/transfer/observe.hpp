@@ -1,7 +1,7 @@
 #ifndef reflection_operation_transfer_observe
 #define reflection_operation_transfer_observe
 
-// ::reflection::operation::observe_class<output_name,key_name,identifier_name>
+// ::reflection::operation::transfer::observe_class<output_name,key_name,identifier_name>
 
 #include "../../content/category.hpp"
 #include "../../property/structure.hpp"
@@ -37,10 +37,13 @@ namespace reflection
            typedef         key_name           key_type;
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
+           typedef ::reflection::operation::transfer::observe_class<output_name,key_name,identifier_name,report_name,qualificator_name, container_name> this_type;
 
            typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
+
+           typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
 
            typedef typename structure_type::item_type                          item_type;
            typedef typename qualificator_name< item_type >::type               item_qualified_type;
@@ -127,6 +130,15 @@ namespace reflection
             {
              protocolX_type::insert( this->menu(), key, function );
             }
+
+          template < typename data_name,  typename view_name >
+           void insert()
+            {
+             using namespace std::placeholders;
+             auto f = std::bind( &this_type::view<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
+             protocolX_type::insert( this->menu(), identificator_type::template get<data_name>(), f );
+            }
+
          public:
            mutable std::size_t m_pass;
 
@@ -162,7 +174,6 @@ namespace reflection
                 {
                  goto label_suffix;
                 }
-               return report_type( false );
               }
 
              {
@@ -179,7 +190,6 @@ namespace reflection
                 {
                  goto label_suffix;
                 }
-               return report_type( false );
               }
 
              label_suffix:
@@ -272,6 +282,38 @@ namespace reflection
              return report_type( true );
             }
 
+         public:
+          template < typename userType_name, typename reflection_name >
+           report_type view
+            (
+              output_type                       &   output_param
+             ,key_type                     const&      key_param
+             ,property_qualified_reference_type   property_param
+            )
+           {
+            reflection_name view;
+             {
+              typedef  ::reflection::property::direct::pure_class<userType_name &>         direct_type;
+              direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+              if( nullptr != direct_instance )
+               {
+                view.pointer( &direct_instance->disclose() );
+                return this->view( output_param, view );
+               }
+             }
+
+             {
+              typedef ::reflection::property::inspect::pure_class<userType_name const& > inspect_type;
+              auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+              if( nullptr != inspect_instance )
+               {
+                view.pointer( const_cast< userType_name * >( &inspect_instance->present() ) );
+                return this->view( output_param, view );
+               }
+             }
+
+             return report_type( false );
+           }
        };
 
      }

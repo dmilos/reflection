@@ -3,7 +3,7 @@
 
  // ::reflection::content::exposed::basic_class<data_name,original_name,model_name,storage_name,extractor_name,assigner_name,report_name >
 
-#include "../../property/exposed/base.hpp"
+#include "../../property/exposed/basic.hpp"
 
 #include "./_pure.hpp"
 

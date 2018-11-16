@@ -204,18 +204,18 @@ namespace reflection
 
            static void decoration_accessibility( output_type & output_param, property_qualified_reference_type property_param)
             {
-             typedef ::reflection::ornament::visibility_class visibility_type;
-             visibility_type  const* visibility = dynamic_cast< visibility_type const* >( &property_param );
-             if( nullptr != visibility )
+             typedef ::reflection::ornament::accessibility_class accessibility_type;
+             accessibility_type  const* accessibility = dynamic_cast< accessibility_type const* >( &property_param );
+             if( nullptr != accessibility )
               {
-               switch( visibility->visibility() )
+               switch( accessibility->accessibility() )
                 {
                  default:
-                 case( visibility_type::public_index    ): output_param << "public";    break;
-               //case( visibility_type::gloabal_index   ): output_param << "global";    break;
-                 case( visibility_type::protected_index ): output_param << "protected"; break;
-                 case( visibility_type::private_index   ): output_param << "private";   break;
-               //case( visibility_type::unknown_index   ): output_param << "unknown";   break;
+                 case( accessibility_type::public_index    ): output_param << "public";    break;
+               //case( accessibility_type::gloabal_index   ): output_param << "global";    break;
+                 case( accessibility_type::protected_index ): output_param << "protected"; break;
+                 case( accessibility_type::private_index   ): output_param << "private";   break;
+               //case( accessibility_type::unknown_index   ): output_param << "unknown";   break;
                 }
                output_param << ": ";
               }
@@ -373,18 +373,18 @@ namespace reflection
                return report_type( false );
               }
 
-             output_param << context->signature()[0] << " ";
+             output_param << context->signature()[0].original() << " ";
 
              output_param << key_param <<"( " ;
 
              for( std::size_t index=1; index < context->signature().size(); ++index )
               {
-               if( context->signature()[index] == identificator_type::NAT() )
+               if( context->signature()[index].original() == identificator_type::NAT() )
                 {
                  continue;
                 }
 
-               output_param << context->signature()[index];
+               output_param << context->signature()[index].original() ;
                if( index + 1 < context->signature().size() ) output_param <<  ", ";
               }
              output_param << ")";
@@ -436,7 +436,7 @@ namespace reflection
 
              if( true == pass )
               {
-               output_param << "<note message=\"Not a structure\" /> ";
+               output_param << "/*!< @note \"Not a structure\" */";
               }
 
              //output_param << std::endl;

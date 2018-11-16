@@ -1,40 +1,39 @@
-#ifndef reflection_property_guarded_base
-#define reflection_property_guarded_base
+#ifndef reflection_property_variable_basic
+#define reflection_property_variable_basic
 
-#include "../mutate/base.hpp"
+#include "../direct/basic.hpp"
 #include "../inspect/basic.hpp"
+#include "./_pure.hpp"
 
 namespace reflection
  {
   namespace property
    {
-    namespace guarded
+    namespace variable
      {
 
       template
        <
-         typename model_name
+         typename original_name
         ,typename image_name
         ,typename storage_name    //= type_name
-        ,typename assigner_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
+        ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
         ,typename retriever_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
-        ,typename report_name
        >
        class basic_class
-        :  virtual public ::reflection::property::guarded::pure_class<model_name,image_name,report_name>
-        ,          public ::reflection::property::mutate::basic_class< model_name, storage_name, assigner_name, report_name >
+        :  virtual public ::reflection::property::variable::pure_class<original_name,image_name>
+        ,          public ::reflection::property::direct::basic_class< original_name,storage_name, extractor_name >
         ,          public ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name >
         {
          public:
-           typedef model_name          model_type;
-           typedef storage_name      storage_type;
-           typedef assigner_name    assigner_type;
+           typedef original_name   original_type;
+           typedef storage_name    storage_type;
+           typedef extractor_name  extractor_type;
            typedef retriever_name  retriever_type;
-           typedef report_name        report_type;
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef ::reflection::property::mutate::basic_class< model_name,storage_name, assigner_name, report_name  > mutate_type;
+           typedef ::reflection::property::direct::basic_class< original_name,storage_name, extractor_name > direct_type;
            typedef ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name > inspect_type;
 
                     basic_class()
@@ -43,10 +42,10 @@ namespace reflection
 
            explicit basic_class
             (
-              assigner_type  const&  assigner_param
+              extractor_type const& extractor_param
              ,retriever_type const& retriever_param
             )
-            :mutate_type( assigner_param )
+            :direct_type( extractor_param )
             ,inspect_type( retriever_param )
             {
             }
@@ -54,18 +53,18 @@ namespace reflection
            explicit basic_class
             (
               storage_type   const& storage_param
-             ,assigner_type  const&  assigner_param = assigner_type()
+             ,extractor_type const& extractor_param = extractor_type()
              ,retriever_type const& retriever_param = retriever_type()
             )
-            :mutate_type(  assigner_param )
+            : direct_type( extractor_param )
             ,inspect_type( retriever_param )
-            {
-             this->storage( storage_param );
-            }
+              {
+               this->storage( storage_param );
+              }
 
          public:
-           using mutate_type::process;
-           using mutate_type::assigner;
+           using direct_type::disclose;
+           using direct_type::extractor;
 
            using inspect_type::present;
            using inspect_type::retriever;

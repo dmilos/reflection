@@ -22,7 +22,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_member( "return_int_function", MyClassOriginal, return_int_function )
+    reflection__CLASS_FUNCTION_member( "return_int_function", MyClassOriginal, public, return_int_function )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

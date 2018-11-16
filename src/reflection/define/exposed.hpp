@@ -7,7 +7,7 @@
 // reflection__CLASS_SIMPLE_exposed( member_string_name, type_symbolic_name, value_instance )
 
 
-#define reflection__CLASS_FIELD_exposed( member_string_name, class_symbolic_name, visibility_name, field_symbolic_name )\
+#define reflection__CLASS_FIELD_exposed( member_string_name, class_symbolic_name, accessibility_name, field_symbolic_name )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   auto instance =                                              \
@@ -17,7 +17,7 @@
            (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::field_symbolic_name    \
          );                                                                                                     \
-   instance.visibility(    ::reflection::ornament::visibility_class::public_index   );   \
+   instance.accessibility(    ::reflection::ornament::accessibility_class::from_string( #accessibility_name )   );   \
   /* TODO instance.linkage(    ::reflection::ornament::linkage_class::static_index   ); */ \
   insert                                                       \
    (                                                           \
@@ -36,7 +36,7 @@
          (                                                                                                \
           &class_symbolic_name::common_symbolic_name                                                      \
          );                                                                                                     \
-  instance.visibility(    ::reflection::ornament::visibility_class::public_index   );   \
+  instance.accessibility(    ::reflection::ornament::accessibility_class::from_string( #accessibility_name )   );   \
   instance.linkage(    ::reflection::ornament::linkage_class::static_index   );   \
   insert                                                       \
    (                                                           \
@@ -56,7 +56,7 @@
           ,&class_symbolic_name::traitor_symbolic_name  \
           ,&class_symbolic_name::writer_symbolic_name   \
          );                                                  \
-    instance.visibility(    ::reflection::ornament::visibility_class::public_index   );  \
+    instance.accessibility(    ::reflection::ornament::accessibility_class::public_index   );  \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

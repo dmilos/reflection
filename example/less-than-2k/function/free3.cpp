@@ -42,5 +42,11 @@ int main( int argc, char *argv[] )
     ::reflection::property::function::execute< int, int, std::string const&, float >(  r.get("free_int_int_string_float"), 10, "asdasd", 42.0 ) 
     << std::endl;
 
+  // Shorter path to execute function
+  std::cout << 
+    ::reflection::execute< int, int, std::string const&, float >(  r.get("free_int_int_string_float"), 10, "asdasd", 42.0 ) 
+    << std::endl;
+
+
   return EXIT_SUCCESS;
  }

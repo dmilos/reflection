@@ -16,12 +16,18 @@ class MyClassOriginal
     {
      std::cout << __FUNCTION__ << std::endl;
     }
+
+   //void return_void_function()const
+   // {
+   //  std::cout << __FUNCTION__ << std::endl;
+   // }
+
  };
 
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_member( "return_void_function", MyClassOriginal, return_void_function )
+    reflection__CLASS_FUNCTION_member( "return_void_function", MyClassOriginal, public, return_void_function )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 

@@ -2,7 +2,7 @@
 #define reflection_content_mutate_basic_hpp
  // ::reflection::content::mutate::basic_class<data_name,model_name,storage_name,assigner_name >
 
-#include "../../property/mutate/base.hpp"
+#include "../../property/mutate/basic.hpp"
 
 #include "./_pure.hpp"
 

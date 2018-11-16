@@ -12,7 +12,7 @@ namespace reflection
 
     class linkage_class
      : virtual public ::reflection::property::pure_class
-     {
+     { // https://en.cppreference.com/w/cpp/language/storage_duration
       public:
         typedef enum linkage_enum{ inline_index, static_index, extern_index, dll_index, default_index } linkage_type;
 
@@ -33,3 +33,5 @@ namespace reflection
  }
 
 #endif
+
+

@@ -42,18 +42,18 @@ namespace reflection
            typedef  fifth_name     fifth_type;
 
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>              content_type;
-           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>   member_type;
+           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>   property_type;
 
-           typedef typename member_type::function_type function_type;
+           typedef typename property_type::function_const_type function_const_type;
+           typedef typename property_type::function_type       function_type;
 
          public:
-                    member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
-           virtual ~member_class( ){}
+           using property_type::property_type;
 
          public:
            return_type execute( first_name first, second_name second, third_name third, fourth_name fourth, fifth_name fifth )const
             {
-             return this->member_type::execute( first, second, third, fourth, fifth );
+             return this->property_type::execute( first, second, third, fourth, fifth );
             }
 
            using content_type::signature;
@@ -73,18 +73,19 @@ namespace reflection
            typedef fourth_name    fourth_type;
 
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,fourth_name,void>              content_type;
-           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,third_name,fourth_name,void>   member_type;
+           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,third_name,fourth_name,void>   property_type;
 
-           typedef typename member_type::function_type function_type;
+           typedef typename property_type::function_type function_type;
+           typedef typename property_type::function_const_type functionfunction_const_type_type;
 
          public:
-                    member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
-           virtual ~member_class( ){}
+           using property_type::property_type;
+
 
          public:
            return_type execute( first_name first, second_name second, third_name third, fourth_name fourth )const
             {
-             return this->member_type::execute( first, second, third, fourth );
+             return this->property_type::execute( first, second, third, fourth );
             }
 
            using content_type::signature;
@@ -103,24 +104,22 @@ namespace reflection
            typedef  third_name     third_type;
 
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,void,void>              content_type;
-           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,third_name,void,void>   member_type;
+           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,third_name,void,void>   property_type;
 
-           typedef typename member_type::function_type function_type;
+           typedef typename property_type::function_type function_type;
+           typedef typename property_type::function_const_type functionfunction_const_type_type;
 
          public:
-                    member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
-           virtual ~member_class( ){}
+           using property_type::property_type;
 
          public:
            return_type execute( first_name first, second_name second, third_name third )const
             {
-             return this->member_type::execute( first, second, third );
+             return this->property_type::execute( first, second, third );
             }
 
            using content_type::signature;
         };
-
-
 
       template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name >
        class member_class<identifier_name,class_name,storage_name,return_name,first_name,second_name,void,void,void>
@@ -134,18 +133,18 @@ namespace reflection
            typedef second_name    second_type;
 
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,void,void,void>              content_type;
-           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,void,void,void>   member_type;
+           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,second_name,void,void,void>   property_type;
 
-           typedef typename member_type::function_type function_type;
+           typedef typename property_type::function_type function_type;
+           typedef typename property_type::function_const_type functionfunction_const_type_type;
 
          public:
-                    member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
-           virtual ~member_class( ){}
+           using property_type::property_type;
 
          public:
            return_type execute( first_name first, second_name second )const
             {
-             return this->member_type::execute( first, second );
+             return this->property_type::execute( first, second );
             }
 
            using content_type::signature;
@@ -163,18 +162,18 @@ namespace reflection
            typedef  first_name     first_type;
 
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,void,void,void,void>                content_type;
-           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,void,void,void,void>   member_type;
+           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,first_name,void,void,void,void>   property_type;
 
-           typedef typename member_type::function_type function_type;
+           typedef typename property_type::function_type function_type;
+           typedef typename property_type::function_const_type functionfunction_const_type_type;
 
          public:
-                    member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
-           virtual ~member_class( ){}
+           using property_type::property_type;
 
          public:
            return_type execute( first_name first )const
             {
-             return this->member_type::execute( first );
+             return this->property_type::execute( first );
             }
            using content_type::signature;
         };
@@ -189,18 +188,18 @@ namespace reflection
            typedef return_name    return_type;
 
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,void,void,void,void,void>                content_type;
-           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,void,void,void,void,void>   member_type;
+           typedef ::reflection::property::function::member_class<class_name,storage_name,return_name,void,void,void,void,void>   property_type;
 
-           typedef typename member_type::function_type function_type;
+           typedef typename property_type::function_type function_type;
+           typedef typename property_type::function_const_type functionfunction_const_type_type;
 
          public:
-                    member_class( class_type * class_param, function_type function_param ):member_type( class_param, function_param ) { }
-           virtual ~member_class( ){}
+           using property_type::property_type;
 
          public:
            return_type execute()const
             {
-             return this->member_type::execute();
+             return this->property_type::execute();
             }
 
            using content_type::signature;
@@ -212,12 +211,41 @@ namespace reflection
        member
         (
           storage_name const& class_param
+         ,return_name (class_name::*function_param)()const
+        )
+        {
+         typedef ::reflection::content::function::member_class<identifier_name,class_name,storage_name,return_name, void, void, void, void, void > property_type;
+
+         return property_type( class_param, function_param );
+        }
+
+
+      template< typename identifier_name, typename class_name, typename storage_name, typename return_name >
+       inline
+       ::reflection::content::function::member_class<identifier_name,class_name,storage_name,return_name,void,void,void,void,void>
+       member
+        (
+          storage_name const& class_param
          ,return_name (class_name::*function_param)()
         )
         {
-         typedef ::reflection::content::function::member_class<identifier_name,class_name,storage_name,return_name, void, void, void, void, void > member_type;
+         typedef ::reflection::content::function::member_class<identifier_name,class_name,storage_name,return_name, void, void, void, void, void > property_type;
 
-         return member_type( class_param, function_param );
+         return property_type( class_param, function_param );
+        }
+
+      template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name >
+       inline
+       ::reflection::content::function::member_class<identifier_name, class_name, storage_name, return_name, first_name, void, void, void, void >
+       member
+        (
+          storage_name const& class_param
+         ,return_name  (class_name::*function_param)( first_name )const
+        )
+        {
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, void, void, void, void > property_type;
+
+         return property_type( class_param, function_param );
         }
 
       template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name >
@@ -229,9 +257,24 @@ namespace reflection
          ,return_name  (class_name::*function_param)( first_name )
         )
         {
-         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, void, void, void, void > member_type;
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, void, void, void, void > property_type;
 
-         return member_type( class_param, function_param );
+         return property_type( class_param, function_param );
+        }
+
+
+      template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name >
+       inline
+       ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name,void,void,void>
+       member
+        (
+          storage_name const& class_param
+         ,return_name  (class_name::*function_param)( first_name, second_name )const
+        )
+        {
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, void, void, void > property_type;
+
+         return property_type( class_param, function_param );
         }
 
       template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name >
@@ -243,9 +286,23 @@ namespace reflection
          ,return_name  (class_name::*function_param)( first_name, second_name )
         )
         {
-         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, void, void, void > member_type;
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, void, void, void > property_type;
 
-         return member_type( class_param, function_param );
+         return property_type( class_param, function_param );
+        }
+
+      template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name >
+       inline
+       ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name,void,void>
+       member
+        (
+          storage_name const& class_param
+         ,return_name  (class_name::*function_param)( first_name, second_name, third_name )const
+        )
+        {
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, void, void > property_type;
+
+         return property_type( class_param, function_param );
         }
 
       template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name >
@@ -257,9 +314,23 @@ namespace reflection
          ,return_name  (class_name::*function_param)( first_name, second_name, third_name )
         )
         {
-         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, void, void > member_type;
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, void, void > property_type;
 
-         return member_type( class_param, function_param );
+         return property_type( class_param, function_param );
+        }
+
+      template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
+       inline
+       ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name,void>
+       member
+        (
+          storage_name const& class_param
+         ,return_name  (class_name::*function_param)( first_name, second_name, third_name, fourth_name )const
+        )
+        {
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, void > property_type;
+
+         return property_type( class_param, function_param );
         }
 
       template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
@@ -271,9 +342,23 @@ namespace reflection
          ,return_name  (class_name::*function_param)( first_name, second_name, third_name, fourth_name )
         )
         {
-         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, void > member_type;
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, void > property_type;
 
-         return member_type( class_param, function_param );
+         return property_type( class_param, function_param );
+        }
+
+      template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name, typename fifth_name >
+       inline
+       ::reflection::content::function::member_class< identifier_name, class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name >
+       member
+        (
+          storage_name const& class_param
+         ,return_name (class_name::*function_param)( first_name, second_name, third_name, fourth_name, fifth_name )const
+        )
+        {
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name > property_type;
+
+         return property_type( class_param, function_param );
         }
 
       template< typename identifier_name, typename class_name, typename storage_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name, typename fifth_name >
@@ -285,9 +370,9 @@ namespace reflection
          ,return_name (class_name::*function_param)( first_name, second_name, third_name, fourth_name, fifth_name )
         )
         {
-         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name > member_type;
+         typedef ::reflection::content::function::member_class<identifier_name,class_name, storage_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name > property_type;
 
-         return member_type( class_param, function_param );
+         return property_type( class_param, function_param );
         }
 
       }

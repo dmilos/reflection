@@ -179,6 +179,11 @@ namespace reflection
 
              decoration_accessibility( output_param, property_param );
              decoration_linkage( output_param, property_param );
+             decoration_qualification( output_param, property_param );
+             decoration_derivation( output_param, property_param );
+             decoration_relation( output_param, property_param );
+
+             output_param << "    \"value\"  : " ;
 
              return report_type( result );
             }
@@ -205,19 +210,20 @@ namespace reflection
 
            static void decoration_accessibility( output_type & output_param, property_qualified_reference_type property_param)
             {
-             typedef ::reflection::ornament::visibility_class visibility_type;
-             visibility_type  const* visibility = dynamic_cast< visibility_type const* >( &property_param );
-             if( nullptr != visibility )
+             typedef ::reflection::ornament::accessibility_class accessibility_type;
+             accessibility_type  const* accessibility = dynamic_cast< accessibility_type const* >( &property_param );
+             if( nullptr == accessibility )
               {
-               switch( visibility->visibility() )
-                {
-                 default:
-                 case( visibility_type::public_index    ): output_param << "    \"accessibility\": "<< "\"public\""<< "," <<std::endl;;    break;
-               //case( visibility_type::gloabal_index   ): output_param << "    \"accessibility\": "<< "\"global\""<< "," <<std::endl;;    break;
-                 case( visibility_type::protected_index ): output_param << "    \"accessibility\": "<< "\"protected\""<< "," <<std::endl;; break;
-                 case( visibility_type::private_index   ): output_param << "    \"accessibility\": "<< "\"private\""<< "," <<std::endl;;   break;
-               //case( visibility_type::unknown_index   ): output_param << "    \"accessibility\": "<< "\"unknown\""<< "," <<std::endl;;   break;
-                }
+               return;
+              }
+             switch( accessibility->accessibility() )
+              {
+               default:
+               case( accessibility_type::public_index    ): output_param << "    \"accessibility\": "<< "\"public\""<< "," <<std::endl;    break;
+             //case( accessibility_type::gloabal_index   ): output_param << "    \"accessibility\": "<< "\"global\""<< "," <<std::endl;    break;
+               case( accessibility_type::protected_index ): output_param << "    \"accessibility\": "<< "\"protected\""<< "," <<std::endl; break;
+               case( accessibility_type::private_index   ): output_param << "    \"accessibility\": "<< "\"private\""<< "," <<std::endl;   break;
+             //case( accessibility_type::unknown_index   ): output_param << "    \"accessibility\": "<< "\"unknown\""<< "," <<std::endl;   break;
               }
             }
 
@@ -225,17 +231,74 @@ namespace reflection
             {
              typedef ::reflection::ornament::linkage_class linkage_type;
              linkage_type  const* linkage = dynamic_cast< linkage_type const* >( &property_param );
-             if( nullptr != linkage )
+             if( nullptr == linkage )
               {
-               switch( linkage->linkage() )
-                {
-                 case( linkage_type::inline_index    ): output_param << "    \"linkage\": "<< "\"inline\"" << "," <<std::endl;    break;
-                 case( linkage_type::static_index    ): output_param << "    \"linkage\": "<< "\"static\""<< "," <<std::endl;;    break;
-               //case( linkage_type::extern_index    ): output_param << "    \"linkage\": "<< "\"extern\""<< "," <<std::endl;; break;
-               //case( linkage_type::dll_index       ): output_param << "    \"linkage\": "<< "\"dll\""<< "," <<std::endl;;   break;
-               //case( linkage_type::default_index   ): output_param << "    \"linkage\": "<< "\"default\""<< "," <<std::endl;;   break;
-                }
-              
+               return;
+              }
+             switch( linkage->linkage() )
+              {
+               case( linkage_type::inline_index    ): output_param << "    \"linkage\": "<< "\"inline\"" << "," <<std::endl;    break;
+               case( linkage_type::static_index    ): output_param << "    \"linkage\": "<< "\"static\""<< "," <<std::endl;    break;
+             //case( linkage_type::extern_index    ): output_param << "    \"linkage\": "<< "\"extern\""<< "," <<std::endl; break;
+             //case( linkage_type::dll_index       ): output_param << "    \"linkage\": "<< "\"dll\""<< "," <<std::endl;   break;
+             //case( linkage_type::default_index   ): output_param << "    \"linkage\": "<< "\"default\""<< "," <<std::endl;   break;
+              }
+            }
+
+           static void decoration_qualification( output_type & output_param, property_qualified_reference_type property_param)
+            {
+             typedef ::reflection::ornament::qualification_class qualification_type;
+             qualification_type  const* qualification = dynamic_cast< qualification_type const* >( &property_param );
+             if( nullptr == qualification )
+              {
+               return;
+              }
+             if( qualification->qualification() & qualification_type::const_index )
+              {
+               output_param << "    \"qualification\": "<< "\"const\"" << ","   <<std::endl;
+              }
+
+             if( qualification->qualification() & qualification_type::volatile_index )
+              {
+               output_param << "    \"qualification\": "<< "\"volatile\""<< "," <<std::endl;
+              }
+
+             //switch( qualification->qualification() )
+              {
+             //case( qualification_type::extern_index    ): output_param << "    \"qualification\": "<< "\"extern\""<< ","  <<std::endl; break;
+             //case( qualification_type::dll_index       ): output_param << "    \"qualification\": "<< "\"dll\""<< "," <<std::endl;   break;
+             //case( qualification_type::default_index   ): output_param << "    \"qualification\": "<< "\"default\""<< "," <<std::endl;   break;
+              }
+            }
+
+
+           static void decoration_derivation( output_type & output_param, property_qualified_reference_type property_param)
+            {
+             typedef ::reflection::ornament::derivation_class derivation_type;
+             derivation_type  const* derivation = dynamic_cast< derivation_type const* >( &property_param );
+             if( nullptr == derivation )
+              {
+               return;
+              }
+              switch( derivation->derivation() )
+               {
+                case( derivation_type::virtual_index   ): output_param << "    \"derivation\": "<< "\"virtual\""<< ","  <<std::endl; break;
+               }
+            }
+
+           static void decoration_relation( output_type & output_param, property_qualified_reference_type property_param)
+            {
+             typedef ::reflection::ornament::relation_class relation_type;
+             relation_type  const* relation = dynamic_cast< relation_type const* >( &property_param );
+             if( nullptr == relation )
+              {
+               return;
+              }
+             switch( relation->relation() )
+              {
+               case( relation_type::member_index   ): output_param << "    \"relation\": "<< "\"member\"" << ","  <<std::endl; break;
+               case( relation_type::base_index     ): output_param << "    \"relation\": "<< "\"base\""   << ","  <<std::endl; break;
+               case( relation_type::friend_index   ): output_param << "    \"relation\": "<< "\"friend\"" << ","  <<std::endl; break;
               }
             }
 
@@ -259,7 +322,7 @@ namespace reflection
               auto inspect = dynamic_cast< inspect_type const* >( &property_param );
               if( nullptr != inspect )
                {
-                output_param << "    \"" << "value" << "\"" << " : " << "\""<<  inspect->present() << "\"";
+                output_param << "\""<<  inspect->present() << "\"";
                 return report_type( true );
                }
              }
@@ -268,7 +331,7 @@ namespace reflection
               direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
               if( nullptr != direct_instance )
                {
-                output_param << "    \"" << "value" << "\"" << " : " << "\""<<  direct_instance->disclose() << "\"";
+                output_param << "\""<<  direct_instance->disclose() << "\"";
                 return report_type( true );
                }
              }
@@ -283,7 +346,7 @@ namespace reflection
               auto inspect = dynamic_cast< inspect_type const* >( &property_param );
               if( nullptr != inspect )
                {
-                // TODO output_param << "    \"" << "value" << "\"" << " : " << "\""<<  inspect->present() << "\"";
+                // TODO output_param << "\""<<  inspect->present() << "\"";
                 return report_type( true );
                }
              }
@@ -292,7 +355,7 @@ namespace reflection
               direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
               if( nullptr != direct_instance )
                {
-                // TODO output_param << "    \"" << "value" << "\"" << " : " << "\""<<  direct_instance->disclose() << "\"";
+                // TODO output_param << "\""<<  direct_instance->disclose() << "\"";
                 return report_type( true );
                }
              }
@@ -308,7 +371,7 @@ namespace reflection
                auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
                if( nullptr != inspect_instance )
                 {
-                 output_param << "    \"value\" : " << inspect_instance->present();
+                 output_param << inspect_instance->present();
                  return report_type( true );
                 }
               }
@@ -318,7 +381,7 @@ namespace reflection
                direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                if( nullptr != direct_instance )
                 {
-                 output_param << "    \"value\" : " << direct_instance->disclose();
+                 output_param << direct_instance->disclose();
                  return report_type( true );
                 }
               }
@@ -338,8 +401,6 @@ namespace reflection
                // TODO
                return report_type( false );
               }
-             output_param << "    \"values\": " << std::endl;
-
              output_param << "      [ " << std::endl;
 
              for( std::size_t index=0; index < context->container().size(); ++index )
@@ -367,17 +428,17 @@ namespace reflection
                return report_type( false );
               }
 
-             output_param << "    \"parameters\": " << std::endl;
+             //output_param << "    \"parameters\": " << std::endl;
              output_param << "      [ " << std::endl;
              for( std::size_t index=0; index < context->signature().size(); ++index )
               {
-               if( context->signature()[index] == identificator_type::NAT() )
+               if( context->signature()[index].original()  == identificator_type::NAT() )
                 {
                  continue;
                 }
                output_param << "        { ";
                output_param << "\"ordinal\": " << std::setw(3) << index << ", ";
-               output_param << "\"type\": "   << "\""<< context->signature()[index] << "\" ";
+               output_param << "\"type\": "   << "\""<< context->signature()[index].original()  << "\" ";
              //output_param << "\"name\":\""   << context->container()[index].name() << "\" ";
                output_param << "    }";
                if( index +1 < context->signature().size() ) {  output_param << ",";  }
@@ -398,8 +459,10 @@ namespace reflection
                return report_type( false );
               }
 
+             output_param << "    { " << std::endl;
              output_param << "    \"object\": \"" << context->object() << "\"," << std::endl;
-             output_param << "    \"name\"  : \""   << context->name()   << "\"";
+             output_param << "    \"name\"  : \""   << context->name()   << "\"" << std::endl;
+             output_param << "    }" ;
              //output_param << std::endl;
              return report_type( true );
             }

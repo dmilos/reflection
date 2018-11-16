@@ -3,7 +3,7 @@
 
  // ::reflection::content::trinity::void_class<identifier_name,report_name>
 
-#include "../../property/trinity/base.hpp"
+#include "../../property/trinity/basic.hpp"
 
 #include "../direct/basic.hpp"
 #include "../mutate/basic.hpp"

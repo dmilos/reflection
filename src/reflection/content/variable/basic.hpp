@@ -2,7 +2,7 @@
 #define reflection_content_variable_basic_hpp
  // ::reflection::content::variable::basic_class<data_name,original_name,image_name,storage_name,extractor_name,retriever_name >
 
-#include "../../property/variable/base.hpp"
+#include "../../property/variable/basic.hpp"
 
 #include "./_pure.hpp"
 

@@ -14,6 +14,7 @@ namespace reflection
      : virtual public ::reflection::property::pure_class
      {
       public:
+        typedef std::string string_type;
         typedef enum accessibility_enum{ gloabal_index, public_index, protected_index, private_index, local_index, unknown_index } accessibility_type;
 
       public:
@@ -27,6 +28,16 @@ namespace reflection
         accessibility_enum      & accessibility()     { return m_accessibility; }
       private:
         accessibility_enum m_accessibility;
+      public:
+        static accessibility_type from_string( string_type const& s )
+         {
+          if( "gloabal"   == s ) return gloabal_index;
+          if( "public"    == s ) return public_index;
+          if( "protected" == s ) return protected_index;
+          if( "private"   == s ) return private_index;
+          if( "local"     == s ) return local_index;
+          return unknown_index;
+         }
      };
 
    }

@@ -1,8 +1,8 @@
 #ifndef reflection_property_exposed_type_base
 #define reflection_property_exposed_type_base
 
-#include "../direct/base.hpp"
-#include "../mutate/base.hpp"
+#include "../direct/basic.hpp"
+#include "../mutate/basic.hpp"
 #include "./_pure.hpp"
 
 namespace reflection

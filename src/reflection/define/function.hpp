@@ -5,7 +5,7 @@
 
 
 
-#define reflection__CLASS_FUNCTION_member( function_string_name, class_symbolic_name, function_symbolic_name ) \
+#define reflection__CLASS_FUNCTION_member( function_string_name, class_symbolic_name, accessibility_name, function_symbolic_name ) \
  {                                                             \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   auto instance = ::reflection::content::function::member<identifier_type>  \
@@ -13,8 +13,9 @@
             (class_symbolic_name *)(nullptr)                  \
           , &class_symbolic_name::function_symbolic_name      \
          );  \
-  instance.visibility( ::reflection::ornament::visibility_class::public_index ); \
+  instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) ); \
   instance.linkage(    ::reflection::ornament::linkage_class::default_index   ); \
+  instance.qualification( ::reflection::ornament::qualification_class::get< decltype(&class_symbolic_name::function_symbolic_name) >( ) ); \
   insert                                                      \
    (                                                          \
      function_string_name                                     \
@@ -23,13 +24,14 @@
  }
 
 
-#define reflection__CLASS_FUNCTION_static( function_string_name, class_symbolic_name, function_symbolic_name ) \
+#define reflection__CLASS_FUNCTION_static( function_string_name, class_symbolic_name, accessibility_name, function_symbolic_name ) \
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   auto instance = ::reflection::content::function::free<identifier_type>  \
          (                                                    \
             class_symbolic_name::function_symbolic_name      \
          );  \
+  /*instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );*/ \
   instance.linkage(    ::reflection::ornament::linkage_class::static_index   ); \
   insert                                             \
    (                                                 \

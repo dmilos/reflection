@@ -3,7 +3,7 @@
 
 // ::reflection::property::direct::pointer_class<data_name, storage_name>
 
-#include "./base.hpp"
+#include "./basic.hpp"
 #include "../../type/functor/asterisk.hpp"
 
 

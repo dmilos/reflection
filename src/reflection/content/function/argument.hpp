@@ -23,7 +23,7 @@ namespace reflection
            typedef ::reflection::property::pure_class                            propert_type;
            typedef ::reflection::ornament::category_class<identifier_type> category_type;
 
-           typedef std::vector<  propert_type * > container_type, parameter_type;
+           typedef std::vector<  propert_type * > container_type;
 
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
 
@@ -43,7 +43,7 @@ namespace reflection
                {
                 return false;
                }
-              if( category_instance->identifier() != signature_param[index] )
+              if( category_instance->identifier() != signature_param[index].instance() )
                {
                 return false;
                }

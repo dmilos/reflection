@@ -3,9 +3,9 @@
 
 // ::reflection::property::mutate::member_struct<model_name,class_name,carrier_name,report_name>
 
-#include "../../ornament/visibility.hpp"
+#include "../../ornament/accessibility.hpp"
 #include "../../ornament/relation.hpp"
-#include "./base.hpp"
+#include "./basic.hpp"
 
  namespace reflection
   {
@@ -71,12 +71,12 @@
         >
        class  member_class
         : public ::reflection::ornament::relation_class
-        , public ::reflection::ornament::visibility_class
+        , public ::reflection::ornament::accessibility_class
         , public ::reflection::property::mutate::_internal::member_struct<model_name,class_name,storage_name,report_name>::typedef_type
         {
          public:
           typedef ::reflection::ornament::relation_class relation_type;
-          typedef ::reflection::ornament::visibility_class visibility_type;
+          typedef ::reflection::ornament::accessibility_class accessibility_type;
 
           typedef typename ::reflection::property::mutate::_internal::member_struct<model_name,class_name,storage_name,report_name>  basic_type;
           typedef typename basic_type::typedef_type  base_type;
@@ -87,7 +87,7 @@
 
           explicit member_class( storage_type   const& storage_param, writer_type const& writer_param )
            : relation_type( relation_type::member_index )
-           , visibility_type( visibility_type::unknown_index )
+           , accessibility_type( accessibility_type::unknown_index )
            , base_type( storage_param, assigner_type( writer_param ) )
            {
            }

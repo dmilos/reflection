@@ -325,14 +325,14 @@ namespace reflection
              output_param << "    # $function" << std::endl;
              for( std::size_t index=0; index < context->signature().size(); ++index )
               {
-               if( context->signature()[index] == identificator_type::NAT() )
+               if( context->signature()[index].instance() == identificator_type::NAT() )
                 {
                  continue;
                 }
 
                output_param << "    { " ;
                output_param << "    ordinal : " << index << ", ";
-               output_param << "    type    : \"" << context->signature()[index] << "\" ";
+               output_param << "    type    : \"" << context->signature()[index].original() << "\" ";
                output_param << " } " ;
 
                output_param << std::endl;

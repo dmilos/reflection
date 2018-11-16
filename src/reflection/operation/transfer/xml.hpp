@@ -192,18 +192,18 @@ namespace reflection
 
            static void decoration_accessibility( output_type & output_param, property_qualified_reference_type property_param)
             {
-             typedef ::reflection::ornament::visibility_class visibility_type;
-             visibility_type  const* visibility = dynamic_cast< visibility_type const* >( &property_param );
-             if( nullptr != visibility )
+             typedef ::reflection::ornament::accessibility_class accessibility_type;
+             accessibility_type  const* accessibility = dynamic_cast< accessibility_type const* >( &property_param );
+             if( nullptr != accessibility )
               {
-               switch( visibility->visibility() )
+               switch( accessibility->accessibility() )
                 {
                  default:
-                 case( visibility_type::public_index    ): output_param << " accessibility="<< "\"public\"" ;    break;
-               //case( visibility_type::gloabal_index   ): output_param << " accessibility="<< "\"global\"";    break;
-                 case( visibility_type::protected_index ): output_param << " accessibility="<< "\"protected\""; break;
-                 case( visibility_type::private_index   ): output_param << " accessibility="<< "\"private\"" ;   break;
-               //case( visibility_type::unknown_index   ): output_param << " accessibility="<< "\"unknown\"" ;   break;
+                 case( accessibility_type::public_index    ): output_param << " accessibility="<< "\"public\"" ;    break;
+               //case( accessibility_type::gloabal_index   ): output_param << " accessibility="<< "\"global\"";    break;
+                 case( accessibility_type::protected_index ): output_param << " accessibility="<< "\"protected\""; break;
+                 case( accessibility_type::private_index   ): output_param << " accessibility="<< "\"private\"" ;   break;
+               //case( accessibility_type::unknown_index   ): output_param << " accessibility="<< "\"unknown\"" ;   break;
                 }
               }
             }
@@ -310,14 +310,14 @@ namespace reflection
              output_param << ">" << std::endl;
              for( std::size_t index=0; index < context->signature().size(); ++index )
               {
-               if( context->signature()[index] == identificator_type::NAT() )
+               if( context->signature()[index].original()  == identificator_type::NAT() )
                 {
                  continue;
                 }
 
                output_param << "  <parameter ";
                output_param << "ordinal=\"" << index << "\" ";
-               output_param << "type=\"" << context->signature()[index] << "\" ";
+               output_param << "type=\"" << context->signature()[index].original()  << "\" ";
                output_param << "/>";
                output_param << std::endl;
               }

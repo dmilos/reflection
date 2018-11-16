@@ -3,7 +3,7 @@
 
 // ::reflection::property::direct::simple_struct<data_name,original_name>
 
-#include "./base.hpp"
+#include "./basic.hpp"
 
 namespace reflection
  {

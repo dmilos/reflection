@@ -24,7 +24,7 @@
 #define reflection__CLASS_ENUM_end( enumerator_symbolic_name ) \
  }
 
-#define reflection__CLASS_ENUM_MEMBER_begin( enumerator_string_name, class_symbolic_name, visibility_name, enumerator_symbolic_name )\
+#define reflection__CLASS_ENUM_MEMBER_begin( enumerator_string_name, class_symbolic_name, accessibility_name, enumerator_symbolic_name )\
  { \
   typedef /*decltype( enumerator_string_name)*/ std::string identifier_type;     \
   typedef class_symbolic_name::enumerator_symbolic_name enumarator_type; \

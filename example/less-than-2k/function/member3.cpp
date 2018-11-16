@@ -27,7 +27,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_member( "member_int_int_string_float", MyClassOriginal, member_int_int_string_float )
+    reflection__CLASS_FUNCTION_member( "member_int_int_string_float", MyClassOriginal, public, member_int_int_string_float )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
