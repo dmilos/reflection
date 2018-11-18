@@ -551,5 +551,8 @@
     <ClCompile Include="..\..\..\workbench.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\less-than-Nk\base\direct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

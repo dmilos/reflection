@@ -22,20 +22,21 @@ namespace reflection
          <
            typename base_name
           ,typename derived_name
+          ,typename storage_name
          >
         struct base_struct
          {
           public:
-            typedef base_name          base_type;
-            typedef derived_name    derived_type;
+            typedef base_name              base_type;
+            typedef derived_name        derived_type;
+            typedef storage_name        storage_type;
 
-            typedef base_type & original_type;
-            typedef derived_type * storage_type;
+            typedef base_type &   original_type;
 
             typedef class extractor_class
              {
               public:
-                explicit extractor_class(  )
+                extractor_class()
                  {
                  }
                 original_type operator()( storage_type const& carrier_param )const
@@ -51,6 +52,7 @@ namespace reflection
              return typedef_type( carrier_param, extractor_type( ) );
             }
          };
+
        }
 
 
@@ -58,14 +60,15 @@ namespace reflection
          <
            typename base_name
           ,typename derived_name
+          ,typename storage_name
          >
        class base_class
         : public ::reflection::property::base::distinctive_class<base_name,derived_name>
-        , public ::reflection::property::direct::_internal::base_struct<base_name,derived_name>::typedef_type
+        , public ::reflection::property::direct::_internal::base_struct<base_name,derived_name,storage_name>::typedef_type
         {
          public:
           typedef          ::reflection::property::base::distinctive_class<base_name,derived_name>                      distinctive_type;
-          typedef typename ::reflection::property::direct::_internal::base_struct<base_name,derived_name>::typedef_type direct_type;
+          typedef typename ::reflection::property::direct::_internal::base_struct<base_name,derived_name,storage_name>::typedef_type direct_type;
 
           using direct_type::direct_type;
 
@@ -76,11 +79,22 @@ namespace reflection
          <
            typename base_name
           ,typename derived_name
+          ,typename storage_name
          >
-         ::reflection::property::direct::base_class<base_name,derived_name>
+         ::reflection::property::direct::base_class<base_name,derived_name,storage_name>
+         base( storage_name const& carrier_param )
+          {
+           return ::reflection::property::direct::base_class<base_name,derived_name,storage_name>( carrier_param );
+          }
+        template
+         <
+           typename base_name
+          ,typename derived_name
+         >
+         ::reflection::property::direct::base_class<base_name,derived_name,derived_name *>
          base( derived_name * carrier_param )
           {
-           return ::reflection::property::direct::base_class<base_name,derived_name>( carrier_param );
+           return ::reflection::property::direct::base_class<base_name,derived_name,derived_name *>( carrier_param );
           }
 
 

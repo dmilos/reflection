@@ -317,6 +317,7 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\less-than-Nk\base\direct.cpp" />
     <ClCompile Include="..\..\..\workbench.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -8,7 +8,7 @@
   auto instance =  ::reflection::content::direct::base                                               \
          <identifier_type,base_symbolic_name,class_symbolic_name >                                   \
          (                                                                                           \
-          nullptr                                                                                    \
+          (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation( ::reflection::ornament::derivation_class::default_index );                    \
@@ -20,12 +20,13 @@
    );                                                                                                \
  }
 
-#define reflection__CLASS_BASE_inspect( string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
+#define reflection__CLASS_BASE_inspect( member_string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
  {                                                                                                   \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;                            \
-  auto instance =  ::reflection::content::base::inspect                                              \
-         <identifier_type,base_symbolic_name >                                                       \
+  auto instance =  ::reflection::content::inspect::base                                              \
+         <identifier_type,base_symbolic_name,class_symbolic_name >                                   \
          (                                                                                           \
+          (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
 /*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
@@ -36,12 +37,13 @@
    );                                                                                                \
  }
 
-#define reflection__CLASS_BASE_mutate( string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
+#define reflection__CLASS_BASE_mutate( member_string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
  {                                                                                                   \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;                            \
-  auto instance =  ::reflection::content::base::mutate                                               \
-         <identifier_type,base_symbolic_name >                                                       \
+  auto instance =  ::reflection::content::mutate::base                                               \
+         <identifier_type,base_symbolic_name,class_symbolic_name >                                   \
          (                                                                                           \
+          (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
 /*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
@@ -52,12 +54,13 @@
    );                                                                                                \
  }
 
-#define reflection__CLASS_BASE_variable( string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
+#define reflection__CLASS_BASE_variable( member_string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
  {                                                                                                   \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;                            \
-  auto instance =  ::reflection::content::base::variable                                               \
-         <identifier_type,base_symbolic_name >                                                       \
+  auto instance =  ::reflection::content::variable::base                                               \
+         <identifier_type,base_symbolic_name, class_symbolic_name >                                                       \
          (                                                                                           \
+          (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
 /*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
@@ -68,12 +71,13 @@
    );                                                                                                \
  }
 
-#define reflection__CLASS_BASE_guarded( string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
+#define reflection__CLASS_BASE_guarded( member_string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
  {                                                                                                   \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;                            \
-  auto instance =  ::reflection::content::base::guarded                                               \
-         <identifier_type,base_symbolic_name >                                                       \
+  auto instance =  ::reflection::content::guarded::base                                              \
+         <identifier_type,base_symbolic_name, class_symbolic_name >                                                       \
          (                                                                                           \
+          (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
 /*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
@@ -84,12 +88,13 @@
    );                                                                                                \
  }
 
-#define reflection__CLASS_BASE_exposed( string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
+#define reflection__CLASS_BASE_exposed( member_string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
  {                                                                                                   \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;                            \
-  auto instance =  ::reflection::content::base::exposed                                               \
-         <identifier_type,base_symbolic_name >                                                       \
+  auto instance =  ::reflection::content::exposed::base                                              \
+         <identifier_type,base_symbolic_name, class_symbolic_name >                                  \
          (                                                                                           \
+          (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
 /*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
@@ -100,12 +105,13 @@
    );                                                                                                \
  }
 
-#define reflection__CLASS_BASE_trinity( string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
+#define reflection__CLASS_BASE_trinity( member_string_name, class_symbolic_name, accessibility_name, base_symbolic_name ) \
  {                                                                                                   \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;                            \
-  auto instance =  ::reflection::content::base::trinity                                               \
-         <identifier_type,base_symbolic_name >                                                       \
+  auto instance =  ::reflection::content::trinity::base                                               \
+         <identifier_type,base_symbolic_name, class_symbolic_name >                                                       \
          (                                                                                           \
+          (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
 /*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \

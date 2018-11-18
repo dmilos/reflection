@@ -1,5 +1,9 @@
 pwd
 
+cd ./base
+./run.sh
+cd ..
+
 cd ./exposed
 ./run.sh
 cd ..

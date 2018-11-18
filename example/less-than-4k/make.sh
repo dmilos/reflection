@@ -1,5 +1,9 @@
 pwd
 
+cd ./base
+./make.sh
+cd ..
+
 cd ./exposed
 ./make.sh
 cd ..

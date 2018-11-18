@@ -1,7 +1,14 @@
 # C++ Reflection
 
+### Table of Contents
+   * [Status](#status)
+   * [Description](#description)
+   * [Key features](#key-features)
+   * [Example](#example)
+   * [Note](#note)
+
 ### Status
-- In progress
+- In progress. Nearly at the end. 
 
 ### Description
  - Yet another implementation of reflection in C++. \
@@ -80,7 +87,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
     reflection__CLASS_ENUM_value( "enum2",  MyClassOriginal::enum2 )
     reflection__CLASS_ENUM_value( "enum10", MyClassOriginal::enum10 )
     reflection__CLASS_ENUM_value( "enum11", MyClassOriginal::enum11 )
-  reflection__CLASS_ENUM_end(MyClassOriginal::Enumerator)
+  reflection__CLASS_ENUM_end( MyClassOriginal::Enumerator )
 
   reflection__CLASS_MEMBER_mutate(   "asasd1",  MyClassOriginal, writer   )//!< Access to member by using only writer
   reflection__CLASS_MEMBER_direct(   "asasd2",  MyClassOriginal, traitor  )//!< Access to member by using only traitor
@@ -129,6 +136,16 @@ int main( int argc, char *argv[] )
  }
 
  ```
+### Install:
+1. Clone this Repository: \
+  Examples:
+    - Windows : git clone https://github.com/dmilos/reflection.git c:\my-work-folder\my-git-folder\reflection
+    - Linux   : git clone https://github.com/dmilos/reflection.git /home/my-user-name/my-work-folder/my-git-folder/reflection
+2. Inform compiler where to find headers: \
+  Examples:
+   - MSVC : /Ic:\my-work-folder\my-git-folder\reflection\src
+   - gcc  : -I/home/my-user-name/my-work-folder/my-git-folder/reflection/src
+
 
 ### Note:
 Tested against :

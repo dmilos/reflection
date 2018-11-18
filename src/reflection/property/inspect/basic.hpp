@@ -1,5 +1,5 @@
-#ifndef reflection_property_inspect_base
-#define reflection_property_inspect_base
+#ifndef reflection_property_inspect_basic
+#define reflection_property_inspect_basic
 
 #include "./_pure.hpp"
 #include "../_carrier.hpp"

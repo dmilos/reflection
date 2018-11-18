@@ -23,8 +23,8 @@ cd ..
 
 cd ./less-than-4k
 ./make.sh
-cd .. 
+cd ..
 
 cd ./less-than-Nk
 ./make.sh
-cd .. 
+cd ..
