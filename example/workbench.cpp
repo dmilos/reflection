@@ -40,8 +40,9 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
     typedef std::array<float,2> MyTypDef;
+    typedef std::vector<int> MyVectorType;
 
-    MyMainClass():m_int(123456){ }
+    MyMainClass():m_int(123456){ m_vector.resize(3,456); }
 
     void a(){ }
     void                b0( float const& f ){ static std::string s;   }
@@ -59,6 +60,12 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
 
     static int   some_static_function( float const&f ){ return 12; }
 
+    Enumerator const&  enum_read()const{ return m_enum; }
+    bool               enum_write( Enumerator const& a ){ m_enum = a; return true; }
+
+    MyVectorType const&  vector_reader()const{ return m_vector; }
+    MyVectorType      &  vector_traitor(){ return m_vector; }
+
   public:
    double m_public = 456;
    const double          m_const_public          = 123;
@@ -68,9 +75,11 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
   public:
    static std::string m_static;
   private: // And private member
+    Enumerator m_enum = enum2;
     int m_int;
     volatile int m_cv;
     MyFirstClassOriginal m_subsider;
+    MyVectorType  m_vector;
  };
 
 std::string MyMainClass::m_static="blahblahfoofoo"; //!< TODO
@@ -99,6 +108,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
     reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public , MyBaseClass );
 
   reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
+  reflection__CLASS_TYPEDEF_member( "typedef-of-vector", MyMainClass, public, MyVectorType );
 
   reflection__CLASS_ENUM_begin( "enum-for-something", MyMainClass::Enumerator );
     reflection__CLASS_ENUM_value( "enum1",  MyMainClass::enum1 )
@@ -114,6 +124,8 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyMainClass, traitor, reader )
   reflection__CLASS_MEMBER_guarded(   "asasd2",  MyMainClass, writer, reader  )
 
+   reflection__CLASS_MEMBER_guarded(   "00enum",  MyMainClass, enum_write, enum_read  )
+
      reflection__CLASS_FUNCTION_member( "traitor", MyMainClass, public, traitor )
      reflection__CLASS_FUNCTION_member( "reader", MyMainClass, public, reader  )
    //reflection__CLASS_FUNCTION_member( "writerV", MyMainClass, public, writerV)
@@ -128,6 +140,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
   reflection__CLASS_FUNCTION_static( "my_static", MyMainClass, public, some_static_function )
 
    reflection__CLASS_MEMBER_variable(  "0subsider-traitor", MyMainClass, subsider_traitor, subsider_reader )
+   reflection__CLASS_MEMBER_variable(  "my-vector", MyMainClass, vector_traitor, vector_reader )
 
   reflection__CLASS_FIELD_direct(  "some-field-doubleD", MyMainClass, public, m_public )
   reflection__CLASS_FIELD_direct(  "some-const-field-doubleD", MyMainClass, public, m_const_public )
@@ -164,7 +177,6 @@ int main( int argc, char *argv[] )
   std::cout << __FUNCTION__ << std::endl;
   // Some typedefs
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
   typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
   typedef ::reflection::operation::transfer::cpp_struct<std::ostream> cpp_type;
   typedef ::reflection::operation::transfer::yaml_struct<std::ostream> yaml_type;
@@ -176,40 +188,53 @@ int main( int argc, char *argv[] )
   //MyClassReflection<int>   r0;  //!< Reflection of Original, with pointing to some instance
   //MyClassReflection<float> r1( &o );  //!< Reflection of Original, with pointing to same instance
 
-  observe_type observe;
+  ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
+  { 
+   typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
+   auto xml_context = xml_type::context();
+   xml_type xml( observe, xml_context );
+
+    ::reflection::operation::transfer::xml::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, xml_context );
+    ::reflection::operation::transfer::xml::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, xml_context ); 
+    ::reflection::operation::transfer::xml::register_enum<MyMainClass::Enumerator>( observe, xml_context ); 
+    ::reflection::operation::transfer::xml::register_vector<int>( observe, xml_context );
+  }
+  observe.view( std::cout, r ); // XMLize
+
+  observe.clear();
   { cpp_type cpp( observe );
-                    observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
-                    observe.insert<MyBaseClass, MyBaseClasssReflectionView>( ); 
+                    observe.register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                    observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( ); 
   }
   observe.view( std::cout, r ); // CPPize for example
 
   observe.clear();
-  { xml_type xml( observe ); observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); } 
-  observe.view( std::cout, r ); // XMLize
-
-  observe.clear();
   { json_type json( observe );
-                    observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
-                    observe.insert<MyBaseClass, MyBaseClasssReflectionView>( ); 
+                    observe.register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                    observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( ); 
   }
   observe.view( std::cout, r ); // JSONize
 
   observe.clear();
-  { yaml_type yaml( observe ); observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); }
+  { yaml_type yaml( observe );
+                    observe.register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                    observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( ); 
+  }
   observe.view( std::cout, r ); // YAMLize
 
   observe.clear();
   { protobuf_type protobuf( observe ); 
-                            observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
-                            observe.insert<MyBaseClass, MyBaseClasssReflectionView>( ); 
+                            observe.register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                            observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( ); 
   }
-
   observe.view( std::cout, r ); // Protobufferize
 
   observe.clear();
   { ini_type ini( observe );  
-                  observe.insert<MyFirstClassOriginal, MyFirstClassReflectionView>( ); }
+                            observe.register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
+                            observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( ); 
+  }
   observe.view( std::cout, r );  // INIrize
 
   //for( auto & v: r )  //! Iterato over the members
@@ -224,4 +249,5 @@ int main( int argc, char *argv[] )
 
   return EXIT_SUCCESS;
  }
+
 

@@ -23,7 +23,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\readme.cpp">
+    <ClCompile Include="..\..\..\workbench.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

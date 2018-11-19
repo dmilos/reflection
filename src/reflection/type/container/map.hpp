@@ -5,16 +5,12 @@
 // ::reflection::type::container::value
 // ::reflection::type::container::insert
 
-
 namespace reflection
  {
   namespace type
    {
     namespace container
      {
-
-    //  template< typename key_name, typename data_name >
-    //    using map = std::map< key_name, data_name >;
 
       template< typename key_name, typename data_name >
        struct map
@@ -66,7 +62,7 @@ namespace reflection
         erase
         (
           typename::reflection::type::container::map< key_name, data_name >::container_type &container_param
-         , key_name const& key
+         ,key_name const& key
         )
         {
          container_param.erase( key );
@@ -116,7 +112,6 @@ namespace reflection
         return container.find( key );
        }
 
-       
       template< typename key_name, typename data_name >
        typename ::reflection::type::container::map< key_name, data_name >::iterator_type
        find

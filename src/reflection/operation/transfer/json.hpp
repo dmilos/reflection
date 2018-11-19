@@ -69,7 +69,7 @@ namespace reflection
          public:
            json_struct( observe_type & observe_param )
             {
-             auto indent = std::make_shared<internal_struct>( );
+             auto internal = std::make_shared<internal_struct>( );
              using namespace std::placeholders;
 
              observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
@@ -77,11 +77,11 @@ namespace reflection
            //observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
              observe_param.control( observe_type::recover_null_pointer_index  , &this_type::null_recover    );
 
-             observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, indent, _1, _2, _3 ) );
+             observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, internal, _1, _2, _3 ) );
              observe_param.control( observe_type::stage_stasimon_index ,  &this_type::stasimon );
              observe_param.control( observe_type::stage_prefix_index,   &this_type::prefix );
              observe_param.control( observe_type::stage_suffix_index,   &this_type::suffix );
-             observe_param.control( observe_type::stage_conclusio_index ,    std::bind( &this_type::conclusio, indent, _1, _2, _3 )   );
+             observe_param.control( observe_type::stage_conclusio_index ,    std::bind( &this_type::conclusio, internal, _1, _2, _3 )   );
 
              observe_param.insert( identificator_type::template get<  std::string   >(), &this_type::string   );
              observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );

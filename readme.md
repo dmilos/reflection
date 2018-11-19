@@ -1,14 +1,7 @@
 # C++ Reflection
 
-### Table of Contents
-   * [Status](#status)
-   * [Description](#description)
-   * [Key features](#key-features)
-   * [Example](#example)
-   * [Note](#note)
-
 ### Status
-- In progress. Nearly at the end. 
+- In progress.
 
 ### Description
  - Yet another implementation of reflection in C++. \

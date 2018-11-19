@@ -70,37 +70,37 @@ int main( int argc, char *argv[] )
 
   { cpp_type cpp( observe ); //!< Fill observator how to serialize.
 
-                    observe.insert<MyBaseClass, MyBaseClasssReflectionView>( );
+                    observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( );
   }
   observe.view( std::cout, r ); // CPPize for example
 
   observe.clear();
   { xml_type xml( observe );//!< Fill observator how to serialize.
-                  observe.insert<MyBaseClass, MyBaseClasssReflectionView>( );
+                  observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( );
   }
   observe.view( std::cout, r ); // XMLize
 
   observe.clear();
   { json_type json( observe );//!< Fill observator how to serialize.
-                    observe.insert<MyBaseClass, MyBaseClasssReflectionView>( );
+                    observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( );
   }
   observe.view( std::cout, r ); // JSONize
 
   observe.clear();
   { yaml_type yaml( observe );//!< Fill observator how to serialize.
-                    observe.insert<MyBaseClass, MyBaseClasssReflectionView>( );
+                    observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( );
   }
   observe.view( std::cout, r ); // YAMLize
 
   observe.clear();
   { protobuf_type protobuf( observe );//!< Fill observator how to serialize.
-                            observe.insert<MyBaseClass, MyBaseClasssReflectionView>( );
+                            observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( );
   }
   observe.view( std::cout, r ); // Protobufferize
 
   observe.clear();
   { ini_type ini( observe );//!< Fill observator how to serialize.
-                  observe.insert<MyBaseClass, MyBaseClasssReflectionView>( );
+                  observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( );
   }
   observe.view( std::cout, r );  // INIrize
 

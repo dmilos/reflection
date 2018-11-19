@@ -45,13 +45,66 @@ namespace reflection
         private:
           storage_type         m_storage;
        };
+ 
+      template
+       <
+        typename storage_name
+       >
+      class carrier_class< storage_name & >
+       {
+        public:
+          typedef storage_name& storage_type;
 
-     };
+        public:
+          explicit carrier_class( storage_type & storage_param )
+           : m_storage( storage_param )
+           {
+           }
 
+          virtual ~carrier_class(){}
+
+        public:
+          storage_type   &  storage ( void )const
+           {
+            return m_storage;
+           }
+
+        private:
+          storage_type         m_storage;
+       };
+/**/
+    template
+     <
+      typename storage_name
+     >
+    class carrier_class< storage_name const& >
+       {
+        public:
+          typedef storage_name const& storage_type;
+
+        public:
+          explicit carrier_class( storage_type const& storage_param )
+           : m_storage( storage_param )
+           {
+           }
+
+          virtual ~carrier_class(){}
+
+        public:
+          storage_type   const&  storage ( void )const
+           {
+            return m_storage;
+           }
+
+        private:
+          storage_type         m_storage;
+       };
+
+
+
+     }
    }
  }
 
  #endif
-
-
 

@@ -131,12 +131,23 @@ namespace reflection
              protocolX_type::insert( this->menu(), key, function );
             }
 
+           void register__any( key_type const& key, function_type const& function )
+            {
+             protocolX_type::insert( this->menu(), key, function );
+            }
+
           template < typename data_name,  typename view_name >
-           void insert()
+           void register_class()
             {
              using namespace std::placeholders;
-             auto f = std::bind( &this_type::view<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
+             auto f = std::bind( &this_type::view_custom<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
              protocolX_type::insert( this->menu(), identificator_type::template get<data_name>(), f );
+            }
+
+          template < typename enumerator_name >
+           void register_enumeration( function_type const& function )
+            {
+             protocolX_type::insert( this->menu(), identificator_type::template get<enumerator_name>(), function );
             }
 
          public:
@@ -284,7 +295,7 @@ namespace reflection
 
          public:
           template < typename userType_name, typename reflection_name >
-           report_type view
+           report_type view_custom
             (
               output_type                       &   output_param
              ,key_type                     const&      key_param
@@ -314,6 +325,7 @@ namespace reflection
 
              return report_type( false );
            }
+
        };
 
      }

@@ -37,7 +37,7 @@ namespace reflection
          ,key_name  const& key
         )
         {
-         return false;
+         return key < container.size();
         }
 
       template< typename key_name, typename data_name >
@@ -61,7 +61,7 @@ namespace reflection
         erase
         (
           typename ::reflection::type::container::vector< key_name, data_name >::container_type &container_param
-         , key_name const& key
+         ,key_name const& key
         )
         {
          //container_param.erase( container_param.begin() + key );
@@ -75,7 +75,7 @@ namespace reflection
           ,typename ::reflection::type::container::vector< key_name, data_name >::const_iterator_type    const& iterator_param
          )
        {
-        return key_name{};
+        return container_param - container_param.begin();
        }
 
       template< typename key_name, typename data_name >
@@ -108,7 +108,7 @@ namespace reflection
           ,typename ::reflection::type::container::vector< key_name, data_name >::key_type          const& key
          )
        {
-        return container.begin();
+        return container.begin() + key;
        }
 
       template< typename key_name, typename data_name >
@@ -119,7 +119,7 @@ namespace reflection
           ,typename ::reflection::type::container::vector< key_name, data_name >::key_type         const& key
          )
        {
-        return container.begin();
+        return container.begin() + key;
        }
 
      }
