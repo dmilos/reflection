@@ -57,12 +57,12 @@ int main( int argc, char *argv[] )
   std::cout << __FUNCTION__ << std::endl;
   // Some typedefs
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
-  typedef ::reflection::operation::transfer::json_struct<std::ostream> json_type;
-  typedef ::reflection::operation::transfer::cpp_struct<std::ostream> cpp_type;
-  typedef ::reflection::operation::transfer::yaml_struct<std::ostream> yaml_type;
-  typedef ::reflection::operation::transfer::protobuf_struct<std::ostream> protobuf_type;
-  typedef ::reflection::operation::transfer::ini_struct<std::ostream> ini_type;
+  typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
+  typedef ::reflection::operation::transfer::json::print_struct<std::ostream> json_type;
+  typedef ::reflection::operation::transfer::cpp::print_struct<std::ostream> cpp_type;
+  typedef ::reflection::operation::transfer::yaml::print_struct<std::ostream> yaml_type;
+  typedef ::reflection::operation::transfer::protobuf::print_struct<std::ostream> protobuf_type;
+  typedef ::reflection::operation::transfer::ini::print_struct<std::ostream> ini_type;
 
   MyClassReflection   r;  //!< Reflection of Original, with pointing to some instance
 

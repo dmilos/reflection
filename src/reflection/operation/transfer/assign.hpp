@@ -55,7 +55,7 @@ namespace reflection
            typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, error_enum, std::add_const, container_name > observe_type;
 
          public:
-           assign_struct( observe_type & observe_param )
+           explicit assign_struct( observe_type & observe_param )
             {
              observe_param.insert( identificator_type::template get<  std::string    >(), &assign_struct::process<std::string   >  );
              observe_param.insert( identificator_type::template get<  std::wstring   >(), &assign_struct::process<std::wstring  >  );

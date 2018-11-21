@@ -74,7 +74,7 @@ int main( int argc, char *argv[] )
   MyMainReflection r;
 
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::xml_struct<std::ostream> xml_type;
+  typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
 
   observe_type observe;
   xml_type xml(observe);

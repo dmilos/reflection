@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ./readme.exe
 
 cd ./less-than-1k

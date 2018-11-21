@@ -1,3 +1,5 @@
+#!/bin/bash
+
 pwd
 
 ./cpp.exe

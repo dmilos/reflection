@@ -30,7 +30,7 @@ namespace reflection
            typedef ::reflection::property::enumeration::pure_class<name_name,value_name> pure_type;
 
          public:
-                    distinctive_class( name_name const& name ):pure_type( name ){}
+           explicit distinctive_class( name_name const& name ):pure_type( name ){}
            virtual ~distinctive_class(){}
 
          public:

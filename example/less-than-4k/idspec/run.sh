@@ -1,1 +1,3 @@
+#!/bin/bash
+
 ./member.exe

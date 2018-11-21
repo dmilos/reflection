@@ -151,7 +151,7 @@ namespace reflection
           }
 
        public:
-         static bool  & is_empty()
+         static bool   is_empty()
           {
            return true;
           }

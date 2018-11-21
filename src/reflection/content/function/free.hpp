@@ -44,7 +44,7 @@ namespace reflection
            typedef typename free_type::function_type function_type;
 
          public:
-                    free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -76,7 +76,7 @@ namespace reflection
            typedef typename free_type::function_type function_type;
 
          public:
-                    free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -106,7 +106,7 @@ namespace reflection
            typedef typename free_type::function_type function_type;
 
          public:
-                    free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -136,7 +136,7 @@ namespace reflection
            typedef typename free_type::function_type function_type;
 
          public:
-                    free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -165,7 +165,7 @@ namespace reflection
            typedef typename free_type::function_type function_type;
 
          public:
-                    free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -192,7 +192,7 @@ namespace reflection
            typedef typename free_type::function_type function_type;
 
          public:
-                    free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( function_type function_param ):free_type( function_param ) { }
            virtual ~free_class( ){}
 
          public:
