@@ -1,3 +1,3 @@
 #include "./print.hpp"
-//#include "./register.hpp"
+#include "./intorspect.hpp"
 #include "./serialize.hpp"

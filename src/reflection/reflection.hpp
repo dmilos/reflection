@@ -3,6 +3,7 @@
 
 #include <string>
 #include <array>
+#include <list>
 #include <map>
 #include <set>
 #include <vector>

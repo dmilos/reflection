@@ -29,7 +29,8 @@
           (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
-/*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
+  instance.derivation( ::reflection::ornament::derivation_class::default_index );                    \
+  instance.relation( ::reflection::ornament::relation_class::base_index );                           \
   insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \
@@ -46,7 +47,8 @@
           (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
-/*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
+  instance.derivation( ::reflection::ornament::derivation_class::default_index );                    \
+  instance.relation( ::reflection::ornament::relation_class::base_index );                           \
   insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \
@@ -63,7 +65,8 @@
           (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
-/*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
+  instance.derivation( ::reflection::ornament::derivation_class::default_index );                    \
+  instance.relation( ::reflection::ornament::relation_class::base_index );                           \
   insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \
@@ -80,7 +83,8 @@
           (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
-/*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
+  instance.derivation( ::reflection::ornament::derivation_class::default_index );                    \
+  instance.relation( ::reflection::ornament::relation_class::base_index );                           \
   insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \
@@ -97,7 +101,8 @@
           (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
-/*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
+  instance.derivation( ::reflection::ornament::derivation_class::default_index );                    \
+  instance.relation( ::reflection::ornament::relation_class::base_index );                           \
   insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \
@@ -114,7 +119,8 @@
           (class_symbolic_name*)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );                     \
-/*instance.derivation( ::reflection::ornament::derivation_class::normal_index );*/                   \
+  instance.derivation( ::reflection::ornament::derivation_class::default_index );                    \
+  instance.relation( ::reflection::ornament::relation_class::base_index );                           \
   insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \

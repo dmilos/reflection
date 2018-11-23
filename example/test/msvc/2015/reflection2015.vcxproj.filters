@@ -548,7 +548,7 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\workbench.cpp">
+    <ClCompile Include="..\..\..\readme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

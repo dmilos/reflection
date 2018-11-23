@@ -39,8 +39,8 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-  reflection__CLASS_FUNCTION_member( "member_void", MyClassOriginal, public, member_void )
-  reflection__CLASS_FUNCTION_member( "member_int" , MyClassOriginal, public, member_int )
+    reflection__CLASS_FUNCTION_member( "member_void", MyClassOriginal, public, member_void )
+    reflection__CLASS_FUNCTION_member( "member_int" , MyClassOriginal, public, member_int )
 
     reflection__CLASS_MEMBER_guarded(   "int-point",      MyClassOriginal, writer_int ,   reader_int    )
 
@@ -49,7 +49,7 @@ reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 int main( int argc, char *argv[] )
  {
-  MyClassReflection r;  //!< Reflection of Original
+  MyClassReflection r;  //!< Reflection of Original and comntaine original
 
   // Classic "direct" call where c++ take care about arguments type check
 
@@ -67,10 +67,10 @@ int main( int argc, char *argv[] )
 
   argument[0]= &p0v;
 
-  ::reflection::content::function::execute<std::string>( r.get("member_void_int"), argument );
+  ::reflection::content::function::execute<std::string>( r.get("member_void"), argument );
 
   argument[0]= &r.get("int-point");
-  ::reflection::content::function::execute<std::string>( r.get("member_int_int"), argument );
+  ::reflection::content::function::execute<std::string>( r.get("member_int"), argument );
 
 
   return EXIT_SUCCESS;

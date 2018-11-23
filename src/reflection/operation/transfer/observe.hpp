@@ -56,7 +56,7 @@ namespace reflection
            typedef typename std::add_lvalue_reference< property_qualified_type >::type      property_qualified_reference_type;
            typedef typename std::add_lvalue_reference< structure_qualified_type >::type    structure_qualified_reference_type;
 
-           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, identifier_type, report_name, qualificator_name, container_name > protocolX_type;
+           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, identifier_type, report_name, qualificator_name, container_name > protocolX_type, protocol_type;
 
            typedef typename protocolX_type::function_type     function_type;
            typedef typename protocolX_type::menu_type         menu_type;
@@ -136,18 +136,20 @@ namespace reflection
              protocolX_type::insert( this->menu(), key, function );
             }
 
-          template < typename data_name,  typename view_name >
+          template < typename data_name >
+           void register__any( function_type const& f )
+            {
+             auto i = identificator_type::template get<data_name>();
+             this->insert( i , f );
+            }
+
+          template < typename data_name, typename view_name >
            void register_class()
             {
              using namespace std::placeholders;
+             auto i = identificator_type::template get<data_name>();
              auto f = std::bind( &this_type::view_custom<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
-             protocolX_type::insert( this->menu(), identificator_type::template get<data_name>(), f );
-            }
-
-          template < typename enumerator_name >
-           void register_enumeration( function_type const& function )
-            {
-             protocolX_type::insert( this->menu(), identificator_type::template get<enumerator_name>(), function );
+             this->insert( i , f );
             }
 
          public:

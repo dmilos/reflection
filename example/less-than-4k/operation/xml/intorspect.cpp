@@ -207,17 +207,9 @@ int main( int argc, char *argv[] )
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
   { 
-   typedef ::reflection::operation::transfer::xml::serialize_struct<std::ostream> xml_type;
-   auto xml_context = xml_type::context();
-   xml_type xml( observe, xml_context );
-
-   xml_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, xml_context );
-   xml_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, xml_context ); 
-   xml_type::register_enum<MyMainClass::Enumerator>( observe, xml_context ); 
-   xml_type::register_vector<int>( observe, xml_context );
-   xml_type::register_set<int>( observe, xml_context );
-   xml_type::register_list<int>( observe, xml_context );
-   xml_type::register_map<int,std::string>( observe, xml_context );
+   typedef ::reflection::operation::transfer::cpp::introspect_struct<std::ostream> introspect_type;
+   auto introspect_context = introspect_type::context();
+   introspect_type introspect( observe, introspect_context );
   }
 
   observe.view( std::cout, r ); // XMLize
