@@ -97,15 +97,15 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_BASE_direct( "1base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_mutate( "3base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public, default, MyBaseClass );
 
   reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
   reflection__CLASS_TYPEDEF_member( "typedef-of-vector", MyMainClass, public, MyVectorType );
@@ -191,14 +191,16 @@ int main( int argc, char *argv[] )
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
   { 
-   typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
+   typedef ::reflection::operation::transfer::xml::serialize_struct<std::ostream> xml_type;
    auto xml_context = xml_type::context();
    xml_type xml( observe, xml_context );
 
-    //::reflection::operation::transfer::xml::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, xml_context );
-    //::reflection::operation::transfer::xml::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, xml_context ); 
-    //::reflection::operation::transfer::xml::register_enum<MyMainClass::Enumerator>( observe, xml_context ); 
-    //::reflection::operation::transfer::xml::register_vector<int>( observe, xml_context );
+    //xml_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, xml_context );
+    //xml_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, xml_context ); 
+    //xml_type::register_enum<MyMainClass::Enumerator>( observe, xml_context ); 
+     xml_type::register_container< std::vector<int> >( observe, xml_context );
+     xml_type::register_map< int,int >( observe, xml_context );
+     xml_type::register_container< std::map<int,std::string> >( observe, xml_context );
   }
   observe.view( std::cout, r ); // XMLize
 

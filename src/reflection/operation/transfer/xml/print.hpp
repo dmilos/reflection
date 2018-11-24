@@ -104,10 +104,7 @@ namespace reflection
                observe_param.control( observe_type::stage_conclusio_index ,    std::bind( &this_type::conclusio, context_param, _1, _2, _3 )   );
 
                observe_param.insert( identificator_type::template get< std::string    >(), &this_type::primitive<std::string   >  );
-               observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
-
-               // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &this_type::vector  );
-               // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &this_type::set     );
+               observe_param.insert( identificator_type::template get< std::wstring   >(), &this_type::wstring  );
 
                observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
                observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
@@ -239,7 +236,7 @@ namespace reflection
                  //case( accessibility_type::gloabal_index   ): output_param << " accessibility="<< "\"global\"";    break;
                    case( accessibility_type::protected_index ): output_param << " accessibility="<< "\"protected\""; break;
                    case( accessibility_type::private_index   ): output_param << " accessibility="<< "\"private\"" ;   break;
-                 //case( accessibility_type::unknown_index   ): output_param << " accessibility="<< "\"unknown\"" ;   break;
+                 //case( accessibility_type::default_index   ): output_param << " accessibility="<< "\"default\"" ;   break;
                   }
 
                output_param << " ";

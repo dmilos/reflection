@@ -85,9 +85,6 @@ namespace reflection
                observe_param.insert( identificator_type::template get< std::string    >(), &this_type::string  );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
 
-               // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &this_type::vector  );
-               // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &this_type::set     );
-
                observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
                observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
                observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t  >  );
@@ -219,7 +216,7 @@ namespace reflection
                  //case( accessibility_type::gloabal_index   ): output_param << "global";    break;
                    case( accessibility_type::protected_index ): output_param << "protected"; break;
                    case( accessibility_type::private_index   ): output_param << "private";   break;
-                 //case( accessibility_type::unknown_index   ): output_param << "unknown";   break;
+                 //case( accessibility_type::default_index   ): output_param << "default";   break;
                   }
                  output_param << ": ";
                 }

@@ -49,7 +49,7 @@ namespace reflection
 
          public:
            using content_type::signature;
-           // TODO using free_type::execute;
+           using free_type::execute;
 
            return_type execute( first_name first, second_name second, third_name third, fourth_name fourth, fifth_name fifth )
             {
@@ -81,7 +81,8 @@ namespace reflection
 
          public:
            using content_type::signature;
-           // TODO using free_type::execute;
+           using free_type::execute;
+           
            return_type execute( first_name first, second_name second, third_name third, fourth_name fourth )
             {
              return this->free_type::execute( first, second, third, fourth );
@@ -111,7 +112,7 @@ namespace reflection
 
          public:
            using content_type::signature;
-           // TODO using free_type::execute;
+           using free_type::execute;
 
            return_type execute( first_name first, second_name second, third_name third )
             {
@@ -141,7 +142,7 @@ namespace reflection
 
          public:
            using content_type::signature;
-           // TODO using free_type::execute;
+           using free_type::execute;
 
            return_type execute( first_name first, second_name second ) const
             {
@@ -170,7 +171,7 @@ namespace reflection
 
          public:
            using content_type::signature;
-           // TODO using free_type::execute;
+           using free_type::execute;
 
            return_type execute( first_name first )const
             {

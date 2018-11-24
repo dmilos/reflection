@@ -67,42 +67,5 @@ namespace reflection
    }
  }
 
-namespace reflection
- {
-  namespace type
-   {
-    namespace name
-     {
-
-      template <>
-       typename identificatorX<std::string>::identifier_type const&
-       identificatorX<std::string>::template get<std::string          >(){ static std::string s("std::string" ); return s; }
-
-      template <>
-       typename identificatorX<std::string>::identifier_type const&
-       identificatorX<std::string>::template get<std::string  const   >(){ static std::string s("std::string const" ); return s; }
-
-      template <>
-       typename identificatorX<std::string>::identifier_type const&
-       identificatorX<std::string>::template get< std::string   const& >(){ static std::string s("std::string const&" ); return s; }
-
-       template <>
-       typename identificatorX<std::string>::identifier_type const&
-         identificatorX<std::string>::template get<std::wstring        >(){ static std::string s( "std::wstring" ); return s; }
-
-       template <>
-       typename identificatorX<std::string>::identifier_type const&
-         identificatorX<std::string>::template get<std::wstring const  >(){ static std::string s( "std::wstring const" ); return s; }
-
-       template <>
-       typename identificatorX<std::string>::identifier_type const&
-         identificatorX<std::string>::template get< std::wstring const& >(){ static std::string s( "std::wstring const&" ); return s; }
-
-
-     }
-   }
- }
-
-
 #endif
 

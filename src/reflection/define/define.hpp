@@ -9,6 +9,7 @@
 #include "./function.hpp"
 #include "./enum.hpp"
 #include "./typedef.hpp"
+#include "./friend.hpp"
 
 #include "./direct.hpp"
 #include "./inspect.hpp"

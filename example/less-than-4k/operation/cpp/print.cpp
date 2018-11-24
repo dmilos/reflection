@@ -97,15 +97,15 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_BASE_direct( "1base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_mutate( "3base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public, default, MyBaseClass );
 
   reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
   reflection__CLASS_TYPEDEF_member( "typedef-of-vector", MyMainClass, public, MyVectorType );
@@ -186,12 +186,12 @@ int main( int argc, char *argv[] )
    auto cpp_context = cpp_type::context();
    cpp_type cpp( observe, cpp_context );
 
-    //::reflection::operation::transfer::cpp::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, xml_context );
-    //::reflection::operation::transfer::cpp::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, xml_context );
-    //::reflection::operation::transfer::cpp::register_enum<MyMainClass::Enumerator>( observe, xml_context );
-    //::reflection::operation::transfer::cpp::register_vector<int>( observe, xml_context );
+    //cpp_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, cpp_context );
+    //cpp_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, cpp_context );
+    //cpp_type::register_enum<MyMainClass::Enumerator>( observe, cpp_context );
+    //cpp_type::register_container< std::vector<int> >( observe, cpp_context );
   }
-  observe.view( std::cout, r ); // XMLize
+  observe.view( std::cout, r ); // CPPize
 
   return EXIT_SUCCESS;
  }

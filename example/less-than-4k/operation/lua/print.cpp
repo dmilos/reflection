@@ -97,15 +97,15 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_BASE_direct( "1base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_mutate( "3base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public, default, MyBaseClass );
 
   reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
   reflection__CLASS_TYPEDEF_member( "typedef-of-vector", MyMainClass, public, MyVectorType );
@@ -186,10 +186,10 @@ int main( int argc, char *argv[] )
    auto lua_context = lua_type::context();
    lua_type lua( observe, lua_context );
 
-    //::reflection::operation::transfer::lua::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, lua_context );
-    //::reflection::operation::transfer::lua::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, lua_context ); 
-    //::reflection::operation::transfer::lua::register_enum<MyMainClass::Enumerator>( observe, lua_context ); 
-    //::reflection::operation::transfer::lua::register_vector<int>( observe, lua_context );
+    //lua_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, lua_context );
+    //lua_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, lua_context ); 
+    //lua_type::register_enum<MyMainClass::Enumerator>( observe, lua_context ); 
+    //lua_type::register_container< std::vector<int> >( observe, lua_context );
   }
   observe.view( std::cout, r ); // LUAize
 

@@ -35,6 +35,9 @@ namespace reflection
          typedef typename container_name< key_type, item_type >::iterator_type                iterator_type;
          typedef typename container_name< key_type, item_type >::const_iterator_type    const_iterator_type;
 
+         typedef ::reflection::property::structure_class<key_name,container_name>    this_class;
+
+
          structure_class()
           {
           }
@@ -161,6 +164,18 @@ namespace reflection
            static property_type s_empty;
            return s_empty;
           }
+       public:
+
+       static this_class const& self( property_type const& property_param )
+        {
+         return dynamic_cast< this_class const&>( property_param );
+        }
+
+       static this_class & self( property_type & property_param )
+        {
+         return dynamic_cast< this_class &>( &property_param );
+        }
+
 
       };
 

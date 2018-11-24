@@ -97,15 +97,15 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_BASE_direct( "1base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_mutate( "3base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public , MyBaseClass );
-    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_exposed(  "4base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_variable( "5base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_BASE_guarded(  "6base-something", MyMainClass, public, default, MyBaseClass );
 
-    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_trinity(  "7base-something", MyMainClass, public, default, MyBaseClass );
 
   reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
   reflection__CLASS_TYPEDEF_member( "typedef-of-vector", MyMainClass, public, MyVectorType );
@@ -120,7 +120,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
   reflection__CLASS_MEMBER_mutate(    "asasd3",  MyMainClass, writer  )
   reflection__CLASS_MEMBER_direct(    "asasd4",  MyMainClass, traitor  )
   reflection__CLASS_MEMBER_inspect(   "asasd5",  MyMainClass, reader   )
- 
+
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyMainClass, traitor, reader )
   reflection__CLASS_MEMBER_guarded(   "asasd2",  MyMainClass, writer, reader  )
 
@@ -181,17 +181,17 @@ int main( int argc, char *argv[] )
 
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
-  { 
+  {
    typedef ::reflection::operation::transfer::python::print_struct<std::ostream> python_type;
    auto python_context = python_type::context();
    python_type python( observe, python_context );
 
-    //::reflection::operation::transfer::python::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, python_context );
-    //::reflection::operation::transfer::python::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, python_context ); 
-    //::reflection::operation::transfer::python::register_enum<MyMainClass::Enumerator>( observe, python_context ); 
-    //::reflection::operation::transfer::python::register_vector<int>( observe, python_context );
+    //python_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, python_context );
+    //python_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, python_context );
+    //python_type::register_enum<MyMainClass::Enumerator>( observe, python_context );
+    //python_type::register_container< std::vector<int> >( observe, python_context );
   }
-  observe.view( std::cout, r ); // XMLize
+  observe.view( std::cout, r ); // PYTHONize
 
   return EXIT_SUCCESS;
  }

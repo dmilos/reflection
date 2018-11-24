@@ -88,9 +88,6 @@ namespace reflection
                observe_param.control( observe_type::stage_conclusio_index,    std::bind( &this_type::conclusio,  internal, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,  internal, _1, _2, _3 ) );
 
-               // TODO observe_param.insert( identificator_type::template get<  std::vector< property_type *>  >(), &this_type::vector  );
-               // TODO observe_param.insert( identificator_type::template get<  std::set<    property_type *>  >(), &this_type::set     );
-
                observe_param.insert( identificator_type::template get<  enumeration_type     >(), &this_type::enumeration    );
                //if(false)observe_param.insert( identificator_type::template get<  algorithm_type               >(), &this_type::function       );
                if(false)observe_param.insert( identificator_type::template get<          typedefinition_type  >(), &this_type::typedefinition );

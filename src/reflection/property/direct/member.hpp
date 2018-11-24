@@ -86,7 +86,7 @@ namespace reflection
 
           explicit member_class( storage_type   const& storage_param, traitor_type const& traitor_param )
             : relation_type( relation_type::member_index )
-            , accessibility_type( accessibility_type::unknown_index )
+            , accessibility_type( accessibility_type::default_index )
             , base_type( storage_param, extractor_type( traitor_param ) )
             {
             }

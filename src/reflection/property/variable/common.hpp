@@ -78,14 +78,13 @@ namespace reflection
 
           explicit common_class( storage_type   const& storage_param )
             : relation_type( relation_type::member_index )
-            , accessibility_type( accessibility_type::unknown_index )
+            , accessibility_type( accessibility_type::default_index )
             , linkage_class( linkage_class::static_index )
             , base_type( storage_param, extractor_type(), retriever_type() )
             {
             }
 
           using base_type::disclose;
-          // TODO using base_type::disclose;
         };
 
 

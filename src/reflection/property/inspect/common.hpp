@@ -77,7 +77,7 @@ namespace reflection
 
           explicit common_class( storage_type   const& storage_param )
             : relation_type( relation_type::member_index )
-            , accessibility_type( accessibility_type::unknown_index )
+            , accessibility_type( accessibility_type::default_index )
             , linkage_type( linkage_type::static_index )
             , base_type( storage_param, retriever_type() )
           {

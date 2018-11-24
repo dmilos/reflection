@@ -43,7 +43,7 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public , MyBaseClass );
+    reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
 
     reflection__CLASS_MEMBER_guarded(   "integer",  MyMainClass, writer, reader  )
 

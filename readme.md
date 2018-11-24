@@ -19,9 +19,9 @@
  - Specific:
     * Obey existing encapsulation
     * No bloat of existing code and require no change aether.
-    * Add or remove some properties in run-time.
-    * Track: accessibility, enums, typedefs, (static/const/volatile)data members, member/static/const functions,
-    * Extra: serialize to XML, JSON, YAML, Protobuf, CPP and INI.
+    * Add or remove properties in run-time.
+    * Track: friends, accessibility, enums, typedefs, (static/const/volatile)data members, member/static/const functions
+    * Extra: different serializations to XML, JSON, YAML, Protobuf, CPP and INI.
 
 ### Example:
 ```c++

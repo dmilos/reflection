@@ -6,6 +6,10 @@ cd ./base
 ./make.sh
 cd ..
 
+cd ./friend
+./make.sh
+cd ..
+
 cd ./exposed
 ./make.sh
 cd ..

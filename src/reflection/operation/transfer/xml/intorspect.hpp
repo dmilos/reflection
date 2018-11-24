@@ -193,7 +193,7 @@ namespace reflection
                //case( accessibility_type::gloabal_index   ): output_param << " accessibility="<< "\"global\"";    break;
                  case( accessibility_type::protected_index ): output_param << " accessibility="<< "\"protected\""; break;
                  case( accessibility_type::private_index   ): output_param << " accessibility="<< "\"private\"" ;   break;
-               //case( accessibility_type::unknown_index   ): output_param << " accessibility="<< "\"unknown\"" ;   break;
+               //case( accessibility_type::default_index   ): output_param << " accessibility="<< "\"default\"" ;   break;
                 }
 
                output_param << " ";

@@ -82,13 +82,12 @@ namespace reflection
 
           explicit field_class( storage_type   const& storage_param, pointer_type const& pointer_param )
             : relation_type( relation_type::member_index )
-            , accessibility_type( accessibility_type::unknown_index )
+            , accessibility_type( accessibility_type::default_index )
             , base_type( storage_param, extractor_type( pointer_param ), retriever_type( pointer_param ) )
             {
             }
 
           using base_type::disclose;
-          // TODO using base_type::disclose;
         };
 
 

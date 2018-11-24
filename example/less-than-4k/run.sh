@@ -10,6 +10,10 @@ cd ./exposed
 ./run.sh
 cd ..
 
+cd ./friend
+./run.sh
+cd ..
+
 cd ./function
 ./run.sh
 cd ..

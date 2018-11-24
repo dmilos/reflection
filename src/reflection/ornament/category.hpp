@@ -5,6 +5,7 @@
 // ::reflection::ornament::category::pure()
 
 #include "../property/_pure.hpp"
+#include "../type/name/id.hpp"
 
  namespace reflection
   {
@@ -19,6 +20,9 @@
        {
         public:
           typedef identifier_name identifier_type;
+          typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
+
+          typedef ::reflection::ornament::category_class< identifier_name  > this_type;
 
         public:
           explicit  category_class
@@ -47,9 +51,26 @@
         public:
           static bool check( ::reflection::property::pure_class const& property_param )
            {
-            typedef ::reflection::ornament::category_class<identifier_name> category_type;
-            return nullptr != dynamic_cast< category_type const*>( &property_param );
+            return nullptr != dynamic_cast< this_type const*>( &property_param );
            }
+
+        public:
+          static identifier_type identifier( ::reflection::property::pure_class const& property_param )
+           {
+            this_type  const* this_item = dynamic_cast< this_type const* >( &property_param );
+            if( nullptr == this_item )
+             {
+              return identificator_type::NAT();
+             }
+            return this_item->identifier();
+           }
+
+        public:
+          static this_type self( ::reflection::property::pure_class const& property_param )
+           {
+            return dynamic_cast< this_type const&>( property_param );
+           }
+
        };
 
      template

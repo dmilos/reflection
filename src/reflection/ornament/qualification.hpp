@@ -9,25 +9,25 @@ namespace reflection
  {
   namespace ornament
    {
-   
+
    namespace _internal
     {   //       https://stackoverflow.com/questions/30407754/how-to-test-if-a-method-is-const
-     template<class T> 
+     template<class T>
      struct is_pointer_to_const_member_function : std::false_type {};
 
-     template<class R, class T, class... Args> 
+     template<class R, class T, class... Args>
      struct is_pointer_to_const_member_function<R (T::*)(Args...) const> : std::true_type {};
 
-     template<class R, class T, class... Args> 
+     template<class R, class T, class... Args>
      struct is_pointer_to_const_member_function<R (T::*)(Args..., ...) const> : std::true_type {};
 
-     template<class T> 
+     template<class T>
      struct is_pointer_to_volatile_member_function : std::false_type {};
 
-     template<class R, class T, class... Args> 
+     template<class R, class T, class... Args>
      struct is_pointer_to_volatile_member_function<R (T::*)(Args...) volatile> : std::true_type {};
 
-     template<class R, class T, class... Args> 
+     template<class R, class T, class... Args>
      struct is_pointer_to_volatile_member_function<R (T::*)(Args..., ...) volatile> : std::true_type {};
     }
 
@@ -36,15 +36,18 @@ namespace reflection
      : virtual public ::reflection::property::pure_class
      {
       public:
-        typedef enum qualification_enum
+        enum qualification_enum
           {
-                default_index = 0
-              ,  friend_index = 1
-              ,   const_index = 2
-              , mutable_index = 4
-              ,volatile_index = 8
+                unknown_index = 0
+              , default_index = 1
+              ,  friend_index = 2
+              ,   const_index = 4
+              , mutable_index = 8
+              ,volatile_index = 16
               ,      cv_index = const_index + volatile_index
-          } qualification_type;
+          };
+
+        typedef ::reflection::ornament::qualification_class this_type;
 
       public:
          qualification_class( )
@@ -52,7 +55,7 @@ namespace reflection
           {
           }
          explicit qualification_class( qualification_enum const& r )
-          :m_qualification(r) 
+          :m_qualification(r)
           {
           }
         virtual ~qualification_class(){}
@@ -83,22 +86,32 @@ namespace reflection
          }
 
       public:
-        qualification_type const& qualification()const
+        qualification_enum const& qualification()const
          {
-          return m_qualification; 
+          return m_qualification;
          }
         void                      qualification( qualification_enum const& qualification_param )
          {
-          m_qualification = qualification_param; 
+          m_qualification = qualification_param;
          }
       protected:
-        qualification_type      & qualification()     
+        qualification_enum      & qualification()
          {
-          return m_qualification; 
+          return m_qualification;
          }
 
       private:
-        qualification_type m_qualification;
+        qualification_enum m_qualification;
+      public:
+        static qualification_enum qualification(  ::reflection::property::pure_class const& property_param )
+         {
+          this_type  const* this_item = dynamic_cast< this_type const* >( &property_param );
+          if( nullptr == this_item )
+           {
+            return unknown_index;
+           }
+          return this_item->qualification();
+         }
      };
 
    }

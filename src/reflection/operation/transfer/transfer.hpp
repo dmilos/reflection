@@ -8,6 +8,7 @@
 #include "./yaml/yaml.hpp"
 #include "./protobuf/protobuf.hpp"
 #include "./python/python.hpp"
+#include "./java/java.hpp"
 
 #include "./action.hpp"
 #include "./observe.hpp"

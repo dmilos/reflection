@@ -82,13 +82,14 @@
 
           explicit member_class( storage_type   const& storage_param, traitor_type const& traitor_param, writer_type const& writer_param )
            : relation_type( relation_type::member_index )
-           , accessibility_type( accessibility_type::unknown_index )
+           , accessibility_type( accessibility_type::default_index )
            , base_type( storage_param, extractor_type( traitor_param ), assigner_type( writer_param ) )
            {
            }
 
-          // TODO using base_type::process;
-         };
+           using base_type::disclose;
+           using base_type::process; 
+          };
 
 
        template

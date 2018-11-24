@@ -149,16 +149,6 @@ namespace reflection
          return dynamic_cast< function_type &>( property_param ).execute();
         }
 
-      // TODO template< typename return_name >
-      // TODO  inline
-      // TODO  return_name
-      // TODO  execute( ::reflection::property::pure_class const& property_param )
-      // TODO   {
-      // TODO    typedef ::reflection::property::function::pure_class<return_name,void,void,void,void,void> function_type;
-      // TODO
-      // TODO    return dynamic_cast< function_type &>( property_param ).execute();
-      // TODO   }
-
       template< typename return_name, typename first_name >
        inline
        return_name

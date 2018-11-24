@@ -15,7 +15,7 @@ namespace reflection
       ,typename insert_name
       ,typename remove_name
      >
-    class schema_class //!< kepp schema of class. No data. Only type/name i prototypes of functionss
+    class schema_class //!< kepp schema of class. No data. Only type/name i prototypes of functions. Superseded by view!!
      {
       public:
                  schema_class();

@@ -14,7 +14,9 @@ namespace reflection
      : virtual public ::reflection::property::pure_class
      {
       public:
-        typedef enum visibility_enum{ gloabal_index, public_index, protected_index, private_index, local_index, unknown_index } accessibility_type;
+        typedef enum visibility_enum{ unknown_index, default_index, gloabal_index, public_index, protected_index, private_index, local_index,  } accessibility_type;
+
+        typedef ::reflection::ornament::visibility_class  this_type;
 
       public:
         explicit visibility_class( visibility_enum const& visibility_param = public_index ):m_visibility(visibility_param){}
@@ -27,6 +29,16 @@ namespace reflection
         visibility_enum      & visibility()     { return m_visibility; }
       private:
         visibility_enum m_visibility;
+      public:
+        static relation_enum visibility(  ::reflection::property::pure_class const& property_param )
+         {
+          this_type  const* this_item = dynamic_cast< this_type const* >( &property_param );
+          if( nullptr == this_item )
+           {
+            return unknown_index;
+           }
+          return this_item->relation();
+         }
      };
 
    }

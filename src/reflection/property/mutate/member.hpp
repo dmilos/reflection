@@ -87,7 +87,7 @@
 
           explicit member_class( storage_type   const& storage_param, writer_type const& writer_param )
            : relation_type( relation_type::member_index )
-           , accessibility_type( accessibility_type::unknown_index )
+           , accessibility_type( accessibility_type::default_index )
            , base_type( storage_param, assigner_type( writer_param ) )
            {
            }

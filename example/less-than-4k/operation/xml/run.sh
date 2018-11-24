@@ -4,3 +4,4 @@ pwd
 
 ./print.exe
 ./serialize.exe
+./introspect.exe
