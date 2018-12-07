@@ -192,7 +192,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
  reflection__CLASS_STATIC_guarded(  "some-common-stringG", MyMainClass, public, m_static )
  reflection__CLASS_STATIC_exposed(  "some-common-stringE", MyMainClass, public, m_static )
 
- reflection__CLASS_STATIC_trinity( "some-common-stringT", MyMainClass, public,  m_static )
+ reflection__CLASS_STATIC_trinity( "some-common-stringT", MyMainClass, public, m_static )
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyMainClass, traitor,  writer )
 

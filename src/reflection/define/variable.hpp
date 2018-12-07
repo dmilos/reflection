@@ -18,7 +18,11 @@
           ,&class_symbolic_name::field_symbolic_name    \
          );                                                                                                     \
   /* TODO instance.linkage(    ::reflection::ornament::linkage_class::member_index   ); */ \
-  instance.accessibility(    ::reflection::ornament::accessibility_class::from_string( #accessibility_name )  ); \
+    instance.accessibility                                                                    \
+     ( ::reflection::ornament::accessibility_class::accessibility_enum(                       \
+        ::reflection::ornament::accessibility_class::variable_index                            \
+      | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
+     ));                                                        \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
@@ -36,7 +40,11 @@
           &class_symbolic_name::common_symbolic_name                                                      \
          );                                                                                                     \
   instance.linkage(    ::reflection::ornament::linkage_class::static_index   );  \
-  instance.accessibility(    ::reflection::ornament::accessibility_class::from_string( #accessibility_name )   ); \
+    instance.accessibility                                                                    \
+     ( ::reflection::ornament::accessibility_class::accessibility_enum(                       \
+        ::reflection::ornament::accessibility_class::variable_index                            \
+      | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
+     ));                                                        \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

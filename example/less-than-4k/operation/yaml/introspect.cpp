@@ -118,6 +118,8 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
+  reflection__CLASS_MEMBER_guarded(   "enum",  MyMainClass, enum_write, enum_read  )
+
     reflection__CLASS_friend(  "friend-class", MyMainClass, MyBaseClass );
 
     reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, virtual, MyBaseClass );
@@ -150,7 +152,6 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyMainClass, traitor, reader )
   reflection__CLASS_MEMBER_guarded(   "asasd2",  MyMainClass, writer, reader  )
 
-   reflection__CLASS_MEMBER_guarded(   "00enum",  MyMainClass, enum_write, enum_read  )
 
      reflection__CLASS_FUNCTION_member( "traitor", MyMainClass, public, traitor )
      reflection__CLASS_FUNCTION_member( "reader", MyMainClass, public, reader  )
@@ -165,7 +166,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
   reflection__CLASS_FUNCTION_static( "my_static", MyMainClass, public, some_static_function )
 
-   reflection__CLASS_MEMBER_variable(  "0subsider-traitor", MyMainClass, subsider_traitor, subsider_reader )
+   reflection__CLASS_MEMBER_variable(  "subsider-traitor", MyMainClass, subsider_traitor, subsider_reader )
    reflection__CLASS_MEMBER_variable(  "my-vector", MyMainClass, vector_traitor, vector_reader )
    reflection__CLASS_MEMBER_variable(  "my-set",    MyMainClass,    set_traitor,    set_reader )
    reflection__CLASS_MEMBER_variable(  "my-list",   MyMainClass, list_traitor,     list_reader )
@@ -186,7 +187,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
   reflection__CLASS_FIELD_trinity( "some-field-doubleT", MyMainClass, public, m_public )
 
- reflection__CLASS_STATIC_direct(  "some-common-stringD", MyMainClass, public, m_static )
+ reflection__CLASS_STATIC_direct(  "0some-common-stringD", MyMainClass, public, m_static )
  reflection__CLASS_STATIC_inspect( "some-common-stringI", MyMainClass, public, m_static )
  reflection__CLASS_STATIC_mutate(  "some-common-stringM", MyMainClass, public, m_static )
 
@@ -194,7 +195,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
  reflection__CLASS_STATIC_guarded(  "some-common-stringG", MyMainClass, public, m_static )
  reflection__CLASS_STATIC_exposed(  "some-common-stringE", MyMainClass, public, m_static )
 
- reflection__CLASS_STATIC_trinity( "some-common-stringT", MyMainClass, public,  m_static )
+ reflection__CLASS_STATIC_trinity( "some-common-stringT", MyMainClass, public, m_static )
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyMainClass, traitor,  writer )
 

@@ -43,13 +43,13 @@ namespace reflection
 
            public:
              typedef std::size_t size_type;
+           public:
              typedef struct context_struct
               {
                 size_type m_ident=0;
                 void inc(){ ++m_ident; }
                 void dec(){ --m_ident; }
                }context_type;
-
              typedef std::shared_ptr< context_type > contextPtr_type;
 
            public:
@@ -88,13 +88,13 @@ namespace reflection
                observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
 
                observe_param.control( observe_type::stage_introductum_index,   &this_type::introductum );
-               observe_param.control( observe_type::stage_prefix_index,   &this_type::prefix );
-               observe_param.control( observe_type::stage_suffix_index,   &this_type::suffix );
+               observe_param.control( observe_type::stage_prefix_index,        &this_type::prefix );
+               observe_param.control( observe_type::stage_suffix_index,        &this_type::suffix );
                observe_param.control( observe_type::stage_conclusio_index,     &this_type::conclusio   );
 
-               observe_param.insert( identificator_type::template get<       enumeration_type  >(), &this_type::enumeration    );
-               observe_param.insert( identificator_type::template get<         algorithm_type  >(), &this_type::function       );
-               observe_param.insert( identificator_type::template get<    typedefinition_type  >(), &this_type::typedefinition );
+               observe_param.insert( identificator_type::template get<       enumeration_type  >(), &this_type::enumeration       );
+               observe_param.insert( identificator_type::template get<         algorithm_type  >(), &this_type::function          );
+               observe_param.insert( identificator_type::template get<    typedefinition_type  >(), &this_type::typedefinition    );
                observe_param.insert( identificator_type::template get< frienddeclaration_type  >(), &this_type::frienddeclaration );
               }
 
@@ -103,7 +103,7 @@ namespace reflection
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
 
-             static report_type recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type recover    ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param << key_param ;
                return report_type( true );
@@ -118,7 +118,7 @@ namespace reflection
                output_param << identifier_item;
                output_param << std::endl;
 
-              
+
                size_type index = 0;
                for( auto const& item: structure_type::self( property_param ).container() )
                 {
@@ -141,13 +141,13 @@ namespace reflection
                return result;
               }
 
-             static report_type conclusio ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type conclusio  ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param <<  "  };" << std::endl;
                return report_type( true );
               }
 
-             static report_type prefix( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prefix     ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param <<"    ";
 
@@ -171,9 +171,14 @@ namespace reflection
                return report_type( result );
               }
 
-             static report_type suffix( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type suffix     ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param <<  ";" << std::endl;
+               return report_type( true );
+              }
+
+             static report_type stasimon   ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
                return report_type( true );
               }
 
@@ -182,21 +187,15 @@ namespace reflection
                return category_type::identifier( property_param );
               }
 
-             static void decoration_accessibility  ( output_type & output_param, property_qualified_reference_type property_param)
+             static void            decoration_accessibility  ( output_type & output_param, property_qualified_reference_type property_param)
               {
                auto accessibility_item = accessibility_type::accessibility( property_param );
-               switch( accessibility_item )
-                {
-                 default:
-                 case( accessibility_type::public_index    ): output_param << "public";    break;
-               //case( accessibility_type::gloabal_index   ): output_param << "global";    break;
-                 case( accessibility_type::protected_index ): output_param << "protected"; break;
-                 case( accessibility_type::private_index   ): output_param << "private";   break;
-               //case( accessibility_type::default_index   ): output_param << "default";   break;
-                }
+               if( accessibility_item & accessibility_type::public_index    ) { output_param << "public";    return; }
+               if( accessibility_item & accessibility_type::private_index   ) { output_param << "private";   return; }
+               if( accessibility_item & accessibility_type::protected_index ) { output_param << "protected"; return; }
               }
 
-             static void decoration_linkage        ( output_type & output_param, property_qualified_reference_type property_param)
+             static void            decoration_linkage        ( output_type & output_param, property_qualified_reference_type property_param)
               {
                typedef ::reflection::ornament::linkage_class linkage_type;
                auto linkage_item = linkage_type::linkage( property_param );
@@ -210,7 +209,7 @@ namespace reflection
                 }
               }
 
-             static ::reflection::ornament::relation_class::relation_enum decoration_relation( output_type & output_param, property_qualified_reference_type property_param)
+             static relation_type::relation_enum decoration_relation( output_type & output_param, property_qualified_reference_type property_param)
               {
                auto relation_item = relation_type::relation( property_param );
                switch( relation_item )
@@ -222,21 +221,6 @@ namespace reflection
                return relation_item;
               }
 
-             static report_type null_value  ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-              {
-               typedef ::reflection::property::null_class null_type;
-               auto null = dynamic_cast< null_type const* >( &property_param );
-               if( nullptr == null )
-                {
-                 return report_type( false );
-                }
-
-               output_param << "NULL;";
-
-               return report_type( true );
-              }
-
-            public:
              static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                enumeration_type  const* enum_instance = dynamic_cast< enumeration_type const* >( &property_param );
@@ -271,7 +255,7 @@ namespace reflection
                  return report_type( false );
                 }
 
-               // TODO if( qualification_item & qualification_type::virtual_index ){ output_param << "virtual "; } 
+               // TODO if( qualification_item & qualification_type::virtual_index ){ output_param << "virtual "; }
 
                output_param << function_instance->signature()[0].original() << " ";
 
@@ -289,7 +273,7 @@ namespace reflection
                 }
                output_param << ")";
 
-               auto qualification_item = qualification_type::qualification( property_param ); 
+               auto qualification_item = qualification_type::qualification( property_param );
                if( qualification_item & qualification_type::const_index ){ output_param << " const"; }
                if( qualification_item & qualification_type::volatile_index ){ output_param << " volatile"; }
 

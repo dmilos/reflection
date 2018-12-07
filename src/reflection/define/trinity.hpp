@@ -16,9 +16,13 @@
          (                                              \
            (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::field_symbolic_name    \
-         );                                                                                                     \
-  /* TODO instance.linkage(    ::reflection::ornament::linkage_class::static_index   ); */ \
-    instance.accessibility(    ::reflection::ornament::accessibility_class::from_string( #accessibility_name )   );   \
+         );                                                                                   \
+  /* TODO instance.linkage(    ::reflection::ornament::linkage_class::static_index   ); */    \
+    instance.accessibility                                                                    \
+     ( ::reflection::ornament::accessibility_class::accessibility_enum(                       \
+        ::reflection::ornament::accessibility_class::trinity_index                            \
+      | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
+     ));                                                        \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
@@ -36,7 +40,11 @@
           &class_symbolic_name::common_symbolic_name                                                      \
          );                                                                                                     \
    instance.linkage(    ::reflection::ornament::linkage_class::static_index   );   \
-   instance.accessibility(    ::reflection::ornament::accessibility_class::from_string( #accessibility_name )   );   \
+    instance.accessibility                                                                    \
+     (::reflection::ornament::accessibility_class::accessibility_enum(                        \
+        ::reflection::ornament::accessibility_class::trinity_index                            \
+      | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
+     ));                                                        \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
@@ -57,7 +65,7 @@
           ,&class_symbolic_name::writer_symbolic_name   \
           ,&class_symbolic_name::reader_symbolic_name   \
          );                                                  \
-  instance.accessibility(    ::reflection::ornament::accessibility_class::public_index   );  \
+  instance.accessibility(    ::reflection::ornament::accessibility_class::trinity_index   );  \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
