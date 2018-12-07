@@ -5,9 +5,11 @@
 
 #include "../../../content/inspect/inspect.hpp"
 #include "../../../content/category.hpp"
+
 #include "../../../content/function/algorithm.hpp"
 #include "../../../content/typedef/typedef.hpp"
 #include "../../../content/enum/enum.hpp"
+
 #include "../../../property/structure.hpp"
 #include "../../../operation/transfer/observe.hpp"
 
@@ -86,6 +88,12 @@ namespace reflection
              typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>           enumeration_type;
              typedef ::reflection::content::function::algorithm_class<identifier_type>                      algorithm_type;
              typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
+             typedef ::reflection::property::frienddeclaration::pure_class< identifier_type >          frienddeclaration_type;
+
+             typedef ::reflection::ornament::relation_class             relation_type;
+             typedef ::reflection::ornament::accessibility_class   accessibility_type;
+             typedef ::reflection::ornament::derivation_class         derivation_type;
+             typedef ::reflection::ornament::qualification_class   qualification_type;
 
            public:
              explicit introspect_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
@@ -202,12 +210,8 @@ namespace reflection
              static void decoration_linkage(                                   output_type & output_param, property_qualified_reference_type property_param)
               {
                typedef ::reflection::ornament::linkage_class linkage_type;
-               linkage_type  const* linkage = dynamic_cast< linkage_type const* >( &property_param );
-               if( nullptr == linkage )
-                {
-                 return;
-                }
-               switch( linkage->linkage() )
+               auto linkage_item = linkage_type::linkage( property_param );
+               switch( linkage_item )
                 {
                  case( linkage_type::inline_index    ): output_param << " linkage="<< "\"inline\"" ;    break;
                  case( linkage_type::static_index    ): output_param << " linkage="<< "\"static\"" ;    break;
@@ -218,29 +222,30 @@ namespace reflection
                output_param << " ";
               }
 
+             static void decoration_relation( output_type & output_param, property_qualified_reference_type property_param)
+              {
+               auto relation_item = relation_type::relation( property_param );
+               switch( relation_item )
+                {
+                 case( relation_type::member_index   ): output_param << "relation="<< "\"member\"" ; break;
+                 case( relation_type::base_index     ): output_param << "relation="<< "\"base\""   ; break;
+                 case( relation_type::friend_index   ): output_param << "relation="<< "\"friend\"" ; break;
+                }
+               output_param << " ";
+              }
+
              static void decoration_qualification( output_type & output_param, property_qualified_reference_type property_param)
               {
-               typedef ::reflection::ornament::qualification_class qualification_type;
-               qualification_type  const* qualification = dynamic_cast< qualification_type const* >( &property_param );
-               if( nullptr == qualification )
-                {
-                 return;
-                }
-               if( qualification->qualification() & qualification_type::const_index )
+               auto qualification_item = qualification_type::qualification( property_param );
+
+               if( qualification_item & qualification_type::const_index )
                 {
                  output_param << "    qualification="<< "\"const\" " ;
                 }
 
-               if( qualification->qualification() & qualification_type::volatile_index )
+               if( qualification_item & qualification_type::volatile_index )
                 {
                  output_param << "    qualification="<< "\"volatile\" ";
-                }
-
-               //switch( qualification->qualification() )
-                {
-               //case( qualification_type::extern_index    ): output_param << "    \"qualification\": "<< "\"extern\""<< ","  <<std::endl; break;
-               //case( qualification_type::dll_index       ): output_param << "    \"qualification\": "<< "\"dll\""<< "," <<std::endl;   break;
-               //case( qualification_type::default_index   ): output_param << "    \"qualification\": "<< "\"default\""<< "," <<std::endl;   break;
                 }
               }
 
@@ -259,25 +264,7 @@ namespace reflection
                output_param << " ";
               }
 
-             static void decoration_relation( output_type & output_param, property_qualified_reference_type property_param)
-              {
-               typedef ::reflection::ornament::relation_class relation_type;
-               relation_type  const* relation = dynamic_cast< relation_type const* >( &property_param );
-               if( nullptr == relation )
-                {
-                 return;
-                }
-               switch( relation->relation() )
-                {
-                 case( relation_type::member_index   ): output_param << "relation="<< "\"member\"" ; break;
-                 case( relation_type::base_index     ): output_param << "relation="<< "\"base\""   ; break;
-                 case( relation_type::friend_index   ): output_param << "relation="<< "\"friend\"" ; break;
-                }
-               output_param << " ";
-              }
-
             public:
-
              static report_type   enumeration    ( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                enumeration_type  const* enum_instance = dynamic_cast< enumeration_type const* >( &property_param );
@@ -348,6 +335,20 @@ namespace reflection
                return report_type( true );
               }
 
+             static report_type frienddeclaration ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
+               frienddeclaration_type  const* friend_instance = dynamic_cast<         frienddeclaration_type const* >( &property_param );
+               if( nullptr == friend_instance )
+                {
+                 output_param << "<note=\"Wrong type supplied.\" .>";
+                 return report_type( false );
+                }
+
+               output_param << "<friend type=\"" << friend_instance->object() << "\" />";
+
+               //output_param << std::endl;
+               return report_type( true );
+              }
          };
 
        }

@@ -118,8 +118,7 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_friend(  "friend-class", MyMainClass, MyBaseClass );
-    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, virtual, MyBaseClass );
+    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, default, MyBaseClass );
     reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
     reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
 
@@ -208,13 +207,20 @@ int main( int argc, char *argv[] )
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
   { 
-   typedef ::reflection::operation::transfer::json::introspect_struct<std::ostream> introspect_type;
-   auto introspect_context = introspect_type::context();
-   introspect_type introspect( observe, introspect_context );
+   typedef ::reflection::operation::transfer::yaml::serialize_struct<std::ostream> serialize_type;
+   auto serialize_context = serialize_type::context();
+   serialize_type serialize( observe, serialize_context );
+
+   serialize_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, serialize_context );
+   serialize_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, serialize_context ); 
+   serialize_type::register_enum<MyMainClass::Enumerator>( observe, serialize_context ); 
+   serialize_type::register_container< std::vector<int> >( observe, serialize_context );
+   serialize_type::register_container< std::set<int> >( observe, serialize_context );
+   serialize_type::register_container< std::list<int> >( observe, serialize_context );
+   serialize_type::register_container< std::map<int,std::string> >( observe, serialize_context );
   }
 
-  // JSONize
-  observe.view( std::cout, r );
+  observe.view( std::cout, r ); // XMLize
 
   return EXIT_SUCCESS;
  }

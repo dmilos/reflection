@@ -41,8 +41,17 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
     typedef std::array<float,2> MyTypDef;
     typedef std::vector<int> MyVectorType;
+    typedef std::set<int>              MySetType;
+    typedef std::list<int>             MyListType;
+    typedef std::map<int, std::string> MyMapType;
 
-    MyMainClass():m_int(123456){ m_vector.resize(3,456); }
+    MyMainClass():m_int(123456)
+    {
+     m_vector.resize(3,456);  
+     m_set.insert(456); m_set.insert(1456);
+     m_list.push_back(12456); m_list.push_back(987);
+     m_map[1]="q"; m_map[3]="f"; m_map[4]="d";
+    }
 
     void a(){ }
     void                b0( float const& f ){ static std::string s;   }
@@ -66,6 +75,15 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
     MyVectorType const&  vector_reader()const{ return m_vector; }
     MyVectorType      &  vector_traitor(){ return m_vector; }
 
+    MySetType const&  set_reader()const{ return m_set; }
+    MySetType      &  set_traitor()    { return m_set; }
+
+    MyListType const&  list_reader()const{ return m_list; }
+    MyListType      &  list_traitor()    { return m_list; }
+
+    MyMapType const&  map_reader()const{ return m_map; }
+    MyMapType      &  map_traitor()    { return m_map; }
+
   public:
    double m_public = 456;
    const double          m_const_public          = 123;
@@ -80,6 +98,9 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
     volatile int m_cv;
     MyFirstClassOriginal m_subsider;
     MyVectorType  m_vector;
+    MySetType     m_set;
+    MyListType    m_list;
+    MyMapType     m_map;
  };
 
 std::string MyMainClass::m_static="blahblahfoofoo"; //!< TODO
@@ -97,7 +118,9 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_friend(  "friend-class", MyMainClass, MyBaseClass );
+
+    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, virtual, MyBaseClass );
     reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
     reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
 
@@ -109,6 +132,9 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
   reflection__CLASS_TYPEDEF_member( "typedef-of-something", MyMainClass, public, MyTypDef );
   reflection__CLASS_TYPEDEF_member( "typedef-of-vector", MyMainClass, public, MyVectorType );
+  reflection__CLASS_TYPEDEF_member( "typedef-of-set", MyMainClass, public, MySetType );
+  reflection__CLASS_TYPEDEF_member( "typedef-of-list", MyMainClass, public, MyListType );
+  reflection__CLASS_TYPEDEF_member( "typedef-of-map", MyMainClass, public, MyMapType );
 
   reflection__CLASS_ENUM_begin( "enum-for-something", MyMainClass::Enumerator );
     reflection__CLASS_ENUM_value( "enum1",  MyMainClass::enum1 )
@@ -141,6 +167,9 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
    reflection__CLASS_MEMBER_variable(  "0subsider-traitor", MyMainClass, subsider_traitor, subsider_reader )
    reflection__CLASS_MEMBER_variable(  "my-vector", MyMainClass, vector_traitor, vector_reader )
+   reflection__CLASS_MEMBER_variable(  "my-set",    MyMainClass,    set_traitor,    set_reader )
+   reflection__CLASS_MEMBER_variable(  "my-list",   MyMainClass, list_traitor,     list_reader )
+   reflection__CLASS_MEMBER_variable(  "my-map",    MyMainClass,    map_traitor,    map_reader )
 
   reflection__CLASS_FIELD_direct(  "some-field-doubleD", MyMainClass, public, m_public )
   reflection__CLASS_FIELD_direct(  "some-const-field-doubleD", MyMainClass, public, m_const_public )
@@ -174,24 +203,19 @@ reflection__CLASS_END_inherit( MyClassReflection, MyMainClass );
 
 int main( int argc, char *argv[] )
  {
-  std::cout << __FUNCTION__ << std::endl;
-  // Some typedefs
   MyMainClass o;
   MyClassReflection   r;  //!< Reflection of Original, with pointing to some instance
 
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
   { 
-   typedef ::reflection::operation::transfer::ini::introspect_struct<std::ostream> ini_type;
-   auto ini_context = ini_type::context();
-   ini_type ini( observe, ini_context );
-
-    //ini_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, ini_context );
-    //ini_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, ini_context ); 
-    //ini_type::register_enum<MyMainClass::Enumerator>( observe, ini_context ); 
-    //ini_type::register_container< std::vector<int> >( observe, ini_context );
+   typedef ::reflection::operation::transfer::ini::introspect_struct<std::ostream> introspect_type;
+   auto introspect_context = introspect_type::context();
+   introspect_type introspect( observe, introspect_context );
   }
-  observe.view( std::cout, r ); // INIize
+
+  // INIize
+  observe.view( std::cout, r );
 
   return EXIT_SUCCESS;
  }

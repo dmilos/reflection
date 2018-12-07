@@ -119,6 +119,7 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
     reflection__CLASS_friend(  "friend-class", MyMainClass, MyBaseClass );
+
     reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, virtual, MyBaseClass );
     reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
     reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
@@ -208,12 +209,12 @@ int main( int argc, char *argv[] )
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
   { 
-   typedef ::reflection::operation::transfer::json::introspect_struct<std::ostream> introspect_type;
+   typedef ::reflection::operation::transfer::yaml::introspect_struct<std::ostream> introspect_type;
    auto introspect_context = introspect_type::context();
    introspect_type introspect( observe, introspect_context );
-  }
+  } 
 
-  // JSONize
+  // YAMLize
   observe.view( std::cout, r );
 
   return EXIT_SUCCESS;

@@ -6,24 +6,28 @@ g++ -fexceptions -std=c++11 -g -I../../../src assign.cpp               -o  assig
 
 cd ./cpp
 ./make.sh
-cd .. 
+cd ..
 
 cd ./ini
 ./make.sh
-cd .. 
+cd ..
 
 cd ./json
 ./make.sh
-cd .. 
+cd ..
 
 cd ./lua
 ./make.sh
-cd .. 
+cd ..
 
 cd ./python
 ./make.sh
-cd .. 
+cd ..
 
 cd ./xml
 ./make.sh
-cd .. 
+cd ..
+
+cd ./yaml
+./make.sh
+cd ..

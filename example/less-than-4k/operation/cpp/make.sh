@@ -4,4 +4,4 @@ pwd
 
 g++ -fexceptions -std=c++11 -g -I../../../../src print.cpp               -o  print
 g++ -fexceptions -std=c++11 -g -I../../../../src serialize.cpp           -o  serialize
-g++ -fexceptions -std=c++11 -g -I../../../../src intorspect.cpp          -o  intorspect
+g++ -fexceptions -std=c++11 -g -I../../../../src introspect.cpp          -o  introspect

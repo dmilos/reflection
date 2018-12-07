@@ -120,7 +120,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
   reflection__CLASS_MEMBER_mutate(    "asasd3",  MyMainClass, writer  )
   reflection__CLASS_MEMBER_direct(    "asasd4",  MyMainClass, traitor  )
   reflection__CLASS_MEMBER_inspect(   "asasd5",  MyMainClass, reader   )
-
+ 
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyMainClass, traitor, reader )
   reflection__CLASS_MEMBER_guarded(   "asasd2",  MyMainClass, writer, reader  )
 
@@ -181,17 +181,17 @@ int main( int argc, char *argv[] )
 
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
-  {
-   typedef ::reflection::operation::transfer::java::introspect_struct<std::ostream> java_type;
-   auto java_context = java_type::context();
-   java_type java( observe, java_context );
+  { 
+   typedef ::reflection::operation::transfer::yaml::print_struct<std::ostream> print_type;
+   auto print_context = print_type::context();
+   print_type print_item( observe, print_context );
 
-    //java_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, java_context );
-    //java_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, java_context );
-    //java_type::register_enum<MyMainClass::Enumerator>( observe, java_context );
-    //java_type::register_container< std::vector<int> >( observe, java_context );
+    //print_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, print_context );
+    //print_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, print_context ); 
+    //print_type::register_enum<MyMainClass::Enumerator>( observe, print_context ); 
+    //print_type::register_container< std::vector<int > >( observe, print_context );
   }
-  observe.view( std::cout, r ); // Javaize
+  observe.view( std::cout, r ); // XMLize
 
   return EXIT_SUCCESS;
  }

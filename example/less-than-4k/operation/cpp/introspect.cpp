@@ -40,7 +40,7 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
   public:
     enum Enumerator{ enum1, enum2, enum10=10, enum11=150 };
     typedef std::array<float,2> MyTypDef;
-    typedef std::vector<int>           MyVectorType;
+    typedef std::vector<int> MyVectorType;
     typedef std::set<int>              MySetType;
     typedef std::list<int>             MyListType;
     typedef std::map<int, std::string> MyMapType;
@@ -118,7 +118,9 @@ reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
 //template< typename someType_name >     // Yeah template.
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
 
-    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, default, MyBaseClass );
+    reflection__CLASS_friend(  "friend-class", MyMainClass, MyBaseClass );
+
+    reflection__CLASS_BASE_direct(  "1base-something", MyMainClass, public, virtual, MyBaseClass );
     reflection__CLASS_BASE_inspect( "2base-something", MyMainClass, public, default, MyBaseClass );
     reflection__CLASS_BASE_mutate(  "3base-something", MyMainClass, public, default, MyBaseClass );
 
@@ -144,7 +146,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
   reflection__CLASS_MEMBER_mutate(    "asasd3",  MyMainClass, writer  )
   reflection__CLASS_MEMBER_direct(    "asasd4",  MyMainClass, traitor  )
   reflection__CLASS_MEMBER_inspect(   "asasd5",  MyMainClass, reader   )
- 
+
   reflection__CLASS_MEMBER_variable(  "asasd1",  MyMainClass, traitor, reader )
   reflection__CLASS_MEMBER_guarded(   "asasd2",  MyMainClass, writer, reader  )
 
@@ -206,13 +208,14 @@ int main( int argc, char *argv[] )
 
   ::reflection::operation::transfer::observe_class<std::ostream> observe;
 
-  { 
+  {
    typedef ::reflection::operation::transfer::cpp::introspect_struct<std::ostream> introspect_type;
    auto introspect_context = introspect_type::context();
    introspect_type introspect( observe, introspect_context );
   }
 
-  observe.view( std::cout, r ); // XMLize
+  // CPPize
+  observe.view( std::cout, r );
 
   return EXIT_SUCCESS;
  }

@@ -1,99 +1,100 @@
 digraph stages_of_serialization{
 
-	prolog         [shape = box,    style=filled, color=green, label="Stage: Prolog"      ];
-	introductum    [shape = box,    style=filled, color=green, label="Stage: Introductum" ];
-	prefix         [shape = box,    style=filled, color=green, label="Stage: Prefix"];
-	argument       [shape = box,    style=filled, color=green, label="Stage: Argument"];
-	suffix         [shape = box,    style=filled, color=green, label="Stage: Sufix"];
-	stasimon       [shape = box,    style=filled, color=green, label="Stage: Stasimon"];
-	conclusio      [shape = box,    style=filled, color=green, label="Stage: Conslusion"];
-	exodus         [shape = box,    style=filled, color=green, label="Stage: Exodus"];
-	ACTION         [shape = circle, label = "Action", style=filled, color=red];
+    prolog         [shape = box,    style=filled, color=green, label="Stage: Prolog"      ];
+    introductum    [shape = box,    style=filled, color=green, label="Stage: Introductum" ];
+    conclusio      [shape = box,    style=filled, color=green, label="Stage: Conclusio"];
+    exodus         [shape = box,    style=filled, color=green, label="Stage: Exodus"];
 
-	acquisition  [ shape = box, style=filled, color=gray,  label = "Internal: Item acquisition."  ];
-	check_type    [shape = box, style=filled, color=gray,  label="Internal: Check Type"];
-	find_action   [shape = box, style=filled, color=gray,  label="Internal Find Action"];
+    prefix         [shape = box,    style=filled, color=green, label="Stage: Prefix"];
+    argument       [shape = box,    style=filled, color=green, label="Stage: Argument"];
+    suffix         [shape = box,    style=filled, color=green, label="Stage: Sufix"];
+    stasimon       [shape = box,    style=filled, color=green, label="Stage: Stasimon"];
+    ACTION         [shape = circle, label = "Action", style=filled, color=red];
 
-	fail_action   [shape = octagon, label="Recover: Fail Action", style=filled, color=blue];
-	fail_type     [shape = octagon, label="Recover: Type acquisition", style=filled, color=blue];
-	fail_no_action[shape = octagon, label="Recover: No action", style=filled, color=blue];
+    acquisition   [shape = box, style=filled, color=gray,  label = "Internal: Item acquisition."  ];
+    check_type    [shape = box, style=filled, color=gray,  label = "Internal: Check Type"];
+    find_action   [shape = box, style=filled, color=gray,  label = "Internal: Find Action"];
 
-	prolog  -> introductum [ label = "succes" , dir=forward, weight="1000" ];
-	prolog  -> exodus [ label = "fail" , dir=forward ];
+    fail_action   [shape = octagon, label="Recover: Fail Action",      style=filled, color=blue];
+    fail_type     [shape = octagon, label="Recover: Type acquisition", style=filled, color=blue];
+    fail_no_action[shape = octagon, label="Recover: No action",        style=filled, color=blue];
 
-	introductum -> acquisition[ label = "succes", dir=forward, weight="2000"  ];
-	introductum -> conclusio[ label = "fail", dir=forward  ];
+    prolog  -> introductum [ label = "Success" , dir=forward, weight="1000" ];
+    prolog  -> exodus [ label = "fail" , dir=forward ];
 
-	acquisition -> check_type[ label = "success", dir=forward, weight="1000"  ];
-	acquisition -> suffix[ label = "fail", dir=forward  ];
+    introductum -> acquisition[ label = "Success", dir=forward, weight="2000"  ];
+    introductum -> conclusio[ label = "fail", dir=forward  ];
 
-	check_type  -> prefix  [ label = "success", dir=forward, weight="1000"  ];
-	check_type  -> fail_type  [ label = "fail", dir=forward  ];
+    acquisition -> check_type[ label = "Success", dir=forward, weight="1000"  ];
+    acquisition -> suffix[ label = "fail", dir=forward  ];
 
-	prefix  -> find_action  [ label = "success", dir=forward, weight="1000"  ];
-	prefix  -> suffix  [ label = "fail", dir=forward  ];
+    check_type  -> prefix  [ label = "Success", dir=forward, weight="1000"  ];
+    check_type  -> fail_type  [ label = "fail", dir=forward  ];
 
-	find_action ->argument       [ label = "success", dir=forward, weight="1000"  ];
-	find_action ->fail_no_action [ label = "fail", dir=forward  ];
+    prefix  -> find_action  [ label = "Success", dir=forward, weight="1000"  ];
+    prefix  -> suffix  [ label = "fail", dir=forward  ];
 
-	argument  -> ACTION  [ label = "success", dir=forward, weight="1000"  ];
-	argument  -> suffix  [ label = "fail", dir=forward  ];
+    find_action ->argument       [ label = "Success", dir=forward, weight="1000"  ];
+    find_action ->fail_no_action [ label = "fail", dir=forward  ];
 
-	ACTION  -> fail_action  [ label = "fail", dir=forward  ];
-	ACTION  -> suffix  [ label = "success", dir=forward , weight="1501" ];
+    argument  -> ACTION  [ label = "Success", dir=forward, weight="1000"  ];
+    argument  -> suffix  [ label = "fail", dir=forward  ];
 
-	suffix  -> stasimon  [ label = "", dir=forward, weight="1000"  ];
-	suffix  -> conclusio  [ label = "", dir=forward, weight="1000"  ];
-	conclusio  -> introductum   [ label = "", dir=forward  ];
-	conclusio -> exodus[ label = "", dir=forward  ];
+    ACTION  -> fail_action  [ label = "fail", dir=forward  ];
+    ACTION  -> suffix  [ label = "Success", dir=forward , weight="1501" ];
 
-	stasimon  -> acquisition  [ label = "", dir=forward  ];
+    suffix    -> stasimon   [ label = "", dir=forward, weight="1000"  ];
+    suffix    -> conclusio  [ label = "", dir=forward, weight="1000"  ];
+    conclusio -> introductum   [ label = "", dir=forward  ];
+    conclusio -> exodus[ label = "", dir=forward  ];
 
-	fail_type -> acquisition[ label = "success", dir=forward  ];
-	fail_type -> suffix[ label = "fail", dir=forward  ];
+    stasimon  -> acquisition  [ label = "", dir=forward  ];
 
-	fail_action -> acquisition[ label = "success", dir=forward  ];
-	fail_action -> suffix[ label = "fail", dir=forward  ];
+    fail_type -> acquisition[ label = "Success", dir=forward  ];
+    fail_type -> suffix[ label = "fail", dir=forward  ];
 
-	fail_no_action-> acquisition[ label = "succes", dir=forward  ];
-	fail_no_action-> suffix[ label = "fail", dir=forward  ];
+    fail_action -> acquisition[ label = "Success", dir=forward  ];
+    fail_action -> suffix[ label = "fail", dir=forward  ];
 
-	subgraph cluster_succes
-	{rankdir = TB;
-		label = "Succes";
-		node [ ] ACTION;
+    fail_no_action-> acquisition[ label = "Success", dir=forward  ];
+    fail_no_action-> suffix[ label = "fail", dir=forward  ];
 
-            subgraph cluster_before
-	{
-    rankdir="TB";
-		node [ ] acquisition;
-    node [ ] prefix   ;
-    node [ ] find_action   ;
-    node [ ] argument     ;
-    node [ ] check_type     ;
+    subgraph cluster_before
+    {
+        rankdir=TB
+        rank=same;
+        node [ ] acquisition;
+        node [ ] prefix   ;
+        node [ ] find_action   ;
+        node [ ] argument     ;
+        node [ ] check_type     ;
     }
 
 
-            subgraph cluster_after
-	{
-    rankdir="TB";
-		node [ ] acquisition;
-    node [ ] suffix   ;
-    node [ ] stasimon   ;
-    }
-    subgraph cluster_recover
-	{
-
-    rankdir="TB";
-    {rank=source fail_action fail_type fail_no_action}
-    node [ ] fail_action   ;
-    node [ ] fail_type     ;
-    node [ ] fail_no_action;
+    subgraph cluster_after
+    {
+        rankdir=TB;
+        rank=same;
+        node [ ] stasimon   ;
+        node [ ] suffix   ;
     }
 
-	}
+     subgraph cluster_recover
+     {
+         rank=same
+         rankdir=TB
+         node [ ] fail_type
+         node [ ] fail_action
+         node [ ] fail_no_action
+     }
 
-
+    subgraph cluster_end
+    {
+        rankdir=TB
+        rank=source
+        node [ ] conclusio 
+        node [ ] exodus
+    }
 
 
 }
