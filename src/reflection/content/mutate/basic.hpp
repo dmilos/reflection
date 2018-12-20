@@ -37,27 +37,20 @@ namespace reflection
            typedef ::reflection::content::mutate::pure_class<identifier_name,data_name,model_name, report_name > pure_type;
            typedef::reflection::property::mutate::basic_class<model_name,storage_name,assigner_name, report_name> base_type;
 
-                     basic_class()
-                      {
-                      }
-
-            explicit basic_class
-                     (
-                       assigner_type const& assigner_param
-                     )
-                     :base_type( assigner_param )
+                    basic_class()
+                     :basic_class( storage_type{}, assigner_type{} )
                      {
                      }
 
-            explicit basic_class
-                     (
-                       storage_type   const& storage_param
-                      ,assigner_type const& assigner_param = assigner_type()
-                     )
-                     :base_type( assigner_param )
-                     ,carrier_type( storage_param )
-                     {
-                     }
+           explicit basic_class
+                    (
+                      storage_type   const& storage_param
+                     ,assigner_type const& assigner_param = assigner_type()
+                    )
+                    :base_type( assigner_param )
+                    ,carrier_type( storage_param )
+                    {
+                    }
 
            using base_type::process;
         };

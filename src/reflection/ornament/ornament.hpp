@@ -1,0 +1,7 @@
+#include "./accessibility.hpp"
+#include "./category.hpp"
+#include "./derivation.hpp"
+#include "./kind.hpp"
+#include "./linkage.hpp"
+#include "./qualification.hpp"
+#include "./relation.hpp"

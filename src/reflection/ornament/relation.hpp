@@ -14,7 +14,7 @@ namespace reflection
      : virtual public ::reflection::property::pure_class
      {
       public:
-        enum relation_enum{ unknown_index, default_index, friend_index, member_index, base_index, injected_index };
+        enum relation_enum{ unknown_index, default_index, unrelated_index, friend_index, member_index, derived_index, base_index, injected_index };
 
         typedef ::reflection::ornament::relation_class this_type;
 

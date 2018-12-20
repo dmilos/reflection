@@ -135,6 +135,6 @@
  }
 
 
-// TODO #define reflection__CLASS_MEMBER_direct_reference( type_symbolic_name, value_instance )\
+// TODO #define reflection__CLASS_MEMBER_direct_reference( type_symbolic_name, value_instance )
 
 #endif

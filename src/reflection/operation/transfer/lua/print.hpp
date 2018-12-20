@@ -63,6 +63,7 @@ namespace reflection
            public:
              explicit print_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
               {
+               using namespace std::placeholders;
               }
 
            private:

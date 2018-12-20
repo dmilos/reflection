@@ -77,12 +77,12 @@ namespace reflection
            public:
              explicit print_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
               {
+               using namespace std::placeholders;
                observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
                observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
                observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
 
                auto internal = std::make_shared<context_struct>( );
-               using namespace std::placeholders;
 
                observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, internal, _1, _2, _3 )  );
                observe_param.control( observe_type::stage_conclusio_index,    std::bind( &this_type::conclusio,  internal, _1, _2, _3 ) );

@@ -46,22 +46,20 @@ namespace reflection
 
 
                     basic_class()
-                     //:content_type( identificator_type::template get<data_name>() )
+                     :basic_class( storage_type{}, extractor_type{}, assigner_type{} )
                      {
                      }
 
            explicit basic_class
              (
                storage_type   const& storage_param
-              ,extractor_type     const&  extractor_param  =   extractor_type()
-              ,assigner_type      const&  assigner_param   =    assigner_type()
+              ,extractor_type const&  extractor_param  =   extractor_type()
+              ,assigner_type  const&  assigner_param   =    assigner_type()
              )
-             //:content_type( identificator_type::template get<data_name>() )
              :carrier_type( storage_param )
              ,base_type( extractor_param, assigner_param )
              {
              }
-
 
          public:
             using base_type::extractor;

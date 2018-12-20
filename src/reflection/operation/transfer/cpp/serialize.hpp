@@ -73,6 +73,8 @@ namespace reflection
            public:
              explicit serialize_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
               {
+               using namespace std::placeholders;
+
                observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
              //observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
                observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
@@ -111,6 +113,8 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  unsigned       >(), &this_type::primitive<unsigned      >  );
                observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
                observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
+               observe_param.insert( identificator_type::template get< unsigned long     >(), &this_type::primitive< unsigned long          > );
+               observe_param.insert( identificator_type::template get< unsigned long long>(), &this_type::primitive< unsigned long long     > );
 
                observe_param.insert( identificator_type::template get<  nullptr_t     >(), &this_type::null_value   );
 
@@ -119,7 +123,6 @@ namespace reflection
                observe_param.insert( identificator_type::template get<          typedefinition_type  >(), &this_type::typedefinition );
 
                {
-                using namespace std::placeholders;
                 auto f = std::bind( &this_type::structure, _1, std::ref(observe_param), _2, _3 );
                 observe_param.insert( identificator_type::template get<  structure_type      >(), f );
                 observe_param.control( observe_type::recover_missing_action_index, f );
@@ -216,6 +219,7 @@ namespace reflection
                  //case( accessibility_type::gloabal_index   ): output_param << "global";    break;
                    case( accessibility_type::protected_index ): output_param << "protected"; break;
                    case( accessibility_type::private_index   ): output_param << "private";   break;
+                 //case( accessibility_type::unknown_index   ): output_param << "unknown";   break;
                  //case( accessibility_type::default_index   ): output_param << "default";   break;
                   }
                  output_param << ": ";

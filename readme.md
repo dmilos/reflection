@@ -21,7 +21,10 @@
     * No bloat of existing code and require no change aether.
     * Add or remove properties in run-time.
     * Track: friends, accessibility, enums, typedefs, (static/const/volatile)data members, member/static/const functions
-    * Extra: different serializations to XML, JSON, YAML, Protobuf, CPP and INI.
+    * Extra: 
+        - Serializations to XML, JSON, YAML and INI.
+        - Bind to Python
+        - Reflect to CPP, Python and Java
 
 ### Example:
 ```c++

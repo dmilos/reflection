@@ -10,7 +10,7 @@
 reset
 
 g++ -fexceptions -std=c++11 -g -I../src readme.cpp               -o  readme
-g++ -fexceptions -std=c++11 -g -I../src workbench.cpp               -o  workbench
+g++ -fexceptions -std=c++11 -g -I../src workbench.cpp            -o  workbench
 
 cd ./less-than-1k
 ./make.sh

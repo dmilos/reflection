@@ -1,8 +1,10 @@
 #ifndef reflection_content_trinity_simple_hpp
 #define reflection_content_trinity_simple_hpp
+
  // ::reflection::content::trinity::simple_struct<data_name>
  // ::reflection::content::trinity::simple( )
 
+#include "../direct/simple.hpp"
 #include "../mutate/simple.hpp"
 #include "../inspect/simple.hpp"
 

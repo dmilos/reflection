@@ -2,5 +2,5 @@
 
 pwd
 
-# ./print.exe
-# ./serialize.exe
+./print.exe
+./bind.exe

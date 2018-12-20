@@ -3,6 +3,7 @@
 pwd
 
 g++ -fexceptions -std=c++11 -g -I../../../src assign.cpp               -o  assign
+g++ -fexceptions -std=c++11 -g -I../../../src factory.cpp               -o  factory
 
 cd ./cpp
 ./make.sh

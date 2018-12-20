@@ -71,6 +71,7 @@ namespace reflection
            public:
              explicit print_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
               {
+               using namespace std::placeholders;
                observe_param.control( observe_type::stage_introductum_index,    &this_type::introductum );
                observe_param.control( observe_type::stage_prefix_index,         &this_type::prefix      );
                observe_param.control( observe_type::stage_suffix_index,         &this_type::suffix      );
@@ -104,6 +105,8 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  unsigned       >(), &this_type::primitive<unsigned      >  );
                observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
                observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
+               observe_param.insert( identificator_type::template get< unsigned long     >(), &this_type::primitive< unsigned long          > );
+               observe_param.insert( identificator_type::template get< unsigned long long>(), &this_type::primitive< unsigned long long     > );
 
                observe_param.insert( identificator_type::template get<  nullptr_t      >(), &this_type::null_value   );
               }

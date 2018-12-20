@@ -14,9 +14,9 @@
 
      template
       <
-        typename identifier_name
+        typename identifier_name //!< TODO rename to ID
       >
-      class category_class
+      class category_class //!< TODO rename to identifier
        {
         public:
           typedef identifier_name identifier_type;

@@ -47,6 +47,7 @@ namespace reflection
            identifier_type const& original()const{ return m_original; }
            identifier_type const& instance()const{ return m_instance; }
 
+         public:
              identifier_type m_original;
              identifier_type m_instance;
           //string_type m_name;

@@ -57,6 +57,7 @@ namespace reflection
          public:
            explicit assign_struct( observe_type & observe_param )
             {
+             using namespace std::placeholders;
              observe_param.insert( identificator_type::template get<  std::string    >(), &assign_struct::process<std::string   >  );
              observe_param.insert( identificator_type::template get<  std::wstring   >(), &assign_struct::process<std::wstring  >  );
 
@@ -86,6 +87,8 @@ namespace reflection
              observe_param.insert( identificator_type::template get<  unsigned       >(), &assign_struct::process<unsigned      >  );
              observe_param.insert( identificator_type::template get<  long           >(), &assign_struct::process<long          >  );
              observe_param.insert( identificator_type::template get<  long long      >(), &assign_struct::process<long long     >  );
+             observe_param.insert( identificator_type::template get< unsigned long     >(), &assign_struct::process< unsigned long          > );
+             observe_param.insert( identificator_type::template get< unsigned long long>(), &assign_struct::process< unsigned long long     > );
 
              observe_param.insert( identificator_type::template get<  nullptr_t     >(), &assign_struct::null   );
 

@@ -40,20 +40,21 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-                     basic_class()
-                      {
-                      }
-
-            explicit basic_class
-                     (
-                       storage_type   const& storage_param
-                      ,extractor_type const& extractor_param = extractor_type()
-                      ,retriever_type const& retriever_param = retriever_type()
-                     )
-                     :carrier_type( storage_param )
-                     ,base_type( extractor_param, retriever_param )
+                    basic_class()
+                     : basic_class( storage_type{}, extractor_type{}, retriever_type{} )
                      {
                      }
+
+           explicit basic_class
+                    (
+                      storage_type   const& storage_param
+                     ,extractor_type const& extractor_param = extractor_type()
+                     ,retriever_type const& retriever_param = retriever_type()
+                    )
+                    :carrier_type( storage_param )
+                    ,base_type( extractor_param, retriever_param )
+                    {
+                    }
 
            //using base_class::disclose;
            using base_type::extractor;

@@ -51,21 +51,22 @@ namespace reflection
            typedef ::reflection::property::trinity::basic_class< original_name,image_name, model_name, storage_name, extractor_name, assigner_name, retriever_name, report_name > base_type;
 
 
-                     basic_class()
-                      {
-                      }
-
-            explicit basic_class
-                     (
-                        storage_type   const& storage_param
-                       ,extractor_type  const&  extractor_param =  extractor_type()
-                       ,assigner_type  const&    assigner_param =   assigner_type()
-                       ,retriever_type const&   retriever_param =  retriever_type()
-                     )
-                     :carrier_type( storage_param )
-                     ,base_type( extractor_param, assigner_param, retriever_param )
+                    basic_class()
+                     : basic_class( storage_type{}, extractor_type{}, assigner_type{}, retriever_type{} )
                      {
                      }
+
+           explicit basic_class
+                    (
+                       storage_type   const& storage_param
+                      ,extractor_type  const&  extractor_param =  extractor_type()
+                      ,assigner_type  const&    assigner_param =   assigner_type()
+                      ,retriever_type const&   retriever_param =  retriever_type()
+                    )
+                    :carrier_type( storage_param )
+                    ,base_type( extractor_param, assigner_param, retriever_param )
+                    {
+                    }
 
             using base_type::extractor;
             using base_type::assigner;

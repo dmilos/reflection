@@ -36,27 +36,20 @@ namespace reflection
 
            typedef::reflection::property::direct::basic_class<original_name,storage_name,extractor_name> base_type;
 
-                     basic_class()
-                      {
-                      }
-
-            explicit basic_class
-                     (
-                       extractor_type const& extractor_param
-                     )
-                     :base_type( extractor_param )
+                    basic_class()
+                    :base_type( storage_type{}, extractor_type{} )
                      {
                      }
 
-            explicit basic_class
-                     (
-                       storage_type   const& storage_param
-                      ,extractor_type const& extractor_param = extractor_type()
-                     )
-                     :base_type( extractor_param )
-                     ,carrier_type( storage_param )
-                     {
-                     }
+           explicit basic_class
+                    (
+                      storage_type   const& storage_param
+                     ,extractor_type const& extractor_param = extractor_type()
+                    )
+                    :base_type( extractor_param )
+                    ,carrier_type( storage_param )
+                    {
+                    }
 
            using base_type::disclose;
         };

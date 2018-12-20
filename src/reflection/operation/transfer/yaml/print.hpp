@@ -117,6 +117,8 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  unsigned       >(), &this_type::primitive<unsigned      >  );
                observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
                observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
+               observe_param.insert( identificator_type::template get< unsigned long     >(), &this_type::primitive< unsigned long          > );
+               observe_param.insert( identificator_type::template get< unsigned long long>(), &this_type::primitive< unsigned long long     > );
 
                observe_param.insert( identificator_type::template get<  nullptr_t      >(), &this_type::null_value   );
 

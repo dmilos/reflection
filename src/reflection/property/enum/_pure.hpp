@@ -19,7 +19,7 @@ namespace reflection
       template
        <
          typename name_name  //= might be identifier_name or std::string
-        ,typename value_name //= delete std::size_t
+        ,typename value_name //= delete int
        >
        class pure_class
         : virtual public ::reflection::property::pure_class

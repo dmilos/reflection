@@ -36,27 +36,20 @@ namespace reflection
 
            typedef::reflection::property::inspect::basic_class<image_name,storage_name,retriever_name> base_type;
 
-                     basic_class()
-                      {
-                      }
-
-            explicit basic_class
-                     (
-                       retriever_type const& extractor_param
-                     )
-                     :base_type( extractor_param )
+                    basic_class()
+                     :basic_class( storage_type{}, retriever_type{} )
                      {
                      }
 
-            explicit basic_class
-                     (
-                       storage_type   const& carrier_param
-                      ,retriever_type const& extractor_param = retriever_type()
-                     )
-                     :base_type( extractor_param )
-                     ,carrier_type( carrier_param )
-                     {
-                     }
+           explicit basic_class
+                    (
+                      storage_type   const& carrier_param
+                     ,retriever_type const& extractor_param = retriever_type()
+                    )
+                    :base_type( extractor_param )
+                    ,carrier_type( carrier_param )
+                    {
+                    }
 
            using base_type::present;
            using base_type::retriever;

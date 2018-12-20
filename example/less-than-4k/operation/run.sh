@@ -3,6 +3,7 @@
 pwd
 
 ./assign.exe
+./factory.exe
 
 cd ./cpp
 ./run.sh

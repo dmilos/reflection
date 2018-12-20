@@ -29,6 +29,7 @@ settings.accumulate( 'RTL', { 'configuration' : configuration, 'type': settings.
 
 settings.accumulate( 'compiler:warning', { 'decorated-name-length-exceeded': 'disable' } )
 
+settings.accumulate( 'package', { 'python'  : { 'version': {'27'}, 'architecture': 'x86', 'link': 'auto'   , 'compiler': 'msvc14',  } } )
 
 #settings.accumulate( 'macro',  { 'name' : 'REFLECTION_USE_PP2FILE'  } )
 

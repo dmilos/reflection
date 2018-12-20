@@ -116,6 +116,8 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  unsigned       >(), &this_type::primitive<unsigned      >  );
                observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
                observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
+               observe_param.insert( identificator_type::template get< unsigned long     >(), &this_type::primitive< unsigned long          > );
+               observe_param.insert( identificator_type::template get< unsigned long long>(), &this_type::primitive< unsigned long long     > );
 
                observe_param.insert( identificator_type::template get<  nullptr_t      >(), &this_type::null_value   );
 
@@ -228,6 +230,7 @@ namespace reflection
                //case( accessibility_type::gloabal_index   ): output_param << "    \"accessibility\": "<< "\"global\""<< "," <<std::endl;    break;
                  case( accessibility_type::protected_index ): output_param << "    \"accessibility\": "<< "\"protected\""<< "," <<std::endl; break;
                  case( accessibility_type::private_index   ): output_param << "    \"accessibility\": "<< "\"private\""<< "," <<std::endl;   break;
+               //case( accessibility_type::unknown_index   ): output_param << "    \"accessibility\": "<< "\"unknown\""<< "," <<std::endl;   break;
                //case( accessibility_type::default_index   ): output_param << "    \"accessibility\": "<< "\"default\""<< "," <<std::endl;   break;
                 }
               }

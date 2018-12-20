@@ -1,5 +1,5 @@
 -bind
- - create instace so that can be used in another language 
+ - create instance so that can be used in another language 
 - introspect
    Print members e.g. data, function, enum
 - print
