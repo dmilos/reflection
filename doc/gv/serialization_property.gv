@@ -1,0 +1,88 @@
+digraph stages_of_serialization{
+
+
+    prefix         [shape = box,    style=filled, color=green, label="Stage: Prefix"];
+    suffix         [shape = box,    style=filled, color=green, label="Stage: Sufix"];
+    ACTION         [shape = circle, label = "Action", style=filled, color=red];
+
+    check_type    [shape = box, style=filled, color=gray,  label = "Internal: Type acquisition"];
+    find_action   [shape = box, style=filled, color=gray,  label = "Internal: Action acquisition"];
+
+    fail_action   [shape = octagon, label="Recover: Action fail",      style=filled, color=blue];
+    fail_type     [shape = octagon, label="Recover: Type acquisition", style=filled, color=blue];
+    fail_no_action[shape = octagon, label="Recover: Action acquisition",        style=filled, color=blue];
+
+    BEGIN[shape = box, label="State: Begin" ];
+    END_fail[shape = box, label="State: End(fail)" ];
+    END_success[shape = box, label="State: End( succes )" ];
+
+    BEGIN -> check_type[ label = "Success", dir=forward, weight="1000"  ];
+
+    check_type  -> prefix  [ label = "Success", dir=forward, weight="1000"  ];
+    check_type  -> fail_type  [ label = "fail", dir=forward  ];
+
+    prefix  -> find_action  [ label = "Success", dir=forward, weight="1000"  ];
+    prefix  -> suffix       [ label = "fail", dir=forward  ];
+
+    find_action ->fail_no_action [ label = "fail", dir=forward  ];
+    find_action ->ACTION [ label = "Success", dir=forward  ];
+
+    ACTION  -> fail_action  [ label = "fail", dir=forward  ];
+    ACTION  -> suffix  [ label = "Success", dir=forward , weight="1501" ];
+
+    fail_type -> END_success[   label = "Success", dir=forward  ];
+    fail_type -> END_fail[ label = "fail", dir=forward  ];
+
+    fail_action -> suffix[ label = "Success", dir=forward  ];
+    fail_action -> suffix[ label = "fail", dir=forward  ];
+
+    fail_no_action-> suffix[   label = "Success", dir=forward  ];
+    fail_no_action-> suffix[      label = "fail", dir=forward  ];
+    
+    suffix-> END_fail[ label = "fail", dir=forward  ];
+    suffix-> END_success[ label = "Success", dir=forward  ];
+
+    subgraph cluster_before
+    {
+        rankdir=TB
+        rank=same;
+        node [ ] prefix   ;
+        node [ ] find_action   ;
+        node [ ] check_type     ;
+    }
+
+
+    subgraph cluster_after
+    {
+        rankdir=TB;
+        rank=same;
+        node [ ] suffix   ;
+    }
+
+     subgraph cluster_recover
+     {
+         rank=same
+         rankdir=TB
+         node [ ] fail_type
+         node [ ] fail_action
+         node [ ] fail_no_action
+     }
+
+    subgraph cluster_end
+    {
+        rankdir=TB
+        rank=source
+    }
+
+    subgraph cluster_TheEnd
+    {
+        rankdir=TB;
+        rank=same;
+        node [ ] END_fail;
+        node [ ] END_success;
+    }
+
+
+}
+
+

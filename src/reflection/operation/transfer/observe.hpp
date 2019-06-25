@@ -64,19 +64,18 @@ namespace reflection
 
            enum control_enum
             {
-              recover_not_category_index     =  0
-             ,recover_missing_action_index
+              recover_type_acquisition_index     =  0
+             ,recover_action_acquisition_index
              ,recover_action_fail_index
              ,recover_null_pointer_index
 
              ,stage_prolog_index             // At the beginning of everything
              ,stage_exodus_index             // at the end  of everything
 
-             ,stage_introductum_index        // At the beginning of structure
-             ,stage_conclusio_index          // at the end  of structure
+             ,stage_introductum_index        // At the beginning of (sub-)structure.
+             ,stage_conclusio_index          // at the end of (sub-)structure
 
              ,stage_prefix_index             // beginning of episodia before checking if action exists
-             ,stage_argument_index           // beginning of episodia before action starts
 
              ,stage_suffix_index             // end of episodia
 
@@ -95,16 +94,16 @@ namespace reflection
          public:
            void clear()
             {
-             this->control( recover_not_category_index   , action_type::always_true() );
-             this->control( recover_missing_action_index , action_type::always_true() );
+             this->control( recover_type_acquisition_index   , action_type::always_true() );
+             this->control( recover_action_acquisition_index , action_type::always_true() );
              this->control( recover_action_fail_index    , action_type::always_true() );
-             this->control( recover_null_pointer_index   , action_type::always_true() );
+             this->control( recover_null_pointer_index   , action_type::always_true() );       
+
              this->control( stage_prolog_index           , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
              this->control( stage_introductum_index      , action_type::always_true() );
              this->control( stage_conclusio_index        , action_type::always_true() );
              this->control( stage_prefix_index           , action_type::always_true() );
-             this->control( stage_argument_index         , action_type::always_true() );
              this->control( stage_suffix_index           , action_type::always_true() );
              this->control( stage_stasimon_index         , action_type::always_true() );
              this->m_menu.clear();
@@ -124,6 +123,13 @@ namespace reflection
          private:
            menu_type         & menu(){ return m_menu; }
            menu_type m_menu;
+
+         public:
+           item_type    const& dummy()const{ return m_dummy; }
+           bool                dummy( item_type const& dummy_param ){ m_dummy = dummy_param; return bool( report_type(true) ); }
+         private:
+           item_type         & dummy(){ return m_dummy; }
+           item_type m_dummy;
 
          public:
            void insert( key_type const& key, function_type const& function )
@@ -166,55 +172,67 @@ namespace reflection
              category_qualified_type *  category = dynamic_cast< category_qualified_type * >( &property_param );
              if( nullptr == category )
               {
-               if( report_type( false ) == this->control()[recover_not_category_index]( output_param, key_param, property_param ) )
-                {
-                 goto label_suffix;
-                }
-               return report_type( false );
+               auto report = this->control()[recover_type_acquisition_index]( output_param, key_param, property_param );
+               return report;
               }
-
-             {
-              auto report = this->control()[stage_prefix_index]( output_param, key_param, property_param );
-              if( report_type( false ) == report )
-               {
-                goto label_suffix;
-               }
-             }
-
-             if( false == protocolX_type::exists( this->menu(), category->identifier() ) )
+             else
               {
-               if( report_type( false ) == this->control()[recover_missing_action_index]( output_param, key_param, property_param ) )
-                {
-                 goto label_suffix;
-                }
+               goto label_prefix_execute;
               }
 
-             {
-              auto report = this->control()[stage_argument_index]( output_param, key_param, property_param );
-              if( report_type( false ) == report )
-               {
-                goto label_suffix;
-               }
-             }
-
-             if( report_type( false ) == protocolX_type::find( this->menu(), category->identifier() )( output_param, key_param, property_param ) )
+             label_prefix_execute:
               {
-               if( report_type( false ) ==this->control()[recover_action_fail_index]( output_param, key_param, property_param ) )
+               auto report = this->control()[stage_prefix_index]( output_param, key_param, property_param );
+               if( report_type( false ) == report )
                 {
-                 goto label_suffix;
+                 goto label_suffix_execute;
+                }
+               goto label_action_acquisition_execute;
+              }
+
+             label_action_acquisition_execute:
+               if( false == protocolX_type::exists( this->menu(), category->identifier() ) )
+                {
+                 auto report = this->control()[recover_action_acquisition_index]( output_param, key_param, property_param );
+                 goto label_suffix_execute;
+                }
+               else
+                {
+                 goto label_action_execution;
+                }
+
+             label_action_execution:
+              {
+               auto report = protocolX_type::find( this->menu(), category->identifier() )( output_param, key_param, property_param );
+               if( report_type( false ) == report )
+                {
+                 goto label_action_fail;
+                }
+               else
+                {
+                 goto label_action_succes;
                 }
               }
 
-             label_suffix:
-             {
-              auto report = this->control()[stage_suffix_index]( output_param, key_param, property_param );
-              if( report_type( false ) == report )
-               {
-                return report;
-               }
-             }
+             label_action_succes:
+               goto label_suffix_execute;
 
-             return report_type( true );
+             label_action_fail:
+              {
+               auto report = this->control()[recover_action_fail_index]( output_param, key_param, property_param );
+               if( report_type( false ) == report )
+                {
+                 goto label_suffix_execute;
+                }
+               goto label_suffix_execute;
+              }
+
+             label_suffix_execute:
+              {
+               auto report = this->control()[stage_suffix_index]( output_param, key_param, property_param );
+               return report;
+              }
+
             }
 
          public:
@@ -228,7 +246,7 @@ namespace reflection
               {
                auto report = this->control()[stage_prolog_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
-                {
+                { //! No need for recovery fuctions. Exodus will do the cleanup.
                  goto label_exosud;
                 }
               }
@@ -236,7 +254,7 @@ namespace reflection
               {
                auto report = this->control()[stage_introductum_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
-                {
+                { //! No need for recovery fuctions. Evrithing should happen in introductum and conclusio will do the clean up
                  goto label_conclusio;
                 }
               }
@@ -249,38 +267,49 @@ namespace reflection
                auto  const            key = struct_param.key(  iterator );
                item_qualified_type   data = struct_param.data( iterator );
 
+               auto  property = m_dummy.get();
                if( nullptr == data.get() )
                 {
-                 // TODO auto report = this->control()[recover_null_pointer_index]( output_param, key, property );
-                 // TODO if( report_type( false ) == report )
-                 // TODO  {
-                 // TODO   return report;
-                 // TODO  }
-                 continue;
+                 auto report = this->control()[recover_null_pointer_index]( output_param, key, *property );
+                 if( report_type( false ) == report )
+                  {
+                   goto label_conclusio;
+                  }
+                 goto label_stasimon_execute;
                 }
-
-               property_qualified_reference_type   property = *( data.get() );
-               auto report = this->view( output_param, key, property );
-               if( report = report_type( false ) )
+               else
                 {
-                 goto label_stasimon;
+                 property = data.get();
+                 goto label_view_execute;
                 }
-               goto label_stasimon;
 
-               label_stasimon:
-                if( 1 != index )
+               label_view_execute:
+                {
                  {
-                  auto report = this->control()[stage_stasimon_index]( output_param, key, property );
-                  if( report_type( false ) == report )
+                  auto report = this->view( output_param, key, *property );
+                  if( report = report_type( false ) )
                    {
                     goto label_conclusio;
                    }
+                  goto label_stasimon_execute;
                  }
+                }
+
+               label_stasimon_execute:
+                 if( 1 != index )
+                  {
+                   auto report = this->control()[stage_stasimon_index]( output_param, key, *property );
+                   if( report_type( false ) == report )
+                    {
+                     goto label_conclusio;
+                    }
+                  }
               }}
 
              label_conclusio:
               {
                auto report = this->control()[stage_conclusio_index]( output_param, key_type{}, struct_param );
+               goto label_exosud;
               }
 
              label_exosud:

@@ -76,8 +76,14 @@ namespace reflection
                auto context_item = this_type::context();
                using namespace std::placeholders;
 
-               observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
-               observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
+               observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
+               {
+                using namespace std::placeholders;
+                auto f = std::bind( &this_type::structure, _1, std::ref(observe_param), _2, _3 );
+                auto i = identificator_type::template get<  structure_type      >();
+                observe_param.insert( i, f );
+                observe_param.control( observe_type::recover_action_acquisition_index   , f );
+               }
              //observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
                observe_param.control( observe_type::recover_null_pointer_index  , &this_type::null_recover    );
 
@@ -124,14 +130,6 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  enumeration_type     >(), &this_type::enumeration    );
                observe_param.insert( identificator_type::template get<  algorithm_type               >(), &this_type::function       );
                observe_param.insert( identificator_type::template get<          typedefinition_type  >(), &this_type::typedefinition );
-
-               {
-                using namespace std::placeholders;
-                auto f = std::bind( &this_type::structure, _1, std::ref(observe_param), _2, _3 );
-                auto i = identificator_type::template get<  structure_type      >();
-                observe_param.insert( i, f );
-                observe_param.control( observe_type::recover_missing_action_index   , f );
-               }
 
               }
 

@@ -92,8 +92,13 @@ namespace reflection
               {
                using namespace std::placeholders;
 
-               observe_param.control( observe_type::recover_not_category_index  , std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
-             //observe_param.control( observe_type::recover_missing_action_index, std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::recover_type_acquisition_index  , std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
+               {
+                using namespace std::placeholders;
+                auto f = std::bind( &this_type::structure, std::ref(observe_param), _1, _2, _3 );
+                observe_param.insert( identificator_type::template get<  structure_type      >(), f );
+                observe_param.control( observe_type::recover_action_acquisition_index, f );
+               }
                observe_param.control( observe_type::recover_action_fail_index   , std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
 
                observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
@@ -140,13 +145,6 @@ namespace reflection
                 observe_param.insert( identificator_type::template get<     enumeration_type >(), std::bind( &this_type::enumeration,    context_param, _1, _2, _3 ) );
                 observe_param.insert( identificator_type::template get<       algorithm_type >(), std::bind( &this_type::function,       context_param, _1, _2, _3 ) );
                 observe_param.insert( identificator_type::template get<  typedefinition_type >(), std::bind( &this_type::typedefinition, context_param, _1, _2, _3 ) );
-
-               {
-                using namespace std::placeholders;
-                auto f = std::bind( &this_type::structure, std::ref(observe_param), _1, _2, _3 );
-                observe_param.insert( identificator_type::template get<  structure_type      >(), f );
-                observe_param.control( observe_type::recover_missing_action_index, f );
-               }
 
               }
 

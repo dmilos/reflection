@@ -1,0 +1,74 @@
+digraph stages_of_serialization{
+
+    begin[ label="State: begin"];
+    end[ label="State: end"];
+
+    prolog         [shape = box,    style=filled, color=green, label="Stage: Prolog"      ];
+    introductum    [shape = box,    style=filled, color=green, label="Stage: Introductum" ];
+    conclusio      [shape = box,    style=filled, color=green, label="Stage: Conclusio"];
+    exodus         [shape = box,    style=filled, color=green, label="Stage: Exodus"];
+
+    stasimon       [shape = box,    style=filled, color=green, label="Stage: Stasimon"];
+    WIEW           [shape = circle, label = "View", style=filled, color=red];
+
+    acquisition   [shape = box, style=filled, color=gray,  label = "Internal: Item acquisition."  ];
+
+    fail_null     [shape = octagon, label="Recover: nullptr",          style=filled, color=blue];
+
+
+    begin->prolog[ label = "" , dir=forward ];
+    prolog  -> introductum [ label = "Success" , dir=forward, weight="1000" ];
+    prolog  -> exodus      [ label = "fail" , dir=forward ];
+
+    introductum -> acquisition[ label = "Success", dir=forward, weight="2000"  ];
+    introductum -> conclusio[ label = "fail", dir=forward  ];
+
+    acquisition ->fail_null  [ label = "fail", dir=forward  ];
+    acquisition ->WIEW[ label = "Success", dir=forward  ];
+    acquisition ->conclusio[ label = "end", dir=forward  ];
+
+    WIEW  -> conclusio  [ label = "fail", dir=forward  ];
+    WIEW  -> stasimon  [ label = "Success", dir=forward  ];
+
+    stasimon  -> acquisition  [ label = "", dir=forward  ];
+
+    conclusio -> exodus[ label = "", dir=forward  ];
+
+    fail_null-> stasimon[ label = "Success", dir=forward  ];
+    fail_null-> conclusio[ label = "fail", dir=forward  ];
+
+    exodus->end[ label = "" , dir=forward ];
+
+    subgraph cluster_ALL
+    {
+        rankdir=TB;
+        rank=source;
+    subgraph cluster_center
+    {
+        rankdir=TB
+        rank=same;
+        node [ ] acquisition;
+        node [ ] WIEW;
+        node [ ] stasimon;
+    }
+
+    subgraph cluster_begin
+    {
+        rankdir=TB
+        rank=source
+        node [ ] prolog
+        node [ ] introductum
+    }
+    subgraph cluster_end
+    {
+        rankdir=TB
+        rank=source
+        node [ ] conclusio
+        node [ ] exodus
+    }
+
+    }
+
+}
+
+

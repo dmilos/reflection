@@ -82,8 +82,8 @@ namespace reflection
               {
                using namespace std::placeholders;
 
-               observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
-               observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
+               observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
+               observe_param.control( observe_type::recover_action_acquisition_index, &this_type::recover );
              //observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
                observe_param.control( observe_type::recover_null_pointer_index  , &this_type::null_recover    );
 

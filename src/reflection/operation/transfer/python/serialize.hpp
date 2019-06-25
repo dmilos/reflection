@@ -77,8 +77,8 @@ namespace reflection
            public:
              explicit serialize_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
               {
-               observe_param.control( observe_type::recover_not_category_index  , &this_type::recover );
-             //observe_param.control( observe_type::recover_missing_action_index, &this_type::recover );
+               observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
+             //observe_param.control( observe_type::recover_action_acquisition_index, &this_type::recover );
                observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
 
                observe_param.control( observe_type::stage_introductum_index,   &this_type::introductum );

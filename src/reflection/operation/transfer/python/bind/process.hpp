@@ -107,7 +107,7 @@ namespace reflection
                observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_conclusio_index,     std::bind( &this_type::conclusio  , context_param, _1, _2, _3 ) );
 
-               observe_param.control( observe_type::recover_missing_action_index,  std::bind(    &this_type::recover, context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::recover_action_acquisition_index,  std::bind(    &this_type::recover, context_param, _1, _2, _3 ) );
 
                observe_param.insert( identificator_type::template get<     enumeration_type  >(), std::bind( &this_type::enumeration   , context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<       algorithm_type  >(), std::bind( &this_type::function      , context_param, _1, _2, _3 ) );
