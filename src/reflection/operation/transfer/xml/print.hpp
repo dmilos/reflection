@@ -312,9 +312,12 @@ namespace reflection
                 }
                switch( relation->relation() )
                 {
-                 case( relation_type::member_index   ): output_param << "relation="<< "\"member\"" ; break;
-                 case( relation_type::base_index     ): output_param << "relation="<< "\"base\""   ; break;
-                 case( relation_type::friend_index   ): output_param << "relation="<< "\"friend\"" ; break;
+                 case( relation_type::friend_index   ): output_param << "relation="<< "\"friend\""   << ","  <<std::endl; break;
+                 case( relation_type::member_index   ): output_param << "relation="<< "\"member\""   << ","  <<std::endl; break;
+                 case( relation_type::derived_index  ): output_param << "relation="<< "\"derived\""  << ","  <<std::endl; break;
+                 case( relation_type::base_index     ): output_param << "relation="<< "\"base\""     << ","  <<std::endl; break;
+                 case( relation_type::injected_index ): output_param << "relation="<< "\"injected\"" << ","  <<std::endl; break;
+                 case( relation_type::field_index    ): output_param << "relation="<< "\"field\""    << ","  <<std::endl; break;
 
                 }
                output_param << " ";

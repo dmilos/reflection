@@ -192,10 +192,13 @@ namespace reflection
                auto relation_item = relation_type::relation( property_param );
                switch( relation_item )
                 {
-                 case( relation_type::member_index   ): output_param << " "<< "member" ; break;
-                 case( relation_type::base_index     ): output_param << " "<< "base"   ; break;
-                 case( relation_type::friend_index   ): output_param << " "<< "friend" ; break;
-                }
+                 case( relation_type::friend_index   ): output_param << " "<< "friend"   << ","  <<std::endl; break;
+                 case( relation_type::member_index   ): output_param << " "<< "member"   << ","  <<std::endl; break;
+                 case( relation_type::derived_index  ): output_param << " "<< "derived"  << ","  <<std::endl; break;
+                 case( relation_type::base_index     ): output_param << " "<< "base"     << ","  <<std::endl; break;
+                 case( relation_type::injected_index ): output_param << " "<< "injected" << ","  <<std::endl; break;
+                 case( relation_type::field_index    ): output_param << " "<< "field"    << ","  <<std::endl; break;
+               }
               }
 
              static size_type decoration_qualification( output_type & output_param, property_qualified_reference_type property_param)

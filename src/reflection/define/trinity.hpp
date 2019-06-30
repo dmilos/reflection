@@ -23,6 +23,8 @@
         ::reflection::ornament::accessibility_class::trinity_index                            \
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
+  instance.qualification( ::reflection::ornament::qualification_class::get< decltype(class_symbolic_name::field_symbolic_name) >( ) ); \
+  instance.relation(      ::reflection::ornament::relation_class::field_index );                     \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
@@ -39,12 +41,12 @@
          (                                                                                                \
           &class_symbolic_name::common_symbolic_name                                                      \
          );                                                                                                     \
-   instance.linkage(    ::reflection::ornament::linkage_class::static_index   );   \
     instance.accessibility                                                                    \
      (::reflection::ornament::accessibility_class::accessibility_enum(                        \
         ::reflection::ornament::accessibility_class::trinity_index                            \
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
+   instance.linkage(    ::reflection::ornament::linkage_class::static_index   );   \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

@@ -53,6 +53,7 @@
    );                                                                                                     \
   }
 
+
 #define reflection__CLASS_MEMBER_direct( member_string_name, class_symbolic_name, traitor_symbolic_name )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \

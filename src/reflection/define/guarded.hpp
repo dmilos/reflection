@@ -22,7 +22,8 @@
         ::reflection::ornament::accessibility_class::guarded_index                            \
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
-  /* TODO instance.linkage(    ::reflection::ornament::linkage_class::member_index   ); */ \
+  instance.qualification( ::reflection::ornament::qualification_class::get< decltype(class_symbolic_name::field_symbolic_name) >( ) ); \
+  instance.relation(      ::reflection::ornament::relation_class::field_index );                     \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

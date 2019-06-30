@@ -27,7 +27,7 @@ namespace reflection
         ,typename             key_name = std::string
         ,typename      identifier_name = std::string
         ,typename          report_name = bool
-        ,template  < typename > class qualificator_name = std::add_const
+        ,template <typename>          class qualificator_name = std::add_const
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
        class observe_class
@@ -56,7 +56,7 @@ namespace reflection
            typedef typename std::add_lvalue_reference< property_qualified_type >::type      property_qualified_reference_type;
            typedef typename std::add_lvalue_reference< structure_qualified_type >::type    structure_qualified_reference_type;
 
-           typedef ::reflection::operation::transfer::protocol_struct<  output_name, key_name, identifier_type, report_name, qualificator_name, container_name > protocolX_type, protocol_type;
+           typedef ::reflection::operation::transfer::protocol_struct< output_name, key_name, identifier_type, report_name, qualificator_name, container_name > protocolX_type, protocol_type;
 
            typedef typename protocolX_type::function_type     function_type;
            typedef typename protocolX_type::menu_type         menu_type;
@@ -97,7 +97,7 @@ namespace reflection
              this->control( recover_type_acquisition_index   , action_type::always_true() );
              this->control( recover_action_acquisition_index , action_type::always_true() );
              this->control( recover_action_fail_index    , action_type::always_true() );
-             this->control( recover_null_pointer_index   , action_type::always_true() );       
+             this->control( recover_null_pointer_index   , action_type::always_true() );
 
              this->control( stage_prolog_index           , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
