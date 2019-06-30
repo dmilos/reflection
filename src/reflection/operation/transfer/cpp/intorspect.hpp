@@ -153,8 +153,8 @@ namespace reflection
 
                report_type result = true;
 
-               this_type::decoration_accessibility( output_param, property_param ); output_param << ": ";
-               //auto relation_item   = this_type::decoration_relation( output_param, property_param );
+               if( true == this_type::decoration_accessibility( output_param, property_param ) ) output_param << ": ";
+               auto relation_item   = this_type::decoration_relation( output_param, property_param );
 
                this_type::decoration_linkage( output_param, property_param ); output_param << " ";
 
@@ -165,7 +165,10 @@ namespace reflection
                   &&( identifier_item != identificator_type::template get<frienddeclaration_type  >() )
                 )
                 {
+                 //if( ::reflection::ornament::relation_class::field_index == relation_item )
+                  {
                  output_param <<  identifier_item << " ";
+                }
                 }
 
                return report_type( result );
@@ -177,22 +180,18 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type stasimon   ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-              {
-               return report_type( true );
-              }
-
              static identifier_type decoration_category( output_type & output_param, property_qualified_reference_type property_param )
               {
                return category_type::identifier( property_param );
               }
 
-             static void            decoration_accessibility  ( output_type & output_param, property_qualified_reference_type property_param)
+             static bool            decoration_accessibility  ( output_type & output_param, property_qualified_reference_type property_param)
               {
                auto accessibility_item = accessibility_type::accessibility( property_param );
-               if( accessibility_item & accessibility_type::public_index    ) { output_param << "public";    return; }
-               if( accessibility_item & accessibility_type::private_index   ) { output_param << "private";   return; }
-               if( accessibility_item & accessibility_type::protected_index ) { output_param << "protected"; return; }
+               if( accessibility_item & accessibility_type::public_index    ) { output_param << "public";    return true; }
+               if( accessibility_item & accessibility_type::private_index   ) { output_param << "private";   return true; }
+               if( accessibility_item & accessibility_type::protected_index ) { output_param << "protected"; return true; }
+               return false;
               }
 
              static void            decoration_linkage        ( output_type & output_param, property_qualified_reference_type property_param)
@@ -214,6 +213,7 @@ namespace reflection
                auto relation_item = relation_type::relation( property_param );
                switch( relation_item )
                 {
+                 //case( relation_type::field_index   ): output_param << " "<< "field" ; break;
                  //case( relation_type::member_index   ): output_param << " "<< "member" ; break;
                  //case( relation_type::base_index     ): output_param << " "<< "base"   ; break;
                  case( relation_type::friend_index   ): output_param << " "<< "friend" ; break;

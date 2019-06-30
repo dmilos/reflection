@@ -14,7 +14,7 @@ namespace reflection
      : virtual public ::reflection::property::pure_class
      { // https://en.cppreference.com/w/cpp/language/storage_duration
       public:
-        enum linkage_enum{ unknown_index, default_index, inline_index, static_index, extern_index, dll_index };
+        enum linkage_enum{ unknown_index, default_index, inline_index, static_index, extern_index, dll_index, dynamic_index };
 
         typedef ::reflection::ornament::linkage_class this_type;
 

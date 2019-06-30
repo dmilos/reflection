@@ -41,10 +41,10 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,fourth_name,fifth_name>    content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name   >   free_type;
 
-           typedef typename free_type::function_type function_type;
+           typedef typename free_type::pointer_type pointer_type;
 
          public:
-           explicit free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( pointer_type pointer_param ):free_type( pointer_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -73,10 +73,10 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,fourth_name,void>    content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,third_name,fourth_name,void>   free_type;
 
-           typedef typename free_type::function_type function_type;
+           typedef typename free_type::pointer_type pointer_type;
 
          public:
-           explicit free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( pointer_type pointer_param ):free_type( pointer_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -104,10 +104,10 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,third_name,void,void>              content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,third_name,void,void>   free_type;
 
-           typedef typename free_type::function_type function_type;
+           typedef typename free_type::pointer_type pointer_type;
 
          public:
-           explicit free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( pointer_type pointer_param ):free_type( pointer_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -134,10 +134,10 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,second_name,void,void,void>              content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,second_name,void,void,void>   free_type;
 
-           typedef typename free_type::function_type function_type;
+           typedef typename free_type::pointer_type pointer_type;
 
          public:
-           explicit free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( pointer_type pointer_param ):free_type( pointer_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -163,10 +163,10 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,first_name,void,void,void,void>                content_type;
            typedef ::reflection::property::function::free_class<return_name,first_name,void,void,void,void>   free_type;
 
-           typedef typename free_type::function_type function_type;
+           typedef typename free_type::pointer_type pointer_type;
 
          public:
-           explicit free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( pointer_type pointer_param ):free_type( pointer_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -190,10 +190,10 @@ namespace reflection
            typedef ::reflection::content::function::pure_class<identifier_name,return_name,void,void,void,void,void>                content_type;
            typedef ::reflection::property::function::free_class<return_name,void,void,void,void,void>   free_type;
 
-           typedef typename free_type::function_type function_type;
+           typedef typename free_type::pointer_type pointer_type;
 
          public:
-           explicit free_class( function_type function_param ):free_type( function_param ) { }
+           explicit free_class( pointer_type pointer_param ):free_type( pointer_param ) { }
            virtual ~free_class( ){}
 
          public:
@@ -212,12 +212,12 @@ namespace reflection
        ::reflection::content::function::free_class<identifier_name, return_name,void,void,void,void,void>
        free
         (
-         return_name (*function_param)()
+         return_name (*pointer_param)()
         )
         {
          typedef ::reflection::content::function::free_class<identifier_name, return_name, void, void, void, void, void > free_type;
 
-         return free_type( function_param );
+         return free_type( pointer_param );
         }
 
       template< typename identifier_name, typename return_name, typename first_name >
@@ -225,12 +225,12 @@ namespace reflection
        ::reflection::content::function::free_class< identifier_name, return_name, first_name,void,void,void,void >
        free
         (
-         return_name  (*function_param)( first_name )
+         return_name  (*pointer_param)( first_name )
         )
         {
          typedef ::reflection::content::function::free_class< identifier_name, return_name, first_name, void, void, void, void > free_type;
 
-         return free_type( function_param );
+         return free_type( pointer_param );
         }
 
       template< typename identifier_name, typename return_name, typename first_name, typename second_name >
@@ -238,12 +238,12 @@ namespace reflection
        ::reflection::content::function::free_class< identifier_name, return_name, first_name, second_name,void,void,void>
        free
         (
-         return_name  (*function_param)( first_name, second_name )
+         return_name  (*pointer_param)( first_name, second_name )
         )
         {
          typedef ::reflection::content::function::free_class< identifier_name,return_name, first_name, second_name, void, void, void > free_type;
 
-         return free_type( function_param );
+         return free_type( pointer_param );
         }
 
       template< typename identifier_name, typename return_name, typename first_name, typename second_name, typename third_name >
@@ -251,12 +251,12 @@ namespace reflection
        ::reflection::content::function::free_class< identifier_name, return_name, first_name, second_name, third_name,void,void>
        free
         (
-         return_name  (*function_param)( first_name, second_name, third_name )
+         return_name  (*pointer_param)( first_name, second_name, third_name )
         )
         {
          typedef ::reflection::content::function::free_class< identifier_name,return_name, first_name, second_name, third_name, void, void > free_type;
 
-         return free_type( function_param );
+         return free_type( pointer_param );
         }
 
       template< typename identifier_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
@@ -264,12 +264,12 @@ namespace reflection
        ::reflection::content::function::free_class< identifier_name, return_name, first_name, second_name, third_name, fourth_name,void>
        free
         (
-         return_name  (*function_param)( first_name, second_name, third_name, fourth_name )
+         return_name  (*pointer_param)( first_name, second_name, third_name, fourth_name )
         )
         {
          typedef ::reflection::content::function::free_class< identifier_name, return_name, first_name, second_name, third_name, fourth_name, void > free_type;
 
-         return free_type( function_param );
+         return free_type( pointer_param );
         }
 
       template< typename identifier_name, typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name, typename fifth_name >
@@ -277,12 +277,12 @@ namespace reflection
        ::reflection::content::function::free_class< identifier_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name >
        free
         (
-         return_name (*function_param)( first_name, second_name, third_name, fourth_name, fifth_name )
+         return_name (*pointer_param)( first_name, second_name, third_name, fourth_name, fifth_name )
         )
         {
          typedef ::reflection::content::function::free_class< identifier_name, return_name, first_name, second_name, third_name, fourth_name, fifth_name > free_type;
 
-         return free_type( function_param );
+         return free_type( pointer_param );
         }
 
       }

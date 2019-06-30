@@ -176,7 +176,6 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyMainClass )
   reflection__CLASS_FIELD_direct(  "some-const-volatile-field-doubleD", MyMainClass, public, m_volatile_const_public )
   reflection__CLASS_FIELD_direct(  "some-volatile-field-doubleD", MyMainClass, public, m_volatile_public )
 
-
   reflection__CLASS_FIELD_mutate(  "some-field-doubleM", MyMainClass, public, m_public )
   reflection__CLASS_FIELD_inspect( "some-field-doubleI", MyMainClass, public, m_public )
 

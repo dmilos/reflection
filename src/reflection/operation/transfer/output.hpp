@@ -1,7 +1,7 @@
 #ifndef reflection_operation_output
 #define reflection_operation_output
 
-// ::reflection::operation::output
+// ::reflection::operation::output::pure_class
 
 
 namespace reflection
