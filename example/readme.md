@@ -20,6 +20,9 @@ All of them are less than 3Kb ( 3072b ) in size!
 ### less-than-4k
 All of them are less than 4Kb ( 4094b ) in size!
 
+### less-than-Nk
+Any other usually larger than 4K
+
 ### Test
 Do not bother with SCons in test folder. \
 Ignore the test folder too.

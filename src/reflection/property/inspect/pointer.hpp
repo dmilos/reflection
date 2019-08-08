@@ -3,7 +3,9 @@
 
 // ::reflection::property::inspect::pointer_struct<image_name,storage_name>
 
- #include "./basic.hpp"
+#include "./basic.hpp"
+#include "../../type/functor/asterisk.hpp"
+
 
 namespace reflection
  {
@@ -17,32 +19,22 @@ namespace reflection
 
         template
          <
-           typename      data_name
+          typename image_name
+         ,typename storage_name // = Anything that have: operator image_name*, Can be smart pointer too.
          >
          struct pointer_struct
           {
-           typedef data_name            data_type;
-           typedef data_name const&    image_type;
-           typedef data_name const *  storage_type;
+           typedef image_name           image_type;
+           typedef storage_name       storage_type;
 
-           typedef class retriever_class
-            {
-             public:
-               explicit retriever_class()
-                {
-                }
-               image_type operator()( storage_type const& carrier_param )const
-                {
-                 return *carrier_param;
-                }
-
-            } retriever_type;
+           typedef ::reflection::type::functor::asterisk< image_type, storage_name >          retriever_type; //!< By design
 
            typedef ::reflection::property::inspect::basic_class<image_type,storage_type,retriever_type>      typedef_type;
 
+           static typedef_type make( ){ return typedef_type( ); }
            static typedef_type make( storage_type const& carrier_param )
             {
-             return typedef_type( carrier_param, retriever_type() );
+             return typedef_type( carrier_param, retriever_type{} );
             }
           };
 
@@ -50,20 +42,20 @@ namespace reflection
 
       template
        <
-         typename    data_name
+         typename image_type
+        ,typename storage_name //!< Anything that have: operator image_type*, Can be smart pointer too.
        >
        class pointer_class
-        : public ::reflection::property::inspect::_internal::pointer_struct<data_name>::typedef_type
+        : public ::reflection::property::inspect::_internal::pointer_struct<image_type,storage_name>::typedef_type
         {
          public:
+           typedef typename ::reflection::property::inspect::_internal::pointer_struct<image_type,storage_name>  basic_type;
+           typedef typename basic_type::typedef_type  base_type;
 
-          typedef typename ::reflection::property::inspect::_internal::pointer_struct<data_name>  basic_type;
-          typedef typename basic_type::typedef_type  base_type;
+           typedef typename basic_type::retriever_type retriever_type;
+           typedef typename basic_type::storage_type     storage_type;
 
-          typedef typename basic_type::retriever_type retriever_type;
-          typedef typename basic_type::storage_type     storage_type;
-
-          explicit pointer_class( storage_type   const& storage_param )
+           explicit pointer_class( storage_type   const& storage_param )
             : base_type( storage_param, retriever_type() )
             {
             }
@@ -71,20 +63,24 @@ namespace reflection
           using base_type::present;
         };
 
-
       template
        <
          typename   data_name
+        ,typename   image_name    = data_name const&
+        ,typename   storage_name  = data_name const*
        >
        inline
-       typename ::reflection::property::inspect::pointer_class<data_name>::typedef_type
+       typename ::reflection::property::inspect::pointer_class< image_name, storage_name>::typedef_type
        pointer
         (
-          data_name           const* carrier_param
+          storage_name  const & storage_param
         )
         {
-         typedef ::reflection::property::inspect::pointer_class<data_name> pointer_type;
-         return pointer_type::make( carrier_param );
+         typedef image_name   image_type;   // By design
+         typedef storage_name storage_type; // By design
+
+         typedef ::reflection::property::inspect::pointer_class<image_type, storage_type> pointer_type;
+         return pointer_type( storage_param );
         }
 
      }

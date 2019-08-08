@@ -102,10 +102,10 @@ namespace reflection
              explicit process_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
               {
                using namespace std::placeholders;
-               observe_param.control( observe_type::stage_prolog_index,        std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_introductum_index,        std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_exodus_index,        std::bind( &this_type::exodus, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_conclusio_index,     std::bind( &this_type::conclusio  , context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_epilog_index,     std::bind( &this_type::epilog  , context_param, _1, _2, _3 ) );
 
                observe_param.control( observe_type::recover_action_acquisition_index,  std::bind(    &this_type::recover, context_param, _1, _2, _3 ) );
 
@@ -141,7 +141,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prolog(           contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type introductum(           contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                //output_param.clear();
                std::cout << "-- {[(" <<  category_type::identifier( property_param )  << ")]}" << std::endl;
@@ -160,7 +160,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type introductum(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
 
@@ -172,7 +172,7 @@ namespace reflection
                return result;
               }
 
-             static report_type conclusio (       contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog (       contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                //TODO output_param <<  "  };" << std::endl;
                return report_type( true );

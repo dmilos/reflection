@@ -36,9 +36,14 @@ namespace reflection
            typedef  parameter_name parameter_type, T_1st,     argument_type;
            typedef  result_name    return_type,   result_type;
 
+           result_type operator()( parameter_type left_param )const
+            {
+             return *left_param; //!< by design
+            }
+
            result_type process( parameter_type left_param )const
             {
-             return *left_param;
+             return *left_param; //!< by design
             }
         };
 

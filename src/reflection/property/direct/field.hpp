@@ -25,7 +25,7 @@ namespace reflection
         template
          <
            typename     data_name
-          ,typename original_name // = data_name &
+          ,typename original_name // = Expect data_name &
           ,typename    class_name
           ,typename  storage_name
          >
@@ -51,7 +51,7 @@ namespace reflection
                   {
                    throw (void*)NULL;
                   }
-                 return  (*carrier_param).*m_pointer;
+                 return  (*carrier_param).*m_pointer; //!< By design
                 }
 
              private:

@@ -100,12 +100,12 @@ namespace reflection
               {
                using namespace std::placeholders;
 
-               observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
 
                observe_param.control( observe_type::stage_prefix_index,         std::bind( &this_type::prefix, context_param, _1, _2, _3 )      );
                observe_param.control( observe_type::stage_suffix_index,         std::bind( &this_type::suffix, context_param, _1, _2, _3 )     );
 
-               observe_param.control( observe_type::stage_conclusio_index ,    std::bind( &this_type::conclusio, context_param, _1, _2, _3 )   );
+               observe_param.control( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog, context_param, _1, _2, _3 )   );
 
                 observe_param.insert( identificator_type::template get<     enumeration_type >(), std::bind( &this_type::enumeration,    context_param, _1, _2, _3 ) );
                 observe_param.insert( identificator_type::template get<       algorithm_type >(), std::bind( &this_type::function,       context_param, _1, _2, _3 ) );
@@ -123,7 +123,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type introductum( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->newl( output_param );
                output_param <<  "<"<< context_param->m_element << ">" ;
@@ -131,7 +131,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type conclusio (  contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog (  contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->dec();
                output_param <<  "</"<< context_param->m_element <<">" ;

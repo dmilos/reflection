@@ -22,7 +22,7 @@ namespace reflection
         : virtual public ::reflection::property::pure_class
         {
          public:
-           typedef original_name original_type;
+           typedef original_name original_type; //!< Expect to be reference
 
            typedef ::reflection::property::pure_class  pure_type;
 

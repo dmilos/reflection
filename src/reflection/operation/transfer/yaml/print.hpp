@@ -87,8 +87,8 @@ namespace reflection
                }
                observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
 
-               observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, context, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_conclusio_index ,    std::bind( &this_type::conclusio, context, _1, _2, _3 )   );
+               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog, context, _1, _2, _3 )   );
                observe_param.control( observe_type::stage_prefix_index,   &this_type::prefix );
                observe_param.control( observe_type::stage_suffix_index,   &this_type::suffix );
                observe_param.control( observe_type::stage_stasimon_index ,  &this_type::stasimon );
@@ -145,7 +145,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type introductum( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param <<  "--- "
                             << std::endl
@@ -154,7 +154,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type conclusio  ( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog  ( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param << std::endl;
                output_param <<  "EOF" << std::endl;

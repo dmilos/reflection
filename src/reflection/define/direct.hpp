@@ -64,7 +64,8 @@
            (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::traitor_symbolic_name  \
          );                                                   \
-   instance.accessibility(    ::reflection::ornament::accessibility_class::public_index   );   \
+  instance.accessibility( ::reflection::ornament::accessibility_class::public_index );   \
+  instance.relation(      ::reflection::ornament::relation_class::member_index      );   \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

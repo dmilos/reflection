@@ -24,14 +24,14 @@ namespace reflection
           ,typename derived_name
           ,typename storage_name
          >
-        struct base_struct
+        struct base_struct // Access to data by dynamic_cast
          {
           public:
             typedef base_name              base_type;
             typedef derived_name        derived_type;
             typedef storage_name        storage_type;
 
-            typedef base_type &   original_type;
+            typedef base_type &   original_type; //!< by design
 
             typedef class extractor_class
              {
@@ -39,9 +39,10 @@ namespace reflection
                 extractor_class()
                  {
                  }
+
                 original_type operator()( storage_type const& carrier_param )const
                  {
-                  return  dynamic_cast< original_type >( *carrier_param );
+                  return  dynamic_cast< original_type >( *carrier_param );//!< By design
                  }
              } extractor_type;
 

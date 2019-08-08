@@ -24,15 +24,15 @@ namespace reflection
         template
          <
            typename     data_name
-          ,typename original_name // = data_name &
+          ,typename original_name // = expect: data_name &
           ,typename    class_name
          >
-         struct common_struct
+         struct common_struct // change to pointer
           {
            typedef data_name            data_type;
            typedef original_name    original_type;
            typedef class_name          class_type;
-           typedef data_type *       storage_type;
+           typedef data_type *       storage_type;  //!< By design. Forced to plain old pointer
 
            typedef data_type         *pointer_type; //!< By design
 
@@ -45,7 +45,7 @@ namespace reflection
 
                original_type operator()( storage_type & carrier_param )const
                 {
-                 return  *carrier_param;
+                 return  *carrier_param; //!< By design
                 }
 
              private:

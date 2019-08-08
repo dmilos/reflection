@@ -14,39 +14,73 @@ namespace reflection
     namespace direct
      {
 
+      namespace _internal
+       {
+
+        template
+         <
+          typename original_name
+         ,typename storage_name // = Anything that have: operator original_name*, Can be smart pointer too.
+         >
+         struct pointer_struct
+          {
+           typedef original_name     original_type;
+           typedef storage_name       storage_type;
+
+           typedef ::reflection::type::functor::asterisk< original_type, storage_name >          extractor_type; //!< By design
+
+           typedef ::reflection::property::direct::basic_class<original_type,storage_type,extractor_type>      typedef_type;
+
+           static typedef_type make( ){ return typedef_type( ); }
+           static typedef_type make( storage_type const& storage_param )
+            {
+             return typedef_type( storage_param, extractor_type{} );
+            }
+          };
+
+       }
+
       template
        <
-         typename data_name
-        ,typename storage_name // = data_name*
+         typename original_name
+        ,typename storage_name //!< Anything that have: operator original_name*, Can be smart pointer too.
        >
-       struct  pointer_class
+       class pointer_class
+        : public ::reflection::property::direct::_internal::pointer_struct<original_name,storage_name>::typedef_type
         {
-         typedef data_name         data_type;
-         typedef storage_name      storage_type;
+         public:
+           typedef typename ::reflection::property::direct::_internal::pointer_struct<original_name,storage_name>  basic_type;
+           typedef typename basic_type::typedef_type  base_type;
 
-         typedef data_type &       original_type;
+           typedef typename basic_type::extractor_type extractor_type;
+           typedef typename basic_type::storage_type     storage_type;
 
-         typedef ::reflection::type::functor::asterisk< original_type, storage_name >          extractor_type;
+           explicit pointer_class( storage_type   const& storage_param )
+            : base_type( storage_param, extractor_type() )
+            {
+            }
 
-         typedef ::reflection::property::direct::basic_class< original_type, storage_name, extractor_type>      typedef_type;
-
-         static typedef_type make( ){ return typedef_type( ); }
-         static typedef_type make( storage_name const& carrier_param ){ return typedef_type( carrier_param ); }
+          using base_type::disclose;
         };
 
       template
        <
-         typename data_name
-        ,typename storage_name
+          typename   data_name
+         ,typename   original_name = data_name &
+         ,typename   storage_name  = data_name *
        >
        inline
-       typename pointer_class<data_name,storage_name>::typedef_type
+       typename ::reflection::property::direct::pointer_class<original_name, storage_name>
        pointer
         (
-         storage_name  const&  carrier_param
+          storage_name const & storage_param
         )
         {
-         return pointer_class<data_name,storage_name>::make( carrier_param );
+         typedef original_name   original_type;
+         typedef storage_name     storage_type;
+
+         typedef ::reflection::property::direct::pointer_class<original_type, storage_type> pointer_type;
+         return pointer_type( storage_param );
         }
 
       }

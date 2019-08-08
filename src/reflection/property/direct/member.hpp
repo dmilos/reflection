@@ -17,19 +17,20 @@ namespace reflection
 
       namespace _internal
        {
+
         template
          <
-           typename original_name
+           typename original_name  //!< Expect : reference
           ,typename class_name
           ,typename storage_name
          >
-         struct member_struct
+         struct member_struct //!< Acces via member function
           {
-           typedef original_name original_type;
-           typedef class_name    class_type;
+           typedef original_name original_type; //!< Expect to be reference
+           typedef class_name      class_type;
            typedef storage_name  storage_type;
 
-           typedef original_type     (class_name::*traitor_type)();
+           typedef original_type     (class_name::*traitor_type)(); //!< by design
 
            typedef class extractor_class
             {
@@ -44,7 +45,7 @@ namespace reflection
                   {
                    throw (void*)NULL;
                   }
-                 return  ((*carrier_param).*m_traitor)( );
+                 return  ((*carrier_param).*m_traitor)(); //!< By design
                 }
 
              private:

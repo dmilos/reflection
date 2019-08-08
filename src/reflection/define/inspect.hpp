@@ -22,7 +22,7 @@
         ::reflection::ornament::accessibility_class::inspect_index                            \
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
-  /* TODO instance.linkage(    ::reflection::ornament::linkage_class::static_index   ); */ \
+  instance.relation(      ::reflection::ornament::relation_class::field_index );              \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
@@ -62,7 +62,8 @@
            (class_symbolic_name*)(nullptr)               \
           ,&class_symbolic_name::reader_symbolic_name    \
          );                                                   \
-   instance.accessibility(    ::reflection::ornament::accessibility_class::public_index   );   \
+  instance.accessibility( ::reflection::ornament::accessibility_class::public_index );   \
+  instance.relation(      ::reflection::ornament::relation_class::member_index      );   \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

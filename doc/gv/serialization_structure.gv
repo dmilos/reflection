@@ -3,9 +3,9 @@ digraph stages_of_serialization{
     begin[ label="State: begin"];
     end[ label="State: end"];
 
-    prolog         [shape = box,    style=filled, color=green, label="Stage: Prolog"      ];
     introductum    [shape = box,    style=filled, color=green, label="Stage: Introductum" ];
-    conclusio      [shape = box,    style=filled, color=green, label="Stage: Conclusio"];
+    prolog         [shape = box,    style=filled, color=green, label="Stage: Prolog"      ];
+    epilog         [shape = box,    style=filled, color=green, label="Stage: Epilog"];
     exodus         [shape = box,    style=filled, color=green, label="Stage: Exodus"];
 
     stasimon       [shape = box,    style=filled, color=green, label="Stage: Stasimon"];
@@ -17,25 +17,25 @@ digraph stages_of_serialization{
 
 
     begin->prolog[ label = "" , dir=forward ];
-    prolog  -> introductum [ label = "Success" , dir=forward, weight="1000" ];
-    prolog  -> exodus      [ label = "fail" , dir=forward ];
+    introductum -> prolog [ label = "Success" , dir=forward, weight="1000" ];
+    introductum  -> exodus      [ label = "fail" , dir=forward ];
 
-    introductum -> acquisition[ label = "Success", dir=forward, weight="2000"  ];
-    introductum -> conclusio[ label = "fail", dir=forward  ];
+    prolog -> acquisition[ label = "Success", dir=forward, weight="2000"  ];
+    prolog -> epilog[ label = "fail", dir=forward  ];
 
     acquisition ->fail_null  [ label = "fail", dir=forward  ];
     acquisition ->WIEW[ label = "Success", dir=forward  ];
-    acquisition ->conclusio[ label = "end", dir=forward  ];
+    acquisition ->epilog[ label = "end", dir=forward  ];
 
-    WIEW  -> conclusio  [ label = "fail", dir=forward  ];
+    WIEW  -> epilog  [ label = "fail", dir=forward  ];
     WIEW  -> stasimon  [ label = "Success", dir=forward  ];
 
     stasimon  -> acquisition  [ label = "", dir=forward  ];
 
-    conclusio -> exodus[ label = "", dir=forward  ];
+    epilog -> exodus[ label = "", dir=forward  ];
 
     fail_null-> stasimon[ label = "Success", dir=forward  ];
-    fail_null-> conclusio[ label = "fail", dir=forward  ];
+    fail_null-> epilog[ label = "fail", dir=forward  ];
 
     exodus->end[ label = "" , dir=forward ];
 
@@ -56,15 +56,15 @@ digraph stages_of_serialization{
     {
         rankdir=TB
         rank=source
-        node [ ] prolog
-        node [ ] introductum
+        node [ ] epilog
+        node [ ] exodus
     }
     subgraph cluster_end
     {
         rankdir=TB
         rank=source
-        node [ ] conclusio
-        node [ ] exodus
+        node [ ] introductum
+        node [ ] prolog
     }
 
     }

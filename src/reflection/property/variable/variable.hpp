@@ -6,3 +6,4 @@
 #include "./common.hpp"
 #include "./void.hpp"
 #include "./base.hpp"
+#include "./pointer.hpp"

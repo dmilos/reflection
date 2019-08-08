@@ -17,7 +17,7 @@ namespace reflection
          typename data_name
         ,typename original_name =  data_name &
        >
-       struct simple_struct
+       struct simple_struct //!< Data stored internaly.
         {
          typedef data_name      data_type;
          typedef original_name  original_type;
@@ -33,7 +33,7 @@ namespace reflection
 
              original_type operator()( storage_type & carrier_param )const
               {
-               return  carrier_param;
+               return carrier_param; //!< by design
               }
 
           } extractor_type;

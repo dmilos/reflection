@@ -20,7 +20,7 @@ namespace reflection
         ,typename storage_name    //= type_name
         ,typename extractor_name  //= stl_ext::identity_cast<  type_name const&, storage_name const& >
        >
-       class basic_class
+       class basic_class //! Generalization of all classe
         : virtual public ::reflection::property::direct::pure_class< original_name >
         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
         {
@@ -47,7 +47,7 @@ namespace reflection
          public:
            original_type disclose( void )
             {
-             return this->F1_extractor()( this->carrier_type::storage() );
+             return this->F1_extractor()( this->carrier_type::storage() ); //!< By design
             }
 
          public:

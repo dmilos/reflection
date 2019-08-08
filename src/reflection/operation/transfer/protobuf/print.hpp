@@ -84,8 +84,8 @@ namespace reflection
 
                auto internal = std::make_shared<context_struct>( );
 
-               observe_param.control( observe_type::stage_introductum_index,   std::bind( &this_type::introductum, internal, _1, _2, _3 )  );
-               observe_param.control( observe_type::stage_conclusio_index,    std::bind( &this_type::conclusio,  internal, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, internal, _1, _2, _3 )  );
+               observe_param.control( observe_type::stage_epilog_index,    std::bind( &this_type::epilog,  internal, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,  internal, _1, _2, _3 ) );
 
                observe_param.insert( identificator_type::template get<  enumeration_type     >(), &this_type::enumeration    );
@@ -106,7 +106,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type introductum( contextPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( contextPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
                output_param <<  "message ";
@@ -131,7 +131,7 @@ namespace reflection
                return result;
               }
 
-             static report_type conclusio ( contextPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog ( contextPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                internal->dec();
                output_param <<  "}" << std::endl;

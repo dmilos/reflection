@@ -21,8 +21,8 @@ namespace reflection
         : virtual public ::reflection::property::pure_class
         {
          public:
-           typedef model_name   model_type;
-           typedef report_name report_type;
+           typedef model_name   model_type; //!< Expect to be constant reference
+           typedef report_name report_type; //!< Expect bool or integer or enum
 
                     pure_class(){}
            virtual ~pure_class(){}

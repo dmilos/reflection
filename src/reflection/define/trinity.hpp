@@ -67,7 +67,8 @@
           ,&class_symbolic_name::writer_symbolic_name   \
           ,&class_symbolic_name::reader_symbolic_name   \
          );                                                  \
-  instance.accessibility(    ::reflection::ornament::accessibility_class::trinity_index   );  \
+  instance.accessibility( ::reflection::ornament::accessibility_class::trinity_index  );  \
+  instance.relation(      ::reflection::ornament::relation_class::member_index        );  \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

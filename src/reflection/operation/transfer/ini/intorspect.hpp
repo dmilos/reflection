@@ -72,7 +72,7 @@ namespace reflection
              explicit introspect_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
               {
                using namespace std::placeholders;
-               observe_param.control( observe_type::stage_introductum_index,    &this_type::introductum );
+               observe_param.control( observe_type::stage_prolog_index,    &this_type::prolog );
                observe_param.control( observe_type::stage_prefix_index,         &this_type::prefix      );
                observe_param.control( observe_type::stage_suffix_index,         &this_type::suffix      );
 
@@ -122,7 +122,7 @@ namespace reflection
               }
 
 
-             static report_type introductum(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
                {

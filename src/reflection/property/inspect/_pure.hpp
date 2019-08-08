@@ -22,7 +22,7 @@ namespace reflection
         : virtual public ::reflection::property::pure_class
         {
          public:
-           typedef image_name  image_type;
+           typedef image_name  image_type; //!< Expect to be constant reference
 
                     pure_class(){}
            virtual ~pure_class(){}

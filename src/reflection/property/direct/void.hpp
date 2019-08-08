@@ -25,7 +25,7 @@ namespace reflection
        , virtual public ::reflection::property::direct::pure_class< void >
        {
         public:
-          typedef void   original_type;
+          typedef void   original_type; //!< by design 
 
           typedef  ::reflection::property::direct::pure_class< original_type > pure_type;
 

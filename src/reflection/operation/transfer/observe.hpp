@@ -69,11 +69,11 @@ namespace reflection
              ,recover_action_fail_index
              ,recover_null_pointer_index
 
-             ,stage_prolog_index             // At the beginning of everything
+             ,stage_introductum_index             // At the beginning of everything
              ,stage_exodus_index             // at the end  of everything
 
-             ,stage_introductum_index        // At the beginning of (sub-)structure.
-             ,stage_conclusio_index          // at the end of (sub-)structure
+             ,stage_prolog_index        // At the beginning of (sub-)structure.
+             ,stage_epilog_index          // at the end of (sub-)structure
 
              ,stage_prefix_index             // beginning of episodia before checking if action exists
 
@@ -99,10 +99,10 @@ namespace reflection
              this->control( recover_action_fail_index    , action_type::always_true() );
              this->control( recover_null_pointer_index   , action_type::always_true() );
 
-             this->control( stage_prolog_index           , action_type::always_true() );
+             this->control( stage_introductum_index           , action_type::always_true() );
              this->control( stage_exodus_index           , action_type::always_true() );
-             this->control( stage_introductum_index      , action_type::always_true() );
-             this->control( stage_conclusio_index        , action_type::always_true() );
+             this->control( stage_prolog_index      , action_type::always_true() );
+             this->control( stage_epilog_index        , action_type::always_true() );
              this->control( stage_prefix_index           , action_type::always_true() );
              this->control( stage_suffix_index           , action_type::always_true() );
              this->control( stage_stasimon_index         , action_type::always_true() );
@@ -244,7 +244,7 @@ namespace reflection
             {
              if( 0 == m_pass++ )
               {
-               auto report = this->control()[stage_prolog_index]( output_param, key_type{}, struct_param );
+               auto report = this->control()[stage_introductum_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
                 { //! No need for recovery fuctions. Exodus will do the cleanup.
                  goto label_exosud;
@@ -252,10 +252,10 @@ namespace reflection
               }
 
               {
-               auto report = this->control()[stage_introductum_index]( output_param, key_type{}, struct_param );
+               auto report = this->control()[stage_prolog_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
-                { //! No need for recovery fuctions. Evrithing should happen in introductum and conclusio will do the clean up
-                 goto label_conclusio;
+                { //! No need for recovery fuctions. Evrithing should happen in prolog and epilog will do the clean up
+                 goto label_epilog;
                 }
               }
 
@@ -273,7 +273,7 @@ namespace reflection
                  auto report = this->control()[recover_null_pointer_index]( output_param, key, *property );
                  if( report_type( false ) == report )
                   {
-                   goto label_conclusio;
+                   goto label_epilog;
                   }
                  goto label_stasimon_execute;
                 }
@@ -289,7 +289,7 @@ namespace reflection
                   auto report = this->view( output_param, key, *property );
                   if( report = report_type( false ) )
                    {
-                    goto label_conclusio;
+                    goto label_epilog;
                    }
                   goto label_stasimon_execute;
                  }
@@ -301,14 +301,14 @@ namespace reflection
                    auto report = this->control()[stage_stasimon_index]( output_param, key, *property );
                    if( report_type( false ) == report )
                     {
-                     goto label_conclusio;
+                     goto label_epilog;
                     }
                   }
               }}
 
-             label_conclusio:
+             label_epilog:
               {
-               auto report = this->control()[stage_conclusio_index]( output_param, key_type{}, struct_param );
+               auto report = this->control()[stage_epilog_index]( output_param, key_type{}, struct_param );
                goto label_exosud;
               }
 

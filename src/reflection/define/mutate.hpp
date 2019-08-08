@@ -3,8 +3,8 @@
 
 // reflection__CLASS_FIELD_mutate( member_string_name, class_symbolic_name, field_symbolic_name )
 // reflection__CLASS_STATIC_mutate( member_string_name, class_symbolic_name, accessibility_name, common_symbolic_name )
-// reflection__CLASS_MEMBER_mutate( member_string_name, writer_full_symbolic_name  )\
-// reflection__CLASS_SIMPLE_mutate( member_string_name, type_symbolic_name, value_instance )\
+// reflection__CLASS_MEMBER_mutate( member_string_name, writer_full_symbolic_name  )
+// reflection__CLASS_SIMPLE_mutate( member_string_name, type_symbolic_name, value_instance )
 
 
 #define reflection__CLASS_FIELD_mutate( member_string_name, class_symbolic_name, accessibility_name, field_symbolic_name )\
@@ -65,7 +65,8 @@
            (class_symbolic_name*)(nullptr)              \
           ,&class_symbolic_name::writer_symbolic_name   \
          );                                                  \
-    instance.accessibility(    ::reflection::ornament::accessibility_class::public_index   );   \
+  instance.accessibility( ::reflection::ornament::accessibility_class::public_index   );   \
+  instance.relation(      ::reflection::ornament::relation_class::member_index        );   \
   insert                                                       \
    (                                                           \
      member_string_name                                        \

@@ -23,6 +23,7 @@
         ::reflection::ornament::accessibility_class::variable_index                            \
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
+  instance.relation(      ::reflection::ornament::relation_class::field_index );              \
   insert                                                       \
    (                                                           \
      member_string_name                                        \
@@ -65,6 +66,7 @@
           ,&class_symbolic_name::reader_symbolic_name          \
          );                                                    \
   instance.accessibility( ::reflection::ornament::accessibility_class::public_index ); \
+  instance.relation(      ::reflection::ornament::relation_class::member_index );              \
   /*instance.meta( "traitor", #traitor_symbolic_name ); */ \
   /*instance.meta( "reader",  #reader_symbolic_name  ); */ \
   insert                                                       \

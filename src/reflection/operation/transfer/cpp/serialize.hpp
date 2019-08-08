@@ -83,10 +83,10 @@ namespace reflection
                }
                observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
 
-               observe_param.control( observe_type::stage_introductum_index,   &this_type::introductum );
+               observe_param.control( observe_type::stage_prolog_index,   &this_type::prolog );
                observe_param.control( observe_type::stage_prefix_index,   &this_type::prefix );
                observe_param.control( observe_type::stage_suffix_index,   &this_type::suffix );
-               observe_param.control( observe_type::stage_conclusio_index,     &this_type::conclusio   );
+               observe_param.control( observe_type::stage_epilog_index,     &this_type::epilog   );
 
                observe_param.insert( identificator_type::template get< std::string    >(), &this_type::string  );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
@@ -141,7 +141,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type introductum( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
                output_param <<  "class";
@@ -164,7 +164,7 @@ namespace reflection
                return result;
               }
 
-             static report_type conclusio ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param <<  "  };" << std::endl;
                return report_type( true );
