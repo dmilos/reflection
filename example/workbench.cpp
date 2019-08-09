@@ -83,6 +83,11 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
     MyVectorType  m_vector;
  };
 
+reflection__IDSPEC( std::string, "MyFirstClassOriginal",  MyFirstClassOriginal )
+reflection__IDSPEC( std::string, "MyBaseClass",  MyBaseClass )
+reflection__IDSPEC( std::string, "MyMainClass",  MyMainClass )
+
+
 std::string MyMainClass::m_static="blahblahfoofoo"; //!< TODO
 
 reflection__CLASS_BEGIN_view( MyFirstClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal* )
@@ -179,7 +184,6 @@ int main( int argc, char *argv[] )
   std::cout << __FUNCTION__ << std::endl;
   // Some typedefs
   typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
-  typedef ::reflection::operation::transfer::json::print_struct<std::ostream> json_type;
   typedef ::reflection::operation::transfer::cpp::print_struct<std::ostream> cpp_type;
   typedef ::reflection::operation::transfer::yaml::print_struct<std::ostream> yaml_type;
   typedef ::reflection::operation::transfer::protobuf::print_struct<std::ostream> protobuf_type;
@@ -216,7 +220,9 @@ int main( int argc, char *argv[] )
   observe.view( std::cout, r ); // CPPize for example
 
   observe.clear();
-  { json_type json( observe );
+  { 
+    typedef ::reflection::operation::transfer::json::print_struct<std::ostream> json_type;
+    json_type json( observe );
                     observe.register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( ); 
                     observe.register_class<MyBaseClass, MyBaseClasssReflectionView>( ); 
   }

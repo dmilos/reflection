@@ -51,6 +51,9 @@ namespace reflection
                 bool   m_skip=false;
                 void inc(){ ++m_ident; }
                 void dec(){ --m_ident; }
+                size_type const& get()const{ return m_ident; }
+                void indent( output_type & output_param ){ for( size_type i=0; i< this->get(); ++i ) output_param <<  "xxxx"; }
+                void newl( output_type & output_param ){ output_param << std::endl; }
                }context_type;
 
              typedef std::shared_ptr< context_type > contextPtr_type;
@@ -87,11 +90,11 @@ namespace reflection
              //observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
                observe_param.control( observe_type::recover_null_pointer_index  , &this_type::null_recover    );
 
-               observe_param.control( observe_type::stage_prolog_index, std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_stasimon_index ,   std::bind( &this_type::stasimon,    context_param, _1, _2, _3 ) );;
-               observe_param.control( observe_type::stage_prefix_index,      std::bind( &this_type::prefix,      context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_suffix_index,      std::bind( &this_type::suffix,      context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_epilog_index ,  std::bind( &this_type::epilog,   context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_prolog_index,    std::bind( &this_type::prolog,   context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_stasimon_index , std::bind( &this_type::stasimon, context_param, _1, _2, _3 ) );;
+               observe_param.control( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,   context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_suffix_index,    std::bind( &this_type::suffix,   context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_epilog_index ,   std::bind( &this_type::epilog,   context_param, _1, _2, _3 ) );
 
                observe_param.insert( identificator_type::template get<  std::string   >(), &this_type::string   );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
@@ -148,15 +151,18 @@ namespace reflection
 
              static report_type prolog( contextPtr_type context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->inc();
-               output_param <<  "{" << std::endl;
+               context_param->inc(); 
+               context_param->indent(output_param);
+               output_param << "{" ;
+               context_param->newl(output_param);
                return report_type( true );
               }
 
              static report_type epilog  ( contextPtr_type context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param << std::endl;
+               context_param->newl(output_param);
                output_param <<  "}" << std::endl;
+               context_param->indent(output_param);
                context_param->dec();
                return report_type( true );
               }
@@ -175,17 +181,16 @@ namespace reflection
                  }
                 else
                  {
-                  output_param << " //! Can not detect type ";
+                  output_param << "//! Can not detect type ";
                   result = false;
                  }
                }
-
-               output_param << "\"" << key_param << "\"" << ":" << std::endl ;
-               output_param << "  {" << std::endl ;
+               context_param->indent(output_param);  output_param << "\"" << key_param << "\"" << ":" ; context_param->newl(output_param);
+               context_param->indent(output_param);  output_param << "{" << std::endl ; context_param->newl(output_param);
 
                decoration_category(       context_param, output_param, property_param );
 
-               output_param << "    \"value\"  : " ;
+               context_param->indent(output_param); output_param << "\"value\" : " ;
 
                return report_type( result );
               }
@@ -198,9 +203,9 @@ namespace reflection
                  return report_type( true );
                 }
                context_param->m_skip = false;
-               output_param << std::endl;
-               output_param <<  "  }";
-               //output_param << std::endl;
+               context_param->newl(output_param);
+               output_param <<  "}";
+               //context_param->newl(output_param);
                return report_type( true );
               }
 
@@ -509,8 +514,3 @@ namespace reflection
  }
 
 #endif
-
-
-
-
-

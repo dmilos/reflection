@@ -74,9 +74,11 @@ namespace reflection
                 private:
                   friend struct  reflection::operation::transfer::xml::serialize_struct<output_name,key_name,identifier_name, report_name, container_name>;
                   size_type   m_ident=0;
+                std::string m_tabulator="    ";
                   void inc(){ ++m_ident; }
                   void dec(){--m_ident; }
                   size_type const& get()const{ return m_ident; }
+                  void indent( output_type & output_param ){ for( size_type i=0; i< this->get(); ++i ) output_param << m_tabulator; }
                   void newl( output_type & output_param ){ output_param << std::endl; for( size_type i=0; i< this->get(); ++i ) output_param <<  "  "; }
                }context_type;
 
