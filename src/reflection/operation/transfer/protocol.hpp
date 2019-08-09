@@ -44,34 +44,34 @@ namespace reflection
            typedef typename qualificator_name<menu_type>::type  menu_qualified_type;
            typedef typename qualificator_name<menu_type>::type  menu_qualified_reference_type;
 
-           static bool               exists( menu_type const& container, identificator_type const& key )
+           static bool               exists( menu_type const& container_param, identificator_type const& key )
             {
-             return ::reflection::type::container::exists< identificator_type, function_type >( container, key );
+             return ::reflection::type::container::exists< identificator_type, function_type >( container_param, key );
             }
 
-           static function_type const& find( menu_type const& container, identificator_type const& key )
+           static function_type const& find( menu_type const& container_param, identificator_type const& key )
             {
-             auto iterator = ::reflection::type::container::find< identificator_type, function_type >( container, key );
-             if( container.end() == iterator )
+             auto iterator = ::reflection::type::container::find< identificator_type, function_type >( container_param, key );
+             if( container_param.end() == iterator )
               {
                return action_type::always_false();
               }
-             return ::reflection::type::container::data< identificator_type, function_type >( container, iterator );
+             return ::reflection::type::container::data< identificator_type, function_type >( container_param, iterator );
             }
 
-           static function_type      & find( menu_type      & container, identificator_type const& key )
+           static function_type      & find( menu_type      & container_param, identificator_type const& key )
             {
-             auto iterator = ::reflection::type::container::find< identificator_type, function_type  >( container, key );
-             if( container().end() == iterator )
+             auto iterator = ::reflection::type::container::find< identificator_type, function_type  >( container_param, key );
+             if( container_param().end() == iterator )
               {
                return action_type::always_false();
               }
-              return ::reflection::type::container::data< identificator_type, function_type  >( container, key );
+              return ::reflection::type::container::data< identificator_type, function_type  >( container_param, key );
             }
 
-           static void               insert( menu_type      & container, key_type const& key, function_type const& function )
+           static void               insert( menu_type      & container_param, key_type const& key, function_type const& function )
             {
-             ::reflection::type::container::insert< key_name, function_type >( container, key, function );
+             ::reflection::type::container::insert< key_name, function_type >( container_param, key, function );
             }
 
       };

@@ -5,8 +5,6 @@
 
 // ::reflection::operation::transfer::python::bind::constDef_class
 
-#include <string>
-
 namespace reflection
  {
   namespace operation

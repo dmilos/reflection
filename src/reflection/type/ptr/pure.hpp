@@ -3,8 +3,6 @@
 
  // memory::pointer::pure<N_class>
 
- #include <cstddef>
-
    namespace memory
     {
      namespace pointer

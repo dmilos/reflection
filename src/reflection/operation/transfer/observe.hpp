@@ -146,16 +146,15 @@ namespace reflection
            void register__any( function_type const& f )
             {
              auto i = identificator_type::template get<data_name>();
-             this->insert( i , f );
+             this->register__any( i , f );
             }
 
           template < typename data_name, typename view_name >
            void register_class()
             {
              using namespace std::placeholders;
-             auto i = identificator_type::template get<data_name>();
              auto f = std::bind( &this_type::view_custom<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
-             this->insert( i , f );
+             this->register__any< data_name >( f );
             }
 
          public:

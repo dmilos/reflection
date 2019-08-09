@@ -12,6 +12,9 @@
 #include <algorithm>
 #include <functional>
 #include <type_traits>
+#include <complex>
+#include <cstddef>
+
 
 #if defined REFLECTION_USE_PP2FILE
 #include "./reflection.pp2f.hpp"

@@ -5,8 +5,6 @@
 
 // ::reflection::operation::transfer::python::bind::output_class
 
-#include <string>
-
 #include "./typeObject.hpp"
 #include "./interface.hpp"
 

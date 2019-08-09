@@ -56,6 +56,11 @@ reflection__IDSPEC( std::string, "std::set<double>",        std::set<double> )
 reflection__IDSPEC( std::string, "std::set<std::string>",   std::set<std::string> )
 reflection__IDSPEC( std::string, "std::set<std::wstring>",  std::set<std::wstring> )
 
+reflection__IDSPEC( std::string, "std::complex<float>",        std::complex<float> )
+reflection__IDSPEC( std::string, "std::complex<double>",       std::complex<double> )
+reflection__IDSPEC( std::string, "std::complex<long double>",  std::complex<long double> )
+
+
 #define COMMA ,
 
 reflection__IDSPEC( std::string, "std::map<int,int>",           std::map<int COMMA int> )

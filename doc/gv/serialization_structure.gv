@@ -8,10 +8,10 @@ digraph stages_of_serialization{
     epilog         [shape = box,    style=filled, color=green, label="Stage: Epilog"];
     exodus         [shape = box,    style=filled, color=green, label="Stage: Exodus"];
 
-    stasimon       [shape = box,    style=filled, color=green, label="Stage: Stasimon"];
-    WIEW           [shape = circle, label = "View", style=filled, color=red];
 
     acquisition   [shape = box, style=filled, color=gray,  label = "Internal: Item acquisition."  ];
+    WIEW           [shape = circle, label = "View", style=filled, color=red];
+    stasimon       [shape = box,    style=filled, color=green, label="Stage: Stasimon"];
 
     fail_null     [shape = octagon, label="Recover: nullptr",          style=filled, color=blue];
 
