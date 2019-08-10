@@ -197,7 +197,7 @@ int main( int argc, char *argv[] )
   ::reflection::operation::transfer::observe_class<std::ostream> observe; //!< Have algorithm for observation(serialize/...) of instance
 
   {
-   typedef ::reflection::operation::transfer::xml::serialize_struct<std::ostream> xml_type;
+   typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
    auto xml_context = xml_type::context();
    xml_type xml( observe, xml_context );
 
@@ -252,7 +252,7 @@ int main( int argc, char *argv[] )
   //for( auto & v: r )  //! Iterato over the members
   // {
   //  std::cout << ::reflection::content::category::pure<std::string>( *v.second ).identifier() << "  ";
-  //  std::cout << v.first  <<";";
+  //  std::cout << v.first  <<";";                                                                                                                                                        
   //  std::cout << std::endl;
   // }
 

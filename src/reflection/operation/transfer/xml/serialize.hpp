@@ -68,6 +68,7 @@ namespace reflection
                  attribute_struct m_messageNotM    ={ true, "N", "Not in the menu" };
                  attribute_struct m_messageRecover ={ true, "N", "Continue like nothing happen." };
                  attribute_struct m_messageCNRV    ={ true, "N", "Can not retrieve value." };
+                 attribute_struct m_messageCNDT    ={ true, "N", "Can not detect type." };
                  attribute_struct m_NULL           ={ true, "N", "" };
                  attribute_struct m_NaS            ={ true, "N", "Not a structure" };
 
@@ -79,7 +80,7 @@ namespace reflection
                   void dec(){--m_ident; }
                   size_type const& get()const{ return m_ident; }
                   void indent( output_type & output_param ){ for( size_type i=0; i< this->get(); ++i ) output_param << m_tabulator; }
-                  void newl( output_type & output_param ){ output_param << std::endl; for( size_type i=0; i< this->get(); ++i ) output_param <<  "  "; }
+                void newl( output_type & output_param ){ output_param << std::endl; }
                }context_type;
 
              typedef std::shared_ptr< context_type > contextPtr_type;
@@ -111,17 +112,15 @@ namespace reflection
                using namespace std::placeholders;
 
                observe_param.control( observe_type::recover_type_acquisition_index  , std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
-             //observe_param.control( observe_type::recover_action_acquisition_index, std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::recover_action_acquisition_index, std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::recover_action_fail_index,        std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
 
                observe_param.control( observe_type::stage_introductum_index, std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_exodus_index ,     std::bind( &this_type::exodus,      context_param, _1, _2, _3 )   );
-
-               observe_param.control( observe_type::stage_prolog_index,      std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_epilog_index ,     std::bind( &this_type::epilog, context_param, _1, _2, _3 )   );
-                                                                             
-               observe_param.control( observe_type::stage_prefix_index,      std::bind( &this_type::prefix, std::ref( observe_param ), context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_suffix_index,      std::bind( &this_type::suffix, std::ref( observe_param ), context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_exodus_index ,     std::bind( &this_type::exodus,      context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_prolog_index,      std::bind( &this_type::prolog,      context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_epilog_index ,     std::bind( &this_type::epilog,      context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_prefix_index,      std::bind( &this_type::prefix,      context_param, std::ref(observe_param), _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_suffix_index,      std::bind( &this_type::suffix,      context_param, std::ref(observe_param), _1, _2, _3 ) );
 
                observe_param.insert( identificator_type::template get<  nullptr_t      >(), std::bind( &this_type::null_value, context_param, _1, _2, _3 ) );
 
@@ -156,6 +155,10 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  long long      >(), std::bind( &this_type::primitive<long long     >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get< unsigned long     >(), std::bind( &this_type::primitive< unsigned long          >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get< unsigned long long>(), std::bind( &this_type::primitive< unsigned long long     >, context_param, _1, _2, _3 ) );
+
+               observe_param.insert( identificator_type::template get< std::complex<float> >(),       std::bind( &this_type::complex< float >,       context_param, std::ref(observe_param), _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get< std::complex<double> >(),      std::bind( &this_type::complex< double >,      context_param, std::ref(observe_param), _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get< std::complex<long double> >(), std::bind( &this_type::complex< long double >, context_param, std::ref(observe_param), _1, _2, _3 ) );
               }
 
            private:
@@ -176,7 +179,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type exodus (  contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type exodus (     contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->dec();
                output_param <<  "</"<< context_param->m_intro.m_name << ">" ;
@@ -184,51 +187,27 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prolog( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               //context_param->newl( output_param );
                tag<false>( output_param, context_param->m_element );
-               context_param->inc();
+                              context_param->inc();
                return report_type( true );
               }
 
-             static report_type epilog (  contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog (     contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->dec();
                output_param <<  "</"<< context_param->m_element.m_name << ">" ;
-               //context_param->newl( output_param );
+               context_param->newl( output_param );
                return report_type( true );
               }
 
-             static report_type prefix(  observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prefix(      contextPtr_type &context_param, observe_type const& observe_param, output_type & output_param,  key_type const& key_param, property_qualified_reference_type property_param )
               {
-               //context_param->newl( output_param );
                output_param << "<" << context_param-> m_item.m_name << " ";
                if( key_type{} != key_param ) output_param << context_param-> m_name.m_name << "=\"" << key_param << "\" ";
 
-               {
-                category_type const* category_item = dynamic_cast< category_type const* >( &property_param );
-                if( nullptr == category_item )
-                 {
-                  attribute( output_param, context_param-> m_messageNULL );
-                  output_param << " >";
-                  context_param->inc();
-                  return report_type( false );
-                 }
-
-                if(  true == context_param->m_type.m_show )
-                 {
-                  output_param << context_param-> m_type.m_name << "=\"" << category_item->identifier() << "\" ";
-                 }
-
-                if( false == protocol_type::exists( observe_param.menu(), category_item->identifier() ) )
-                 {
-                  attribute( output_param, context_param-> m_messageNotM );
-                  output_param << " >";
-                  context_param->inc();
-                  return report_type( false );
-                 }
-               }
+               decoration_category( context_param, observe_param, output_param, property_param );
 
                output_param << " >";
                context_param->inc();
@@ -236,11 +215,16 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type suffix(  observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type suffix(      contextPtr_type &context_param, observe_type const& observe_param, output_type & output_param,   key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->dec(); 
+               context_param->dec();
                output_param << "</"<< context_param->m_item.m_name << ">";
                context_param->newl( output_param );
+               return report_type( true );
+              }
+
+             static report_type stasimon(    output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
                return report_type( true );
               }
 
@@ -271,22 +255,42 @@ namespace reflection
                 output_param << ">";
                }
 
-             static report_type null_value(   contextPtr_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type decoration_category( contextPtr_type const&context_param, observe_type const& observe_param, output_type & output_param, property_qualified_reference_type property_param)
               {
-               typedef ::reflection::property::null_class null_type;
-               auto null = dynamic_cast< null_type const* >( &property_param );
-               if( nullptr == null ) 
+               category_type const* category_item = dynamic_cast< category_type const* >( &property_param );
+               if( nullptr == category_item )
                 {
-                 tag<true>( output_param, context_param->m_remark, context_param->m_messageCNRV ); 
+                 attribute( output_param, context_param->m_messageCNDT );
                  return report_type( false );
                 }
 
-               output_param << "<value content=\"null\" />"; // !< TODO <-- tag<true>( output_param, context_param->m_null, context_param->m_messageCNRV ); 
-               
+               output_param << "" << context_param->m_type.m_name << "=\"" << category_item->identifier() << "\" ";
+
+               if( false == protocol_type::exists( observe_param.menu(), category_item->identifier() ) )
+                {
+                 attribute( output_param, context_param-> m_messageNotM );
+                 return report_type( false );
+                }
                return report_type( true );
               }
 
-             static report_type wstring(     contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+            private:
+             static report_type null_value(   contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
+               typedef ::reflection::property::null_class null_type;
+               auto null = dynamic_cast< null_type const* >( &property_param );
+               if( nullptr == null )
+                {
+                 tag<true>( output_param, context_param->m_remark, context_param->m_messageCNRV );
+                 return report_type( false );
+                }
+
+               output_param << "<value content=\"null\" />"; // !< TODO <-- tag<true>( output_param, context_param->m_null, context_param->m_messageCNRV );
+
+               return report_type( true );
+              }
+
+             static report_type wstring(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                {
                 typedef ::reflection::property::inspect::pure_class<wstring_type const& > inspect_type;
@@ -311,7 +315,7 @@ namespace reflection
               }
 
              template< typename simple_name >
-              static report_type primitive(  contextPtr_type & context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              static report_type primitive(   contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
                 boolean_type pass = true;
 
@@ -346,7 +350,7 @@ namespace reflection
                }
 
             private:
-              template < typename enumerator_name >
+             template < typename enumerator_name >
               static report_type  enumerant      (                           output_type &   output_param, key_type                     const&      key_param, property_qualified_reference_type   property_param )
                {
                 {
@@ -373,7 +377,7 @@ namespace reflection
                }
 
              template < typename number_name >
-              static  report_type complex ( observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              static  report_type complex(    contextPtr_type &context_param,observe_type const& observe_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
                 typedef std::complex<number_name> complex_type;
                 boolean_type pass = true;
@@ -409,7 +413,7 @@ namespace reflection
               }
 
              template < typename first_name, typename second_name >
-              static  report_type pair   ( observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              static  report_type pair(      contextPtr_type &context_param, observe_type const& observe_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
                 // TODO
                 // auto f = ::reflection::content::inspect::pointer( property_param.first );
@@ -420,13 +424,54 @@ namespace reflection
                }
 
              template < typename first_name, typename second_name >
-              static  report_type tuple         ( observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              static  report_type tuple(      contextPtr_type &context_param, observe_type const& observe_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
                 // TODO
                 return false;
                }
 
-             static  report_type  structureX(     observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             template < typename container_value_name >
+              static  report_type container( contextPtr_type &context_param, observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+               {
+                typedef container_value_name container_type;
+                container_type const*pointer = nullptr;
+
+                {
+                 typedef ::reflection::property::inspect::pure_class<container_type const& > inspect_type;
+                 auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+                 if( nullptr != inspect_instance )
+                  {
+                   pointer = &inspect_instance->present();
+                   goto print_label;
+                  }
+                }
+
+                {
+                 typedef  ::reflection::property::direct::pure_class<container_type &>         direct_type;
+                 direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+                 if( nullptr != direct_instance )
+                  {
+                   pointer = &direct_instance->disclose();
+                   goto print_label;
+                  }
+                }
+
+                return report_type( true );
+                print_label:
+
+                 for( auto const&  item: *pointer )
+                  {
+                   output_param << "<v ";
+                   output_param << "size=\"" << pointer->size() << "\"";
+                   output_param << ">";
+
+                   observe_param.view( output_param, key_type{}, ::reflection::content::inspect::pointer<identifier_type,typename container_type::value_type>( &item ) );
+                   output_param << "</v>";
+                  }
+                 return report_type( true );
+               }
+
+             static  report_type  structureX( contextPtr_type &context_param, observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                boolean_type pass = true;
 
@@ -462,7 +507,7 @@ namespace reflection
 
             public:
              template< typename      enum_name>
-              static void register_enum( observe_type & observe_param, contextPtr_type &context_param )
+              static void register_enum(       observe_type & observe_param, contextPtr_type &context_param )
                {
                 using namespace std::placeholders;
                 auto i = this_type::identificator_type::template get< enum_name >();
@@ -471,86 +516,48 @@ namespace reflection
                }
 
              template < typename number_name >
-              static  void register_complex ( observe_type & observe_param, contextPtr_type &context_param )
-              {
+              static  void register_complex (  observe_type & observe_param, contextPtr_type &context_param )
+               {
                 using namespace std::placeholders;
                 auto i = this_type::identificator_type::template get< std::complex< number_name> >();
-                auto f = std::bind( &this_type::template complex<number_name>,  std::ref(observe_param), context_param,_1, _2, _3 );
+                auto f = std::bind( &this_type::template complex<number_name>, context_param, std::ref(observe_param), _1, _2, _3 );
                 observe_param.register__any( i, f );
               }
 
              template < typename first_name, typename second_name >
-              static  void register_pair ( observe_type & observe_param, contextPtr_type &context_param )
-              {
+              static  void register_pair (     observe_type & observe_param, contextPtr_type &context_param )
+               {
                 using namespace std::placeholders;
                 auto i = this_type::identificator_type::template get< std::pair< first_name, second_name > >();
-                auto f = std::bind( &this_type::template pair<first_name, second_name>,  std::ref(observe_param), context_param, _1, _2, _3 );
+                auto f = std::bind( &this_type::template pair<first_name, second_name>,  context_param, std::ref(observe_param),  _1, _2, _3 );
                 observe_param.register__any( i, f );
               }
 
              template < typename first_name, typename second_name >
-              static  void register_tuple( observe_type & observe_param, contextPtr_type &context_param )
-              {
+              static  void register_tuple(     observe_type & observe_param, contextPtr_type &context_param )
+               {
                 // TODO
                }
 
              template < typename container_value_name >
-              static  report_type container         ( observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-               {
-                typedef container_value_name container_type;
-                container_type const*pointer = nullptr;
-
-                {
-                 typedef ::reflection::property::inspect::pure_class<container_type const& > inspect_type;
-                 auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
-                 if( nullptr != inspect_instance )
-                  {
-                   pointer = &inspect_instance->present();
-                   goto print_label;
-                  }
-                }
-
-                {
-                 typedef  ::reflection::property::direct::pure_class<container_type &>         direct_type;
-                 direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
-                 if( nullptr != direct_instance )
-                  {
-                   pointer = &direct_instance->disclose();
-                   goto print_label;
-                  }
-                }
-
-                return report_type( true );
-                print_label:
-
-                 for( auto const&  item: *pointer )
-                  {
-                   output_param << "<v>";
-                   observe_param.view( output_param, key_type{}, ::reflection::content::inspect::pointer<identifier_type,typename container_type::value_type>( &item ) );
-                   output_param << "</v>";
-                  }
-                 return report_type( true );
-               }
-
-             template < typename container_value_name >
               static  void register_container( observe_type & observe_param, contextPtr_type &context_param )
-              {
+               {
                 typedef container_value_name container_type;
                 using namespace std::placeholders;
                 auto i = this_type::identificator_type::template get< container_type >();
-                auto f = std::bind( &this_type::template container<container_type>, std::ref(observe_param), context_param, _1, _2, _3 );
+                auto f = std::bind( &this_type::template container<container_type>, context_param, std::ref(observe_param), _1, _2, _3 );
                 observe_param.register__any( i , f );
                }
 
              template < typename map_key_name, typename map_data_name >
-              static  void register_map( observe_type & observe_param, contextPtr_type &context_param )
-              {
+              static  void register_map(       observe_type & observe_param, contextPtr_type &context_param )
+               {
                this_type::template register_pair< map_key_name, map_data_name >( observe_param, context_param );
                this_type::template register_container< std::map<map_key_name, map_data_name> >( observe_param, context_param );;
               }
 
              template< typename data_name, typename view_name>
-              static void register_class( observe_type & observe_param, contextPtr_type &context_param )
+              static void register_class(      observe_type & observe_param, contextPtr_type &context_param )
                {
                 using namespace std::placeholders;
                 auto i = this_type::identificator_type::template get< data_name >();
