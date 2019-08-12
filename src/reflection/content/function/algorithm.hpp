@@ -7,7 +7,7 @@
 
 #include "../../type/name/id.hpp"
 #include "../../property/function/_pure.hpp"
-#include "../../define/idspec.hpp"
+#include "../../define/native/idspec.hpp"
 
 #include "../_pure.hpp"
 

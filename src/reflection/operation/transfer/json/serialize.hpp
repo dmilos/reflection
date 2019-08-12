@@ -14,6 +14,7 @@
 #include "../../../property/structure.hpp"
 #include "../../../operation/transfer/observe.hpp"
 
+#include "./context.hpp"
 
 
 
@@ -45,21 +46,13 @@ namespace reflection
 
            private:
              typedef std::size_t size_type;
-             typedef struct context_struct
-              {
-                size_type m_ident=0;
-                bool   m_skip=false;
-                void inc(){ ++m_ident; }
-                void dec(){ --m_ident; }
-                size_type const& get()const{ return m_ident; }
-                void indent( output_type & output_param ){ for( size_type i=0; i< this->get(); ++i ) output_param <<  "xxxx"; }
-                void newl( output_type & output_param ){ output_param << std::endl; }
-               }context_type;
+
+             typedef ::reflection::operation::transfer::json::context_struct<output_name> context_type;
 
              typedef std::shared_ptr< context_type > contextPtr_type;
 
           public:
-            static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+            static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::json::serialize_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
@@ -151,7 +144,7 @@ namespace reflection
 
              static report_type prolog( contextPtr_type context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->inc(); 
+               context_param->inc();
                context_param->indent(output_param);
                output_param << "{" ;
                context_param->newl(output_param);

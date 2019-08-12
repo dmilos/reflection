@@ -14,7 +14,13 @@ namespace reflection
      : virtual public ::reflection::property::pure_class
      {
       public:
-        typedef enum visibility_enum{ unknown_index, default_index, gloabal_index, public_index, protected_index, private_index, local_index,  } accessibility_type;
+        typedef enum visibility_enum
+         {
+           unknown_index
+          ,default_index
+          ,local_index
+          ,gloabal_index
+         } accessibility_type;
 
         typedef ::reflection::ornament::visibility_class  this_type;
 

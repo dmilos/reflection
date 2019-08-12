@@ -13,7 +13,7 @@
 #include "../../../operation/transfer/observe.hpp"
 
 
-
+#include "../_common/indenting.hpp"
 
 
 namespace reflection
@@ -42,14 +42,16 @@ namespace reflection
              typedef      report_name        report_type;
 
            public:
-             typedef std::size_t size_type;
+             typedef std::size_t   size_type;
+             typedef std::string string_type;
            public:
-             typedef struct context_struct
+             typedef ::reflection::operation::transfer::_common::indenting_class<output_name, string_type> indenting_type;
+
+             typedef struct context_struct : public indenting_type
               {
-                size_type m_ident=0;
-                void inc(){ ++m_ident; }
-                void dec(){ --m_ident; }
-               }context_type;
+              }context_type;
+
+           public:
              typedef std::shared_ptr< context_type > contextPtr_type;
 
            public:
@@ -70,9 +72,9 @@ namespace reflection
              typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
-             typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_type;
-             typedef ::reflection::content::function::algorithm_class<identifier_type>                      algorithm_type;
-             typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
+             typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>              enumeration_type;
+             typedef ::reflection::content::function::algorithm_class<identifier_type>                         algorithm_type;
+             typedef ::reflection::property::typedefinition::pure_class< identifier_type >                typedefinition_type;
              typedef ::reflection::property::frienddeclaration::pure_class< identifier_type >          frienddeclaration_type;
 
              typedef ::reflection::ornament::relation_class             relation_type;
@@ -99,7 +101,6 @@ namespace reflection
               }
 
            private:
-             typedef    std::string       string_type;
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
 
@@ -213,10 +214,12 @@ namespace reflection
                auto relation_item = relation_type::relation( property_param );
                switch( relation_item )
                 {
-                 //case( relation_type::field_index   ): output_param << " "<< "field" ; break;
-                 //case( relation_type::member_index   ): output_param << " "<< "member" ; break;
-                 //case( relation_type::base_index     ): output_param << " "<< "base"   ; break;
-                 case( relation_type::friend_index   ): output_param << " "<< "friend" ; break;
+                 case( relation_type::friend_index   ): output_param << " "<< "friend"   ; break;
+               //case( relation_type::member_index   ): output_param << " "<< "member"   ; break;
+               //case( relation_type::derived_index  ): output_param << " "<< "derived"  ; break;
+               //case( relation_type::base_index     ): output_param << " "<< "base"     ; break;
+               //case( relation_type::injected_index ): output_param << " "<< "injected" ; break;
+               //case( relation_type::field_index    ): output_param << " "<< "field"    ; break;
                 }
                return relation_item;
               }

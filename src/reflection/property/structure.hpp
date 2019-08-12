@@ -4,7 +4,7 @@
 // ::reflection::property::structure_class<key_name,container_name>
 
 #include "../type/name/id.hpp"
-#include "../define/idspec.hpp"
+#include "../define/native/idspec.hpp"
 #include "../type/ptr/ptr.hpp"
 #include "../property/_pure.hpp"
 #include "../type/container/container.hpp"

@@ -9,6 +9,8 @@
 #include "../../../operation/transfer/observe.hpp"
 
 
+//#include "./_common.hpp"
+//#include "../_common/indenting.hpp"
 
 
 
@@ -30,7 +32,7 @@ namespace reflection
           ,template <typename,typename> class container_name  = ::reflection::type::container::map
          >
          struct serialize_struct
-            {
+          {
            public:
              typedef      output_name        output_type;
              typedef         key_name           key_type;
@@ -44,43 +46,32 @@ namespace reflection
              typedef struct context_struct
               {
                public:
-                 struct tag_struct
-                  {
-                   bool m_show;
-                   string_type m_name;
-                  };
+                 typedef ::reflection::operation::transfer::xml::_common::attribute_struct<output_type, string_type>           attribute_type;
+                 typedef ::reflection::operation::transfer::xml::_common::tag_struct<output_type, string_type>           tag_type;
+                 typedef ::reflection::operation::transfer::_common::indenting_class<output_type, string_type>        ident_type;
 
-                 struct attribute_struct
-                  {
-                   bool m_show;
-                   string_type m_name;
-                   string_type m_content;
-                  };
+                 ident_type m_ident;
 
-                 tag_struct m_element ={ true, "e"  };
-                 tag_struct m_item    ={ true, "i"  };
-                 tag_struct m_name    ={ true, "n"  };
-                 tag_struct m_remark  ={ true, "r"  };
-                 tag_struct m_intro   ={ true, "xml"};
+                 tag_type m_intro   ={ true, "xml"};
+                 tag_type m_element   ={ true, "e"  };
+                 tag_type m_item      ={ true, "i"  };
 
-                 attribute_struct m_type           ={ true, "t", "" };
-                 attribute_struct m_messageNULL    ={ true, "N", "nullptr" };
-                 attribute_struct m_messageNotM    ={ true, "N", "Not in the menu" };
-                 attribute_struct m_messageRecover ={ true, "N", "Continue like nothing happen." };
-                 attribute_struct m_messageCNRV    ={ true, "N", "Can not retrieve value." };
-                 attribute_struct m_messageCNDT    ={ true, "N", "Can not detect type." };
-                 attribute_struct m_NULL           ={ true, "N", "" };
-                 attribute_struct m_NaS            ={ true, "N", "Not a structure" };
+                 tag_type m_sequence  ={ true, "s"  };
+                 attribute_type m_size     ={ true, "s", ""  };
 
-                private:
-                  friend struct  reflection::operation::transfer::xml::serialize_struct<output_name,key_name,identifier_name, report_name, container_name>;
-                  size_type   m_ident=0;
-                std::string m_tabulator="    ";
-                  void inc(){ ++m_ident; }
-                  void dec(){--m_ident; }
-                  size_type const& get()const{ return m_ident; }
-                  void indent( output_type & output_param ){ for( size_type i=0; i< this->get(); ++i ) output_param << m_tabulator; }
-                void newl( output_type & output_param ){ output_param << std::endl; }
+                 attribute_type m_identifier     ={ true, "i", ""  };
+                 attribute_type m_key            ={ true, "k", ""  };
+
+                 tag_type m_remark  ={ true, "r"  };
+                 attribute_type m_messageNULL    ={ true, "N", "nullptr" };
+                 attribute_type m_messageNotM    ={ true, "N", "Not in the menu" };
+                 attribute_type m_messageRecover ={ true, "N", "Continue like nothing happen." };
+                 attribute_type m_messageCNRV    ={ true, "N", "Can not retrieve value." };
+                 attribute_type m_messageCNDT    ={ true, "N", "Can not detect type." };
+                 attribute_type m_NULL           ={ true, "N", "" };
+                 attribute_type m_NaS            ={ true, "N", "Not a structure" };
+
+
                }context_type;
 
              typedef std::shared_ptr< context_type > contextPtr_type;
@@ -167,59 +158,68 @@ namespace reflection
 
              static report_type recover(     contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               tag<true>( output_param, context_param->m_remark, context_param->m_messageRecover );
+               context_param->m_remark.single( output_param, context_param->m_messageRecover );
                return report_type( true );
               }
 
              static report_type introductum( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->newl( output_param );
-               tag<false>( output_param, context_param->m_intro );
-               context_param->inc();
+               context_param->m_ident.newl( output_param );
+               context_param->m_ident.indent( output_param );
+               context_param->m_intro.open( output_param );
+               context_param->m_ident.inc();
                return report_type( true );
               }
 
              static report_type exodus (     contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->dec();
-               output_param <<  "</"<< context_param->m_intro.m_name << ">" ;
-               context_param->newl( output_param );
+               context_param->m_ident.dec();
+               context_param->m_ident.newl( output_param );
+               context_param->m_ident.indent( output_param );
+               context_param->m_intro.close( output_param );
                return report_type( true );
               }
 
              static report_type prolog(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               tag<false>( output_param, context_param->m_element );
-                              context_param->inc();
+               context_param->m_ident.newl( output_param );
+               context_param->m_ident.indent( output_param );
+               context_param->m_element.open( output_param );
+               context_param->m_ident.inc();
                return report_type( true );
               }
 
              static report_type epilog (     contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->dec();
-               output_param <<  "</"<< context_param->m_element.m_name << ">" ;
-               context_param->newl( output_param );
+               context_param->m_ident.dec();
+               context_param->m_ident.newl( output_param );
+               context_param->m_ident.indent( output_param );
+               context_param->m_element.close( output_param );
                return report_type( true );
               }
 
              static report_type prefix(      contextPtr_type &context_param, observe_type const& observe_param, output_type & output_param,  key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param << "<" << context_param-> m_item.m_name << " ";
-               if( key_type{} != key_param ) output_param << context_param-> m_name.m_name << "=\"" << key_param << "\" ";
+               context_param->m_ident.newl( output_param );
+               context_param->m_ident.indent( output_param );
+               context_param->m_item.template open<true>( output_param );
+
+               if( key_type{} != key_param ) context_param->m_key.print( output_param, key_param );
 
                decoration_category( context_param, observe_param, output_param, property_param );
 
                output_param << " >";
-               context_param->inc();
+               context_param->m_ident.inc();
 
                return report_type( true );
               }
 
              static report_type suffix(      contextPtr_type &context_param, observe_type const& observe_param, output_type & output_param,   key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->dec();
-               output_param << "</"<< context_param->m_item.m_name << ">";
-               context_param->newl( output_param );
+               context_param->m_ident.dec();
+               context_param->m_ident.newl( output_param );
+               context_param->m_ident.indent( output_param );
+               context_param->m_item.close( output_param );
                return report_type( true );
               }
 
@@ -228,47 +228,20 @@ namespace reflection
                return report_type( true );
               }
 
-             static void attribute( output_type & output_param, typename context_type::attribute_struct const& attribute_param )
-              {
-               if( false == attribute_param.m_show )
-                {
-                 return;
-                }
-               output_param << attribute_param.m_name
-                            << "=\"" << attribute_param.m_content << "\"";
-              }
-
-             template< bool single_bool >
-              static void tag( output_type & output_param, typename context_struct::tag_struct const& tag_param )
-               {
-                output_param << "<" << tag_param.m_name <<" ";
-                if( true == single_bool ) output_param <<"/";
-                output_param << ">";
-               }
-
-             template< bool single_bool >
-              static void tag( output_type & output_param, typename context_struct::tag_struct const& tag_param, typename context_struct::attribute_struct const& a1_param )
-               {
-                output_param << "<" << tag_param.m_name <<" ";
-                attribute( output_param, a1_param );
-                if( true == single_bool ) output_param <<"/";
-                output_param << ">";
-               }
-
              static report_type decoration_category( contextPtr_type const&context_param, observe_type const& observe_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                category_type const* category_item = dynamic_cast< category_type const* >( &property_param );
                if( nullptr == category_item )
                 {
-                 attribute( output_param, context_param->m_messageCNDT );
+                 context_param->m_messageCNDT.print( output_param );
                  return report_type( false );
                 }
 
-               output_param << "" << context_param->m_type.m_name << "=\"" << category_item->identifier() << "\" ";
+               context_param->m_identifier.print( output_param, category_item->identifier() );
 
                if( false == protocol_type::exists( observe_param.menu(), category_item->identifier() ) )
                 {
-                 attribute( output_param, context_param-> m_messageNotM );
+                 context_param-> m_messageNotM.print( output_param );
                  return report_type( false );
                 }
                return report_type( true );
@@ -281,11 +254,11 @@ namespace reflection
                auto null = dynamic_cast< null_type const* >( &property_param );
                if( nullptr == null )
                 {
-                 tag<true>( output_param, context_param->m_remark, context_param->m_messageCNRV );
+                 context_param->m_remark.single( output_param, context_param->m_messageCNRV );
                  return report_type( false );
                 }
 
-               output_param << "<value content=\"null\" />"; // !< TODO <-- tag<true>( output_param, context_param->m_null, context_param->m_messageCNRV );
+               output_param << "<value content=\"null\" />"; // !< TODO <-- context_param->m_null.single( output_param, context_param->m_messageCNRV );
 
                return report_type( true );
               }
@@ -343,7 +316,7 @@ namespace reflection
 
                 if( true == pass )
                  {
-                  tag<true>( output_param, context_param->m_remark, context_param->m_messageCNRV );
+                   context_param->m_remark.single( output_param, context_param->m_messageCNRV );
                  }
 
                 return report_type( true );
@@ -351,7 +324,7 @@ namespace reflection
 
             private:
              template < typename enumerator_name >
-              static report_type  enumerant      (                           output_type &   output_param, key_type                     const&      key_param, property_qualified_reference_type   property_param )
+              static report_type  enumerant      ( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type   property_param )
                {
                 {
                  typedef ::reflection::property::inspect::pure_class<enumerator_name const& > inspect_type;
@@ -406,7 +379,7 @@ namespace reflection
 
                 if( true == pass )
                  {
-                  tag<true>( output_param, context_param->m_remark, context_param->m_messageCNRV );
+                  context_param->m_remark.single( output_param, context_param->m_messageCNRV );
                  }
 
                 return report_type( true );
@@ -459,15 +432,20 @@ namespace reflection
                 return report_type( true );
                 print_label:
 
+                 context_param->m_ident.newl( output_param );
+                 context_param->m_ident.indent( output_param );
+                 context_param->m_sequence.template open<true>( output_param );
+                 context_param->m_size.print( output_param, pointer->size() );
+                 output_param << ">";
+                 context_param->m_ident.inc();
                  for( auto const&  item: *pointer )
                   {
-                   output_param << "<v ";
-                   output_param << "size=\"" << pointer->size() << "\"";
-                   output_param << ">";
-
                    observe_param.view( output_param, key_type{}, ::reflection::content::inspect::pointer<identifier_type,typename container_type::value_type>( &item ) );
-                   output_param << "</v>";
                   }
+                 context_param->m_ident.dec();
+                 context_param->m_ident.newl( output_param );
+                 context_param->m_ident.indent( output_param );
+                 context_param->m_sequence.close( output_param );
                  return report_type( true );
                }
 
@@ -499,7 +477,7 @@ namespace reflection
 
                if( true == pass )
                 {
-                 tag( output_param, context_param->m_note, context_param->m_NaS );
+                 context_param->m_note.single( output_param, context_param->m_NaS );
                 }
 
                return report_type( true );
@@ -511,7 +489,7 @@ namespace reflection
                {
                 using namespace std::placeholders;
                 auto i = this_type::identificator_type::template get< enum_name >();
-                auto f = std::bind( &this_type::template enumerant<enum_name>, _1, _2, _3 );
+                auto f = std::bind( &this_type::template enumerant<enum_name>, context_param, _1, _2, _3 );
                 observe_param.register__any( i, f );
                }
 

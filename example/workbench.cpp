@@ -19,7 +19,6 @@ class MyFirstClassOriginal //!< Original condition. Not bloated with any other c
     float m_float;
  };
 
-
 class MyBaseClass //!< Original condition. Not bloated with any other code.
  {
   public:
@@ -199,6 +198,7 @@ int main( int argc, char *argv[] )
   {
    typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
    auto xml_context = xml_type::context();
+   //xml_context->m_tabulator="\t";
    xml_type xml( observe, xml_context );
 
     //xml_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, xml_context );
@@ -249,7 +249,7 @@ int main( int argc, char *argv[] )
   }
   observe.view( std::cout, r );  // INIrize
 
-  //for( auto & v: r )  //! Iterato over the members
+  //for( auto & v: r )  //! Iterate over the members
   // {
   //  std::cout << ::reflection::content::category::pure<std::string>( *v.second ).identifier() << "  ";
   //  std::cout << v.first  <<";";                                                                                                                                                        

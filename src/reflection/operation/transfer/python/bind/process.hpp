@@ -156,7 +156,7 @@ namespace reflection
              static report_type exodus(           contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                //Py_InitModule( output_param.module_name().c_str(), output_param.m_method.data() );
-               context_param->m_identifier = identificator_type::NAT();
+               context_param->m_identifier =  identificator_type::NAT();
                return report_type( true );
               }
 
@@ -243,7 +243,7 @@ namespace reflection
 
                for( std::size_t index=0; index < function_instance->signature().size(); ++index )
                 {
-                 if( function_instance->signature()[index].original() == identificator_type::NAT() )
+                 if( function_instance->signature()[index].original() ==  identificator_type::NAT() )
                   {
                    continue;
                   }

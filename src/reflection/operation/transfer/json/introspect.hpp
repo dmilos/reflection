@@ -10,7 +10,7 @@
 #include "../../../property/structure.hpp"
 #include "../../../operation/transfer/observe.hpp"
 
-
+#include "./context.hpp"
 
 
 
@@ -33,18 +33,14 @@ namespace reflection
          >
          struct introspect_struct
           {
-           public:
-             typedef std::size_t size_type;
-             struct context_struct
-              {
-                size_type m_ident=0;
-                void inc(){ ++m_ident; }
-                void dec(){ --m_ident; }
-               };
+           private:
+             typedef std::size_t    size_type;
 
-             typedef std::shared_ptr< context_struct > contextPtr_type;
+             typedef ::reflection::operation::transfer::json::context_struct<output_name> context_type;
+
+             typedef std::shared_ptr< context_type > contextPtr_type;
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef      output_name        output_type;

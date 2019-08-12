@@ -5,7 +5,7 @@
 // ::reflection::property::enumeration::check<size_name>()
 
 #include "../../type/name/id.hpp"
-#include "../../define/idspec.hpp"
+#include "../../define/native/idspec.hpp"
 #include "../_pure.hpp"
 #include "./subject.hpp"
 

@@ -21,7 +21,7 @@ int main( int argc, char *argv[] )
   std::cout <<  ::reflection::property::direct::disclose< int& >( pi ) << std::endl;
 
   std::cout <<  ::reflection::property::direct::disclose< float& >( pf ) << std::endl;
-  ::reflection::property::direct::disclose< float& >( pf ) =  1234.5678;
+  ::reflection::property::direct::disclose< float& >( pf ) =  1234.5678f;
   std::cout <<  ::reflection::property::direct::disclose< float& >( pf ) << std::endl;
   
   std::cout <<  ::reflection::property::direct::disclose< std::string& >( ps ) << std::endl;

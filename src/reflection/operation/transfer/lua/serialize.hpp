@@ -203,10 +203,10 @@ namespace reflection
                 {
                  switch( linkage->linkage() )
                   {
-                   case( linkage_type::inline_index    ): output_param << "inline ";    break;
-                   case( linkage_type::static_index    ): output_param  << "static ";    break;
-                 //case( linkage_type::extern_index    ): output_param << "extern"; break;
-                 //case( linkage_type::dll_index       ): output_param << "dll";   break;
+                   case( linkage_type::inline_index    ): output_param << "inline ";   break;
+                   case( linkage_type::static_index    ): output_param  << "static ";  break;
+                 //case( linkage_type::extern_index    ): output_param << "extern";    break;
+                 //case( linkage_type::dll_index       ): output_param << "dll";       break;
                  //case( linkage_type::default_index   ): output_param << "default";   break;
                   }
                 }
