@@ -145,7 +145,7 @@ int main( int argc, char *argv[] )
 
 ### Note:
 Tested against :
- - gcc 6.4.0
  - gcc 7.3.0
+ - gcc 9.3.0
  - MSVC 2015 14.0 Update 3
  - MSVC 2017 15.5.6

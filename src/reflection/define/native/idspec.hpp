@@ -60,14 +60,46 @@ reflection__IDSPEC( std::string, "std::complex<float>",        std::complex<floa
 reflection__IDSPEC( std::string, "std::complex<double>",       std::complex<double> )
 reflection__IDSPEC( std::string, "std::complex<long double>",  std::complex<long double> )
 
+#ifdef COMMA
+#error "COMA macro should not be defined"
+#endif
 
 #define COMMA ,
 
-reflection__IDSPEC( std::string, "std::map<int,int>",           std::map<int COMMA int> )
-reflection__IDSPEC( std::string, "std::map<int,std::string>",   std::map<int COMMA std::string>  )
-reflection__IDSPEC( std::string, "std::map<unsigned,unsigned>", std::map<unsigned COMMA unsigned>  )
-reflection__IDSPEC( std::string, "std::map<float,float>",       std::map<float COMMA float>  )
-reflection__IDSPEC( std::string, "std::map<double,float>",      std::map<double COMMA double>  )
+reflection__IDSPEC( std::string, "std::map<int,int>",            std::map<int COMMA int          > )
+reflection__IDSPEC( std::string, "std::map<int,unsigned>",       std::map<int COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::map<int,float>",          std::map<int COMMA float        > )
+reflection__IDSPEC( std::string, "std::map<int,double>",         std::map<int COMMA double       > )
+reflection__IDSPEC( std::string, "std::map<int,std::string>",    std::map<int COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::map<int,std::wstring>",   std::map<int COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::map<unsigned,int>",            std::map<unsigned COMMA int          > )
+reflection__IDSPEC( std::string, "std::map<unsigned,unsigned>",       std::map<unsigned COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::map<unsigned,float>",          std::map<unsigned COMMA float        > )
+reflection__IDSPEC( std::string, "std::map<unsigned,double>",         std::map<unsigned COMMA double       > )
+reflection__IDSPEC( std::string, "std::map<unsigned,std::string>",    std::map<unsigned COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::map<unsigned,std::wstring>",   std::map<unsigned COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::map<float,int>",            std::map<float COMMA int          > )
+reflection__IDSPEC( std::string, "std::map<float,unsigned>",       std::map<float COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::map<float,float>",          std::map<float COMMA float        > )
+reflection__IDSPEC( std::string, "std::map<float,double>",         std::map<float COMMA double       > )
+reflection__IDSPEC( std::string, "std::map<float,std::string>",    std::map<float COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::map<float,std::wstring>",   std::map<float COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::map<double,int>",            std::map<double COMMA int          > )
+reflection__IDSPEC( std::string, "std::map<double,unsigned>",       std::map<double COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::map<double,float>",          std::map<double COMMA float        > )
+reflection__IDSPEC( std::string, "std::map<double,double>",         std::map<double COMMA double       > )
+reflection__IDSPEC( std::string, "std::map<double,std::string>",    std::map<double COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::map<double,std::wstring>",   std::map<double COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::pair<int,int>",                std::pair<double COMMA int          > )
+reflection__IDSPEC( std::string, "std::pair<int,unsigned>",           std::pair<double COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::pair<int,float>",              std::pair<double COMMA float        > )
+reflection__IDSPEC( std::string, "std::pair<int,double>",             std::pair<double COMMA double       > )
+reflection__IDSPEC( std::string, "std::pair<int,std::string>",        std::pair<double COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::pair<int,std::wstring>",       std::pair<double COMMA std::wstring > )
 
 #undef COMMA
 

@@ -89,10 +89,10 @@ namespace reflection
                observe_param.control( observe_type::stage_exodus_index ,     std::bind( &this_type::exodus,      context_param, _1, _2, _3 )   );
 
                observe_param.control( observe_type::stage_prolog_index,    std::bind( &this_type::prolog,   context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_stasimon_index , std::bind( &this_type::stasimon, context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_epilog_index ,   std::bind( &this_type::epilog,   context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,   context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_suffix_index,    std::bind( &this_type::suffix,   context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_epilog_index ,   std::bind( &this_type::epilog,   context_param, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_stasimon_index , std::bind( &this_type::stasimon, context_param, _1, _2, _3 ) );
 
                observe_param.insert( identificator_type::template get<  std::string   >(), std::bind( &this_type::string , context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), std::bind( &this_type::wstring, context_param, _1, _2, _3 ) );
@@ -190,6 +190,7 @@ namespace reflection
 
              static report_type prefix(   contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
+               report_type result = true;
                context_param->indent(output_param); 
 
                output_param << "\"" << key_param << "\"" << ":" << std::endl;

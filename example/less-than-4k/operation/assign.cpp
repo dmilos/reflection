@@ -8,6 +8,8 @@
 class MyClassA
  : public ::reflection::content::class_class<MyClassA>
  {
+  private:
+    typedef MyClassA * pointer_type;
   public:
     MyClassA(){ init(); }
   private:
@@ -27,7 +29,10 @@ class MyClass
 : public ::reflection::content::class_class<MyClass>
  {
   public:
+   typedef MyClass * pointer_type;
+  public:
     MyClass(){ init(); }
+
 
     int      &  traitor()
      {

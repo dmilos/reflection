@@ -14,7 +14,7 @@
         ::reflection::content::variable::field          \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::field_symbolic_name    \
          );                                                                                                     \
   /* TODO instance.linkage(    ::reflection::ornament::linkage_class::member_index   ); */ \
@@ -61,7 +61,7 @@
         ::reflection::content::variable::member                \
          <identifier_type>                                     \
          (                                                     \
-           (class_symbolic_name*)(nullptr)                     \
+           (pointer_type)(nullptr)                     \
           ,&class_symbolic_name::traitor_symbolic_name         \
           ,&class_symbolic_name::reader_symbolic_name          \
          );                                                    \

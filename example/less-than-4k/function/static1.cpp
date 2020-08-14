@@ -59,11 +59,11 @@ int main( int argc, char *argv[] )
 
   // Classic "direct" call where c++ take care about arguments type check
 
-  std::cout << f << ", "<< i << std::endl;
-  ::reflection::property::function::execute<int, int&, std::string const&, float &, bool>( r.get( "static_int" ), i, "asdasd", f, true );
-  std::cout << f << ", "<< i << std::endl;
+  // private std::cout << f << ", "<< i << std::endl;
+  // private ::reflection::property::function::execute<int, int&, std::string const&, float &, bool>( r.get( "static_int" ), i, "asdasd", f, true );
+  // private std::cout << f << ", "<< i << std::endl;
 
-  ::reflection::property::function::execute<void, int&, std::string  const&, float &, bool>( r.get( "static_void" ), i, "asdasd", f, true );
+  ::reflection::property::function::execute<void>( r.get( "static_void" ) );
   std::cout << f << ", "<< i << std::endl;
 
 
@@ -88,11 +88,11 @@ int main( int argc, char *argv[] )
   ::reflection::content::function::execute<std::string>( r.get("static_void"), argument );
   std::cout << p1.present() << std::endl;
 
-  argument[0]= &r.get("int-point");
-  p1.disclose() = 4567;
-  std::cout << p1.present() << std::endl;
-  ::reflection::content::function::execute<std::string>( r.get("static_int"), argument );
-  std::cout << p1.present() << std::endl;
+  //argument[0]= &r.get("int-point");
+  //p1.disclose() = 4567;
+  //std::cout << p1.present() << std::endl;
+  //::reflection::content::function::execute<std::string>( r.get("static_int"), argument );
+  //std::cout << p1.present() << std::endl;
 
   return EXIT_SUCCESS;
  }

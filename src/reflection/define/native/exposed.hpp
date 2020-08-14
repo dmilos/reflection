@@ -14,7 +14,7 @@
         ::reflection::content::exposed::field            \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::field_symbolic_name    \
          );                                                                                                     \
     instance.accessibility                                                                    \
@@ -61,7 +61,7 @@
         ::reflection::content::exposed::member          \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::traitor_symbolic_name  \
           ,&class_symbolic_name::writer_symbolic_name   \
          );                                                  \

@@ -8,7 +8,7 @@
   auto instance =  ::reflection::content::direct::base                                               \
          <identifier_type,base_symbolic_name,class_symbolic_name >                                   \
          (                                                                                           \
-          (class_symbolic_name*)nullptr                                                              \
+          (pointer_type)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation(    ::reflection::ornament::derivation_class::from_string( #derivation_name ) );           \
@@ -26,7 +26,7 @@
   auto instance =  ::reflection::content::inspect::base                                              \
          <identifier_type,base_symbolic_name,class_symbolic_name >                                   \
          (                                                                                           \
-          (class_symbolic_name*)nullptr                                                              \
+          (pointer_type)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation(    ::reflection::ornament::derivation_class::from_string( #derivation_name ) );           \
@@ -44,7 +44,7 @@
   auto instance =  ::reflection::content::mutate::base                                               \
          <identifier_type,base_symbolic_name,class_symbolic_name >                                   \
          (                                                                                           \
-          (class_symbolic_name*)nullptr                                                              \
+          (pointer_type)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation(    ::reflection::ornament::derivation_class::from_string( #derivation_name ) );           \
@@ -62,7 +62,7 @@
   auto instance =  ::reflection::content::variable::base                                               \
          <identifier_type,base_symbolic_name, class_symbolic_name >                                                       \
          (                                                                                           \
-          (class_symbolic_name*)nullptr                                                              \
+          (pointer_type)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation(    ::reflection::ornament::derivation_class::from_string( #derivation_name ) );           \
@@ -80,7 +80,7 @@
   auto instance =  ::reflection::content::guarded::base                                              \
          <identifier_type,base_symbolic_name, class_symbolic_name >                                                       \
          (                                                                                           \
-          (class_symbolic_name*)nullptr                                                              \
+          (pointer_type)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation(    ::reflection::ornament::derivation_class::from_string( #derivation_name ) );           \
@@ -98,7 +98,7 @@
   auto instance =  ::reflection::content::exposed::base                                              \
          <identifier_type,base_symbolic_name, class_symbolic_name >                                  \
          (                                                                                           \
-          (class_symbolic_name*)nullptr                                                              \
+          (pointer_type)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation(    ::reflection::ornament::derivation_class::from_string( #derivation_name ) );           \
@@ -116,7 +116,7 @@
   auto instance =  ::reflection::content::trinity::base                                               \
          <identifier_type,base_symbolic_name, class_symbolic_name >                                                       \
          (                                                                                           \
-          (class_symbolic_name*)nullptr                                                              \
+          (pointer_type)nullptr                                                              \
          );                                                                                          \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) );     \
   instance.derivation(    ::reflection::ornament::derivation_class::from_string( #derivation_name ) );           \

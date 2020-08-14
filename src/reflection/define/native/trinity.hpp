@@ -14,7 +14,7 @@
         ::reflection::content::trinity::field            \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::field_symbolic_name    \
          );                                                                                   \
   /* TODO instance.linkage(    ::reflection::ornament::linkage_class::static_index   ); */    \
@@ -62,7 +62,7 @@
         ::reflection::content::trinity::member          \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::traitir_symbolic_name  \
           ,&class_symbolic_name::writer_symbolic_name   \
           ,&class_symbolic_name::reader_symbolic_name   \

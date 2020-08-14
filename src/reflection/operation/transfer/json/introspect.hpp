@@ -84,10 +84,10 @@ namespace reflection
                observe_param.control( observe_type::recover_null_pointer_index  , &this_type::null_recover    );
 
                observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_item, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_stasimon_index ,                &this_type::stasimon );
-               observe_param.control( observe_type::stage_prefix_index,        std::bind( &this_type::prefix, context_item, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_suffix_index,                   &this_type::suffix );
-               observe_param.control( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog, context_item, _1, _2, _3 )   );
+               observe_param.control( observe_type::stage_stasimon_index ,           &this_type::stasimon );
+               observe_param.control( observe_type::stage_prefix_index,   std::bind( &this_type::prefix, context_item, _1, _2, _3 ) );
+               observe_param.control( observe_type::stage_suffix_index,              &this_type::suffix );
+               observe_param.control( observe_type::stage_epilog_index ,  std::bind( &this_type::epilog, context_item, _1, _2, _3 )   );
 
                observe_param.insert( identificator_type::template get<  std::string   >(), &this_type::string   );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );

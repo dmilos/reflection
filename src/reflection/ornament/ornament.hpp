@@ -1,5 +1,6 @@
 #include "./accessibility.hpp"
 #include "./category.hpp"
+#include "./identifier.hpp"
 #include "./derivation.hpp"
 #include "./kind.hpp"
 #include "./linkage.hpp"

@@ -14,7 +14,7 @@
         ::reflection::content::guarded::field           \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::field_symbolic_name    \
          );                                                                                                     \
     instance.accessibility                                                                    \
@@ -62,7 +62,7 @@
        ::reflection::content::guarded::member          \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::writer_symbolic_name   \
           ,&class_symbolic_name::reader_symbolic_name   \
          );                                                  \

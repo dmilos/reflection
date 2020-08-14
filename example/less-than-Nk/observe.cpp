@@ -11,6 +11,8 @@
 class MyClassA
  : public ::reflection::content::class_class<MyClassA>
  {
+  private:
+    typedef MyClassA * pointer_type;
   public:
     MyClassA(){ init(); }
   private:
@@ -28,6 +30,8 @@ class MyClassA
 class MyClass
 : public ::reflection::content::class_class<MyClass>
  {
+  private:
+    typedef MyClass * pointer_type;
   public:
     MyClass(){ init(); }
 

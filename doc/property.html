@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <title>Protocol to serialize Property( actually anything )</title>
+</head>
+<body>
+    <h1 align="center">Protocol to serialize Property( actually anything )</h1>
+
+    <dl>
+        <dt>States</dt>
+        <dd>
+            <dl>
+                <dt>Begin</dt> <dd> Doing some initialization. </dd>
+                <dt>Type acquisition</dt> <dd> Retrieve type of property  so we can find how to threat it.</dd>
+                <dt>Prefix</dt> <dd> Do something e.g print type property.</dd>
+                <dt><code>action</code> acquisition</dt> <dd>Based on type find what to do whit this type.</dd>
+                <dt>Do <code>action</code></dt> <dd> Do action.</dd>
+                <dt>Suffix</dt> <dd> Post action action.</dd>
+                <dt>End</dt>
+                <dd>
+                    <dl>
+                        <dt>Fail</dt><dd>If <code>action</code> fails do this.</dd>
+                        <dt>Pass</dt><dd>If <code>action</code> pass do this</dd>
+                    </dl>
+                </dd>
+
+                <dt>Recover</dt>
+                <dd>
+                    <dl>
+                        <dt><code>action</code> acquisition</dt><dd> No action for given type. Exit or do something generic .</dd>
+                        <dt><code>action</code> fail</dt><dd> If action fails do something e.g. reconnect, try again. .</dd>
+                        <dt><code>type</code> acquisition</dt><dd>Do something generic or fail</dd>
+                    </dl>
+                </dd>
+
+            </dl>
+        </dd>
+        <dt>Graph</dt>
+        <dd><img src="./gv/serialization_property.png"></dd>
+
+    </dl>
+
+
+
+
+
+
+
+</body>
+</html>

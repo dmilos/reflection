@@ -10,6 +10,8 @@
 #include "./python/python.hpp"
 #include "./java/java.hpp"
 
+// TODO #include "./avro/avro.hpp"
+
 #include "./action.hpp"
 #include "./observe.hpp"
 #include "./protocol.hpp"

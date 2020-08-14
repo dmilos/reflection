@@ -34,13 +34,27 @@ namespace reflection
            continue;
           }
 
-         typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
-         carrier_type *carrier = dynamic_cast<carrier_type*>( data.get() );
-         if( nullptr == carrier )
-          {
-           continue;
-          }
-          carrier->storage( storage_param );
+         {
+          typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+          carrier_type *carrier = dynamic_cast<carrier_type*>( data.get() );
+          if( nullptr != carrier )
+           {
+            carrier->storage( storage_param );
+            continue;
+           }
+         }
+
+         {
+          //typedef ::reflection::property::_internal::carrier_class<const storage_name > carrier_type;
+          //carrier_type  *carrier_const = dynamic_cast<carrier_type *>( data.get() );
+          //if( nullptr != carrier_const )
+          // {
+          //  //carrier_const->storage( storage_param );
+          //  continue;
+          // }
+         }
+
+         continue;
         }
        }
 

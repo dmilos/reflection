@@ -69,17 +69,17 @@ namespace reflection
              ,recover_action_fail_index
              ,recover_null_pointer_index
 
-             ,stage_introductum_index             // At the beginning of everything
-             ,stage_exodus_index             // at the end  of everything
+             ,stage_introductum_index        //!< At the beginning of everything
+             ,stage_exodus_index             //!< At the end  of everything
 
-             ,stage_prolog_index        // At the beginning of (sub-)structure.
-             ,stage_epilog_index          // at the end of (sub-)structure
+             ,stage_prolog_index             //!< At the beginning of (sub-)structure.
+             ,stage_epilog_index             //!< at the end of (sub-)structure
 
-             ,stage_prefix_index             // beginning of episodia before checking if action exists
+             ,stage_prefix_index             //!< beginning of episodia before checking if action exists
 
-             ,stage_suffix_index             // end of episodia
+             ,stage_suffix_index             //!< end of episodia
 
-             ,stage_stasimon_index           // something in between episodia
+             ,stage_stasimon_index           //!< something in between episodia
 
              ,control__end
              };
@@ -202,7 +202,10 @@ namespace reflection
 
              label_action_execution:
               {
-               auto report = protocolX_type::find( this->menu(), category->identifier() )( output_param, key_param, property_param );
+               auto action = protocolX_type::find( this->menu(), category->identifier() );
+
+               auto report = action( output_param, key_param, property_param ); // Action exists. We can safley execute.
+
                if( report_type( false ) == report )
                 {
                  goto label_action_fail;

@@ -14,7 +14,7 @@
         ::reflection::content::mutate::field            \
          <identifier_type>                              \
          (                                              \
-            (class_symbolic_name*)(nullptr)             \
+            (pointer_type)(nullptr)             \
             ,&class_symbolic_name::field_symbolic_name  \
          );                                                                                                     \
     instance.accessibility                                                                    \
@@ -62,7 +62,7 @@
        ::reflection::content::mutate::member           \
          <identifier_type>                              \
          (                                              \
-           (class_symbolic_name*)(nullptr)              \
+           (pointer_type)(nullptr)              \
           ,&class_symbolic_name::writer_symbolic_name   \
          );                                                  \
     instance.accessibility    \
