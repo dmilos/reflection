@@ -77,7 +77,7 @@ namespace reflection
                observe_param.control( observe_type::recover_type_acquisition_index , std::bind( &this_type::recover, context_param, _1, _2, _3 ) );
                {
                 using namespace std::placeholders;
-                auto f = std::bind( &this_type::structure, context_param, _1, std::ref(observe_param), _2, _3 );
+                auto f = std::bind( &this_type::structure, std::ref(observe_param), context_param, _1,_2, _3 );
                 auto i = identificator_type::template get<  structure_type      >();
                 observe_param.insert( i, f );
                 observe_param.control( observe_type::recover_action_acquisition_index   , f );
@@ -87,7 +87,6 @@ namespace reflection
 
                observe_param.control( observe_type::stage_introductum_index, std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_exodus_index ,     std::bind( &this_type::exodus,      context_param, _1, _2, _3 )   );
-
                observe_param.control( observe_type::stage_prolog_index,    std::bind( &this_type::prolog,   context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_epilog_index ,   std::bind( &this_type::epilog,   context_param, _1, _2, _3 ) );
                observe_param.control( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,   context_param, _1, _2, _3 ) );
@@ -97,6 +96,7 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  std::string   >(), std::bind( &this_type::string , context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), std::bind( &this_type::wstring, context_param, _1, _2, _3 ) );
 
+               observe_param.insert( identificator_type::template get<  bool           >(), std::bind( &this_type::primitive<bool          >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  char           >(), std::bind( &this_type::primitive<char          >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  unsigned char  >(), std::bind( &this_type::primitive<unsigned char >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  wchar_t        >(), std::bind( &this_type::primitive<wchar_t       >, context_param, _1, _2, _3 ) );
@@ -147,10 +147,9 @@ namespace reflection
 
              static report_type null_recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param <<  "null" << std::endl;
+               output_param <<  "null" << std::endl; // TODO context_param->newl(output_param);
                return true;
               }
-
 
              static report_type introductum(   contextPtr_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
@@ -191,13 +190,8 @@ namespace reflection
              static report_type prefix(   contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
-               context_param->indent(output_param); 
-
-               output_param << "\"" << key_param << "\"" << ":" << std::endl;
-
-               context_param->indent(output_param); 
-               output_param << "{" << std::endl ;
-               context_param->inc();
+               context_param->indent(output_param); output_param << "\"" << key_param << "\"" << ":" ; context_param->newl( output_param );
+               context_param->indent(output_param); output_param << "{" ; context_param->newl(output_param); context_param->inc();
 
                decoration_category(       context_param, output_param, property_param );
                decoration_accessibility(  context_param, output_param, property_param );
@@ -206,20 +200,16 @@ namespace reflection
                decoration_derivation(     context_param, output_param, property_param );
                decoration_relation(       context_param, output_param, property_param );
 
-               context_param->indent(output_param); output_param << "\"value\"  : ";
-               context_param->newl(output_param);
+               context_param->indent(output_param); output_param << "\"value\"  : "; context_param->newl( output_param );
                context_param->inc();
 
-               return report_type( true );
+               return report_type( result );
               }
 
              static report_type suffix(   contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->dec();
-               context_param->dec();
-               context_param->indent(output_param); 
-               output_param <<  "}";
-               context_param->newl(output_param);
+               context_param->indent(output_param); output_param <<  "}"; context_param->newl(output_param);
                return report_type( true );
               }
 
@@ -236,12 +226,13 @@ namespace reflection
                 category_type const* category = dynamic_cast< category_type const* >( &property_param );
                 if( nullptr != category )
                  {
-                  context_param->indent(output_param); output_param << "\"type\"  : \"" << category->identifier() << "\", " << std::endl;
+                  context_param->indent(output_param); 
+                  output_param << "\"type\"  : \"" << category->identifier() << "\", " ; context_param->newl(output_param);
                   return report_type( true );
                  }
                 else
                  {
-                  context_param->indent(output_param); output_param << "\"note\"  : \"" << "Can not detect type" << "\", " << std::endl;
+                  context_param->indent(output_param); output_param << "\"note\"  : \"" << "Can not detect type" << "\", "; context_param->newl(output_param);
                   return report_type( true );
                  }
                  return report_type( false );
@@ -258,11 +249,11 @@ namespace reflection
                switch( accessibility->accessibility() )
                 {
                  default:
-                 case( accessibility_type::public_index    ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"public\""<< "," <<std::endl;    break;
-               //case( accessibility_type::gloabal_index   ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"global\""<< "," <<std::endl;    break;
-                 case( accessibility_type::protected_index ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"protected\""<< "," <<std::endl; break;
-                 case( accessibility_type::private_index   ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"private\""<< "," <<std::endl;   break;
-               //case( accessibility_type::default_index   ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"default\""<< "," <<std::endl;   break;
+                 case( accessibility_type::public_index    ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"public\""<< ","    ; context_param->newl(output_param); break;
+               //case( accessibility_type::gloabal_index   ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"global\""<< ","    ; context_param->newl(output_param); break;
+                 case( accessibility_type::protected_index ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"protected\""<< "," ; context_param->newl(output_param); break;
+                 case( accessibility_type::private_index   ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"private\""<< ","   ; context_param->newl(output_param); break;
+               //case( accessibility_type::default_index   ): context_param->indent(output_param); output_param << "\"accessibility\": "<< "\"default\""<< ","   ; context_param->newl(output_param); break;
                 }
               }
 
@@ -276,11 +267,11 @@ namespace reflection
                 }
                switch( linkage->linkage() )
                 {
-                 case( linkage_type::inline_index    ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"inline\"" << "," <<std::endl;    break;
-                 case( linkage_type::static_index    ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"static\""<< "," <<std::endl;    break;
-               //case( linkage_type::extern_index    ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"extern\""<< "," <<std::endl; break;
-               //case( linkage_type::dll_index       ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"dll\""<< "," <<std::endl;   break;
-               //case( linkage_type::default_index   ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"default\""<< "," <<std::endl;   break;
+                 case( linkage_type::inline_index    ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"inline\"" << "," ; context_param->newl(output_param); break;
+                 case( linkage_type::static_index    ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"static\""<< ","  ; context_param->newl(output_param); break;
+               //case( linkage_type::extern_index    ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"extern\""<< ","  ; context_param->newl(output_param); break;
+               //case( linkage_type::dll_index       ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"dll\""<< ","     ; context_param->newl(output_param); break;
+               //case( linkage_type::default_index   ): context_param->indent(output_param);output_param << "\"linkage\": "<< "\"default\""<< "," ; context_param->newl(output_param); break;
                 }
               }
 
@@ -294,19 +285,19 @@ namespace reflection
                 }
                if( qualification->qualification() & qualification_type::const_index )
                 {
-                 context_param->indent(output_param); output_param << "\"qualification\": "<< "\"const\"" << ","   <<std::endl;
+                 context_param->indent(output_param); output_param << "\"qualification\": "<< "\"const\"" << ","; context_param->newl(output_param);
                 }
 
                if( qualification->qualification() & qualification_type::volatile_index )
                 {
-                 context_param->indent(output_param);output_param << "\"qualification\": "<< "\"volatile\""<< "," <<std::endl;
+                 context_param->indent(output_param);output_param << "\"qualification\": "<< "\"volatile\""<< ","; context_param->newl(output_param);
                 }
 
                //switch( qualification->qualification() )
                 {
-               //case( qualification_type::extern_index    ): context_param->indent(output_param); output_param << "\"qualification\": "<< "\"extern\""<< ","  <<std::endl; break;
-               //case( qualification_type::dll_index       ): context_param->indent(output_param); output_param << "\"qualification\": "<< "\"dll\""<< "," <<std::endl;   break;
-               //case( qualification_type::default_index   ): context_param->indent(output_param); output_param << "\"qualification\": "<< "\"default\""<< "," <<std::endl;   break;
+               //case( qualification_type::extern_index    ): context_param->indent(output_param); output_param << "\"qualification\": "<< "\"extern\""<< ","  ; context_param->newl(output_param); break;
+               //case( qualification_type::dll_index       ): context_param->indent(output_param); output_param << "\"qualification\": "<< "\"dll\""<< ","     ; context_param->newl(output_param); break;
+               //case( qualification_type::default_index   ): context_param->indent(output_param); output_param << "\"qualification\": "<< "\"default\""<< "," ; context_param->newl(output_param); break;
                 }
               }
 
@@ -320,7 +311,7 @@ namespace reflection
                 }
                 switch( derivation->derivation() )
                  {
-                  case( derivation_type::virtual_index   ): context_param->indent(output_param); output_param << "\"derivation\": "<< "\"virtual\""<< ","  <<std::endl; break;
+                  case( derivation_type::virtual_index   ): context_param->indent(output_param); output_param << "\"derivation\": "<< "\"virtual\""<< ","  ; context_param->newl(output_param); break;
                  }
               }
 
@@ -334,12 +325,12 @@ namespace reflection
                 }
                switch( relation->relation() )
                 {
-                 case( relation_type::friend_index   ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"friend\""   << ","  <<std::endl; break;
-                 case( relation_type::member_index   ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"member\""   << ","  <<std::endl; break;
-                 case( relation_type::derived_index  ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"derived\""  << ","  <<std::endl; break;
-                 case( relation_type::base_index     ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"base\""     << ","  <<std::endl; break;
-                 case( relation_type::injected_index ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"injected\"" << ","  <<std::endl; break;
-                 case( relation_type::field_index    ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"field\""    << ","  <<std::endl; break;
+                 case( relation_type::friend_index   ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"friend\""   << ","  ; context_param->newl(output_param); break;
+                 case( relation_type::member_index   ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"member\""   << ","  ; context_param->newl(output_param); break;
+                 case( relation_type::derived_index  ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"derived\""  << ","  ; context_param->newl(output_param); break;
+                 case( relation_type::base_index     ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"base\""     << ","  ; context_param->newl(output_param); break;
+                 case( relation_type::injected_index ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"injected\"" << ","  ; context_param->newl(output_param); break;
+                 case( relation_type::field_index    ): context_param->indent(output_param); output_param << "\"relation\": "<< "\"field\""    << ","  ; context_param->newl(output_param); break;
                 }
               }
 
@@ -352,7 +343,7 @@ namespace reflection
                  return report_type( false );
                 }
 
-               output_param << "\"" << key_param << "\"" << ": " <<  "null" << std::endl;
+               output_param << "\"" << key_param << "\"" << ": " <<  "null" ; context_param->newl(output_param);
                return report_type( true );
               }
 
@@ -412,7 +403,8 @@ namespace reflection
                  auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
                  if( nullptr != inspect_instance )
                   {
-                   context_param->indent(output_param); output_param << inspect_instance->present();  output_param << std::endl;
+                   context_param->indent(output_param); output_param << inspect_instance->present(); 
+                   output_param ; context_param->newl(output_param);
                    return report_type( true );
                   }
                 }
@@ -422,13 +414,13 @@ namespace reflection
                  direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                  if( nullptr != direct_instance )
                   {
-                   context_param->indent(output_param); output_param << direct_instance->disclose(); output_param << std::endl;
+                   context_param->indent(output_param); output_param << direct_instance->disclose(); ; context_param->newl(output_param);
                    return report_type( true );
                   }
                 }
 
                 {
-                 context_param->indent(output_param);output_param<< "{ " << "\"note\" : " << "\"Can not retrieve value.\"" << "}"; output_param << std::endl;
+                 context_param->indent(output_param);output_param<< "{ " << "\"note\" : " << "\"Can not retrieve value.\"" << "}"; context_param->newl(output_param);
                 }
 
                 return report_type( true );
@@ -442,7 +434,7 @@ namespace reflection
                  // TODO
                  return report_type( false );
                 }
-               context_param->indent(output_param);output_param << "[" << std::endl;
+               context_param->indent(output_param);output_param << "[" ; context_param->newl(output_param);
                context_param->inc();
                for( std::size_t index=0; index < context->container().size(); ++index )
                 {
@@ -452,12 +444,12 @@ namespace reflection
                  output_param << "\"name\":\""   << context->container()[index].name() << "\" ";
                  output_param << "}";
                  if( index+1< context->container().size()) output_param << ",";
-                 output_param << std::endl;
+                 ; context_param->newl(output_param);
                 }
 
                context_param->dec();
                context_param->indent(output_param); output_param << "] ";
-               output_param << std::endl;
+               ; context_param->newl(output_param);
 
                return report_type( true );
               }
@@ -471,8 +463,8 @@ namespace reflection
                  return report_type( false );
                 }
 
-               //output_param << "    \"parameters\": " << std::endl;
-               context_param->indent(output_param);output_param << "[ " << std::endl;
+               //output_param << "    \"parameters\": " ; context_param->newl(output_param);
+               context_param->indent(output_param);output_param << "[ " ; context_param->newl(output_param);
                context_param->inc();
                for( std::size_t index=0; index < context->signature().size(); ++index )
                 {
@@ -487,11 +479,11 @@ namespace reflection
                  output_param << "    }";
                  if( index +1 < context->signature().size() ) {  output_param << ",";  }
 
-                 output_param << std::endl;
+                 context_param->newl(output_param);
                }
                context_param->dec();
                context_param->indent(output_param); output_param << "] ";
-               output_param << std::endl;
+               context_param->newl(output_param);
                return report_type( true );
               }
 
@@ -504,17 +496,17 @@ namespace reflection
                  return report_type( false );
                 }
 
-               context_param->indent(output_param); output_param << "{ " << std::endl;
+               context_param->indent(output_param); output_param << "{ " ; context_param->newl(output_param);
                context_param->inc();
-               context_param->indent(output_param); output_param << "\"object\": \"" << context->object() << "\"," << std::endl;
-               context_param->indent(output_param); output_param << "\"name\"  : \""   << context->name()   << "\"" << std::endl;
+               context_param->indent(output_param); output_param << "\"object\": \"" << context->object() << "\"," ; context_param->newl(output_param);
+               context_param->indent(output_param); output_param << "\"name\"  : \""   << context->name()   << "\"" ; context_param->newl(output_param);
                context_param->dec();
-               context_param->indent(output_param); output_param << "}" << std::endl;
-               //output_param << std::endl;
+               context_param->indent(output_param); output_param << "}" ; context_param->newl(output_param);
+               //context_param->newl(output_param);
                return report_type( true );
               }
 
-             static report_type structure (      contextPtr_type &context_param, output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type structure (      observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                boolean_type pass = true;
 
@@ -545,10 +537,9 @@ namespace reflection
                  context_param->indent(output_param); output_param<< "{ " << "\"" << "note" << "\"" << ": " << "\""<<  "Not a structure." << "\"" << "}"; context_param->newl(output_param);
                 }
 
-               //output_param << std::endl;
+               //context_param->newl(output_param);
                return report_type( true );
              }
-
           };
 
        }

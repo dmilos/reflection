@@ -61,9 +61,10 @@ namespace reflection
              observe_param.insert( identificator_type::template get<  std::string    >(), &assign_struct::process<std::string   >  );
              observe_param.insert( identificator_type::template get<  std::wstring   >(), &assign_struct::process<std::wstring  >  );
 
+             observe_param.insert( identificator_type::template get<  bool           >(), &assign_struct::process<bool          >  );
              observe_param.insert( identificator_type::template get<  char           >(), &assign_struct::process<char          >  );
              observe_param.insert( identificator_type::template get<  unsigned char  >(), &assign_struct::process<unsigned char >  );
-             observe_param.insert( identificator_type::template get<  wchar_t        >(), &assign_struct::process<wchar_t  >  );
+             observe_param.insert( identificator_type::template get<  wchar_t        >(), &assign_struct::process<wchar_t       >  );
              observe_param.insert( identificator_type::template get<  std::wint_t    >(), &assign_struct::process<std::wint_t   >  );
 
              observe_param.insert( identificator_type::template get<  std::int8_t    >(), &assign_struct::process<std::int8_t   >  );
@@ -94,7 +95,7 @@ namespace reflection
 
              {
               using namespace std::placeholders;
-              auto f = std::bind( &assign_struct::structure, _1, std::ref(observe_param), _2, _3 );
+              auto f = std::bind( &assign_struct::structure, std::ref(observe_param), _1, _2, _3 );
               observe_param.insert( identificator_type::template get<  structure_type      >(), f );
              }
 
@@ -130,7 +131,7 @@ namespace reflection
              return true_index;
             }
 
-           static error_enum structure( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static error_enum structure( observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
             {
              if( false == ::reflection::property::inspect::check < structure_type const& >( property_param ) )
              {

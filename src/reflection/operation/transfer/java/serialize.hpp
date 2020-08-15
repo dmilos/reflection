@@ -99,6 +99,7 @@ namespace reflection
                observe_param.insert( identificator_type::template get< std::string    >(), std::bind( &this_type::primitive<std::string   >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), std::bind( &this_type::wstring,                   context_param, _1, _2, _3 ) );
 
+               observe_param.insert( identificator_type::template get<  bool           >(), std::bind( &this_type::primitive<bool          >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  char           >(), std::bind( &this_type::primitive<char          >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  unsigned char  >(), std::bind( &this_type::primitive<unsigned char >, context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  wchar_t        >(), std::bind( &this_type::primitive<wchar_t       >, context_param, _1, _2, _3 ) );
@@ -395,7 +396,7 @@ namespace reflection
                this_type::template register_container< std::map<map_key_name, map_data_name> >( observe_param, context_param );;
               }
 
-             static  report_type  structure( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static  report_type  structure( observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                boolean_type pass = true;
 

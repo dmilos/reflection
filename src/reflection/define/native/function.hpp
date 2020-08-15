@@ -10,7 +10,7 @@
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
   auto instance = ::reflection::content::function::member<identifier_type>  \
          (                                                    \
-            (pointer_type)(nullptr)                  \
+            pointer_type{nullptr}                             \
           , &class_symbolic_name::function_symbolic_name      \
          );  \
   instance.accessibility( ::reflection::ornament::accessibility_class::from_string( #accessibility_name ) ); \

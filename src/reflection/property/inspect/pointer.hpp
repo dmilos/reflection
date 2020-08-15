@@ -66,8 +66,8 @@ namespace reflection
       template
        <
          typename   data_name
-        ,typename   image_name    = data_name const&
-        ,typename   storage_name  = data_name const*
+        ,typename   image_name    = data_name const& // Expected model
+        ,typename   storage_name  = data_name const* // Expected model
        >
        inline
        typename ::reflection::property::inspect::pointer_class< image_name, storage_name>::typedef_type
@@ -76,8 +76,8 @@ namespace reflection
           storage_name  const & storage_param
         )
         {
-         typedef image_name   image_type;   // By design
-         typedef storage_name storage_type; // By design
+         typedef image_name   image_type;
+         typedef storage_name storage_type;
 
          typedef ::reflection::property::inspect::pointer_class<image_type, storage_type> pointer_type;
          return pointer_type( storage_param );

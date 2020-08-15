@@ -30,6 +30,13 @@ namespace reflection
               static identifier_type id = typeid(data_name).name();
               return id;
              }
+
+           template< typename data_name >
+            static identifier_type const& native()
+             {
+              static identifier_type id = typeid(data_name).name();
+              return id;
+             }
         };
 
       template<>
@@ -45,6 +52,8 @@ namespace reflection
 
            template < typename type_name >
              static identifier_type const& get(){ return rebind_type::template get<type_name>(); }
+           template < typename type_name >
+             static identifier_type const& native(){ return rebind_type::template native<type_name>(); }
         };
 
       template<>
@@ -60,12 +69,13 @@ namespace reflection
 
            template < typename type_name >
              static identifier_type const& get(){ return rebind_type::template get<type_name>(); }
+
+           template < typename type_name >
+             static identifier_type const& native(){ return rebind_type::template native<type_name>(); }
         };
 
-
-       }
+     }
    }
  }
 
 #endif
-

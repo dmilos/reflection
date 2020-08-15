@@ -8,10 +8,13 @@
    : accessibility_name class_original                                                      \
    , public ::reflection::content::class_class<class_original>                              \
    {                                                                                        \
+    private:                                                                                \
+      typedef ::reflection::content::class_class<class_original> private_base_type;         \
     public:                                                                                 \
       typedef class_original original_type;                                                 \
       typedef class_original* pointer_type;                                                 \
                                                                                             \
+    public:                                                                                 \
       explicit class_reflected( original_type const& original )                             \
        :original_type(original){                                                            \
         this->init();                                                                       \

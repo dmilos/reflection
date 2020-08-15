@@ -76,7 +76,7 @@ namespace reflection
                using namespace std::placeholders;
                observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
                {
-                auto f = std::bind( &this_type::structure, _1, std::ref(observe_param), _2, _3 );
+                auto f = std::bind( &this_type::structure, std::ref(observe_param), _1, _2, _3 );
                 observe_param.insert( identificator_type::template get<  structure_type      >(), f );
                 observe_param.control( observe_type::recover_action_acquisition_index, f );
                }
@@ -90,6 +90,7 @@ namespace reflection
                observe_param.insert( identificator_type::template get< std::string    >(), &this_type::string  );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
 
+               observe_param.insert( identificator_type::template get<  bool           >(), &this_type::primitive<bool          >  );
                observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
                observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
                observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t  >  );
@@ -409,7 +410,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static  report_type structure( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param  )
+             static  report_type structure( observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param  )
               {
                boolean_type pass = true;
 

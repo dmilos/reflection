@@ -75,7 +75,7 @@ namespace reflection
                observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
                {
                 using namespace std::placeholders;
-                auto f = std::bind( &this_type::structure, _1, std::ref(observe_param), _2, _3 );
+                auto f = std::bind( &this_type::structure, std::ref(observe_param), _1, _2, _3 );
                 auto i = identificator_type::template get<  structure_type      >();
                 observe_param.insert( i, f );
                 observe_param.control( observe_type::recover_action_acquisition_index   , f );
@@ -92,6 +92,7 @@ namespace reflection
                observe_param.insert( identificator_type::template get<  std::string   >(), &this_type::string   );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
 
+               observe_param.insert( identificator_type::template get<  bool           >(), &this_type::primitive<bool          >  );
                observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
                observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
                observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t       >  );
@@ -139,17 +140,17 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prolog( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( contextPtr_type context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context->inc();
-               output_param <<  "{" << std::endl;
+               context_param->inc();
+               output_param <<  "{" ; context_param->newl(output_param);
                return report_type( true );
               }
 
              static report_type epilog  ( contextPtr_type context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param << std::endl;
-               output_param <<  "}" << std::endl;
+               context_param->newl(output_param);
+               output_param <<  "}" ; context_param->newl(output_param);
                context_param->dec();
                return report_type( true );
               }
@@ -175,35 +176,35 @@ namespace reflection
 
              static report_type suffix( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param << std::endl;
+               // context_param->newl(output_param);
                output_param <<  "  }";
-               //output_param << std::endl;
+               //context_param->newl(output_param);
                return report_type( true );
               }
 
              static report_type stasimon( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param <<  "," << std::endl;
+               output_param <<  "," << std::endl; // TODO
                return report_type( true );
               }
 
              static report_type null_recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param <<  "null" << std::endl;
+               output_param <<  "null" << std::endl; // TODO
                return true;
               }
 
-             static report_type decoration_category( contextPtr_type const&context, output_type & output_param, property_qualified_reference_type property_param)
+             static report_type decoration_category( contextPtr_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
                {
                 category_type const* category = dynamic_cast< category_type const* >( &property_param );
                 if( nullptr != category )
                  {
-                  output_param << "    \"type\"  : \"" << category->identifier() << "\", " << std::endl;
+                  output_param << "    \"type\"  : \"" << category->identifier() << "\", " ; context_param->newl(output_param);
                   return report_type( true );
                  }
                 else
                  {
-                  output_param << "    \"note\"  : \"" << "Can not detect type" << "\", " << std::endl;
+                  output_param << "    \"note\"  : \"" << "Can not detect type" << "\", " ; context_param->newl(output_param);
                   return report_type( true );
                  }
                  return report_type( false );
@@ -316,7 +317,7 @@ namespace reflection
                  return report_type( false );
                 }
 
-               output_param << "\"" << key_param << "\"" << ": " <<  "null" << std::endl;
+               output_param << "\"" << key_param << "\"" << ": " <<  "null" << std::endl; // TODO
                return report_type( true );
               }
 
@@ -406,7 +407,7 @@ namespace reflection
                  // TODO
                  return report_type( false );
                 }
-               output_param << "      [ " << std::endl;
+               output_param << "      [ " << std::endl; // TODO
 
                for( std::size_t index=0; index < context->container().size(); ++index )
                 {
@@ -417,7 +418,7 @@ namespace reflection
                  output_param << "    }";
                  if( index+1< context->container().size()) output_param << ",";
 
-                 output_param << std::endl;
+                 output_param << std::endl; // TODO
                 }
                output_param << "      ] ";
 
@@ -433,7 +434,7 @@ namespace reflection
                  return report_type( false );
                 }
 
-               //output_param << "    \"parameters\": " << std::endl;
+               //output_param << "    \"parameters\": " ; context_param->newl(output_param);
                output_param << "      [ " << std::endl;
                for( std::size_t index=0; index < context->signature().size(); ++index )
                 {
@@ -451,7 +452,7 @@ namespace reflection
                  output_param << std::endl;
                }
                output_param << "      ] ";
-               //output_param << std::endl;
+               //context_param->newl(output_param);
                return report_type( true );
               }
 
@@ -472,7 +473,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type structure ( output_type & output_param, observe_type const& observe_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type structure ( observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                boolean_type pass = true;
 
@@ -503,7 +504,7 @@ namespace reflection
                  // TODO(or not)output_param << "<note message=\"Not a structure\" /> ";
                 }
 
-               //output_param << std::endl;
+               //context_param->newl(output_param);
                return report_type( true );
              }
 

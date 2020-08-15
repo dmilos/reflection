@@ -64,11 +64,14 @@ namespace reflection
 
            enum control_enum
             {
+           //,recover__begin
               recover_type_acquisition_index     =  0
              ,recover_action_acquisition_index
              ,recover_action_fail_index
              ,recover_null_pointer_index
+             ,recover__end
 
+           //,control__begin
              ,stage_introductum_index        //!< At the beginning of everything
              ,stage_exodus_index             //!< At the end  of everything
 
