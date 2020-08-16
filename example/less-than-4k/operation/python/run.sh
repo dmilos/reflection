@@ -3,4 +3,4 @@
 pwd
 
 ./print.exe
-./bind.exe
+#./bind.exe

@@ -9,6 +9,8 @@
 
 reset
 
+pwd
+
 g++ -fexceptions -std=c++11 -g -I../src readme.cpp               -o  readme
 g++ -fexceptions -std=c++11 -g -I../src workbench.cpp            -o  workbench
 

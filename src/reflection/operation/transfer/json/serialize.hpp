@@ -239,7 +239,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type stasimon( contextPtr_type context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type stasimon( contextPtr_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                if( true == context_param->m_skip )
                 {
@@ -347,7 +347,7 @@ namespace reflection
                  direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                  if( nullptr != direct_instance )
                   {
-                   output_param << direct_instance->disclose(); //context_param->newl(output_param);
+                   output_param << direct_instance->disclose(); // context_param->newl(output_param);
                    return report_type( true );
                   }
                 }
@@ -359,7 +359,7 @@ namespace reflection
                 return report_type( true );
                }
 
-            public:
+            private:
              template < typename enumerator_name >
               static report_type  enumerant      (                           output_type &   output_param, key_type                     const&      key_param, property_qualified_reference_type   property_param )
                {
@@ -385,7 +385,7 @@ namespace reflection
 
                 return report_type( false );
                }
-
+            public:
              template< typename      enum_name>
               static void register_enum( observe_type & observe_param, contextPtr_type &context_param )
                {
@@ -402,6 +402,7 @@ namespace reflection
                 return false;
                }
 
+            public:
              template < typename number_name >
               static  void register_complex ( observe_type & observe_param, contextPtr_type &context_param )
               {
@@ -415,6 +416,7 @@ namespace reflection
                 return false;
                }
 
+            public:
              template < typename first_name, typename second_name >
               static  void register_pair ( observe_type & observe_param, contextPtr_type &context_param )
               {
@@ -428,6 +430,7 @@ namespace reflection
                 return false;
                }
 
+            public:
              template < typename first_name, typename second_name >
               static  void register_tuple( observe_type & observe_param, contextPtr_type &context_param )
               {
@@ -485,6 +488,7 @@ namespace reflection
                 return report_type( true );
                }
 
+            public:
              template < typename container_value_name >
               static  void register_container( observe_type & observe_param, contextPtr_type &context_param )
               {
@@ -495,6 +499,7 @@ namespace reflection
                 observe_param.register__any( i , f );
                }
 
+            public:
              template < typename map_key_name, typename map_data_name >
               static void register_map( observe_type & observe_param, contextPtr_type &context_param )
                {
@@ -502,6 +507,7 @@ namespace reflection
                this_type::template register_container< std::map<map_key_name, map_data_name> >( observe_param, context_param );;
                }
 
+            private:
              static report_type structure( observe_type const& observe_param, contextPtr_type &context_param, output_type & output_param,key_type const& key_param, property_qualified_reference_type property_param )
               {
                boolean_type pass = true;
@@ -533,10 +539,11 @@ namespace reflection
                  context_param->indent(output_param); output_param<< "{ " << "\"" << "note" << "\"" << ": " << "\""<<  "Not a structure." << "\"" << "}"; context_param->newl(output_param);
                 }
 
-               //; context_param->newl(output_param);
+               // context_param->newl(output_param);
                return report_type( true );
              }
 
+            public:
              template< typename data_name, typename function_name  >
               static void register__any( function_name const& f, observe_type & observe_param, contextPtr_type &context_param )
                {
@@ -544,6 +551,7 @@ namespace reflection
                 return observe_param.template register__any< data_name > ( std::bind( f, context_param, _1, _2, _3 ) );
                }
 
+            public:
              template< typename data_name, typename view_name>
               static void register_class( observe_type & observe_param, contextPtr_type &context_param )
                {
@@ -551,7 +559,6 @@ namespace reflection
                 auto f = std::bind( &observe_type::template view_custom<data_name, view_name>, std::ref(observe_param) , _1, _2, _3 );
                 observe_param.template register__any< data_name >( f );
                }
-
 
           };
 

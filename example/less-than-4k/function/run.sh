@@ -1,4 +1,5 @@
 #!/bin/bash
+pwd
 
 ./free1.exe
 ./free2.exe
