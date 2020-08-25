@@ -26,11 +26,11 @@ namespace reflection
               size_type   m_depth=0;
               string_type m_tabulator= "    ";
 
-              //indenting_class( string_type const& tab ):m_tabulator(tab){}
+            //indenting_class( string_type const& tabulator_param = "    " ):m_tabulator(tabulator_param){}
 
             public:
               void inc(){ ++m_depth; }
-              void dec(){--m_depth; }
+              void dec(){ if( 0 != m_depth )--m_depth; }
               size_type const& depth()const{ return m_depth; }
               void indent( output_type & output_param )const{ for( size_type i=0; i< this->depth(); ++i ) output_param << m_tabulator; }
               void newl( output_type & output_param )const{ output_param << std::endl; }

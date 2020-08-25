@@ -75,10 +75,9 @@ namespace reflection
                  friend struct process_type;
               }context_type;
 
-             typedef std::shared_ptr< context_type > contextPtr_type;
-
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
+             static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::python::bind::process_struct<key_name,identifier_name, report_name, container_name> this_type;
@@ -203,8 +202,8 @@ namespace reflection
                std::cout << "pointer: " << (void*)self << std::endl;
                 if( nullptr != self )
                  {
-                  //std::cout << "type:     " <<       self->ob_type << std::endl;;
-                  //std::cout << "refcount: " <<       self->ob_refcnt<< std::endl;;
+                  //std::cout << "type:     " <<       self->ob_type << std::endl;
+                  //std::cout << "refcount: " <<       self->ob_refcnt<< std::endl;
                  }
 
                return Py_BuildValue( "i", 10 );
@@ -215,8 +214,8 @@ namespace reflection
                std::cout << "pointer: " << (void*)self << std::endl;
                 if( nullptr != self )
                  {
-                  //std::cout << "type:     " <<       self->ob_type << std::endl;;
-                  //std::cout << "refcount: " <<       self->ob_refcnt<< std::endl;;
+                  //std::cout << "type:     " <<       self->ob_type << std::endl;
+                  //std::cout << "refcount: " <<       self->ob_refcnt<< std::endl;
                  }
 
                return Py_BuildValue( "i", 10 );

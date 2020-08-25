@@ -64,27 +64,27 @@ namespace reflection
 
            enum control_enum
             {
-           //,recover__begin
-              recover_type_acquisition_index     =  0
+              control__begin
+             ,recover__begin = control__begin
+             ,recover_type_acquisition_index     =  recover__begin
              ,recover_action_acquisition_index
              ,recover_action_fail_index
              ,recover_null_pointer_index
              ,recover__end
 
-           //,control__begin
-             ,stage_introductum_index        //!< At the beginning of everything
+             ,stage__begin
+             ,stage_introductum_index  = stage__begin       //!< At the beginning of everything
              ,stage_exodus_index             //!< At the end  of everything
 
              ,stage_prolog_index             //!< At the beginning of (sub-)structure.
              ,stage_epilog_index             //!< at the end of (sub-)structure
 
              ,stage_prefix_index             //!< beginning of episodia before checking if action exists
-
              ,stage_suffix_index             //!< end of episodia
-
              ,stage_stasimon_index           //!< something in between episodia
 
-             ,control__end
+             ,stage__end
+             ,control__end = stage__end
              };
            typedef std::array< function_type, control__end > control_type;
 

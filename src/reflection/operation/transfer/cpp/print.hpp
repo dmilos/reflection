@@ -42,9 +42,9 @@ namespace reflection
                 void dec(){ --m_ident; }
                }context_type;
 
-             typedef std::shared_ptr< context_type > contextPtr_type;
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
+             static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef      output_name        output_type;

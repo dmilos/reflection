@@ -28,7 +28,7 @@ namespace reflection
 
         template
          <
-           typename      output_name
+           typename      output_name //!< conect operator << ()
           ,typename         key_name = std::string
           ,typename  identifier_name = std::string
           ,typename      report_name = bool
@@ -51,9 +51,9 @@ namespace reflection
                public:
                  typedef ::reflection::operation::transfer::xml::_common::attribute_struct<output_type, string_type>          attribute_type;
                  typedef ::reflection::operation::transfer::xml::_common::tag_struct<output_type, string_type>          tag_type;
-                 typedef ::reflection::operation::transfer::_common::indenting_class<output_type, string_type>         ident_type;
+                 typedef ::reflection::operation::transfer::_common::indenting_class<output_type, string_type>         indent_type;
 
-                 ident_type m_ident;
+                 indent_type m_indent;
                  tag_type    m_element={ true, "e" };
                  tag_type    m_item={ true, "i"};
 
@@ -84,10 +84,9 @@ namespace reflection
 
               }context_type;
 
-             typedef std::shared_ptr< context_type > contextPtr_type;
-
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
+             static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::xml::introspect_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
@@ -145,26 +144,26 @@ namespace reflection
 
              static report_type prolog( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->m_ident.newl( output_param ); 
-               context_param->m_ident.indent( output_param );
+               context_param->m_indent.newl( output_param ); 
+               context_param->m_indent.indent( output_param );
                context_param->m_element.open( output_param );
-               context_param->m_ident.inc();
+               context_param->m_indent.inc();
                return report_type( true );
               }
 
              static report_type epilog (  contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->m_ident.dec();
-               context_param->m_ident.newl( output_param );
-               context_param->m_ident.indent( output_param );
+               context_param->m_indent.dec();
+               context_param->m_indent.newl( output_param );
+               context_param->m_indent.indent( output_param );
                context_param->m_element.close( output_param );
                return report_type( true );
               }
 
              static report_type prefix(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->m_ident.newl( output_param ); 
-               context_param->m_ident.indent( output_param );
+               context_param->m_indent.newl( output_param ); 
+               context_param->m_indent.indent( output_param );
                context_param->m_item.template open<true>( output_param );
 
                context_param-> m_name.print( output_param, key_param );
@@ -177,16 +176,16 @@ namespace reflection
                decoration_relation(        context_param, output_param, property_param );
 
                output_param << ">";
-               context_param->m_ident.inc();
+               context_param->m_indent.inc();
 
                return report_type( true );
               }
 
              static report_type suffix(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               context_param->m_ident.dec(); 
-               context_param->m_ident.newl( output_param );
-               context_param->m_ident.indent( output_param );
+               context_param->m_indent.dec(); 
+               context_param->m_indent.newl( output_param );
+               context_param->m_indent.indent( output_param );
                context_param->m_item.close( output_param );
                return report_type( true );
               }
@@ -234,7 +233,7 @@ namespace reflection
                output_param << " ";
               }
 
-             static void decoration_linkage(         contextPtr_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
+             static void decoration_linkage(         contextPtr_type  &context_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                typedef ::reflection::ornament::linkage_class linkage_type;
                auto linkage_item = linkage_type::linkage( property_param );
@@ -305,18 +304,18 @@ namespace reflection
                  return report_type( false );
                 }
 
-               context_param->m_ident.inc();
+               context_param->m_indent.inc();
                for( std::size_t index=0; index < enum_instance->container().size(); ++index )
                 {
-                 context_param->m_ident.newl( output_param ); 
-                 context_param->m_ident.indent( output_param );
+                 context_param->m_indent.newl( output_param ); 
+                 context_param->m_indent.indent( output_param );
                  context_param->m_parameter.template open<true>( output_param );
                  context_param->m_ordinal.print( output_param, index );
                  context_param->m_value.print( output_param, enum_instance->container()[index].value() );
                  context_param->m_name.print( output_param, enum_instance->container()[index].name() );
                  output_param << "/>";
                 }
-               context_param->m_ident.dec();
+               context_param->m_indent.dec();
 
                return report_type( true );
               }
@@ -330,7 +329,7 @@ namespace reflection
                  return report_type( false );
                 }
 
-               context_param->m_ident.inc(); 
+               context_param->m_indent.inc(); 
                for( std::size_t index=0; index < function_instance->signature().size(); ++index )
                 {
                  if( function_instance->signature()[index].original()  ==  identificator_type::NAT() )
@@ -338,14 +337,14 @@ namespace reflection
                    continue;
                   }
                   
-                 context_param->m_ident.newl( output_param ); 
-                 context_param->m_ident.indent( output_param );
+                 context_param->m_indent.newl( output_param ); 
+                 context_param->m_indent.indent( output_param );
                  context_param->m_parameter.template open<true>( output_param );
                  context_param->m_ordinal.print( output_param, index );
                  context_param->m_identifier.print( output_param, function_instance->signature()[index].original() );
                  output_param << "/>";
                 }
-               context_param->m_ident.dec(  );
+               context_param->m_indent.dec(  );
 
                return report_type( true );
               }
@@ -359,12 +358,12 @@ namespace reflection
                  return report_type( false );
                 }
 
-               context_param->m_ident.newl( output_param ); 
-               context_param->m_ident.indent( output_param );
+               context_param->m_indent.newl( output_param ); 
+               context_param->m_indent.indent( output_param );
                output_param << "<name   value=\"" << typedef_instance->name() << "\" />";
 
-               context_param->m_ident.newl( output_param ); 
-               context_param->m_ident.indent( output_param );
+               context_param->m_indent.newl( output_param ); 
+               context_param->m_indent.indent( output_param );
                output_param << "<object value=\"" << typedef_instance->object() << "\" />";
 
                return report_type( true );

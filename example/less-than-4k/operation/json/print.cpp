@@ -189,7 +189,8 @@ int main( int argc, char *argv[] )
     //json_type::register_class<MyFirstClassOriginal, MyFirstClassReflectionView>( observe, json_context );
     //json_type::register_class<MyBaseClass, MyBaseClasssReflectionView>( observe, json_context ); 
     //json_type::register_enum<MyMainClass::Enumerator>( observe, json_context ); 
-    //json_type::register_container< std::vector<int> >( observe, json_context );
+    json_type::register_container< std::vector<int> >( observe, json_context );
+    json_type::register_map< int, int >( observe, json_context );
   }
   observe.view( std::cout, r ); // JSONize
 

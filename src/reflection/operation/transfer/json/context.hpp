@@ -3,7 +3,7 @@
 
 // ::reflection::operation::transfer::json::context_struct<output_name>
 
-
+#include "../_common/indenting.hpp"
 
 namespace reflection
  {
@@ -23,24 +23,52 @@ namespace reflection
         template
          <
            typename      output_name //!< conect operator << ()
+          ,typename      string_name //!< conect operator << ()
          >
         struct context_struct
          {
           public:
-             typedef      output_name        output_type;
+
+            typedef      output_name        output_type;
+
+            typedef std::size_t size_type;
+            typedef string_name string_type;
+
+            typedef ::reflection::operation::transfer::_common::indenting_class<output_type, string_type>        indent_type;
+
+            struct keys_struct
+             {
+              string_type   m_value   = "value";
+              string_type   m_type    = "type";
+              string_type   m_ordinal = "ordinal";
+              string_type   m_name    = "name";
+              string_type   m_object  = "object";
+              string_type   m_note    = "note";
+             }m_key;
+
+            struct names_struct
+             {
+              string_type   m_qualification = "qualification";
+              string_type   m_volatile      = "volatile";
+              string_type   m_derivation    = "derivation";
+              string_type   m_relation      = "relation";
+              string_type   m_note          = "note";
+              string_type   m_linkage       = "linkage";
+              string_type   m_accessibility = "accessibility";
+             }m_name;
+
+            struct message_struct
+             {
+              string_type  m_CnRtV = "Can not retrieve the value.";
+              string_type  m_NaS   = "Not a structure.";
+              string_type  m_CnDT  = "Can not detect type" ;
+              string_type  m_GR    = "General recovery.";
+             }m_message;
 
            public:
-            typedef std::size_t size_type;
-            typedef std::string string_type;
-            string_type m_tabulator="    ";
-            bool   m_skip=false;
-            void inc(){ ++m_ident; }
-            void dec(){ --m_ident; }
-            size_type const& get()const{ return m_ident; }
-            void indent( output_type & output_param ){ for( size_type i=0; i< this->get(); ++i ) output_param <<  m_tabulator; }
-            void newl( output_type & output_param ){ output_param << std::endl; }
-          private:
-            size_type m_ident=0;
+             bool   m_skip=false;
+             indent_type m_indent;
+
          };
 
        }

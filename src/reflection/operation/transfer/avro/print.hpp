@@ -44,9 +44,8 @@ namespace reflection
 
              typedef ::reflection::operation::transfer::avro::context_struct<output_name> context_type;
 
-             typedef std::shared_ptr< context_type > contextPtr_type;
-
            public:
+             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
              static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:

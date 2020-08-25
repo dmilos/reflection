@@ -57,10 +57,9 @@ namespace reflection
                 void newl( output_type & output_param ){ output_param << std::endl; for( size_type i=0; i< this->get(); ++i ) output_param <<  "  "; }
                }context_type;
 
-             typedef std::shared_ptr< context_type > contextPtr_type;
-
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
+             static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::yaml::serialize_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
@@ -393,7 +392,7 @@ namespace reflection
               static  void register_map( observe_type & observe_param, contextPtr_type &context_param )
               {
                this_type::template register_pair< map_key_name, map_data_name >( observe_param, context_param );
-               this_type::template register_container< std::map<map_key_name, map_data_name> >( observe_param, context_param );;
+               this_type::template register_container< std::map<map_key_name, map_data_name> >( observe_param, context_param );
               }
 
              static  report_type  structure( observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )

@@ -24,7 +24,7 @@ namespace reflection
 
       public:
         kind_enum const& kind()const{ return m_kind; }
-                         void  kind( kind_enum const& kind_param ){m_kind = kind_param; }
+                   void  kind( kind_enum const& kind_param ){m_kind = kind_param; }
       protected:
         kind_enum      & kind()     { return m_kind; }
       private:

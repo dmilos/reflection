@@ -46,15 +46,14 @@ namespace reflection
              typedef std::size_t size_type;
              typedef struct context_struct
               {
-                size_type m_ident=0;
-                void inc(){ ++m_ident; }
-                void dec(){ --m_ident; }
+                size_type m_indent=0;
+                void inc(){ ++m_indent; }
+                void dec(){ --m_indent; }
                }context_type;
 
-             typedef std::shared_ptr< context_type > contextPtr_type;
-
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
+             static contextPtr_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::lua::serialize_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;

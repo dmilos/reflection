@@ -31,7 +31,7 @@ namespace reflection                                                            
 // reflection__IDSPEC( std::string, "std::int16_t",       std::int16_t )
 // reflection__IDSPEC( std::string, "std::int32_t",       std::int32_t )
 // reflection__IDSPEC( std::string, "std::int64_t",       std::int64_t )
-// 
+//
 // reflection__IDSPEC( std::string, "std::uint8_t",        std::uint8_t )
 // reflection__IDSPEC( std::string, "std::uint16_t",       std::uint16_t )
 // reflection__IDSPEC( std::string, "std::uint32_t",       std::uint32_t )
@@ -105,12 +105,49 @@ reflection__IDSPEC( std::string, "std::map<double,double>",         std::map<dou
 reflection__IDSPEC( std::string, "std::map<double,std::string>",    std::map<double COMMA std::string  > )
 reflection__IDSPEC( std::string, "std::map<double,std::wstring>",   std::map<double COMMA std::wstring > )
 
-reflection__IDSPEC( std::string, "std::pair<int,int>",                std::pair<double COMMA int          > )
-reflection__IDSPEC( std::string, "std::pair<int,unsigned>",           std::pair<double COMMA unsigned     > )
-reflection__IDSPEC( std::string, "std::pair<int,float>",              std::pair<double COMMA float        > )
-reflection__IDSPEC( std::string, "std::pair<int,double>",             std::pair<double COMMA double       > )
-reflection__IDSPEC( std::string, "std::pair<int,std::string>",        std::pair<double COMMA std::string  > )
-reflection__IDSPEC( std::string, "std::pair<int,std::wstring>",       std::pair<double COMMA std::wstring > )
+reflection__IDSPEC( std::string, "std::map<std::string,int>",            std::map<std::string COMMA int          > )
+reflection__IDSPEC( std::string, "std::map<std::string,unsigned>",       std::map<std::string COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::map<std::string,float>",          std::map<std::string COMMA float        > )
+reflection__IDSPEC( std::string, "std::map<std::string,double>",         std::map<std::string COMMA double       > )
+reflection__IDSPEC( std::string, "std::map<std::string,std::string>",    std::map<std::string COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::map<std::string,std::wstring>",   std::map<std::string COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::map<std::wstring,int>",            std::map<std::wstring COMMA int          > )
+reflection__IDSPEC( std::string, "std::map<std::wstring,unsigned>",       std::map<std::wstring COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::map<std::wstring,float>",          std::map<std::wstring COMMA float        > )
+reflection__IDSPEC( std::string, "std::map<std::wstring,double>",         std::map<std::wstring COMMA double       > )
+reflection__IDSPEC( std::string, "std::map<std::wstring,std::string>",    std::map<std::wstring COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::map<std::wstring,std::wstring>",   std::map<std::wstring COMMA std::wstring > )
+
+
+reflection__IDSPEC( std::string, "std::pair<const int, int>",                std::pair< const int COMMA int          > )
+reflection__IDSPEC( std::string, "std::pair<const int, unsigned>",           std::pair< const int COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::pair<const int, float>",              std::pair< const int COMMA float        > )
+reflection__IDSPEC( std::string, "std::pair<const int, double>",             std::pair< const int COMMA double       > )
+reflection__IDSPEC( std::string, "std::pair<const int, std::string>",        std::pair< const int COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::pair<const int, std::wstring>",       std::pair< const int COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::pair<const unsigned, int>",                std::pair< const unsigned COMMA int          > )
+reflection__IDSPEC( std::string, "std::pair<const unsigned, unsigned>",           std::pair< const unsigned COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::pair<const unsigned, float>",              std::pair< const unsigned COMMA float        > )
+reflection__IDSPEC( std::string, "std::pair<const unsigned, double>",             std::pair< const unsigned COMMA double       > )
+reflection__IDSPEC( std::string, "std::pair<const unsigned, std::string>",        std::pair< const unsigned COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::pair<const unsigned, std::wstring>",       std::pair< const unsigned COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::pair<const std::string, int>",                std::pair< const std::string COMMA int          > )
+reflection__IDSPEC( std::string, "std::pair<const std::string, unsigned>",           std::pair< const std::string COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::pair<const std::string, float>",              std::pair< const std::string COMMA float        > )
+reflection__IDSPEC( std::string, "std::pair<const std::string, double>",             std::pair< const std::string COMMA double       > )
+reflection__IDSPEC( std::string, "std::pair<const std::string, std::string>",        std::pair< const std::string COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::pair<const std::string, std::wstring>",       std::pair< const std::string COMMA std::wstring > )
+
+reflection__IDSPEC( std::string, "std::pair<const std::wstring, int>",                std::pair< const std::wstring COMMA int          > )
+reflection__IDSPEC( std::string, "std::pair<const std::wstring, unsigned>",           std::pair< const std::wstring COMMA unsigned     > )
+reflection__IDSPEC( std::string, "std::pair<const std::wstring, float>",              std::pair< const std::wstring COMMA float        > )
+reflection__IDSPEC( std::string, "std::pair<const std::wstring, double>",             std::pair< const std::wstring COMMA double       > )
+reflection__IDSPEC( std::string, "std::pair<const std::wstring, std::string>",        std::pair< const std::wstring COMMA std::string  > )
+reflection__IDSPEC( std::string, "std::pair<const std::wstring, std::wstring>",       std::pair< const std::wstring COMMA std::wstring > )
+
 
 #undef COMMA
 

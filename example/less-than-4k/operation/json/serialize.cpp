@@ -218,6 +218,7 @@ int main( int argc, char *argv[] )
    json_type::register_container< std::set<int> >( observe, json_context );
    json_type::register_container< std::list<int> >( observe, json_context );
    json_type::register_container< std::map<int,std::string> > ( observe, json_context );
+   json_type::register_map< int, std::string > ( observe, json_context );
   }
 
   observe.view( std::cout, r ); // jsonize

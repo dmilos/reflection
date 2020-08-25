@@ -75,7 +75,7 @@ namespace reflection
                 void open( output_type & output_param )
                  {
                   output_param << "<" << this->m_name <<" ";
-                  if( false == open_bool ) output_param << "> ";
+                  if( false == open_bool ) output_param << ">";
                  }
 
                template< bool open_bool = false >
@@ -83,7 +83,7 @@ namespace reflection
                  {
                   output_param << "<" << this->m_name <<" ";
                   a1.print( output_param );
-                  if( false == open_bool ) output_param << "> ";
+                  if( false == open_bool ) output_param << ">";
                  }
 
                template< bool open_bool = false >
@@ -92,7 +92,7 @@ namespace reflection
                   output_param << "<" << this->m_name << " ";
                   a1.print( output_param );
                   a2.print( output_param );
-                  if( false == open_bool ) output_param << "> ";
+                  if( false == open_bool ) output_param << ">";
                  }
 
                 void close( output_type & output_param )
@@ -109,7 +109,7 @@ namespace reflection
                  {
                   output_param << "<" << this->m_name <<" ";
                   a1.print( output_param );
-                  output_param << "/> ";
+                  output_param << "/>";
                  }
 
                 void single( output_type & output_param, attribute_type const& a1, attribute_type const& a2 )const
@@ -117,7 +117,7 @@ namespace reflection
                   output_param << "<" << this->m_name << " ";
                   a1.print( output_param );
                   a2.print( output_param );
-                  output_param << "/> ";
+                  output_param << "/>";
                  }
 
             };
