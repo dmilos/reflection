@@ -5,7 +5,7 @@
 
 #include "../../../content/category.hpp"
 #include "../../../property/structure.hpp"
-#include "../../../operation/transfer/observe.hpp"
+#include "../../../operation/encode/observe.hpp"
 
 
 
@@ -36,8 +36,8 @@ namespace reflection
               }context_type;
 
            public:
-             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
-             static contextPtr_type context(){ return std::make_shared<context_type>(); }
+             typedef std::shared_ptr< context_type >  context_pointer_type;
+             static context_pointer_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef      output_name        output_type;
@@ -56,10 +56,10 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+             typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
-             explicit print_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
+             explicit print_struct( observe_type & observe_param, context_pointer_type context_param = this_type::context() )
               {
                using namespace std::placeholders;
               }

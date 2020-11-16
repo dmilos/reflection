@@ -187,9 +187,9 @@ class MyClass
        ::reflection::content::function::member<std::string>( this, &MyClass::d  );
      //::reflection::content::function::member<std::string>( this, &MyClass::calc );
 
-        ::reflection::content::function::free<std::string>( &free_void_void ).execute();
-        ::reflection::content::function::free<std::string>( &free_int_void  ).execute();
-        ::reflection::content::function::free<std::string>( &free_int_int   ).execute( 10 );
+       // TODO ::reflection::content::function::free<std::string>( &free_void_void ).execute();
+       // TODO ::reflection::content::function::free<std::string>( &free_int_void  ).execute();
+       // TODO ::reflection::content::function::free<std::string>( &free_int_int   ).execute( 10 );
 
        std::cout << ::reflection::property::direct::check<int&>(         ::reflection::property::direct::member(   this, &MyClass::traitor   ) ) << std::endl;
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;
@@ -315,7 +315,7 @@ int main( int argc, char *argv[] )
   MyClass m;
   MyClass q;
 
-  ::reflection::operation::transfer::observe_class<int> observe;
+  ::reflection::operation::encode::observe_class<int> observe;
 
   int i;
   observe.insert( typeid(                             std::string ).name(),         []( int &  , std::string const& name, ::reflection::property::pure_class const&    )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } );
@@ -333,7 +333,7 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::assign_struct<std::string >     assign_type;
   typedef ::reflection::property::structure_class<std::string>                        structure_type;
 
-  ::reflection::operation::transfer::observe_class< structure_type, std::string, std::string, assign_type::error_enum > observe_assign;
+  ::reflection::operation::encode::observe_class< structure_type, std::string, std::string, assign_type::error_enum > observe_assign;
 
   observe_assign.insert( typeid( std::string ).name(),  assign_type::process<std::string> );
   observe_assign.insert( typeid( int ).name(),          assign_type::process<int> );

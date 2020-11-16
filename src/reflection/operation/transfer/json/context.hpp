@@ -14,11 +14,38 @@ namespace reflection
       namespace json
        {
 
-        //namespace configuration
-        // {
-        //
-        //
-        // }
+        namespace configuration
+         {
+
+          template
+           <
+             typename      string_name //!< conect operator << ()
+           >
+           struct keys_struct
+            {
+             public:
+               typedef string_name string_type;
+               string_type   m_value   = "value";
+               string_type   m_type    = "type";
+               string_type   m_ordinal = "ordinal";
+               string_type   m_name    = "name";
+               string_type   m_object  = "object";
+               string_type   m_note    = "note";
+            };
+
+         }
+
+        template
+         <
+           typename      string_name //!< conect operator << ()
+         >
+        struct context_input_struct
+         {
+          public:
+            typedef string_name string_type;
+            typedef ::reflection::operation::transfer::json::configuration::keys_struct<string_type>        keys_type;
+            keys_type m_key;
+         };
 
         template
          <
@@ -36,15 +63,8 @@ namespace reflection
 
             typedef ::reflection::operation::transfer::_common::indenting_class<output_type, string_type>        indent_type;
 
-            struct keys_struct
-             {
-              string_type   m_value   = "value";
-              string_type   m_type    = "type";
-              string_type   m_ordinal = "ordinal";
-              string_type   m_name    = "name";
-              string_type   m_object  = "object";
-              string_type   m_note    = "note";
-             }m_key;
+            typedef ::reflection::operation::transfer::json::configuration::keys_struct<string_type>        keys_type;
+            keys_type m_key;
 
             struct names_struct
              {
@@ -68,7 +88,6 @@ namespace reflection
            public:
              bool   m_skip=false;
              indent_type m_indent;
-
          };
 
        }

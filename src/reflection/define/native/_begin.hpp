@@ -1,6 +1,9 @@
 #ifndef reflection_define__begin
 #define reflection_define__begin
 
+// reflection__CLASS_BEGIN_inherit( reflection, public/protected/private, original )
+// reflection__CLASS_BEGIN_member( reflection, public/protected/private, original )
+// reflection__CLASS_BEGIN_view(  reflection,  public/protected/private, original, pointer )
 
 
 #define reflection__CLASS_BEGIN_inherit( class_reflected, accessibility_name, class_original  )   \

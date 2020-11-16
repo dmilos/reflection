@@ -275,7 +275,7 @@ void populate( output_type & output )
   MyFoundationClassReflectionView rf;
   MyBaseClassReflectionView       r1;
   {
-   ::reflection::operation::transfer::observe_class<bind_type::output_type> observe;
+   ::reflection::operation::encode::observe_class<bind_type::output_type> observe;
    {
     auto bind_context = bind_type::context();
     bind_type bind( observe, bind_context );

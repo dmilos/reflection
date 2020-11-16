@@ -16,6 +16,13 @@
 #include <cstddef>
 
 
+#if defined( _MSC_VER  )
+#pragma warning(push, 0)
+ #pragma warning( disable: 4250 )
+ #pragma warning( disable: 4503 )
+#endif
+
+
 #if defined REFLECTION_USE_PP2FILE
 #include "./reflection.pp2f.hpp"
 #else
@@ -28,5 +35,11 @@ namespace reflection
   using ::reflection::property::function::execute;
   using ::reflection::content::function::execute;
  }
+
+
+#if defined( _MSC_VER  )
+#pragma warning(pop)
+#endif
+
 
 #endif

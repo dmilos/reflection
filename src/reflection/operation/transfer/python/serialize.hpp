@@ -10,7 +10,7 @@
 #include "../../../content/enum/enum.hpp"
 
 #include "../../../property/structure.hpp"
-#include "../../../operation/transfer/observe.hpp"
+#include "../../../operation/encode/observe.hpp"
 
 
 
@@ -51,8 +51,8 @@ namespace reflection
                }context_type;
 
            public:
-             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
-             static contextPtr_type context(){ return std::make_shared<context_type>(); }
+             typedef std::shared_ptr< context_type >  context_pointer_type;
+             static context_pointer_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::python::serialize_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
@@ -66,7 +66,7 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+             typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
              typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_type;
@@ -74,16 +74,16 @@ namespace reflection
              typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
 
            public:
-             explicit serialize_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
+             explicit serialize_struct( observe_type & observe_param, context_pointer_type context_param = this_type::context() )
               {
-               observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
-             //observe_param.control( observe_type::recover_action_acquisition_index, &this_type::recover );
-               observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
+               observe_param.recover( observe_type::recover_type_acquisition_index  , &this_type::recover );
+             //observe_param.recover( observe_type::recover_action_acquisition_index, &this_type::recover );
+               observe_param.recover( observe_type::recover_action_fail_index   , &this_type::recover );
 
-               observe_param.control( observe_type::stage_prolog_index,   &this_type::prolog );
-               observe_param.control( observe_type::stage_prefix_index,   &this_type::prefix );
-               observe_param.control( observe_type::stage_suffix_index,   &this_type::suffix );
-               observe_param.control( observe_type::stage_epilog_index,     &this_type::epilog   );
+               observe_param.stage( observe_type::stage_prolog_index,   &this_type::prolog );
+               observe_param.stage( observe_type::stage_prefix_index,   &this_type::prefix );
+               observe_param.stage( observe_type::stage_suffix_index,   &this_type::suffix );
+               observe_param.stage( observe_type::stage_epilog_index,   &this_type::epilog   );
 
 
                observe_param.insert( identificator_type::template get<     enumeration_type  >(), &this_type::enumeration    );

@@ -16,7 +16,7 @@
        template
         <
           typename model_name
-         ,typename storage_name  // T_model, T_report, storage_type,   T_report operator()( storage_type &, T_model )
+         ,typename storage_name    // model_name, report_name, storage_type,   report_name operator()( storage_type &, model_name )
          ,typename assigner_name   //= stl_ext::assign_ref_to_ref< storage_name, model_name >
          ,typename report_name     //= bool
         >

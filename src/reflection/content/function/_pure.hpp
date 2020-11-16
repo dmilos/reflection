@@ -27,12 +27,12 @@ namespace reflection
       template
        <
          typename identifier_name
-        ,typename return_name
-        ,typename first_name
-        ,typename second_name
-        ,typename third_name
-        ,typename fourth_name
-        ,typename fifth_name
+        ,typename return_name     = void
+        ,typename first_name      = void
+        ,typename second_name     = void
+        ,typename third_name      = void
+        ,typename fourth_name     = void
+        ,typename fifth_name      = void
         >
        class pure_class
         : virtual public ::reflection::content::function::algorithm_class < identifier_name >

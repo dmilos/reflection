@@ -8,7 +8,7 @@
 #include "../../../content/typedef/typedef.hpp"
 #include "../../../content/enum/enum.hpp"
 #include "../../../property/structure.hpp"
-#include "../../../operation/transfer/observe.hpp"
+#include "../../../operation/encode/observe.hpp"
 
 
 
@@ -26,8 +26,8 @@ namespace reflection
         template
          <
            typename      output_name //!< conect operator << ()
-          ,typename         key_name = std::string
           ,typename  identifier_name = std::string
+          ,typename         key_name = std::string
           ,typename      report_name = bool
           ,template <typename,typename> class container_name  = ::reflection::type::container::map
          >
@@ -50,12 +50,12 @@ namespace reflection
                 void dec(){ --m_ident; }
                 void ident(){}
               }context_type;
-             typedef std::shared_ptr< context_struct > contextPtr_type;
+             typedef std::shared_ptr< context_struct > context_pointer_type;
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             static context_pointer_type context(){ return std::make_shared<context_struct>(); }
 
            public:
-             typedef ::reflection::operation::transfer::yaml::introspect_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
+             typedef ::reflection::operation::transfer::yaml::introspect_struct<output_name,identifier_name,key_name, report_name, container_name> this_type;
 
              typedef ::reflection::property::pure_class                                 property_type;
              typedef ::reflection::ornament::category_class<identifier_type>            category_type;
@@ -66,7 +66,7 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+             typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
              typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_type;
@@ -80,20 +80,20 @@ namespace reflection
              typedef ::reflection::ornament::qualification_class   qualification_type;
 
            public:
-             explicit introspect_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
+             explicit introspect_struct( observe_type & observe_param, context_pointer_type context_param = this_type::context() )
               {
                auto context = std::make_shared<context_struct>( );
                using namespace std::placeholders;
 
-               observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
-               observe_param.control( observe_type::recover_action_acquisition_index, &this_type::recover );
-               observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
+               observe_param.recover( observe_type::recover_type_acquisition_index  , &this_type::recover );
+               observe_param.recover( observe_type::recover_action_acquisition_index, &this_type::recover );
+               observe_param.recover( observe_type::recover_action_fail_index   , &this_type::recover );
 
-               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog,   context, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_prefix_index,                   &this_type::prefix );
-               observe_param.control( observe_type::stage_suffix_index,                   &this_type::suffix );
-               observe_param.control( observe_type::stage_stasimon_index ,                &this_type::stasimon );
+               observe_param.stage( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog,   context, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prefix_index,                   &this_type::prefix );
+               observe_param.stage( observe_type::stage_suffix_index,                   &this_type::suffix );
+               observe_param.stage( observe_type::stage_stasimon_index ,                &this_type::stasimon );
 
                observe_param.insert( identificator_type::template get<       enumeration_type  >(), &this_type::enumeration       );
                observe_param.insert( identificator_type::template get<         algorithm_type  >(), &this_type::function          );
@@ -118,7 +118,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prolog( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( context_pointer_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param <<  "--- "
                             << std::endl
@@ -127,7 +127,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type epilog  ( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog  ( context_pointer_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param << std::endl;
                output_param <<  "EOF" << std::endl;

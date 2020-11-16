@@ -3,6 +3,7 @@
 #include "./null.hpp"
 #include "./void.hpp"
 #include "./structure.hpp"
+#include "./convert.hpp"
 
 #include "./base/base.hpp"
 #include "./big/big.hpp"
@@ -23,4 +24,3 @@
 #include "./trinity/trinity.hpp"
 
 #include "./reset/reset.hpp"
-

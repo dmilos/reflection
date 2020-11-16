@@ -14,11 +14,11 @@ namespace reflection
 
     template
      <
-       typename  primitive_name
+       typename  fundamental_name
       ,typename     report_name = bool
-      ,typename      image_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
-      ,typename   original_name = typename std::add_lvalue_reference< primitive_name >::type
-      ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
+      ,typename      image_name = typename std::add_lvalue_reference< typename std::add_const<fundamental_name>::type >::type
+      ,typename   original_name = typename std::add_lvalue_reference< fundamental_name >::type
+      ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<fundamental_name>::type >::type
      >
      inline
      bool

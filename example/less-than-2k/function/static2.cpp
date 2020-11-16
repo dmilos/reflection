@@ -26,7 +26,7 @@ class MyClassOriginal
 // Reflect to reflection
 reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
-    reflection__CLASS_FUNCTION_static( "static_int_int_string", MyClassOriginal, public, static_int_int_string )
+  //  reflection__CLASS_FUNCTION_static( "static_int_int_string", MyClassOriginal, public, static_int_int_string )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
@@ -38,9 +38,12 @@ int main( int argc, char *argv[] )
   int i=20;
   // Classic "direct" call where c++ take care about arguments type
   //std::cout <<
-  ::reflection::property::function::execute< int, int, std::string const& >( r.get("static_int_int_string"), i, "aaa" )
+  //::reflection::property::function::execute< int, int, std::string const& >( r.get("static_int_int_string"), i, "aaa" )
   // << std::endl
   ;
+    ::reflection::utility::function::static_function ( &MyClassOriginal::static_int_int_string ).execute( i, "aaa" );
+   ::reflection::property::function::static_function( &MyClassOriginal::static_int_int_string ).execute( i, "aaa" );
+   // TODO ::reflection::content::function::static_function<std::string>( &MyClassOriginal::static_int_int_string ).execute( i, "aaa" );
 
 
   return EXIT_SUCCESS;

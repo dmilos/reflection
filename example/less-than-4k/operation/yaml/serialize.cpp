@@ -204,7 +204,7 @@ int main( int argc, char *argv[] )
   MyMainClass o;
   MyClassReflection   r;  //!< Reflection of Original, with pointing to some instance
 
-  ::reflection::operation::transfer::observe_class<std::ostream> observe;
+  ::reflection::operation::encode::observe_class<std::ostream> observe;
 
   { 
    typedef ::reflection::operation::transfer::yaml::serialize_struct<std::ostream> serialize_type;

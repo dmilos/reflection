@@ -182,7 +182,7 @@ int main( int argc, char *argv[] )
  {
   std::cout << __FUNCTION__ << std::endl;
   // Some typedefs
-  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
+  typedef ::reflection::operation::encode::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::cpp::print_struct<std::ostream> cpp_type;
   typedef ::reflection::operation::transfer::yaml::print_struct<std::ostream> yaml_type;
   typedef ::reflection::operation::transfer::protobuf::print_struct<std::ostream> protobuf_type;
@@ -193,7 +193,7 @@ int main( int argc, char *argv[] )
   //MyClassReflection<int>   r0;  //!< Reflection of Original, with pointing to some instance
   //MyClassReflection<float> r1( &o );  //!< Reflection of Original, with pointing to same instance
 
-  ::reflection::operation::transfer::observe_class<std::ostream> observe; //!< Have algorithm for observation(serialize/...) of instance
+  ::reflection::operation::encode::observe_class<std::ostream> observe; //!< Have algorithm for observation(serialize/...) of instance
 
   {
    typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;

@@ -38,7 +38,7 @@ namespace reflection
             public:
               typedef ::reflection::operation::transfer::python::bind::interface_class    interface_type;
               typedef ::reflection::operation::transfer::python::bind::typeObject_class  typeObject_type;
-              typedef ::reflection::operation::transfer::factory_class<identifier_type>         factory_type;
+              typedef ::reflection::operation::factory_class<identifier_type>         factory_type;
               
               typedef ::reflection::ornament::relation_class         relation_type;
               typedef ::reflection::archive::genealogy_class<identifier_type, relation_type::relation_enum, report_type > geneaology_type;

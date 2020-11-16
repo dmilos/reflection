@@ -1,7 +1,7 @@
-#ifndef reflection_operation_transfer_observe
-#define reflection_operation_transfer_observe
+#ifndef reflection_operation_encode_observe
+#define reflection_operation_encode_observe
 
-// ::reflection::operation::transfer::observe_class<output_name,key_name,identifier_name>
+// ::reflection::operation::encode::observe_class<output_name,key_name,identifier_name>
 
 #include "../../content/category.hpp"
 #include "../../property/structure.hpp"
@@ -18,7 +18,7 @@ namespace reflection
  {
   namespace operation
    {
-    namespace transfer
+    namespace encode
      {
 
       template
@@ -37,7 +37,8 @@ namespace reflection
            typedef         key_name           key_type;
            typedef  identifier_name    identifier_type;
            typedef      report_name        report_type;
-           typedef ::reflection::operation::transfer::observe_class<output_name,key_name,identifier_name,report_name,qualificator_name, container_name> this_type;
+
+           typedef ::reflection::operation::encode::observe_class<output_name,key_name,identifier_name,report_name,qualificator_name, container_name> this_type;
 
            typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::pure_class                                 property_type;
@@ -56,23 +57,26 @@ namespace reflection
            typedef typename std::add_lvalue_reference< property_qualified_type >::type      property_qualified_reference_type;
            typedef typename std::add_lvalue_reference< structure_qualified_type >::type    structure_qualified_reference_type;
 
-           typedef ::reflection::operation::transfer::protocol_struct< output_name, key_name, identifier_type, report_name, qualificator_name, container_name > protocolX_type, protocol_type;
+           typedef ::reflection::operation::encode::protocol_struct< output_name, identifier_type, report_name, qualificator_name, container_name > protocol_type;
 
-           typedef typename protocolX_type::function_type     function_type;
-           typedef typename protocolX_type::menu_type         menu_type;
-           typedef typename protocolX_type::action_type       action_type;
+           typedef typename protocol_type::function_type     function_type;
+           typedef typename protocol_type::menu_type         menu_type;
+           typedef typename protocol_type::action_type       action_type;
 
-           enum control_enum
+           enum recover_enum
             {
-              control__begin
-             ,recover__begin = control__begin
+              recover__begin
              ,recover_type_acquisition_index     =  recover__begin
              ,recover_action_acquisition_index
              ,recover_action_fail_index
              ,recover_null_pointer_index
              ,recover__end
+             };
 
-             ,stage__begin
+           enum stage_enum
+            {
+              stage__begin
+
              ,stage_introductum_index  = stage__begin       //!< At the beginning of everything
              ,stage_exodus_index             //!< At the end  of everything
 
@@ -84,9 +88,10 @@ namespace reflection
              ,stage_stasimon_index           //!< something in between episodia
 
              ,stage__end
-             ,control__end = stage__end
              };
-           typedef std::array< function_type, control__end > control_type;
+
+           typedef std::array< function_type, recover__end > recover_array_type;
+           typedef std::array< function_type, stage__end >   stage_array_type;
 
          public:
            observe_class()
@@ -97,28 +102,36 @@ namespace reflection
          public:
            void clear()
             {
-             this->control( recover_type_acquisition_index   , action_type::always_true() );
-             this->control( recover_action_acquisition_index , action_type::always_true() );
-             this->control( recover_action_fail_index    , action_type::always_true() );
-             this->control( recover_null_pointer_index   , action_type::always_true() );
+             this->recover( recover_type_acquisition_index   , action_type::always_true() );
+             this->recover( recover_action_acquisition_index , action_type::always_true() );
+             this->recover( recover_action_fail_index        , action_type::always_true() );
+             this->recover( recover_null_pointer_index       , action_type::always_true() );
 
-             this->control( stage_introductum_index           , action_type::always_true() );
-             this->control( stage_exodus_index           , action_type::always_true() );
-             this->control( stage_prolog_index      , action_type::always_true() );
-             this->control( stage_epilog_index        , action_type::always_true() );
-             this->control( stage_prefix_index           , action_type::always_true() );
-             this->control( stage_suffix_index           , action_type::always_true() );
-             this->control( stage_stasimon_index         , action_type::always_true() );
+             this->stage( stage_introductum_index      , action_type::always_true() );
+             this->stage( stage_exodus_index           , action_type::always_true() );
+             this->stage( stage_prolog_index           , action_type::always_true() );
+             this->stage( stage_epilog_index           , action_type::always_true() );
+             this->stage( stage_prefix_index           , action_type::always_true() );
+             this->stage( stage_suffix_index           , action_type::always_true() );
+             this->stage( stage_stasimon_index         , action_type::always_true() );
+
              this->m_menu.clear();
              this->m_pass = 0;
             }
 
          public:
-           control_type    const& control()const{ return m_control; }
-           void                   control( control_enum const& index_param, function_type const& action_param ){ m_control[index_param] = action_param; }
-           control_type         & control(){ return m_control; }
+           recover_array_type    const& recover()const{ return m_recover;}
+           void                         recover( recover_enum const& index_param, function_type const& action_param ){ m_recover[index_param] = action_param;}
+           recover_array_type         & recover(){return m_recover;}
          private:
-           control_type m_control;
+           recover_array_type m_recover;
+
+         public:
+           stage_array_type    const& stage()const{ return m_stage;}
+           void                       stage( stage_enum const& index_param, function_type const& action_param ){ m_stage[index_param] = action_param; }
+           stage_array_type         & stage(){return m_stage;}
+         private:
+           stage_array_type m_stage;
 
          public:
            menu_type    const& menu()const{ return m_menu; }
@@ -135,14 +148,15 @@ namespace reflection
            item_type m_dummy;
 
          public:
-           void insert( key_type const& key, function_type const& function )
+           void insert( identifier_type const& identifier, function_type const& function_param )
             {
-             protocolX_type::insert( this->menu(), key, function );
+             protocol_type::insert( this->menu(), identifier, function_param );
             }
 
-           void register__any( key_type const& key, function_type const& function )
+         public:
+           void register__any( identifier_type const& identifier, function_type const& function_param )
             {
-             protocolX_type::insert( this->menu(), key, function );
+             protocol_type::insert( this->menu(), identifier, function_param );
             }
 
           template < typename data_name >
@@ -171,10 +185,11 @@ namespace reflection
              ,property_qualified_reference_type   property_param
             )const
             {
+             // acquisition of category
              category_qualified_type *  category = dynamic_cast< category_qualified_type * >( &property_param );
              if( nullptr == category )
               {
-               auto report = this->control()[recover_type_acquisition_index]( output_param, key_param, property_param );
+               auto report = this->recover()[recover_type_acquisition_index]( output_param, key_param, property_param );
                return report;
               }
              else
@@ -183,8 +198,8 @@ namespace reflection
               }
 
              label_prefix_execute:
-              {
-               auto report = this->control()[stage_prefix_index]( output_param, key_param, property_param );
+              { // prefix
+               auto report = this->stage()[stage_prefix_index]( output_param, key_param, property_param );
                if( report_type( false ) == report )
                 {
                  goto label_suffix_execute;
@@ -192,10 +207,11 @@ namespace reflection
                goto label_action_acquisition_execute;
               }
 
+             // acquisition of action
              label_action_acquisition_execute:
-               if( false == protocolX_type::exists( this->menu(), category->identifier() ) )
+               if( false == protocol_type::exists( this->menu(), category->identifier() ) )
                 {
-                 auto report = this->control()[recover_action_acquisition_index]( output_param, key_param, property_param );
+                 auto report = this->recover()[recover_action_acquisition_index]( output_param, key_param, property_param );
                  goto label_suffix_execute;
                 }
                else
@@ -204,8 +220,8 @@ namespace reflection
                 }
 
              label_action_execution:
-              {
-               auto action = protocolX_type::find( this->menu(), category->identifier() );
+              { // execution
+               auto action = protocol_type::find( this->menu(), category->identifier() );
 
                auto report = action( output_param, key_param, property_param ); // Action exists. We can safley execute.
 
@@ -223,8 +239,8 @@ namespace reflection
                goto label_suffix_execute;
 
              label_action_fail:
-              {
-               auto report = this->control()[recover_action_fail_index]( output_param, key_param, property_param );
+              { // recovery
+               auto report = this->recover()[recover_action_fail_index]( output_param, key_param, property_param );
                if( report_type( false ) == report )
                 {
                  goto label_suffix_execute;
@@ -232,9 +248,10 @@ namespace reflection
                goto label_suffix_execute;
               }
 
+             // sufix
              label_suffix_execute:
               {
-               auto report = this->control()[stage_suffix_index]( output_param, key_param, property_param );
+               auto report = this->stage()[stage_suffix_index]( output_param, key_param, property_param );
                return report;
               }
 
@@ -249,17 +266,17 @@ namespace reflection
             {
              if( 0 == m_pass++ )
               {
-               auto report = this->control()[stage_introductum_index]( output_param, key_type{}, struct_param );
+               auto report = this->stage()[stage_introductum_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
-                { //! No need for recovery fuctions. Exodus will do the cleanup.
+                { //! No need for recovery functions. Exodus will do the cleanup.
                  goto label_exosud;
                 }
               }
 
               {
-               auto report = this->control()[stage_prolog_index]( output_param, key_type{}, struct_param );
+               auto report = this->stage()[stage_prolog_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
-                { //! No need for recovery fuctions. Evrithing should happen in prolog and epilog will do the clean up
+                { //! No need for recovery functions. Everything should happen in prolog and epilog will do the clean up
                  goto label_epilog;
                 }
               }
@@ -275,7 +292,7 @@ namespace reflection
                auto  property = m_dummy.get();
                if( nullptr == data.get() )
                 {
-                 auto report = this->control()[recover_null_pointer_index]( output_param, key, *property );
+                 auto report = this->recover()[recover_null_pointer_index]( output_param, key, *property );
                  if( report_type( false ) == report )
                   {
                    goto label_epilog;
@@ -303,7 +320,7 @@ namespace reflection
                label_stasimon_execute:
                  if( 1 != index )
                   {
-                   auto report = this->control()[stage_stasimon_index]( output_param, key, *property );
+                   auto report = this->stage()[stage_stasimon_index]( output_param, key, *property );
                    if( report_type( false ) == report )
                     {
                      goto label_epilog;
@@ -313,14 +330,14 @@ namespace reflection
 
              label_epilog:
               {
-               auto report = this->control()[stage_epilog_index]( output_param, key_type{}, struct_param );
+               auto report = this->stage()[stage_epilog_index]( output_param, key_type{}, struct_param );
                goto label_exosud;
               }
 
              label_exosud:
              if( 0 == --m_pass )
               {
-               auto report = this->control()[stage_exodus_index]( output_param, key_type{}, struct_param );
+               auto report = this->stage()[stage_exodus_index]( output_param, key_type{}, struct_param );
                if( report_type( false ) == report )
                 {
                  return report;

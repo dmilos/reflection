@@ -115,7 +115,7 @@ int main( int argc, char *argv[] )
 
   MyClass m;
 
-  ::reflection::operation::transfer::observe_class<int> observe;
+  ::reflection::operation::encode::observe_class<int> observe;
 
   int i;
   observe.insert( typeid(                             std::string ).name(), [](         int &,   std::string const& name, ::reflection::property::pure_class const&  )  { std::cout << "string - " << __FUNCTION__ << std::endl; return true; } ); 

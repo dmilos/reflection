@@ -1,4 +1,5 @@
 *.bak
+*.obj
 /example/hello
 /example/test/out
 /example/test/*.dblite

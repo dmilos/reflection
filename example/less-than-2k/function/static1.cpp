@@ -34,6 +34,9 @@ int main( int argc, char *argv[] )
   // Classic "direct" call where c++ take care about arguments type
   std::cout << ::reflection::property::function::execute< int >( r.get("static_int_void") ) << std::endl;
 
+   ::reflection::utility::function::static_function ( &MyClassOriginal::static_int_void ).execute( );
+   ::reflection::property::function::static_function( &MyClassOriginal::static_int_void ).execute( );
+   //TODO ::reflection::content::function::static_function<std::string>( &MyClassOriginal::static_int_void ).execute( );
 
   return EXIT_SUCCESS;
  }
