@@ -1,7 +1,7 @@
-#ifndef reflection_operation_transfer_action
-#define reflection_operation_transfer_action
+#ifndef reflection_operation_encode_action
+#define reflection_operation_encode_action
 
-// ::reflection::operation::transfer::action_struct< key_type, output_type, qualificator_name>::typedef_type
+// ::reflection::operation::encode::action_struct< key_type, output_type, qualificator_name>::typedef_type
 
 #include "../../property/property.hpp"
 #include "../../type/trait.hpp"
@@ -11,7 +11,7 @@ namespace reflection
  {
   namespace operation
    {
-    namespace transfer
+    namespace encode
      {
 
       template
@@ -24,7 +24,6 @@ namespace reflection
        struct action_struct
         {
          public:
-
            typedef  output_name       output_type;
            typedef     key_name          key_type;
            typedef     report_name    report_type;

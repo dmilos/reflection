@@ -8,7 +8,7 @@
 #include "../../../content/typedef/typedef.hpp"
 #include "../../../content/enum/enum.hpp"
 #include "../../../property/structure.hpp"
-#include "../../../operation/transfer/observe.hpp"
+#include "../../../operation/encode/observe.hpp"
 
 
 
@@ -46,9 +46,9 @@ namespace reflection
               };
 
            public:
-             typedef std::shared_ptr< context_struct > contextPtr_type;
+             typedef std::shared_ptr< context_struct > context_pointer_type;
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             static context_pointer_type context(){ return std::make_shared<context_struct>(); }
 
            public:
              typedef      output_name        output_type;
@@ -67,7 +67,7 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+             typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
              typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>           enumeration_type;
@@ -75,18 +75,18 @@ namespace reflection
              typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
 
            public:
-             explicit print_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
+             explicit print_struct( observe_type & observe_param, context_pointer_type context_param = this_type::context() )
               {
                using namespace std::placeholders;
-               observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
-               observe_param.control( observe_type::recover_action_acquisition_index, &this_type::recover );
-               observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
+               observe_param.recover( observe_type::recover_type_acquisition_index  , &this_type::recover );
+               observe_param.recover( observe_type::recover_action_acquisition_index, &this_type::recover );
+               observe_param.recover( observe_type::recover_action_fail_index   , &this_type::recover );
 
                auto internal = std::make_shared<context_struct>( );
 
-               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, internal, _1, _2, _3 )  );
-               observe_param.control( observe_type::stage_epilog_index,    std::bind( &this_type::epilog,  internal, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,  internal, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, internal, _1, _2, _3 )  );
+               observe_param.stage( observe_type::stage_epilog_index,    std::bind( &this_type::epilog,  internal, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prefix_index,    std::bind( &this_type::prefix,  internal, _1, _2, _3 ) );
 
                observe_param.insert( identificator_type::template get<  enumeration_type     >(), &this_type::enumeration    );
                //if(false)observe_param.insert( identificator_type::template get<  algorithm_type               >(), &this_type::function       );
@@ -106,7 +106,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prolog( contextPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( context_pointer_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
                output_param <<  "message ";
@@ -131,14 +131,14 @@ namespace reflection
                return result;
               }
 
-             static report_type epilog ( contextPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog ( context_pointer_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                internal->dec();
                output_param <<  "}" << std::endl;
                return report_type( true );
               }
 
-             static report_type prefix( contextPtr_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prefix( context_pointer_type internal, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
 

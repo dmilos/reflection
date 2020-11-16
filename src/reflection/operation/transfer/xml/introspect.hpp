@@ -11,7 +11,7 @@
 #include "../../../content/enum/enum.hpp"
 
 #include "../../../property/structure.hpp"
-#include "../../../operation/transfer/observe.hpp"
+#include "../../../operation/encode/observe.hpp"
 
 #include "./_common.hpp"
 #include "../_common/indenting.hpp"
@@ -85,8 +85,8 @@ namespace reflection
               }context_type;
 
            public:
-             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
-             static contextPtr_type context(){ return std::make_shared<context_type>(); }
+             typedef std::shared_ptr< context_type >  context_pointer_type;
+             static context_pointer_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::xml::introspect_struct<output_name,key_name,identifier_name, report_name, container_name> this_type;
@@ -100,7 +100,7 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+             typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
              typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>           enumeration_type;
@@ -114,20 +114,18 @@ namespace reflection
              typedef ::reflection::ornament::qualification_class   qualification_type;
 
            public:
-             explicit introspect_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
+             explicit introspect_struct( observe_type & observe_param, context_pointer_type context_param = this_type::context() )
               {
                using namespace std::placeholders;
 
-               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prefix_index,         std::bind( &this_type::prefix, context_param, _1, _2, _3 )      );
+               observe_param.stage( observe_type::stage_suffix_index,         std::bind( &this_type::suffix, context_param, _1, _2, _3 )     );
+               observe_param.stage( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog, context_param, _1, _2, _3 )   );
 
-               observe_param.control( observe_type::stage_prefix_index,         std::bind( &this_type::prefix, context_param, _1, _2, _3 )      );
-               observe_param.control( observe_type::stage_suffix_index,         std::bind( &this_type::suffix, context_param, _1, _2, _3 )     );
-
-               observe_param.control( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog, context_param, _1, _2, _3 )   );
-
-                observe_param.insert( identificator_type::template get<     enumeration_type >(), std::bind( &this_type::enumeration,    context_param, _1, _2, _3 ) );
-                observe_param.insert( identificator_type::template get<       algorithm_type >(), std::bind( &this_type::function,       context_param, _1, _2, _3 ) );
-                observe_param.insert( identificator_type::template get<  typedefinition_type >(), std::bind( &this_type::typedefinition, context_param, _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get<     enumeration_type >(), std::bind( &this_type::enumeration,    context_param, _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get<       algorithm_type >(), std::bind( &this_type::function,       context_param, _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get<  typedefinition_type >(), std::bind( &this_type::typedefinition, context_param, _1, _2, _3 ) );
 
               }
 
@@ -135,14 +133,14 @@ namespace reflection
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
 
-             static report_type recover(     contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type recover(     context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->m_clnt.print( output_param );
 
                return report_type( true );
               }
 
-             static report_type prolog( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->m_indent.newl( output_param ); 
                context_param->m_indent.indent( output_param );
@@ -151,7 +149,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type epilog (  contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog (  context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->m_indent.dec();
                context_param->m_indent.newl( output_param );
@@ -160,7 +158,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prefix(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prefix(      context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->m_indent.newl( output_param ); 
                context_param->m_indent.indent( output_param );
@@ -181,7 +179,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type suffix(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type suffix(      context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->m_indent.dec(); 
                context_param->m_indent.newl( output_param );
@@ -195,7 +193,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type decoration_category( contextPtr_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
+             static report_type decoration_category( context_pointer_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                category_type const* category = dynamic_cast< category_type const* >( &property_param );
                if( nullptr != category )
@@ -211,7 +209,7 @@ namespace reflection
                return report_type( false );
               }
 
-             static void decoration_accessibility(   contextPtr_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
+             static void decoration_accessibility(   context_pointer_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                typedef ::reflection::ornament::accessibility_class accessibility_type;
                accessibility_type  const* accessibility = dynamic_cast< accessibility_type const* >( &property_param );
@@ -233,7 +231,7 @@ namespace reflection
                output_param << " ";
               }
 
-             static void decoration_linkage(         contextPtr_type  &context_param, output_type & output_param, property_qualified_reference_type property_param)
+             static void decoration_linkage(         context_pointer_type  &context_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                typedef ::reflection::ornament::linkage_class linkage_type;
                auto linkage_item = linkage_type::linkage( property_param );
@@ -249,7 +247,7 @@ namespace reflection
                output_param << " ";
               }
 
-             static void decoration_relation(        contextPtr_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
+             static void decoration_relation(        context_pointer_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                auto relation_item = relation_type::relation( property_param );
                switch( relation_item )
@@ -264,7 +262,7 @@ namespace reflection
                output_param << " ";
               }
 
-             static void decoration_qualification(   contextPtr_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
+             static void decoration_qualification(   context_pointer_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                auto qualification_item = qualification_type::qualification( property_param );
 
@@ -279,7 +277,7 @@ namespace reflection
                 }
               }
 
-             static void decoration_derivation(      contextPtr_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
+             static void decoration_derivation(      context_pointer_type const&context_param, output_type & output_param, property_qualified_reference_type property_param)
               {
                typedef ::reflection::ornament::derivation_class derivation_type;
                derivation_type  const* derivation = dynamic_cast< derivation_type const* >( &property_param );
@@ -295,7 +293,7 @@ namespace reflection
               }
 
             public:
-             static report_type   enumeration    ( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type   enumeration    ( context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                enumeration_type  const* enum_instance = dynamic_cast< enumeration_type const* >( &property_param );
                if( nullptr == enum_instance )
@@ -320,7 +318,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type   function       ( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type   function       ( context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                algorithm_type  const* function_instance = dynamic_cast< algorithm_type const* >( &property_param );
                if( nullptr == function_instance )
@@ -349,7 +347,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type   typedefinition ( contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type   typedefinition ( context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                typedefinition_type  const* typedef_instance = dynamic_cast<         typedefinition_type const* >( &property_param );
                if( nullptr == typedef_instance )

@@ -30,8 +30,12 @@ int main( int argc, char *argv[] )
  {
   MyClassReflection r;  //!< Reflection of Original
 
-  // Classic "direct" call where c++ take care about arguments type
-  ::reflection::property::function::execute< void >( r.get("static_void_void") );
+    // Classic "direct" call where c++ take care about arguments type
+   ::reflection::property::function::execute< void >( r.get("static_void_void") );
+
+   ::reflection::utility::function::static_function ( &MyClassOriginal::static_void_void ).execute( );
+   ::reflection::property::function::static_function( &MyClassOriginal::static_void_void ).execute( );
+   //TODO ::reflection::content::function::static_function<std::string>( &MyClassOriginal::static_void_void ).execute( );
 
   return EXIT_SUCCESS;
  }

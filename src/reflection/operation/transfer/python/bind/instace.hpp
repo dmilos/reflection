@@ -32,7 +32,7 @@ namespace reflection
               //typedef ::reflection::property::pure_class  property_type;
               //typedef ::reflection::property::pure_class  property_type;
 
-              typedef ::reflection::operation::transfer::factory_class<identifier_type>         factory_type;
+              typedef ::reflection::operation::factory_class<identifier_type>         factory_type;
 
               typedef int property_type;
               typedef int* property_pointer_type;

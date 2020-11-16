@@ -73,7 +73,7 @@ int main( int argc, char *argv[] )
 
   MyMainReflection r;
 
-  typedef ::reflection::operation::transfer::observe_class<std::ostream> observe_type;
+  typedef ::reflection::operation::encode::observe_class<std::ostream> observe_type;
   typedef ::reflection::operation::transfer::yaml::print_struct<std::ostream> yaml_type;
 
   observe_type observe;

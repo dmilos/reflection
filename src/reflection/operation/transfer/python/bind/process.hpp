@@ -15,7 +15,7 @@
 #include "../../../content/enum/enum.hpp"
 
 #include "../../../property/structure.hpp"
-#include "../../../operation/transfer/observe.hpp"
+#include "../../../operation/encode/observe.hpp"
 
 #include "./output.hpp"
 
@@ -76,8 +76,8 @@ namespace reflection
               }context_type;
 
            public:
-             typedef std::shared_ptr< context_type > contextPtr_type, context_pointer_type;
-             static contextPtr_type context(){ return std::make_shared<context_type>(); }
+             typedef std::shared_ptr< context_type >  context_pointer_type;
+             static context_pointer_type context(){ return std::make_shared<context_type>(); }
 
            public:
              typedef ::reflection::operation::transfer::python::bind::process_struct<key_name,identifier_name, report_name, container_name> this_type;
@@ -90,7 +90,7 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+             typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
              typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_type;
@@ -98,15 +98,17 @@ namespace reflection
              typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
 
            public:
-             explicit process_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
+             explicit process_struct( observe_type & observe_param, context_pointer_type context_param = this_type::context() )
               {
                using namespace std::placeholders;
-               observe_param.control( observe_type::stage_introductum_index,        std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_exodus_index,        std::bind( &this_type::exodus, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_epilog_index,     std::bind( &this_type::epilog  , context_param, _1, _2, _3 ) );
 
-               observe_param.control( observe_type::recover_action_acquisition_index,  std::bind(    &this_type::recover, context_param, _1, _2, _3 ) );
+               observe_param.recover( observe_type::recover_action_acquisition_index,  std::bind(    &this_type::recover, context_param, _1, _2, _3 ) );
+
+               observe_param.stage( observe_type::stage_introductum_index,        std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_exodus_index,        std::bind( &this_type::exodus, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_epilog_index,     std::bind( &this_type::epilog  , context_param, _1, _2, _3 ) );
+
 
                observe_param.insert( identificator_type::template get<     enumeration_type  >(), std::bind( &this_type::enumeration   , context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<       algorithm_type  >(), std::bind( &this_type::function      , context_param, _1, _2, _3 ) );
@@ -122,7 +124,7 @@ namespace reflection
              typedef ::reflection::ornament::kind_class kind_type;
              typedef ::reflection::ornament::category_class<identifier_type>     category_type;
 
-             static report_type recover(          contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type recover(          context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                if( kind_type::data_index == kind_type::kind( property_param ) )
                 {
@@ -140,7 +142,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type introductum(           contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type introductum(           context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                //output_param.clear();
                std::cout << "-- {[(" <<  category_type::identifier( property_param )  << ")]}" << std::endl;
@@ -152,14 +154,14 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type exodus(           contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type exodus(           context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                //Py_InitModule( output_param.module_name().c_str(), output_param.m_method.data() );
                context_param->m_identifier =  identificator_type::NAT();
                return report_type( true );
               }
 
-             static report_type prolog(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog(      context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                report_type result = true;
 
@@ -171,13 +173,13 @@ namespace reflection
                return result;
               }
 
-             static report_type epilog (       contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog (       context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                //TODO output_param <<  "  };" << std::endl;
                return report_type( true );
               }
 
-             static report_type enumeration(      contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type enumeration(      context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                enumeration_type  const* enum_instance = dynamic_cast< enumeration_type const* >( &property_param );
                if( nullptr == enum_instance )
@@ -221,7 +223,7 @@ namespace reflection
                return Py_BuildValue( "i", 10 );
               }
 
-             static report_type function (        contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type function (        context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                std::cout << key_param << std::endl;
                if( linkage_type::static_index == linkage_type::linkage( property_param ) )
@@ -255,7 +257,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type typedefinition (  contextPtr_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type typedefinition (  context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                typedefinition_type  const* typedef_instance = dynamic_cast<         typedefinition_type const* >( &property_param );
                if( nullptr == typedef_instance )

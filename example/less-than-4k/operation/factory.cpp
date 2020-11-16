@@ -27,12 +27,12 @@ int main( int argc, char *argv[] )
   MyClassA m;
   MyClassB q;
 
-  typedef ::reflection::operation::transfer::factory_class<> factory_type;
-  
+  typedef ::reflection::operation::factory::facility_class<> factory_type;
+
   factory_type f;
-  
-  f.register_data<double>();
-  auto aaa = f.create<int>( );
+
+  //TODO f.register_data<double>( );
+  //TODO auto aaa = f.create<int>( 10 );
 
   return EXIT_SUCCESS;
  }

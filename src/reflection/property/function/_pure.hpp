@@ -1,11 +1,12 @@
-#ifndef reflection_property_function_pure
-#define reflection_property_function_pure
+#ifndef reflection_property_function_base
+#define reflection_property_function_base
 
 // ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>
 // ::reflection::property::function::check<return_name,first_name,second_name,third_name,fourth_name,fifth_name>()
 // ::reflection::property::function::execute<return_name,first_name,second_name,third_name,fourth_name,fifth_name>()
 
-#include "../_pure.hpp"
+#include "./_pure.hpp"
+#include "../../utility/function/_pure.hpp"
 #include "../../ornament/linkage.hpp"
 
 namespace reflection
@@ -25,7 +26,8 @@ namespace reflection
         ,typename fifth_name   = void
         >
        class pure_class
-        : virtual public ::reflection::property::pure_class
+        : virtual public ::reflection::utility::function::pure_class<return_name, first_name, second_name, third_name, fourth_name, fifth_name >
+        , virtual public ::reflection::property::pure_class
         , virtual public ::reflection::ornament::linkage_class
         {
          public:
@@ -45,7 +47,8 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
        class pure_class< return_name,first_name,second_name,third_name,fourth_name,void>
-        : virtual public ::reflection::property::pure_class
+        : virtual public ::reflection::utility::function::pure_class<return_name, first_name, second_name, third_name, fourth_name >
+        , virtual public ::reflection::property::pure_class
         , virtual public ::reflection::ornament::linkage_class
         {
          public:
@@ -64,7 +67,8 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name, typename third_name >
        class pure_class< return_name,first_name,second_name,third_name,void,void>
-        : virtual public ::reflection::property::pure_class
+        : virtual public ::reflection::utility::function::pure_class<return_name, first_name, second_name, third_name >
+        , virtual public ::reflection::property::pure_class
         , virtual public ::reflection::ornament::linkage_class
         {
          public:
@@ -83,7 +87,8 @@ namespace reflection
 
       template< typename return_name, typename first_name, typename second_name >
        class pure_class< return_name,first_name,second_name,void,void,void>
-        : virtual public ::reflection::property::pure_class
+        : virtual public ::reflection::utility::function::pure_class<return_name, first_name, second_name >
+        , virtual public ::reflection::property::pure_class
         , virtual public ::reflection::ornament::linkage_class
         {
          public:
@@ -101,7 +106,8 @@ namespace reflection
 
       template< typename return_name, typename first_name >
        class pure_class< return_name,first_name,void,void,void,void>
-        : virtual public ::reflection::property::pure_class
+        : virtual public ::reflection::utility::function::pure_class<return_name, first_name >
+        , virtual public ::reflection::property::pure_class
         , virtual public ::reflection::ornament::linkage_class
         {
          public:
@@ -118,7 +124,8 @@ namespace reflection
 
       template< typename return_name >
        class pure_class< return_name,void,void,void,void,void>
-        : virtual public ::reflection::property::pure_class
+        : virtual public ::reflection::utility::function::pure_class<return_name>
+        , virtual public ::reflection::property::pure_class
         , virtual public ::reflection::ornament::linkage_class
         {
          public:

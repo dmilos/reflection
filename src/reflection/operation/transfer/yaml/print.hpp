@@ -8,7 +8,7 @@
 #include "../../../content/typedef/typedef.hpp"
 #include "../../../content/enum/enum.hpp"
 #include "../../../property/structure.hpp"
-#include "../../../operation/transfer/observe.hpp"
+#include "../../../operation/encode/observe.hpp"
 
 
 
@@ -44,9 +44,9 @@ namespace reflection
                 void dec(){ --m_ident; }
               }context_type;
            public:
-             typedef std::shared_ptr< context_struct > contextPtr_type;
+             typedef std::shared_ptr< context_struct >  context_pointer_type;
            public:
-             static contextPtr_type context(){ return std::make_shared<context_struct>(); }
+             static context_pointer_type context(){ return std::make_shared<context_struct>(); }
 
            public:
              typedef      output_name        output_type;
@@ -65,7 +65,7 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
+             typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, report_type, std::add_const, container_name > observe_type;
 
            public:
              typedef ::reflection::property::enumeration::pure_class<identifier_type,size_type>   enumeration_type;
@@ -73,25 +73,25 @@ namespace reflection
              typedef ::reflection::property::typedefinition::pure_class< identifier_type >             typedefinition_type;
 
            public:
-             explicit print_struct( observe_type & observe_param, contextPtr_type context_param = this_type::context() )
+             explicit print_struct( observe_type & observe_param, context_pointer_type context_param = this_type::context() )
               {
                auto context = std::make_shared<context_struct>( );
                using namespace std::placeholders;
 
-               observe_param.control( observe_type::recover_type_acquisition_index  , &this_type::recover );
+               observe_param.recover( observe_type::recover_type_acquisition_index  , &this_type::recover );
                {
                 using namespace std::placeholders;
                 auto f = std::bind( &this_type::structure, std::ref(observe_param), _1, _2, _3 );
                 observe_param.insert( identificator_type::template get<  structure_type      >(), f );
-                observe_param.control( observe_type::recover_action_acquisition_index   , f );
+                observe_param.recover( observe_type::recover_action_acquisition_index   , f );
                }
-               observe_param.control( observe_type::recover_action_fail_index   , &this_type::recover );
+               observe_param.recover( observe_type::recover_action_fail_index   , &this_type::recover );
 
-               observe_param.control( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context, _1, _2, _3 ) );
-               observe_param.control( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog, context, _1, _2, _3 )   );
-               observe_param.control( observe_type::stage_prefix_index,   &this_type::prefix );
-               observe_param.control( observe_type::stage_suffix_index,   &this_type::suffix );
-               observe_param.control( observe_type::stage_stasimon_index ,  &this_type::stasimon );
+               observe_param.stage( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_epilog_index ,    std::bind( &this_type::epilog, context, _1, _2, _3 )   );
+               observe_param.stage( observe_type::stage_prefix_index,   &this_type::prefix );
+               observe_param.stage( observe_type::stage_suffix_index,   &this_type::suffix );
+               observe_param.stage( observe_type::stage_stasimon_index ,  &this_type::stasimon );
 
                observe_param.insert( identificator_type::template get<  std::string   >(), &this_type::string   );
                observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
@@ -146,7 +146,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prolog( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prolog( context_pointer_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param <<  "--- "
                             << std::endl
@@ -155,7 +155,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type epilog  ( contextPtr_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type epilog  ( context_pointer_type context,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                output_param << std::endl;
                output_param <<  "EOF" << std::endl;

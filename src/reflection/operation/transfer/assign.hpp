@@ -5,7 +5,7 @@
 
 #include "../../content/category.hpp"
 #include "../../property/structure.hpp"
-#include "../../operation/transfer/observe.hpp"
+#include "../../operation/encode/observe.hpp"
 
 #include "../../property/assign.hpp"
 
@@ -22,7 +22,6 @@ namespace reflection
        <
          typename      key_name = std::string
         ,typename     identifier_name = std::string
-        ,template  < typename > class qualificator_name = std::add_const
         ,template <typename,typename> class container_name  = ::reflection::type::container::map
        >
        struct assign_struct
@@ -34,9 +33,6 @@ namespace reflection
            typedef ::reflection::property::pure_class                                 property_type;
            typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
-
-           typedef typename qualificator_name< property_type >::type                       property_qualified_type;
-           typedef typename std::add_lvalue_reference< property_qualified_type >::type     property_qualified_reference_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
@@ -52,7 +48,7 @@ namespace reflection
              assign_fail_index         = true_index + 4,
             };
 
-           typedef  ::reflection::operation::transfer::observe_class< output_type, key_type, identifier_type, error_enum, std::add_const, container_name > observe_type;
+           typedef  ::reflection::operation::encode::observe_class< output_type, key_type, identifier_type, error_enum, std::add_const, container_name > observe_type;
 
          public:
            explicit assign_struct( observe_type & observe_param )
@@ -109,7 +105,7 @@ namespace reflection
              ,typename   original_name = typename std::add_lvalue_reference< primitive_name >::type
              ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
             >
-           static error_enum process( structure_type & output_param, key_type const& key_param, property_qualified_reference_type right_param )
+           static error_enum process( structure_type & output_param, key_type const& key_param, property_type const& right_param )
             {
              auto iterator = output_param.find( key_param );
              if( output_param.end() == iterator )
@@ -131,7 +127,7 @@ namespace reflection
              return true_index;
             }
 
-           static error_enum structure( observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static error_enum structure( observe_type const& observe_param, output_type & output_param, key_type const& key_param, property_type const& property_param )
             {
              if( false == ::reflection::property::inspect::check < structure_type const& >( property_param ) )
              {
@@ -143,7 +139,7 @@ namespace reflection
              return true_index;
             }
 
-           static error_enum null     ( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+           static error_enum null     ( output_type & output_param, key_type const& key_param, property_type const& property_param )
             {
              typedef ::reflection::property::null_class null_type;
              auto null = dynamic_cast< null_type const* >( &property_param );

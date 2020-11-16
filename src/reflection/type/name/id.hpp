@@ -46,7 +46,6 @@ namespace reflection
 
            template < typename type_name >
             static identifier_type const& native(){ static identifier_type id; return id; }
-
         };
 
      }
