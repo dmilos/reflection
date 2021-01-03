@@ -83,7 +83,7 @@ namespace reflection
                observe_param.stage( observe_type::stage_prolog_index,   &this_type::prolog );
                observe_param.stage( observe_type::stage_prefix_index,   &this_type::prefix );
                observe_param.stage( observe_type::stage_suffix_index,   &this_type::suffix );
-               observe_param.stage( observe_type::stage_epilog_index,     &this_type::epilog   );
+               observe_param.stage( observe_type::stage_epilog_index,   &this_type::epilog   );
 
 
                observe_param.insert( identificator_type::template get<     enumeration_type  >(), &this_type::enumeration    );

@@ -29,6 +29,7 @@ namespace reflection
              typedef  report_name             report_type;
 
              typedef  std::size_t             size_type;
+             typedef  std::string             key_type;
 
              typedef ::reflection::type::name::identificatorX< identifier_name > identificator_type;
 
@@ -39,74 +40,73 @@ namespace reflection
              struct cache_struct
               {
                bool m_valid;
-               size_type   m_size;
-               identifier_type m_identifier;
+               size_type   m_size=0;
                identifier_type m_type;
-               std::string     m_key;
+               key_type        m_key;
                stream_position_type   m_streamBegin;
                std::vector<std::uint8_t>   m_buffer;
               };
 
-
            public:
              probe_class()
               {
+               this->push();
               }
 
              ~probe_class()
               {
               }
 
-           private:
-
-             report_type get_chuk( input_type & input_param )
+           public:
+             report_type get_chunk( input_type & input_param )
               {
-               m_cache.m_valid = true;
-               m_cache.m_streamBegin = input_param.tellg();
-               if( m_cache.m_streamBegin == get_size( m_context, m_cache.m_size, input_param ) )
+               this->cache().m_valid = true;
+               this->cache().m_streamBegin = input_param.tellg();
+               if( this->cache().m_streamBegin == get_size( m_context, this->cache().m_size, input_param ) )
                 {
-                 m_cache.m_valid = false;
-                 return m_cache.m_valid;
+                 this->cache().m_valid = false;
+                 return this->cache().m_valid;
                 }
 
-               m_cache.m_buffer.resize(  m_cache.m_size );
-               input_param.read( const_cast<char*>( reinterpret_cast< const char*>( m_cache.m_buffer.data() ) ), m_cache.m_size );
+               this->cache().m_buffer.resize(  this->cache().m_size );
+               input_param.read( const_cast<char*>( reinterpret_cast< const char*>( this->cache().m_buffer.data() ) ), this->cache().m_size );
                if( false == (bool)input_param)
                 {
-                 m_cache.m_valid = false;
-                 return m_cache.m_valid;
+                 this->cache().m_valid = false;
+                 return this->cache().m_valid;
                 }
 
-               return m_cache.m_valid;
+               return this->cache().m_valid;
               }
 
            public:
              report_type poke( identifier_type & indetifier_param, input_type & input_param )
               {
-               m_cache.m_valid = true;
-               m_cache.m_streamBegin = input_param.tellg();
+               this->cache().m_valid = true;
+               this->cache().m_streamBegin = input_param.tellg();
 
-               if( false == get_chuk( input_param ) )
+               if( false == get_chunk( input_param ) )
                 {
-                 m_cache.m_valid = false;
-                 return m_cache.m_valid;
+                 this->cache().m_valid = false;
+                 return this->cache().m_valid;
                 }
-               m_cache.m_type.resize( m_cache.m_size );
-               m_cache.m_type.assign( m_cache.m_buffer.begin(), m_cache.m_buffer.end() );
-               indetifier_param = m_cache.m_type;
+               this->cache().m_type.resize( this->cache().m_size );
+               this->cache().m_type.assign( this->cache().m_buffer.begin(), this->cache().m_buffer.end() );
+               indetifier_param = this->cache().m_type;
 
-               if( false == get_chuk( input_param ) )
+               if( false == get_chunk( input_param ) )
                 {
-                 m_cache.m_valid = false;
-                 return m_cache.m_valid;
+                 this->cache().m_valid = false;
+                 return this->cache().m_valid;
                 }
-               m_cache.m_key.resize( m_cache.m_size );
-               m_cache.m_key.assign( m_cache.m_buffer.begin(), m_cache.m_buffer.end() );
+               this->cache().m_key.resize( this->cache().m_size );
+               this->cache().m_key.assign( this->cache().m_buffer.begin(), this->cache().m_buffer.end() );
 
-               return m_cache.m_valid;
+               this->cache().m_size = 0;
+               return this->cache().m_valid;
               }
 
-           public:
+           private:
             static report_type skip( context_type const& contect_param, size_type & size, input_type & input_param )
              {
               auto current_position = input_param.tellg();
@@ -121,13 +121,70 @@ namespace reflection
            public:
             report_type skip( input_type & input_param )
              {
-              m_cache.m_streamBegin = input_param.tellg();
-              if( false == skip( m_context, m_cache.m_size, input_param ) )
+              this->cache().m_streamBegin = input_param.tellg();
+              if( false == skip( m_context, this->cache().m_size, input_param ) )
                {
-                m_cache.m_valid = false;
+                this->cache().m_valid = false;
                 return false;
                }
               return true;
+             }
+           public:
+            report_type eof( input_type & input_param )
+             {
+
+              if( true == input_param.eof() )
+               {
+                return true;
+               }
+              if( false == (bool) input_param )
+               {
+                return true;
+               }
+
+              {
+               auto stream_begin = input_param.tellg();
+               size_type size=3;
+               if( stream_begin == get_size( m_context, size, input_param ) )
+                {
+                 return true;
+                }
+               if( 3 != size )
+                {
+                 input_param.seekg( stream_begin, std::ios_base::beg );
+                 return false;
+                }
+               this->cache().m_size  = 3;
+               this->cache().m_buffer.resize(  this->cache().m_size );
+               input_param.read( const_cast<char*>( reinterpret_cast< const char*>( this->cache().m_buffer.data() ) ), this->cache().m_size );
+               if(     ( this->cache().m_buffer[0] == 'E' ) 
+                    && ( this->cache().m_buffer[1] == 'O' ) 
+                    && ( this->cache().m_buffer[2] == 'F' ) )
+                {
+                 return true;
+                }
+               input_param.seekg( stream_begin, std::ios_base::beg );
+               return false;
+              }
+
+              if( true == this->cache().m_valid )
+               {
+                if( "EOF" == this->cache().m_type )
+                 {
+                  return true;
+                 }
+               }
+
+              return false;
+             }
+           public:
+             void push()
+              {
+               m_cache.push_back( cache_struct{} );
+              }
+           void pop()
+             {
+              m_cache.pop_back( );
              }
 
            public:
@@ -147,10 +204,19 @@ namespace reflection
                 }
                return input_param.tellg();
               }
+
            public:
-             cache_struct const  & cache()const{ return m_cache; }
+             typedef std::pair<identifier_type, key_type> EOF_type;
+             //EOF_type const& EOF( )const;//{ return m_eof; }
+           private:
+              EOF_type m_eof;
+
+           public:
+             cache_struct const  & cache()const{ return m_cache.back(); }
+           private:
+             cache_struct        & cache(){ return m_cache.back(); }
            protected:
-             cache_struct m_cache;
+             std::vector<cache_struct> m_cache;
            public:
              context_type const& context()const{ return m_context; }
              context_type      & context()     { return m_context; }

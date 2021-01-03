@@ -4,7 +4,6 @@
 // ::reflection::operation::scan::contractor_class< pile_name, input_name, identifier_name, report_name>
 
 #include "./accumulator.hpp"
-#include "./recover.hpp"
 #include "./sentinel.hpp"
 #include "../factory/facility.hpp"
 
@@ -38,10 +37,7 @@ namespace reflection
 
              typedef ::reflection::operation::factory::facility_class<identifier_name,report_name>  facility_type;
 
-             typedef ::reflection::operation::scan::recover_class< input_name, identifier_name, report_name > recover_type;
-             typedef ::std::shared_ptr<recover_type>       recover_pointer_type;
-
-             typedef ::reflection::operation::scan::sentinel_class< pile_name, input_name, report_name  > sentinel_type;
+             typedef ::reflection::operation::scan::sentinel_class< pile_name, input_name, identifier_name, report_name  > sentinel_type;
              typedef ::std::shared_ptr<sentinel_type>       sentinel_pointer_type;
 
              typedef ::reflection::operation::scan::accumulator::pure_class< pile_name, input_name, identifier_name, report_name > accumulator_type;
@@ -51,16 +47,16 @@ namespace reflection
              report_type parse( pile_type &pile_param, input_name &input_param ) const
               {
                identifier_type  identifier;
-               auto & probe = *(m_probe.get() );
-               auto & sentinel = *(m_sentinel.get() );
+               auto & probe       = *(m_probe.get() );
+               auto & sentinel    = *(m_sentinel.get() );
                auto & accumulator = *(m_accumulator.get() );
 
-               if( false == sentinel.prepare( pile_param, input_param ) )
+               if( false == sentinel.prepare( pile_param, input_param, probe ) )
                 {
                  return false;
                 }
 
-               while( true )
+               while( false == probe.eof( input_param ) )
                 {
                  if( false == probe.poke( identifier, input_param ) )
                   {
@@ -72,7 +68,9 @@ namespace reflection
                    continue;
                   }
 
+                 probe.push();
                  auto proprty = m_facility.template create<input_name&>( identifier, input_param );
+                 probe.pop();
                  if( nullptr == proprty )
                   {
                    if( false == probe.skip( input_param ) )
@@ -140,22 +138,6 @@ namespace reflection
 
            private:
              facility_type        m_facility;
-
-           public:
-             recover_pointer_type const& recover( )const
-              {
-               return m_recover;
-              }
-             recover_pointer_type & recover( )
-              {
-               return m_recover;
-              }
-             void recover( recover_pointer_type const& recover_param )
-              {
-               m_recover = recover_param;
-              }
-           private:
-             recover_pointer_type m_recover;
 
            public:
              accumulator_pointer_type const& accumulator( )const

@@ -58,23 +58,26 @@ namespace reflection
               this->insert( identificator_type::NAT(), constructor_pointer_type{  new  static_type{ &this_type::constructor_nullptr } } );
              }
 
+             this->register_data<bool>();
+
              this->register_data<std::int8_t>();
              this->register_data<std::int16_t>();  this->register_data<std::int32_t>();  this->register_data<std::int64_t>();
 
              this->register_data<std::uint8_t>();
              this->register_data<std::uint16_t>(); this->register_data<std::uint32_t>(); this->register_data<std::uint64_t>();
 
-             this->register_data<void*>();
-             this->register_data<std::string>(); this->register_data<std::wstring>();
-
              this->register_data<char>();      this->register_data< unsigned char>();
              this->register_data<wchar_t>();
-             this->register_data<short>();     this->register_data< unsigned short>();
-             this->register_data<int>();       this->register_data< unsigned>();
-             this->register_data<long>();      this->register_data< unsigned long>();
-             this->register_data<long long>(); this->register_data< unsigned long long>();
 
+             this->register_data<short>();     this->register_data< unsigned short     >();
+             this->register_data<int>();       this->register_data< unsigned           >();
+             this->register_data<long>();      this->register_data< unsigned long      >();
+             this->register_data<long long>(); this->register_data< unsigned long long >();
+
+             this->register_data<void*>();
              this->register_data<nullptr_t>();
+
+             this->register_data<std::string>(); this->register_data<std::wstring>();
 
              this->register_data< std::vector< int > >();
              this->register_data< std::map< int, int > >();
@@ -190,7 +193,7 @@ namespace reflection
            void register_data()
             {
              typedef ::reflection::utility::function::static_class<this_type::property_pointer_type>  static_type;
-             auto m = constructor_pointer_type{  new  static_type{ &this_type::constructor_simple<data_name>  } };
+             auto m = constructor_pointer_type{ new static_type{ &this_type::constructor_simple<data_name>  } };
 
              this->template insert< data_name >( m );
             }

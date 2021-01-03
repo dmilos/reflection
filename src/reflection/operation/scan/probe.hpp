@@ -35,6 +35,9 @@ namespace reflection
          public:
            virtual report_type poke( identifier_type & indetifier_param, input_type & input_param )=0;
            virtual report_type skip( input_type & input_param ) =0;
+           virtual report_type  eof( input_type & input_param ) =0;
+           virtual void        push( ) =0;
+           virtual void         pop( ) =0;
        };
 
      }

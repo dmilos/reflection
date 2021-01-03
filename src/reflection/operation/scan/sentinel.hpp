@@ -3,6 +3,7 @@
 
 // ::reflection::operation::scan::sentinel_class< pile_name, input_name, report_name >
 
+#include "./probe.hpp"
 
 namespace reflection
  {
@@ -15,7 +16,8 @@ namespace reflection
        <
          typename     pile_name
         ,typename     input_name
-        ,typename   report_name = bool
+        ,typename    identifier_name
+        ,typename    report_name
        >
        class sentinel_class
         {
@@ -24,12 +26,14 @@ namespace reflection
            typedef  input_name           input_type;
            typedef  report_name         report_type;
 
+           typedef ::reflection::operation::scan::probe_class< input_type, identifier_name, report_name > probe_type;
+
          public:
            sentinel_class(){ }
            virtual ~sentinel_class(){ }
 
          public:
-           virtual report_type prepare( pile_type& pile_param, input_type & input_param ) const=0;
+           virtual report_type prepare( pile_type& pile_param, input_type & input_param, probe_type & probe_param ) const=0;
            virtual report_type clean(   pile_type& pile_param, input_type & input_param ) const=0;
            virtual report_type finish(  pile_type& pile_param, input_type & input_param ) const=0;
        };

@@ -87,44 +87,46 @@ namespace reflection
                observe_param.stage( observe_type::stage_suffix_index,   &this_type::suffix );
                observe_param.stage( observe_type::stage_epilog_index,     &this_type::epilog   );
 
-               observe_param.insert( identificator_type::template get< std::string    >(), &this_type::string  );
-               observe_param.insert( identificator_type::template get<  std::wstring  >(), &this_type::wstring  );
+               observe_param.insert( identificator_type::template get< bool >(), &this_type::primitive< bool >  );
+               
+               observe_param.insert( identificator_type::template get< char          >(), &this_type::primitive< char          >  );
+               observe_param.insert( identificator_type::template get< unsigned char >(), &this_type::primitive< unsigned char >  );
+               observe_param.insert( identificator_type::template get< wchar_t       >(), &this_type::primitive< wchar_t       >  );
+               observe_param.insert( identificator_type::template get< std::wint_t   >(), &this_type::primitive< std::wint_t   >  );
+               observe_param.insert( identificator_type::template get< char16_t      >(), &this_type::primitive< char16_t      >  );
+               observe_param.insert( identificator_type::template get< char32_t      >(), &this_type::primitive< char32_t      >  );
 
-               observe_param.insert( identificator_type::template get<  bool           >(), &this_type::primitive<bool          >  );
-               observe_param.insert( identificator_type::template get<  char           >(), &this_type::primitive<char          >  );
-               observe_param.insert( identificator_type::template get<  unsigned char  >(), &this_type::primitive<unsigned char >  );
-               observe_param.insert( identificator_type::template get<  wchar_t        >(), &this_type::primitive<wchar_t  >  );
-               observe_param.insert( identificator_type::template get<  std::wint_t    >(), &this_type::primitive<std::wint_t   >  );
-
-               observe_param.insert( identificator_type::template get<  std::int8_t    >(), &this_type::primitive<std::int8_t   >  );
-               observe_param.insert( identificator_type::template get<  std::int16_t   >(), &this_type::primitive<std::int16_t  >  );
-               observe_param.insert( identificator_type::template get<  std::int32_t   >(), &this_type::primitive<std::int32_t  >  );
-               observe_param.insert( identificator_type::template get<  std::int64_t   >(), &this_type::primitive<std::int64_t  >  );
-
-               observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &this_type::primitive<std::uint8_t  >  );
-               observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &this_type::primitive<std::uint16_t >  );
-               observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &this_type::primitive<std::uint32_t >  );
-               observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &this_type::primitive<std::uint64_t >  );
+               observe_param.insert( identificator_type::template get< std::int8_t    >(), &this_type::primitive< std::int8_t   >  );
+               observe_param.insert( identificator_type::template get< std::int16_t   >(), &this_type::primitive< std::int16_t  >  );
+               observe_param.insert( identificator_type::template get< std::int32_t   >(), &this_type::primitive< std::int32_t  >  );
+               observe_param.insert( identificator_type::template get< std::int64_t   >(), &this_type::primitive< std::int64_t  >  );
+               observe_param.insert( identificator_type::template get< std::uint8_t   >(), &this_type::primitive< std::uint8_t  >  );
+               observe_param.insert( identificator_type::template get< std::uint16_t  >(), &this_type::primitive< std::uint16_t >  );
+               observe_param.insert( identificator_type::template get< std::uint32_t  >(), &this_type::primitive< std::uint32_t >  );
+               observe_param.insert( identificator_type::template get< std::uint64_t  >(), &this_type::primitive< std::uint64_t >  );
 
                observe_param.insert( identificator_type::template get<       float     >(), &this_type::primitive<     float    >  );
                observe_param.insert( identificator_type::template get<      double     >(), &this_type::primitive<    double    >  );
                observe_param.insert( identificator_type::template get<  long double    >(), &this_type::primitive<long double   >  );
 
-               observe_param.insert( identificator_type::template get<  void*          >(), &this_type::primitive<void*         >  );
-               observe_param.insert( identificator_type::template get<  short          >(), &this_type::primitive<short         >  );
-               observe_param.insert( identificator_type::template get<  unsigned short >(), &this_type::primitive<unsigned short>  );
-               observe_param.insert( identificator_type::template get<  int            >(), &this_type::primitive<int           >  );
-               observe_param.insert( identificator_type::template get<  unsigned       >(), &this_type::primitive<unsigned      >  );
-               observe_param.insert( identificator_type::template get<  long           >(), &this_type::primitive<long          >  );
-               observe_param.insert( identificator_type::template get<  long long      >(), &this_type::primitive<long long     >  );
-               observe_param.insert( identificator_type::template get< unsigned long     >(), &this_type::primitive< unsigned long          > );
-               observe_param.insert( identificator_type::template get< unsigned long long>(), &this_type::primitive< unsigned long long     > );
+               observe_param.insert( identificator_type::template get< short              >(), &this_type::primitive< short              >  );
+               observe_param.insert( identificator_type::template get< unsigned short     >(), &this_type::primitive< unsigned short     >  );
+               observe_param.insert( identificator_type::template get< int                >(), &this_type::primitive< int                >  );
+               observe_param.insert( identificator_type::template get< unsigned           >(), &this_type::primitive< unsigned           >  );
+               observe_param.insert( identificator_type::template get< long               >(), &this_type::primitive< long               >  );
+               observe_param.insert( identificator_type::template get< long long          >(), &this_type::primitive< long long          >  );
+               observe_param.insert( identificator_type::template get< unsigned long      >(), &this_type::primitive< unsigned long      > );
+               observe_param.insert( identificator_type::template get< unsigned long long >(), &this_type::primitive< unsigned long long > );
 
-               observe_param.insert( identificator_type::template get<  nullptr_t     >(), &this_type::null_value   );
+               observe_param.insert( identificator_type::template get< void*         >(), &this_type::primitive< void* >  );
+               observe_param.insert( identificator_type::template get< nullptr_t     >(), &this_type::null_value   );
 
-               observe_param.insert( identificator_type::template get<  enumeration_type     >(), &this_type::enumeration    );
-               observe_param.insert( identificator_type::template get<  algorithm_type               >(), &this_type::function       );
-               observe_param.insert( identificator_type::template get<          typedefinition_type  >(), &this_type::typedefinition );
+               observe_param.insert( identificator_type::template get< std::string   >(), &this_type::string  );
+               observe_param.insert( identificator_type::template get< std::wstring  >(), &this_type::wstring  );
+
+               observe_param.insert( identificator_type::template get< enumeration_type     >(), &this_type::enumeration    );
+               observe_param.insert( identificator_type::template get< algorithm_type       >(), &this_type::function       );
+               observe_param.insert( identificator_type::template get< typedefinition_type  >(), &this_type::typedefinition );
 
               }
 

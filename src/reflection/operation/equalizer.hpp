@@ -30,9 +30,9 @@ namespace reflection
 
              typedef  std::function < report_name ( property_type &, property_type const& ) > action_type;
 
-             typedef std::pair<identifier_type, identifier_type> relation_type;
+             typedef std::pair< identifier_type, identifier_type > relation_type;
 
-             typedef std::map<relation_type, action_type > container_type;
+             typedef std::map< relation_type, action_type > container_type;
 
            public:
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
@@ -40,24 +40,59 @@ namespace reflection
            public:
              equalizer_class( )
               {
-               this->template register_default< char,     char       >( );
-               this->template register_default< int,      int        >( );
-               this->template register_default< unsigned, unsigned   >( );
-               this->template register_default< float,    float      >( );
-               this->template register_default< void*,    void*      >( );
-               this->template register_default< wchar_t,  wchar_t    >( );
-               this->template register_default< std::string,  std::string  >( );
-               this->template register_default< std::wstring, std::wstring >( );
-              }
+               this->template register_default< bool,     bool       >( );
+
+               this->template register_default< char          >( );
+               this->template register_default< unsigned char >( );
+               this->template register_default< wchar_t       >( );
+               this->template register_default< std::wint_t   >( );
+               this->template register_default< char16_t      >( );
+               this->template register_default< char32_t      >( );
+
+               this->template register_default< std::int8_t   >( );
+               this->template register_default< std::int16_t  >( );
+               this->template register_default< std::int32_t  >( );
+               this->template register_default< std::int64_t  >( );
+               this->template register_default< std::uint8_t  >( );
+               this->template register_default< std::uint16_t >( );
+               this->template register_default< std::uint32_t >( );
+               this->template register_default< std::uint64_t >( );
+
+               this->template register_default<       float   >( );
+               this->template register_default<      double   >( );
+               this->template register_default<  long double  >( );
+
+               this->template register_default< void*         >( );
+
+               this->template register_default< short                >( );
+               this->template register_default< unsigned short       >( );
+               this->template register_default< int                  >( );
+               this->template register_default< unsigned int         >( );
+               this->template register_default< long                 >( );
+               this->template register_default< long long            >( );
+               this->template register_default< unsigned long        >( );
+               this->template register_default< unsigned long long   >( );
+
+               this->template register_default< std::string   >( );
+               this->template register_default< std::wstring  >( );
+               this->template register_default< std::u16string>( );
+               this->template register_default< std::u32string>( );
+
+               this->template register_default< std::complex< float       > >( );
+               this->template register_default< std::complex< double      > >( );
+               this->template register_default< std::complex< long double > >( );
+
+               // TODO this->template register_vector< double >( );
+             }
 
            public:
-             template< typename left_name, typename right_name >
+             template< typename left_name, typename right_name = left_name >
               void register_default()
-              {
-               relation_type relation( identificator_type::template get< left_name >(), identificator_type::template get< right_name >() );
-               auto action = &::reflection::property::convert< left_name, right_name,  report_name >;
-               m_container.emplace( relation, action );
-              }
+               {
+                relation_type relation( identificator_type::template get< left_name >(), identificator_type::template get< right_name >() );
+                auto action = &::reflection::property::convert< left_name, right_name,  report_name >;
+                m_container.emplace( relation, action );
+               }
 
            public:
              report_name align( property_type & left, property_type const& right )const
@@ -97,8 +132,8 @@ namespace reflection
               }
 
            private:
-            container_type m_container;
-         };
+             container_type m_container;
+          };
 
      }
    }

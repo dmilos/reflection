@@ -67,6 +67,9 @@ namespace reflection
               return m_equalizer.align( left, right );
              }
 
+           public:
+             equalizer_type const& equalizer()const{ return m_equalizer; }
+             equalizer_type      & equalizer()     { return m_equalizer; }
            private:
              equalizer_type m_equalizer;
 

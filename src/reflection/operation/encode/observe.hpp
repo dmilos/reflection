@@ -76,6 +76,7 @@ namespace reflection
            enum stage_enum
             {
               stage__begin
+
              ,stage_introductum_index  = stage__begin       //!< At the beginning of everything
              ,stage_exodus_index             //!< At the end  of everything
 
@@ -90,7 +91,7 @@ namespace reflection
              };
 
            typedef std::array< function_type, recover__end > recover_array_type;
-           typedef std::array< function_type, stage__end > stage_array_type;
+           typedef std::array< function_type, stage__end >   stage_array_type;
 
          public:
            observe_class()
@@ -120,14 +121,14 @@ namespace reflection
 
          public:
            recover_array_type    const& recover()const{ return m_recover;}
-           void                   recover( recover_enum const& index_param, function_type const& action_param ){ m_recover[index_param] = action_param;}
+           void                         recover( recover_enum const& index_param, function_type const& action_param ){ m_recover[index_param] = action_param;}
            recover_array_type         & recover(){return m_recover;}
          private:
            recover_array_type m_recover;
 
          public:
            stage_array_type    const& stage()const{ return m_stage;}
-           void                 stage( stage_enum const& index_param, function_type const& action_param ){ m_stage[index_param] = action_param; }
+           void                       stage( stage_enum const& index_param, function_type const& action_param ){ m_stage[index_param] = action_param; }
            stage_array_type         & stage(){return m_stage;}
          private:
            stage_array_type m_stage;

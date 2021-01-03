@@ -37,6 +37,8 @@ namespace reflection
            typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
            typedef  structure_type                output_type;
+         public:
+           typedef ::reflection::operation::transfer::assign_struct<key_name,identifier_name, container_name> this_type;
 
            enum error_enum
             {
@@ -54,44 +56,47 @@ namespace reflection
            explicit assign_struct( observe_type & observe_param )
             {
              using namespace std::placeholders;
-             observe_param.insert( identificator_type::template get<  std::string    >(), &assign_struct::process<std::string   >  );
-             observe_param.insert( identificator_type::template get<  std::wstring   >(), &assign_struct::process<std::wstring  >  );
 
-             observe_param.insert( identificator_type::template get<  bool           >(), &assign_struct::process<bool          >  );
-             observe_param.insert( identificator_type::template get<  char           >(), &assign_struct::process<char          >  );
-             observe_param.insert( identificator_type::template get<  unsigned char  >(), &assign_struct::process<unsigned char >  );
-             observe_param.insert( identificator_type::template get<  wchar_t        >(), &assign_struct::process<wchar_t       >  );
-             observe_param.insert( identificator_type::template get<  std::wint_t    >(), &assign_struct::process<std::wint_t   >  );
+             observe_param.insert( identificator_type::template get<  bool          >(), &this_type::process< bool          >  );
 
-             observe_param.insert( identificator_type::template get<  std::int8_t    >(), &assign_struct::process<std::int8_t   >  );
-             observe_param.insert( identificator_type::template get<  std::int16_t   >(), &assign_struct::process<std::int16_t  >  );
-             observe_param.insert( identificator_type::template get<  std::int32_t   >(), &assign_struct::process<std::int32_t  >  );
-             observe_param.insert( identificator_type::template get<  std::int64_t   >(), &assign_struct::process<std::int64_t  >  );
+             observe_param.insert( identificator_type::template get< char           >(), &this_type::process< char          >  );
+             observe_param.insert( identificator_type::template get< unsigned char  >(), &this_type::process< unsigned char >  );
+             observe_param.insert( identificator_type::template get< wchar_t        >(), &this_type::process< wchar_t       >  );
+             observe_param.insert( identificator_type::template get< std::wint_t    >(), &this_type::process< std::wint_t   >  );
+             observe_param.insert( identificator_type::template get< char16_t       >(), &this_type::process< char16_t      >  );
+             observe_param.insert( identificator_type::template get< char32_t       >(), &this_type::process< char32_t      >  );
 
-             observe_param.insert( identificator_type::template get<  std::uint8_t   >(), &assign_struct::process<std::uint8_t  >  );
-             observe_param.insert( identificator_type::template get<  std::uint16_t  >(), &assign_struct::process<std::uint16_t >  );
-             observe_param.insert( identificator_type::template get<  std::uint32_t  >(), &assign_struct::process<std::uint32_t >  );
-             observe_param.insert( identificator_type::template get<  std::uint64_t  >(), &assign_struct::process<std::uint64_t >  );
+             observe_param.insert( identificator_type::template get< std::int8_t    >(), &this_type::process< std::int8_t   >  );
+             observe_param.insert( identificator_type::template get< std::int16_t   >(), &this_type::process< std::int16_t  >  );
+             observe_param.insert( identificator_type::template get< std::int32_t   >(), &this_type::process< std::int32_t  >  );
+             observe_param.insert( identificator_type::template get< std::int64_t   >(), &this_type::process< std::int64_t  >  );
+             observe_param.insert( identificator_type::template get< std::uint8_t   >(), &this_type::process< std::uint8_t  >  );
+             observe_param.insert( identificator_type::template get< std::uint16_t  >(), &this_type::process< std::uint16_t >  );
+             observe_param.insert( identificator_type::template get< std::uint32_t  >(), &this_type::process< std::uint32_t >  );
+             observe_param.insert( identificator_type::template get< std::uint64_t  >(), &this_type::process< std::uint64_t >  );
 
-             observe_param.insert( identificator_type::template get<       float     >(), &assign_struct::process<     float    >  );
-             observe_param.insert( identificator_type::template get<      double     >(), &assign_struct::process<    double    >  );
-             observe_param.insert( identificator_type::template get<  long double    >(), &assign_struct::process<long double   >  );
+             observe_param.insert( identificator_type::template get<       float    >(), &this_type::process<     float    >  );
+             observe_param.insert( identificator_type::template get<      double    >(), &this_type::process<    double    >  );
+             observe_param.insert( identificator_type::template get<  long double   >(), &this_type::process<long double   >  );
 
-             observe_param.insert( identificator_type::template get<  void*          >(), &assign_struct::process<void*         >  );
-             observe_param.insert( identificator_type::template get<  short          >(), &assign_struct::process<short         >  );
-             observe_param.insert( identificator_type::template get<  unsigned short >(), &assign_struct::process<unsigned short>  );
-             observe_param.insert( identificator_type::template get<  int            >(), &assign_struct::process<int           >  );
-             observe_param.insert( identificator_type::template get<  unsigned       >(), &assign_struct::process<unsigned      >  );
-             observe_param.insert( identificator_type::template get<  long           >(), &assign_struct::process<long          >  );
-             observe_param.insert( identificator_type::template get<  long long      >(), &assign_struct::process<long long     >  );
-             observe_param.insert( identificator_type::template get< unsigned long     >(), &assign_struct::process< unsigned long          > );
-             observe_param.insert( identificator_type::template get< unsigned long long>(), &assign_struct::process< unsigned long long     > );
+             observe_param.insert( identificator_type::template get< short          >(), &this_type::process< short          >  );
+             observe_param.insert( identificator_type::template get< unsigned short >(), &this_type::process< unsigned short >  );
+             observe_param.insert( identificator_type::template get< int            >(), &this_type::process< int            >  );
+             observe_param.insert( identificator_type::template get< unsigned       >(), &this_type::process< unsigned       >  );
+             observe_param.insert( identificator_type::template get< long           >(), &this_type::process< long           >  );
+             observe_param.insert( identificator_type::template get< long long      >(), &this_type::process< long long      >  );
+             observe_param.insert( identificator_type::template get< unsigned long     >(), &this_type::process< unsigned long          > );
+             observe_param.insert( identificator_type::template get< unsigned long long>(), &this_type::process< unsigned long long     > );
 
-             observe_param.insert( identificator_type::template get<  nullptr_t     >(), &assign_struct::null   );
+             observe_param.insert( identificator_type::template get< void*         >(), &this_type::process< void*         >  );
+             observe_param.insert( identificator_type::template get< nullptr_t     >(), &this_type::null   );
+
+             observe_param.insert( identificator_type::template get< std::string  >(), &this_type::process< std::string  >  );
+             observe_param.insert( identificator_type::template get< std::wstring >(), &this_type::process< std::wstring >  );
 
              {
               using namespace std::placeholders;
-              auto f = std::bind( &assign_struct::structure, std::ref(observe_param), _1, _2, _3 );
+              auto f = std::bind( &this_type::structure, std::ref(observe_param), _1, _2, _3 );
               observe_param.insert( identificator_type::template get<  structure_type      >(), f );
              }
 
@@ -100,10 +105,10 @@ namespace reflection
          public:
            template
             <
-              typename       primitive_name
-             ,typename      image_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
-             ,typename   original_name = typename std::add_lvalue_reference< primitive_name >::type
-             ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<primitive_name>::type >::type
+              typename       fundamental_name
+             ,typename      image_name = typename std::add_lvalue_reference< typename std::add_const<fundamental_name>::type >::type
+             ,typename   original_name = typename std::add_lvalue_reference< fundamental_name >::type
+             ,typename      model_name = typename std::add_lvalue_reference< typename std::add_const<fundamental_name>::type >::type
             >
            static error_enum process( structure_type & output_param, key_type const& key_param, property_type const& right_param )
             {
@@ -119,7 +124,7 @@ namespace reflection
                return left_not_property_index;
               }
 
-             if( false == ::reflection::property::assign<primitive_name, error_enum, image_name, original_name, model_name >( *left, right_param ) )
+             if( false == ::reflection::property::assign<fundamental_name, error_enum, image_name, original_name, model_name >( *left, right_param ) )
               {
                return assign_fail_index;
               }

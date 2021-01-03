@@ -85,46 +85,48 @@ namespace reflection
              //observe_param.recover( observe_type::recover_action_fail_index   , &this_type::recover );
                observe_param.recover( observe_type::recover_null_pointer_index  , std::bind( &this_type::null_recover, context_param, _1, _2, _3 ) );
 
-               observe_param.stage( observe_type::stage_prolog_index,   std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
-               observe_param.stage( observe_type::stage_epilog_index ,  std::bind( &this_type::epilog, context_param, _1, _2, _3 )   );
-               observe_param.stage( observe_type::stage_prefix_index,   std::bind( &this_type::prefix, context_param, _1, _2, _3 ) );
-               observe_param.stage( observe_type::stage_suffix_index,      std::bind( &this_type::suffix,      context_param, _1, _2, _3 ) );
-               observe_param.stage( observe_type::stage_stasimon_index ,   std::bind( &this_type::stasimon,    context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prolog_index,   std::bind( &this_type::prolog,   context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_epilog_index ,  std::bind( &this_type::epilog,   context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prefix_index,   std::bind( &this_type::prefix,   context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_suffix_index,   std::bind( &this_type::suffix,   context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_stasimon_index ,std::bind( &this_type::stasimon, context_param, _1, _2, _3 ) );
 
-               observe_param.insert( identificator_type::template get<  nullptr_t      >(), std::bind( &this_type::null_value, context_param, _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get< bool           >(), std::bind( &this_type::primitive<bool          >, context_param, _1, _2, _3 ) );
 
-               observe_param.insert( identificator_type::template get<  std::string   >(), std::bind( &this_type::string , context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::wstring  >(), std::bind( &this_type::wstring, context_param, _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get< char           >(), std::bind( &this_type::primitive< char          >, context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< unsigned char  >(), std::bind( &this_type::primitive< unsigned char >, context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< wchar_t        >(), std::bind( &this_type::primitive< wchar_t       >, context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::wint_t    >(), std::bind( &this_type::primitive< std::wint_t   >, context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< char16_t       >(), std::bind( &this_type::primitive< char16_t      >, context_param, _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get< char32_t       >(), std::bind( &this_type::primitive< char32_t      >, context_param, _1, _2, _3 ) );
 
-               observe_param.insert( identificator_type::template get<  bool           >(), std::bind( &this_type::primitive<bool          >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  char           >(), std::bind( &this_type::primitive<char          >, context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  unsigned char  >(), std::bind( &this_type::primitive<unsigned char >, context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  wchar_t        >(), std::bind( &this_type::primitive<wchar_t       >, context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  std::wint_t    >(), std::bind( &this_type::primitive<std::wint_t   >, context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::int8_t    >(), std::bind( &this_type::primitive< std::int8_t   >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::int16_t   >(), std::bind( &this_type::primitive< std::int16_t  >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::int32_t   >(), std::bind( &this_type::primitive< std::int32_t  >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::int64_t   >(), std::bind( &this_type::primitive< std::int64_t  >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::uint8_t   >(), std::bind( &this_type::primitive< std::uint8_t  >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::uint16_t  >(), std::bind( &this_type::primitive< std::uint16_t >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::uint32_t  >(), std::bind( &this_type::primitive< std::uint32_t >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::uint64_t  >(), std::bind( &this_type::primitive< std::uint64_t >,  context_param,_1,_2,_3));
 
-               observe_param.insert( identificator_type::template get<  std::int8_t    >(), std::bind(&this_type::primitive<std::int8_t   >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  std::int16_t   >(), std::bind(&this_type::primitive<std::int16_t  >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  std::int32_t   >(), std::bind(&this_type::primitive<std::int32_t  >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  std::int64_t   >(), std::bind(&this_type::primitive<std::int64_t  >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get<       float     >(), std::bind( &this_type::primitive<     float    >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get<      double     >(), std::bind( &this_type::primitive<    double    >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get<  long double    >(), std::bind( &this_type::primitive<long double   >,  context_param,_1,_2,_3));
 
-               observe_param.insert( identificator_type::template get<  std::uint8_t   >(), std::bind(&this_type::primitive<std::uint8_t  >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  std::uint16_t  >(), std::bind(&this_type::primitive<std::uint16_t >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  std::uint32_t  >(), std::bind(&this_type::primitive<std::uint32_t >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  std::uint64_t  >(), std::bind(&this_type::primitive<std::uint64_t >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< short            >(), std::bind( &this_type::primitive< short              >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< unsigned short   >(), std::bind( &this_type::primitive< unsigned short     >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< int              >(), std::bind( &this_type::primitive< int                >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< unsigned         >(), std::bind( &this_type::primitive< unsigned           >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< long             >(), std::bind( &this_type::primitive< long               >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< long long        >(), std::bind( &this_type::primitive< long long          >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< unsigned long     >(), std::bind( &this_type::primitive< unsigned long      >, context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< unsigned long long>(), std::bind( &this_type::primitive< unsigned long long >, context_param,_1,_2,_3));
 
-               observe_param.insert( identificator_type::template get<       float     >(), std::bind(&this_type::primitive<     float    >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<      double     >(), std::bind(&this_type::primitive<    double    >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  long double    >(), std::bind(&this_type::primitive<long double   >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< void*          >(), std::bind( &this_type::primitive<void*         >,  context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< nullptr_t      >(), std::bind( &this_type::null_value, context_param, _1, _2, _3 ) );
 
-               observe_param.insert( identificator_type::template get<  void*          >(), std::bind(&this_type::primitive<void*         >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  short          >(), std::bind(&this_type::primitive<short         >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  unsigned short >(), std::bind(&this_type::primitive<unsigned short>,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  int            >(), std::bind(&this_type::primitive<int           >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  unsigned       >(), std::bind(&this_type::primitive<unsigned      >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  long           >(), std::bind(&this_type::primitive<long          >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get<  long long      >(), std::bind(&this_type::primitive<long long     >,  context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get< unsigned long     >(), std::bind(&this_type::primitive< unsigned long          >, context_param,_1,_2,_3));
-               observe_param.insert( identificator_type::template get< unsigned long long>(), std::bind(&this_type::primitive< unsigned long long     >, context_param,_1,_2,_3));
+               observe_param.insert( identificator_type::template get< std::string   >(), std::bind( &this_type::string , context_param, _1, _2, _3 ) );
+               observe_param.insert( identificator_type::template get< std::wstring  >(), std::bind( &this_type::wstring, context_param, _1, _2, _3 ) );
 
                observe_param.insert( identificator_type::template get<  enumeration_type     >(), std::bind( &this_type::enumeration ,   context_param, _1, _2, _3 ) );
                observe_param.insert( identificator_type::template get<  algorithm_type       >(), std::bind( &this_type::function,       context_param, _1, _2, _3 ) );
@@ -553,7 +555,7 @@ namespace reflection
                {
                 using namespace std::placeholders;
                 auto f = std::bind( &this_type::template pair<first_name, second_name>, std::ref(observe_param), context_param, _1, _2, _3 );
-                observe_param.template register__any<std::pair< first_name, second_name > >( f );
+                observe_param.template register__any< std::pair< first_name, second_name > >( f );
               }
 
            private:
@@ -603,7 +605,7 @@ namespace reflection
 
                 context_param->m_indent.dec();
                 context_param->m_indent.newl(output_param);
-                context_param->m_indent.indent(output_param); 
+                context_param->m_indent.indent(output_param);
                 output_param << "}";
 
                 return report_type( true );

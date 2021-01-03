@@ -1,5 +1,4 @@
 #include "./contractor.hpp"
 #include "./input.hpp"
 #include "./accumulator.hpp"
-#include "./recover.hpp"
 #include "./sentinel.hpp"

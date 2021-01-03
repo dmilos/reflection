@@ -79,37 +79,83 @@ namespace reflection
                 observe_param.recover( observe_type::recover_action_acquisition_index   , f );
                }
 
-               observe_param.insert( identificator_type::template get<  std::string    >(), std::bind( &this_type::string , context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_introductum_index, std::bind( &this_type::introductum, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prolog_index,  std::bind( &this_type::prolog, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_epilog_index,  std::bind( &this_type::epilog, context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_prefix_index,  std::bind( &this_type::prefix, context_param, _1, _2, _3 ) );
 
-               observe_param.insert( identificator_type::template get<  bool           >(), std::bind( &this_type::primitive<bool          >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  char           >(), std::bind( &this_type::primitive<char          >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  unsigned char  >(), std::bind( &this_type::primitive<unsigned char >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  wchar_t        >(), std::bind( &this_type::primitive<wchar_t       >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::wint_t    >(), std::bind( &this_type::primitive<std::wint_t   >, context_param, _1, _2, _3 ) );
+               this_type::template register_fundamental< bool           >( observe_param, context_param  );
 
-               observe_param.insert( identificator_type::template get<  std::int8_t    >(), std::bind( &this_type::primitive<std::int8_t   >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::int16_t   >(), std::bind( &this_type::primitive<std::int16_t  >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::int32_t   >(), std::bind( &this_type::primitive<std::int32_t  >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::int64_t   >(), std::bind( &this_type::primitive<std::int64_t  >, context_param, _1, _2, _3 ) );
+               this_type::template register_fundamental< char           >( observe_param, context_param  );
+               this_type::template register_fundamental< unsigned char  >( observe_param, context_param  );
+               this_type::template register_fundamental< wchar_t        >( observe_param, context_param  );
+               this_type::template register_fundamental< std::wint_t    >( observe_param, context_param  );
+               this_type::template register_fundamental< char16_t       >( observe_param, context_param  );
+               this_type::template register_fundamental< char32_t       >( observe_param, context_param  );
 
-               observe_param.insert( identificator_type::template get<  std::uint8_t   >(), std::bind( &this_type::primitive<std::uint8_t  >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::uint16_t  >(), std::bind( &this_type::primitive<std::uint16_t >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::uint32_t  >(), std::bind( &this_type::primitive<std::uint32_t >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  std::uint64_t  >(), std::bind( &this_type::primitive<std::uint64_t >, context_param, _1, _2, _3 ) );
+               this_type::template register_fundamental< std::int8_t    >( observe_param, context_param  );
+               this_type::template register_fundamental< std::int16_t   >( observe_param, context_param  );
+               this_type::template register_fundamental< std::int32_t   >( observe_param, context_param  );
+               this_type::template register_fundamental< std::int64_t   >( observe_param, context_param  );
+               this_type::template register_fundamental< std::uint8_t   >( observe_param, context_param  );
+               this_type::template register_fundamental< std::uint16_t  >( observe_param, context_param  );
+               this_type::template register_fundamental< std::uint32_t  >( observe_param, context_param  );
+               this_type::template register_fundamental< std::uint64_t  >( observe_param, context_param  );
 
-               observe_param.insert( identificator_type::template get<       float     >(), std::bind( &this_type::primitive<     float    >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<      double     >(), std::bind( &this_type::primitive<    double    >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  long double    >(), std::bind( &this_type::primitive<long double   >, context_param, _1, _2, _3 ) );
+               this_type::template register_fundamental<      float     >( observe_param, context_param  );
+               this_type::template register_fundamental<     double     >( observe_param, context_param  );
+               this_type::template register_fundamental< long double    >( observe_param, context_param  );
 
-               observe_param.insert( identificator_type::template get<  void*          >(), std::bind( &this_type::primitive<void*         >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  short          >(), std::bind( &this_type::primitive<short         >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  unsigned short >(), std::bind( &this_type::primitive<unsigned short>, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  int            >(), std::bind( &this_type::primitive<int           >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  unsigned       >(), std::bind( &this_type::primitive<unsigned      >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  long           >(), std::bind( &this_type::primitive<long          >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get<  long long      >(), std::bind( &this_type::primitive<long long     >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get< unsigned long     >(), std::bind( &this_type::primitive< unsigned long          >, context_param, _1, _2, _3 ) );
-               observe_param.insert( identificator_type::template get< unsigned long long>(), std::bind( &this_type::primitive< unsigned long long     >, context_param, _1, _2, _3 ) );
+               this_type::template register_fundamental< void*             >( observe_param, context_param  );
+               this_type::template register_fundamental< nullptr_t         >( observe_param, context_param  );
+
+               this_type::template register_fundamental< short             >( observe_param, context_param  );
+               this_type::template register_fundamental< unsigned short    >( observe_param, context_param  );
+               this_type::template register_fundamental< int               >( observe_param, context_param  );
+               this_type::template register_fundamental< unsigned          >( observe_param, context_param  );
+               this_type::template register_fundamental< long              >( observe_param, context_param  );
+               this_type::template register_fundamental< long long         >( observe_param, context_param  );
+               this_type::template register_fundamental< unsigned long     >( observe_param, context_param  );
+               this_type::template register_fundamental< unsigned long long>( observe_param, context_param  );
+
+               this_type::template register__any< std::string    >( &this_type::string< char     >, observe_param, context_param );
+               this_type::template register__any< std::wstring   >( &this_type::string< wchar_t  >, observe_param, context_param );
+               this_type::template register__any< std::u16string >( &this_type::string< char16_t >, observe_param, context_param );
+               this_type::template register__any< std::u32string >( &this_type::string< char32_t >, observe_param, context_param );
+              }
+
+           private:
+             static report_type introductum(   context_pointer_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
+               return report_type( true );
+              }
+
+             static report_type prolog(   context_pointer_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
+               return report_type( true );
+              }
+
+             static report_type epilog(   context_pointer_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
+               output_chunk( 3, "EOF", context_param, output_param );
+               output_chunk( 3, "EOF", context_param, output_param );
+
+               return report_type( true );
+              }
+
+             static report_type prefix(   context_pointer_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+              {
+               category_type const* category = dynamic_cast< category_type const* >( &property_param );
+               if( nullptr == category )
+                {
+                 return report_type( false );
+                }
+
+               auto const& id = category->identifier();
+               output_chunk(        id.size(),        id.data(), context_param, output_param );
+
+               output_chunk( key_param.size(), key_param.data(), context_param, output_param );
+               return report_type( true );
               }
 
            private:
@@ -131,84 +177,84 @@ namespace reflection
             static bool output_chunk( size_type const& size_param,  const void * data_param,  context_pointer_type const &context_param,output_type & output_param  )
               {
                output_size( size_param, context_param, output_param );
-               output_param.write( reinterpret_cast< const char * >( data_param ), size_param );              
+               output_param.write( reinterpret_cast< const char * >( data_param ), size_param );
                return true;
               }
 
            private:
+             template< typename simple_name >
+              static report_type fundamental(                                         context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
+               {
+                simple_name const * pointer = nullptr;
+
+                if( nullptr == pointer )
+                 {
+                  typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
+                  auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+                  if( nullptr != inspect_instance )
+                   {
+                    pointer = & inspect_instance->present();
+                   }
+                 }
+
+                if( nullptr == pointer )
+                 {
+                  typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
+                  direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+                  if( nullptr != direct_instance )
+                   {
+                    pointer = & direct_instance->disclose();
+                   }
+                 }
+
+                if( nullptr == pointer )
+                 {
+                  return report_type( true );
+                 }
+
+                output_chunk( sizeof( simple_name ), pointer, context_param, output_param );
+
+                return report_type( false );
+               }
+
+           private:
+            template< typename char_name >
              static report_type string (                                            context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               typedef std::string string_type;
-               auto const& id = identificator_type::template get<string_type>();
+               typedef std::basic_string<char_name> string_type;
+               string_type const * pointer = nullptr;
+
+
+               if( nullptr == pointer )
                 {
                  typedef ::reflection::property::inspect::pure_class<string_type const& > inspect_type;
                  auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
                  if( nullptr != inspect_instance )
                   {
-                   output_chunk( id.size(), id.data(), context_param, output_param );
-                   output_chunk( key_param.size(), key_param.data(), context_param, output_param );
-
-                   string_type const& value = inspect_instance->present();
-                   output_chunk( value.size(), value.data(), context_param, output_param );
-
-                   return report_type( true );
+                   pointer = & inspect_instance->present();
                   }
                 }
 
+               if( nullptr == pointer )
                 {
                  typedef  ::reflection::property::direct::pure_class<string_type &>         direct_type;
                  direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                  if( nullptr != direct_instance )
                   {
-                   output_chunk( id.size(), id.data(), context_param, output_param );
-                   output_chunk( key_param.size(), key_param.data(), context_param, output_param );
-
-                   string_type const& value = direct_instance->disclose();
-                   output_chunk( value.size(), value.data(), context_param, output_param );
-
-                   return report_type( true );
+                   pointer = & direct_instance->disclose();
                   }
                 }
+
+               if( nullptr == pointer )
+                {
+                  return report_type( false );
+                }
+
+               {
+                output_chunk( pointer->size() * sizeof( char_name ), pointer->data(), context_param, output_param );
+               }
                return report_type( true );
               }
-
-           private:
-             template< typename simple_name >
-              static report_type primitive(                                         context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
-               {
-                auto const& id = identificator_type::template get<simple_name>();
-                {
-                 typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
-                 auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
-                 if( nullptr != inspect_instance )
-                  {
-                   output_chunk( id.size(), id.data(), context_param, output_param );
-                   output_chunk( key_param.size(), key_param.data(), context_param, output_param );
-
-                   simple_name value = inspect_instance->present();
-                   output_chunk( sizeof( simple_name ),  &value, context_param, output_param );
-
-                   return report_type( true );
-                  }
-                }
-
-                {
-                 typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
-                 direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
-                 if( nullptr != direct_instance )
-                  {
-                   output_chunk( id.size(), identificator_type::template get<string_type>().data(), context_param, output_param );
-                   output_chunk( key_param.size(), key_param.data(), context_param, output_param );
-
-                   simple_name value = direct_instance->disclose();
-                   output_chunk( sizeof( simple_name ),  &value, context_param, output_param );
-
-                   return report_type( true );
-                  }
-                }
-
-                return report_type( false );
-               }
 
            private:
              static report_type structure (      observe_type const& observe_param, context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
@@ -245,12 +291,22 @@ namespace reflection
                return report_type( true );
              }
 
+
            public:
              template< typename data_name, typename function_name  >
-              static void register__any( function_name const& f, observe_type & observe_param, context_pointer_type &context_param )
+              static void register__any( function_name const& func_param, observe_type & observe_param, context_pointer_type &context_param )
                {
                 using namespace std::placeholders;
-                return observe_param.template register__any< data_name > ( std::bind( f, context_param, _1, _2, _3 ) );
+                auto funcBind = std::bind( func_param, context_param, _1, _2, _3 );
+                return observe_param.template register__any< data_name > ( funcBind );
+               }
+           public:
+             template< typename fundamental_name >
+              static void register_fundamental( observe_type & observe_param, context_pointer_type &context_param )
+               {
+                using namespace std::placeholders;
+                auto f = std::bind( &this_type::fundamental<fundamental_name         >, context_param, _1, _2, _3 );
+                return observe_param.template register__any< fundamental_name > ( f );
                }
 
            public:
@@ -258,10 +314,9 @@ namespace reflection
               static void register_class( observe_type & observe_param, context_pointer_type &context_param )
                {
                 using namespace std::placeholders;
-                auto f = std::bind( &observe_type::template view_custom<data_name, view_name>, std::ref(observe_param) , _1, _2, _3 );
+                auto f = std::bind( &observe_type::template view_custom< data_name, view_name >, std::ref( observe_param ) , _1, _2, _3 );
                 observe_param.template register__any< data_name >( f );
                }
-
           };
 
        }
