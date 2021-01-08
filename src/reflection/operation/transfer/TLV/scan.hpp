@@ -57,60 +57,60 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_type > identificator_type;
 
-             typedef  ::reflection::operation::transfer::tlv::contractor_type<input_name,identifier_name,key_name,container_name,report_name> contractor_type;
-             typedef typename contractor_type::facility_type::property_pointer_type    property_pointer_type;
-             typedef typename contractor_type::facility_type::constructor_pointer_type  constructor_pointer_type;
+             typedef  ::reflection::operation::transfer::tlv::parser_type<input_name,identifier_name,key_name,container_name,report_name> parser_type;
+             typedef typename parser_type::facility_type::property_pointer_type    property_pointer_type;
+             typedef typename parser_type::facility_type::constructor_pointer_type  constructor_pointer_type;
 
              typedef ::reflection::operation::transfer::tlv::probe_class<identifier_name,report_name>         probe_type;
              typedef ::reflection::operation::transfer::tlv::accumulator_class< input_name,identifier_name, report_name> accumulator_type;
              typedef ::reflection::operation::transfer::tlv::sentinel_class<  identifier_name, key_name, report_name >                          sentinel_type;
 
            public:
-             explicit scan_struct( contractor_type &  contractor_param, context_pointer_type context_param = this_type::context() )
+             explicit scan_struct( parser_type &  parser_param, context_pointer_type context_param = this_type::context() )
               {
-               contractor_param.probe(       typename contractor_type::probe_pointer_type(       new probe_type       {} ) );
-               contractor_param.accumulator( typename contractor_type::accumulator_pointer_type( new accumulator_type {} ) );
-               contractor_param.sentinel(    typename contractor_type::sentinel_pointer_type(    new sentinel_type    {} ) );
+               parser_param.probe(       typename parser_type::probe_pointer_type(       new probe_type       {} ) );
+               parser_param.accumulator( typename parser_type::accumulator_pointer_type( new accumulator_type {} ) );
+               parser_param.sentinel(    typename parser_type::sentinel_pointer_type(    new sentinel_type    {} ) );
 
                using namespace std::placeholders;
 
-               this_type::template register_fundamental< bool          >(  context_param, contractor_param );
+               this_type::template register_fundamental< bool          >(  context_param, parser_param );
 
-               this_type::template register_fundamental< char          >(  context_param, contractor_param );
-               this_type::template register_fundamental< unsigned char >(  context_param, contractor_param );
-               this_type::template register_fundamental< wchar_t       >(  context_param, contractor_param );
-               this_type::template register_fundamental< std::wint_t   >(  context_param, contractor_param );
-               this_type::template register_fundamental< char16_t      >(  context_param, contractor_param );
-               this_type::template register_fundamental< char32_t      >(  context_param, contractor_param );
+               this_type::template register_fundamental< char          >(  context_param, parser_param );
+               this_type::template register_fundamental< unsigned char >(  context_param, parser_param );
+               this_type::template register_fundamental< wchar_t       >(  context_param, parser_param );
+               this_type::template register_fundamental< std::wint_t   >(  context_param, parser_param );
+               this_type::template register_fundamental< char16_t      >(  context_param, parser_param );
+               this_type::template register_fundamental< char32_t      >(  context_param, parser_param );
 
-               this_type::template register_fundamental<std::uint8_t >(  context_param, contractor_param );
-               this_type::template register_fundamental<std::uint16_t>(  context_param, contractor_param );
-               this_type::template register_fundamental<std::uint32_t>(  context_param, contractor_param );
-               this_type::template register_fundamental<std::uint64_t>(  context_param, contractor_param );
+               this_type::template register_fundamental<std::uint8_t >(  context_param, parser_param );
+               this_type::template register_fundamental<std::uint16_t>(  context_param, parser_param );
+               this_type::template register_fundamental<std::uint32_t>(  context_param, parser_param );
+               this_type::template register_fundamental<std::uint64_t>(  context_param, parser_param );
 
-               this_type::template register_fundamental<std::int8_t >(   context_param, contractor_param );
-               this_type::template register_fundamental<std::int16_t>(   context_param, contractor_param );
-               this_type::template register_fundamental<std::int32_t>(   context_param, contractor_param );
-               this_type::template register_fundamental<std::int64_t>(   context_param, contractor_param );
+               this_type::template register_fundamental<std::int8_t >(   context_param, parser_param );
+               this_type::template register_fundamental<std::int16_t>(   context_param, parser_param );
+               this_type::template register_fundamental<std::int32_t>(   context_param, parser_param );
+               this_type::template register_fundamental<std::int64_t>(   context_param, parser_param );
 
-               this_type::template register_fundamental<float>(       context_param, contractor_param );
-               this_type::template register_fundamental<double>(      context_param, contractor_param );
-               this_type::template register_fundamental<long double>( context_param, contractor_param );
+               this_type::template register_fundamental<float>(       context_param, parser_param );
+               this_type::template register_fundamental<double>(      context_param, parser_param );
+               this_type::template register_fundamental<long double>( context_param, parser_param );
 
-               this_type::template register_fundamental<void*              >(  context_param, contractor_param );
-               this_type::template register_fundamental<short              >(  context_param, contractor_param );
-               this_type::template register_fundamental<unsigned short     >(  context_param, contractor_param );
-               this_type::template register_fundamental<int                >(  context_param, contractor_param );
-               this_type::template register_fundamental<unsigned           >(  context_param, contractor_param );
-               this_type::template register_fundamental<long               >(  context_param, contractor_param );
-               this_type::template register_fundamental<long long          >(  context_param, contractor_param );
-               this_type::template register_fundamental<unsigned long      >(  context_param, contractor_param );
-               this_type::template register_fundamental<unsigned long long >(  context_param, contractor_param );
+               this_type::template register_fundamental<void*              >(  context_param, parser_param );
+               this_type::template register_fundamental<short              >(  context_param, parser_param );
+               this_type::template register_fundamental<unsigned short     >(  context_param, parser_param );
+               this_type::template register_fundamental<int                >(  context_param, parser_param );
+               this_type::template register_fundamental<unsigned           >(  context_param, parser_param );
+               this_type::template register_fundamental<long               >(  context_param, parser_param );
+               this_type::template register_fundamental<long long          >(  context_param, parser_param );
+               this_type::template register_fundamental<unsigned long      >(  context_param, parser_param );
+               this_type::template register_fundamental<unsigned long long >(  context_param, parser_param );
 
-               this_type::register_string< char     >(   context_param, contractor_param );
-               this_type::register_string< wchar_t  >(   context_param, contractor_param );
-               this_type::register_string< char16_t >(   context_param, contractor_param );
-               this_type::register_string< char32_t >(   context_param, contractor_param );
+               this_type::register_string< char     >(   context_param, parser_param );
+               this_type::register_string< wchar_t  >(   context_param, parser_param );
+               this_type::register_string< char16_t >(   context_param, parser_param );
+               this_type::register_string< char32_t >(   context_param, parser_param );
               }
 
            private:
@@ -156,20 +156,20 @@ namespace reflection
               }
 
              template < typename pile_name, typename class_name, typename view_name >
-              static  property_pointer_type read_class( contractor_type &  contractor_param, context_pointer_type &context_param, input_type& input_param )
+              static  property_pointer_type read_class( parser_type &  parser_param, context_pointer_type &context_param, input_type& input_param )
                {
                 typedef typename ::reflection::content::trinity::simple_struct<identifier_type,view_name>::typedef_type simple_type;
                 auto pile =  new simple_type();
-                contractor_param.parse( pile->disclose(), input_param );
+                parser_param.parse( pile->disclose(), input_param );
                 return property_pointer_type( pile );
                }
 
            public:
              template < typename simple_name >
-              static void register_fundamental ( context_pointer_type &context_param, contractor_type &  contractor_param )
+              static void register_fundamental ( context_pointer_type &context_param, parser_type &  parser_param )
                {
                 typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = contractor_param.facility();
+                auto & facility = parser_param.facility();
 
                 std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_fundamental< simple_name>, context_param, std::placeholders::_1 );
 
@@ -177,17 +177,17 @@ namespace reflection
 
                 facility.template insert<simple_name>( constructor );
 
-                auto & accumulator = dynamic_cast< accumulator_type & >( *contractor_param.accumulator() );
+                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
                 accumulator.equalizer().template register_default<simple_name>();
                }
 
            public:
              template < typename char_name >
-              static void register_string( context_pointer_type &context_param, contractor_type &  contractor_param )
+              static void register_string( context_pointer_type &context_param, parser_type &  parser_param )
                {
                 typedef std::basic_string<char_name> string_type;
                 typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = contractor_param.facility();
+                auto & facility = parser_param.facility();
               
                 std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_string< char_name >, context_param, std::placeholders::_1 );
               
@@ -195,33 +195,33 @@ namespace reflection
               
                 facility.template insert<string_type>( constructor );
 
-                auto & accumulator = dynamic_cast< accumulator_type & >( *contractor_param.accumulator() );
+                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
                 accumulator.equalizer().template register_default<string_type>();
                }
 
            public:
              template < typename pile_name, typename class_name, typename view_name >
-              static void register_class( context_pointer_type &context_param, contractor_type &  contractor_param )
+              static void register_class( context_pointer_type &context_param, parser_type &  parser_param )
                {
                 typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = contractor_param.facility();
+                auto & facility = parser_param.facility();
 
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::template read_class<pile_name,class_name, view_name>, std::ref(contractor_param), context_param, std::placeholders::_1 );
+                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::template read_class<pile_name,class_name, view_name>, std::ref(parser_param), context_param, std::placeholders::_1 );
                 auto constructor = constructor_pointer_type( new overload_type( f ) );
 
                 facility.template insert<class_name>( constructor );
 
-                auto & accumulator = dynamic_cast< accumulator_type & >( *contractor_param.accumulator() );
+                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
                 accumulator.equalizer().template register_default<class_name>();
                }
 
            public:
              //template < typename POD_name >
-             // static void register_container_vector_POD( contractor_type &  contractor_param )
+             // static void register_container_vector_POD( parser_type &  parser_param )
              //  {
              //  typedef std::vector<POD_name> string_type;
              //   typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-             //  auto & facility = contractor_param.facility();
+             //  auto & facility = parser_param.facility();
              //
              //  std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_container_vector_POD<>, context_param, std::placeholders::_1 );
              //
@@ -232,10 +232,10 @@ namespace reflection
 
            public:
              //template < typename simple_name >
-             // static void register_container__any_POD( contractor_type &  contractor_param )
+             // static void register_container__any_POD( parser_type &  parser_param )
              //  {
              //   typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-             //   auto & facility = contractor_param.facility();
+             //   auto & facility = parser_param.facility();
              //   auto constructor = constructor_pointer_type(  new overload_class( & this_type::template read_fundamental<simple_name>) );
              //
              //   facility.template insert<simple_name>( constructor );

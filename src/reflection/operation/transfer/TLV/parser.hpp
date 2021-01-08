@@ -1,10 +1,10 @@
-#ifndef reflection_operation_transfer_tlv_contractor
-#define reflection_operation_transfer_tlv_contractor
+#ifndef reflection_operation_transfer_tlv_parser
+#define reflection_operation_transfer_tlv_parser
 
-// ::reflection::operation::transfer::tlv::contractor_type<input_name,identifier_name,report_name>
+// ::reflection::operation::transfer::tlv::parser_type<input_name,identifier_name,report_name>
 
 #include "./pile.hpp"
-#include "../../scan/contractor.hpp"
+#include "../../scan/parser.hpp"
 
 namespace reflection
  {
@@ -23,7 +23,7 @@ namespace reflection
           ,template <typename,typename> class container_name  = ::reflection::type::container::map
           ,typename      report_name = bool
          >
-         using contractor_type = ::reflection::operation::scan::contractor_class< ::reflection::operation::transfer::tlv::pile_type<key_name,container_name >, input_name, identifier_name, report_name>;
+         using parser_type = ::reflection::operation::scan::parser_class< ::reflection::operation::transfer::tlv::pile_type<key_name,container_name >, input_name, identifier_name, report_name>;
 
        }
      }

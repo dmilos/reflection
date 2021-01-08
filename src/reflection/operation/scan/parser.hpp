@@ -1,7 +1,7 @@
-#ifndef reflection_operation_scan_contractor
-#define reflection_operation_scan_contractor
+#ifndef reflection_operation_scan_parser
+#define reflection_operation_scan_parser
 
-// ::reflection::operation::scan::contractor_class< pile_name, input_name, identifier_name, report_name>
+// ::reflection::operation::scan::parser_class< pile_name, input_name, identifier_name, report_name>
 
 #include "./accumulator.hpp"
 #include "./sentinel.hpp"
@@ -21,7 +21,7 @@ namespace reflection
           ,typename    identifier_name
           ,typename    report_name = bool
          >
-         struct contractor_class
+         struct parser_class
           {
            public:
              typedef  pile_name           pile_type;

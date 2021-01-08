@@ -118,7 +118,6 @@ namespace reflection
               }
 
            private:
-             typedef    std::string       string_type;
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
 

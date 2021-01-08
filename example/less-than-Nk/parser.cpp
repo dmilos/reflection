@@ -140,13 +140,13 @@ void store( MyFirstClassOriginal const& instance, std::string const& fn )
 void load ( MyFirstClassOriginal & instance, std::string const& fn )
  {
   typedef  ::reflection::operation::transfer::tlv::scan_struct<std::istream,std::string,std::string> scan_tlv_type;
-  typedef scan_tlv_type::contractor_type  contractor_tlv_type;
+  typedef scan_tlv_type::parser_type  parser_tlv_type;
 
-  contractor_tlv_type c;
+  parser_tlv_type c;
   auto context = scan_tlv_type::context();
   scan_tlv_type stlv( c, context );
 
-  scan_tlv_type::register_class< contractor_tlv_type::pile_type, MySubClassOriginal, MySubClassReflection_MemberView>( context, c );
+  scan_tlv_type::register_class< parser_tlv_type::pile_type, MySubClassOriginal, MySubClassReflection_MemberView>( context, c );
 
   MyClassReflectionModify r( & instance );
 
