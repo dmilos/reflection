@@ -13,9 +13,10 @@ namespace reflection
    {
 
     template
-     <
-       typename   left_name
-      ,typename  right_name
+     < 
+       typename left_model_name     // = const& 
+      ,typename left_original_name  // = &
+      ,typename right_image_name    // = const&
       ,typename report_name = bool
      >
      inline
@@ -26,27 +27,28 @@ namespace reflection
        , ::reflection::property::pure_class  const& right_param
       )
       {
-       typedef ::reflection::property::inspect::pure_class< left_name const& >                inspect_type;
-       typedef ::reflection::property::mutate::pure_class<  left_name const&, report_name >    mutate_type;
-       typedef ::reflection::property::direct::pure_class<  right_name & >                     direct_type;
+       typedef ::reflection::property::inspect::pure_class< right_image_name >           right_inspect_type;
 
-       auto right_inspect = dynamic_cast< inspect_type const* > ( &right_param );
+       auto right_inspect = dynamic_cast< right_inspect_type const* > ( &right_param );
        if( nullptr == right_inspect )
         {
          return report_name( false );
         }
 
-       auto left_mutate = dynamic_cast< mutate_type * > ( &left_param );
+       typedef ::reflection::property::mutate::pure_class<  left_model_name, report_name >    left_mutate_type;
+
+       auto left_mutate = dynamic_cast< left_mutate_type * > ( &left_param );
        if( nullptr != left_mutate )
         {
          return left_mutate->process( right_inspect->present() );
         }
 
-       auto left_direct = dynamic_cast< direct_type * > ( &left_param );
+       typedef ::reflection::property::direct::pure_class<  left_original_name >              left_direct_type;
+       auto left_direct = dynamic_cast< left_direct_type * > ( &left_param );
        if( nullptr != left_direct )
         {
-         left_direct->disclose() = right_inspect->present();
-         return report_name( true );
+           left_direct->disclose() = right_inspect->present();
+           return report_name( true );
         }
 
        return report_name( false );

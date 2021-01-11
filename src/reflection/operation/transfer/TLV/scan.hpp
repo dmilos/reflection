@@ -131,6 +131,23 @@ namespace reflection
                 return property_pointer_type( new simple_type( value ) );
                }
 
+           public:
+             template < typename simple_name >
+              static void register_fundamental ( context_pointer_type &context_param, parser_type &  parser_param )
+               {
+                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
+                auto & facility = parser_param.facility();
+
+                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_fundamental< simple_name>, context_param, std::placeholders::_1 );
+
+                auto constructor = constructor_pointer_type( new overload_type( f ) );
+
+                facility.template insert<simple_name>( constructor );
+
+                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
+                accumulator.equalizer().template register_default<simple_name>();
+               }
+
            private:
              template < typename char_name >
               static property_pointer_type read_string( context_pointer_type &context_param, input_name & input_param  )
@@ -154,33 +171,6 @@ namespace reflection
                input_param.read( const_cast<char*>( reinterpret_cast<const char*>( value.data() ) ), size * sizeof( char_name ) );
                return property_pointer_type( new simple_type( value ) );
               }
-
-             template < typename pile_name, typename class_name, typename view_name >
-              static  property_pointer_type read_class( parser_type &  parser_param, context_pointer_type &context_param, input_type& input_param )
-               {
-                typedef typename ::reflection::content::trinity::simple_struct<identifier_type,view_name>::typedef_type simple_type;
-                auto pile =  new simple_type();
-                parser_param.parse( pile->disclose(), input_param );
-                return property_pointer_type( pile );
-               }
-
-           public:
-             template < typename simple_name >
-              static void register_fundamental ( context_pointer_type &context_param, parser_type &  parser_param )
-               {
-                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = parser_param.facility();
-
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_fundamental< simple_name>, context_param, std::placeholders::_1 );
-
-                auto constructor = constructor_pointer_type( new overload_type( f ) );
-
-                facility.template insert<simple_name>( constructor );
-
-                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
-                accumulator.equalizer().template register_default<simple_name>();
-               }
-
            public:
              template < typename char_name >
               static void register_string( context_pointer_type &context_param, parser_type &  parser_param )
@@ -197,6 +187,24 @@ namespace reflection
 
                 auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
                 accumulator.equalizer().template register_default<string_type>();
+               }
+
+           private:
+             template < typename pile_name, typename class_name, typename view_name >
+              static  property_pointer_type read_class( parser_type &  parser_param, context_pointer_type &context_param, input_type& input_param )
+               {
+                typedef typename ::reflection::content::trinity::simple_struct<identifier_type,class_name>::typedef_type simple_type;
+
+                auto pile =  new simple_type();
+
+                view_name view;
+                view.pointer( &( pile->disclose()) );
+
+                parser_param.probe()->push();
+                parser_param.parse( view, input_param );
+                parser_param.probe()->pop();
+
+                return property_pointer_type( pile );
                }
 
            public:

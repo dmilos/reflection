@@ -90,7 +90,7 @@ namespace reflection
               void register_default()
                {
                 relation_type relation( identificator_type::template get< left_name >(), identificator_type::template get< right_name >() );
-                auto action = &::reflection::property::convert< left_name, right_name,  report_name >;
+                auto action = &::reflection::property::convert< left_name const&, left_name&, right_name const&,  report_name >;
                 m_container.emplace( relation, action );
                }
 

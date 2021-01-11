@@ -68,9 +68,7 @@ namespace reflection
                    continue;
                   }
 
-                 probe.push();
                  auto proprty = m_facility.template create<input_name&>( identifier, input_param );
-                 probe.pop();
                  if( nullptr == proprty )
                   {
                    if( false == probe.skip( input_param ) )

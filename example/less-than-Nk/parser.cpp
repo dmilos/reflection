@@ -12,7 +12,7 @@ class MySubClassOriginal //!< Original condition. Not bloated with any other cod
   public:
     MySubClassOriginal( int const& a = 6699 ){ m_int = a; }
     int const&  read_int()const{ return m_int; }
-    bool          write_int( int const& a )
+    bool        write_int( int const& a )
      {
       m_int = a;
       return true;
@@ -84,16 +84,12 @@ reflection__CLASS_BEGIN_view( MySubClassReflectionView, public, MySubClassOrigin
    reflection__CLASS_MEMBER_inspect(   "INT", MySubClassOriginal, read_int    )
 reflection__CLASS_END_view( MySubClassReflectionView, MySubClassOriginal );
 
-reflection__CLASS_BEGIN_member( MySubClassReflection_MemberView, public, MySubClassOriginal )
-   reflection__CLASS_MEMBER_guarded(   "INT", MySubClassOriginal, write_int, read_int   )
-reflection__CLASS_END_member( MySubClassReflectionView, MySubClassOriginal );
-
 reflection__CLASS_BEGIN_view( MyClassReflectionModify, public, MyFirstClassOriginal, MyFirstClassOriginal * )
-   reflection__CLASS_MEMBER_guarded(   "sub",  MyFirstClassOriginal, write_sub, read_sub)
-   reflection__CLASS_MEMBER_guarded(   "number",  MyFirstClassOriginal, write_float, read_float  )
-   reflection__CLASS_MEMBER_guarded(   "integer", MyFirstClassOriginal, write_int, read_int )
-   reflection__CLASS_MEMBER_guarded(   "string",   MyFirstClassOriginal, write_string, read_string )
-   reflection__CLASS_MEMBER_guarded(   "wstring",   MyFirstClassOriginal, write_wstring, read_wstring )
+   reflection__CLASS_MEMBER_guarded(   "sub",        MyFirstClassOriginal, write_sub, read_sub)
+   reflection__CLASS_MEMBER_guarded(   "number",     MyFirstClassOriginal, write_float, read_float  )
+   reflection__CLASS_MEMBER_guarded(   "integer",    MyFirstClassOriginal, write_int, read_int )
+   reflection__CLASS_MEMBER_guarded(   "string",     MyFirstClassOriginal, write_string, read_string )
+   reflection__CLASS_MEMBER_guarded(   "wstring",    MyFirstClassOriginal, write_wstring, read_wstring )
 reflection__CLASS_END_view( MyClassReflectionModify, MyFirstClassOriginal );
 
 reflection__CLASS_BEGIN_view( MyClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal const* )
@@ -146,7 +142,7 @@ void load ( MyFirstClassOriginal & instance, std::string const& fn )
   auto context = scan_tlv_type::context();
   scan_tlv_type stlv( c, context );
 
-  scan_tlv_type::register_class< parser_tlv_type::pile_type, MySubClassOriginal, MySubClassReflection_MemberView>( context, c );
+  scan_tlv_type::register_class< parser_tlv_type::pile_type, MySubClassOriginal, MySubClassReflectionModify>( context, c );
 
   MyClassReflectionModify r( & instance );
 

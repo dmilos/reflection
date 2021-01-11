@@ -40,14 +40,14 @@
                  :m_pointer( pointer_param )
                  {
                  }
-                report_type operator()( storage_type & carrier_param, model_type input_param )const
+                report_type operator()( storage_type & carrier_param, model_type model_param )const
                  {
                   if( NULL == m_pointer )
                    {
                     return false; //throw (void*)NULL;
                    }
 
-                  (*carrier_param).*m_pointer = input_param ;
+                  (*carrier_param).*m_pointer = model_param;
                   return  report_type( true );
                  }
 
