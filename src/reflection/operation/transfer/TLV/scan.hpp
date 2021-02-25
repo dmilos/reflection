@@ -61,16 +61,14 @@ namespace reflection
              typedef typename parser_type::facility_type::property_pointer_type    property_pointer_type;
              typedef typename parser_type::facility_type::constructor_pointer_type  constructor_pointer_type;
 
-             typedef ::reflection::operation::transfer::tlv::probe_class<identifier_name,report_name>         probe_type;
-             typedef ::reflection::operation::transfer::tlv::accumulator_class< input_name,identifier_name, report_name> accumulator_type;
-             typedef ::reflection::operation::transfer::tlv::sentinel_class<  identifier_name, key_name, report_name >                          sentinel_type;
+             typedef ::reflection::operation::transfer::tlv::probe_class<identifier_name,key_name,report_name>         probe_type;
+             typedef ::reflection::operation::transfer::tlv::accumulator_class< input_name,identifier_name, key_name, report_name> accumulator_type;
 
            public:
              explicit scan_struct( parser_type &  parser_param, context_pointer_type context_param = this_type::context() )
               {
                parser_param.probe(       typename parser_type::probe_pointer_type(       new probe_type       {} ) );
                parser_param.accumulator( typename parser_type::accumulator_pointer_type( new accumulator_type {} ) );
-               parser_param.sentinel(    typename parser_type::sentinel_pointer_type(    new sentinel_type    {} ) );
 
                using namespace std::placeholders;
 

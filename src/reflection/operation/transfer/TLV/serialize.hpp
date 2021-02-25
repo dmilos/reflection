@@ -137,8 +137,8 @@ namespace reflection
 
              static report_type epilog(   context_pointer_type &context_param,  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_chunk( 3, "EOF", context_param, output_param );
-               output_chunk( 3, "EOF", context_param, output_param );
+               output_chunk( 3, "EOS", context_param, output_param );
+               output_chunk( 3, "EOS", context_param, output_param );
 
                return report_type( true );
               }

@@ -1,7 +1,6 @@
 #include "./probe.hpp"
 #include "./serialize.hpp"
 #include "./accumulator.hpp"
-#include "./sentinel.hpp"
 #include "./parser.hpp"
 #include "./pile.hpp"
 #include "./scan.hpp"

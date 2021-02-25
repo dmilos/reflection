@@ -41,7 +41,8 @@ namespace reflection
               virtual ~pure_class(){}
 
             public:
-              virtual report_type attach( pile_type & pile_param, property_pointer_type const& pointer, probe_type const& probe_param ) const=0;
+              virtual report_type attach( pile_type & pile_param, identifier_name const& identifier, property_pointer_type const& pointer, probe_type const& probe_param ) const=0;
+              virtual report_type attach( pile_type & pile_param, identifier_name const& identifier, input_type & input_param,             probe_type const& probe_param ) const=0;
           };
 
        }

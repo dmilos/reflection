@@ -21,6 +21,7 @@ namespace reflection
          <
            typename       input_name
           ,typename  identifier_name = std::string
+          ,typename         key_name = std::string
           ,typename      report_name = bool
          >
          class accumulator_class
@@ -34,13 +35,13 @@ namespace reflection
 
              typedef ::reflection::type::name::identificatorX< identifier_name > identificator_type;
              typedef ::reflection::operation::scan::probe_class< input_name, identifier_name, report_name > probe_type;
-             typedef ::reflection::operation::transfer::tlv::probe_class<identifier_name,report_name> probe_tlv_type;
+             typedef ::reflection::operation::transfer::tlv::probe_class<identifier_name,key_name,report_name> probe_tlv_type;
 
-              typedef ::reflection::property::pure_class     property_type;
+             typedef ::reflection::property::pure_class     property_type;
 
-              typedef typename probe_type::property_pointer_type       property_pointer_type;
+             typedef typename probe_type::property_pointer_type       property_pointer_type;
 
-              typedef ::reflection::operation::transfer::equalizer_class<identifier_name,report_name> equalizer_type;
+             typedef ::reflection::operation::transfer::equalizer_class<identifier_name,report_name> equalizer_type;
 
 
            public:
@@ -53,20 +54,42 @@ namespace reflection
               }
 
            public:
-             virtual report_type attach( pile_type & pile_param, property_pointer_type const& pointer, probe_type const& probe_param ) const
-             {
-              auto const& key = dynamic_cast<  probe_tlv_type const& >( probe_param ).cache().m_key;
-              auto iterator = pile_param.find( key );
-              if( pile_param.end() == iterator )
-               {
-                // TODO ?? insert
-                return report_type( false );
-               }
-              auto & left = * pile_param.data( iterator ).get(); 
-              auto const& right =*pointer; 
-              return m_equalizer.align( left, right );
-             }
+             virtual report_type attach( pile_type & pile_param, identifier_name const& identifier, property_pointer_type const& pointer, probe_type const& probe_param ) const
+              {
+               auto const& key = dynamic_cast<  probe_tlv_type const& >( probe_param ).cache().m_key;
+               auto iterator = pile_param.find( key );
+               if( pile_param.end() == iterator )
+                {
+                 //if( true == m_dynamic )
+                 // {
+                 //  // TODO left = m_constructor.process( identifier );
+                 //  // TODO pile_param.insert( key, left );
+                 // }
+                 return report_type( false );
+                }
+               auto      &  left = * pile_param.data( iterator ).get(); 
+               auto const& right =*pointer; 
+               return m_equalizer.align( left, right );
+              }
 
+           public:
+             virtual report_type attach( pile_type & pile_param, identifier_name const& identifier, input_type & input_param,             probe_type const& probe_param ) const
+              {
+               auto const& key = dynamic_cast<  probe_tlv_type const& >( probe_param ).cache().m_key;
+               auto iterator = pile_param.find( key );
+               if( pile_param.end() == iterator )
+                {
+                 //if( true == m_dynamic )
+                 // {
+                 //  // TODO left = m_constructor.process( identifier );
+                 //  // TODO pile_param.insert( key, left );
+                 // }
+                 return report_type( false );
+                }
+               auto      &  left = * pile_param.data( iterator ).get();
+               // TODO return m_convertor.process( left, input_param );
+               return false;
+              }
            public:
              equalizer_type const& equalizer()const{ return m_equalizer; }
              equalizer_type      & equalizer()     { return m_equalizer; }

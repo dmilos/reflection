@@ -122,7 +122,7 @@ int main( int argc, char *argv[] )
   xml_type xml( observe ); //!< Fill them with specific things about XML
   observe.view( std::cout, r );//!< XMLize
 
-  observe.clear();
+  observe.clear(); // Forget XML and make it blank.
 
   json_type json( observe ); //!< Fill them with specific thing about JSON
   observe.view( std::cout, r );//!< JSONize also

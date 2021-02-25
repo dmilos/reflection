@@ -9,7 +9,9 @@
 #include "../../../operation/encode/observe.hpp"
 
 
-//#include "./_common.hpp"
+#include "./attribute.hpp"
+#include "./tag.hpp"
+#include "./context.hpp"
 //#include "../_common/indenting.hpp"
 
 
@@ -43,26 +45,22 @@ namespace reflection
              typedef std::size_t size_type;
              typedef std::string string_type;
 
-             typedef struct context_struct
+             typedef struct context_struct 
+              : public ::reflection::operation::transfer::xml::context_struct<output_type,string_type>
               {
                public:
-                 typedef ::reflection::operation::transfer::xml::_common::attribute_struct<output_type, string_type>           attribute_type;
-                 typedef ::reflection::operation::transfer::xml::_common::tag_struct<output_type, string_type>           tag_type;
-                 typedef ::reflection::operation::transfer::_common::indenting_class<output_type, string_type>        indent_type;
+                 typedef ::reflection::operation::transfer::xml::context_struct<output_type,string_type>  base_type;
 
-                 indent_type m_indent;
+               public:
+                 typedef typename base_type::attribute_type  attribute_type;
+                 typedef typename base_type::tag_type        tag_type;
 
-                 tag_type m_intro   ={ true, "xml"};
-                 tag_type m_element   ={ true, "e"  };
-                 tag_type m_item      ={ true, "i"  };
-
-                 tag_type m_sequence  ={ true, "q"  };
+               public:
+                 tag_type m_sequence       ={ true, "q"  };
                  attribute_type m_size     ={ true, "s", ""  };
 
-                 attribute_type m_identifier     ={ true, "t", ""  };
                  attribute_type m_key            ={ true, "k", ""  };
 
-                 tag_type m_remark  ={ true, "r"  };
                  attribute_type m_messageNULL    ={ true, "N", "nullptr" };
                  attribute_type m_messageNotM    ={ true, "N", "Not in the menu" };
                  attribute_type m_messageRecover ={ true, "N", "Continue like nothing happen." };
@@ -70,10 +68,7 @@ namespace reflection
                  attribute_type m_messageCNDT    ={ true, "N", "Can not detect type." };
                  attribute_type m_NULL           ={ true, "N", "" };
                  attribute_type m_NaS            ={ true, "N", "Not a structure" };
-
-
                }context_type;
-
 
            public:
              typedef std::shared_ptr< context_type >  context_pointer_type;
@@ -111,7 +106,7 @@ namespace reflection
                observe_param.stage( observe_type::stage_prolog_index,      std::bind( &this_type::prolog,                                context_param, _1, _2, _3 ) );
                observe_param.stage( observe_type::stage_epilog_index ,     std::bind( &this_type::epilog,                                context_param, _1, _2, _3 ) );
                observe_param.stage( observe_type::stage_prefix_index,      std::bind( &this_type::prefix, std::ref(observe_param),       context_param, _1, _2, _3 ) );
-               observe_param.stage( observe_type::stage_suffix_index,      std::bind( &this_type::suffix, std::ref(observe_param),       context_param, _1, _2, _3 ) );
+               observe_param.stage( observe_type::stage_suffix_index,      std::bind( &this_type::suffix,                                context_param, _1, _2, _3 ) );
 
 
                observe_param.insert( identificator_type::template get< bool           >(), std::bind( &this_type::primitive< bool          >, context_param, _1, _2, _3 ) );
@@ -202,7 +197,7 @@ namespace reflection
                return report_type( true );
               }
 
-             static report_type prefix(      observe_type const& observe_param, context_pointer_type &context_param, output_type & output_param,  key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type prefix(      observe_type const& observe_param, context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->m_indent.newl( output_param );
                context_param->m_indent.indent( output_param );
@@ -212,13 +207,13 @@ namespace reflection
 
                decoration_category( observe_param, context_param, output_param, property_param );
 
-               output_param << " >";
+               output_param << ">";
                context_param->m_indent.inc();
 
                return report_type( true );
               }
 
-             static report_type suffix(      observe_type const& observe_param, context_pointer_type &context_param, output_type & output_param,   key_type const& key_param, property_qualified_reference_type property_param )
+             static report_type suffix(      context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
                context_param->m_indent.dec();
                context_param->m_indent.newl( output_param );
@@ -274,7 +269,8 @@ namespace reflection
                 auto inspect = dynamic_cast< inspect_type const* >( &property_param );
                 if( nullptr != inspect )
                  {
-                  // TODO output_param << "\""<<  inspect->present() << "\"";
+                  auto data = reinterpret_cast< const char * > ( inspect->present().data() );
+                  output_param.write( data, inspect->present().size() * sizeof( wstring_type::value_type ) );
                   return report_type( true );
                  }
                }
@@ -283,7 +279,8 @@ namespace reflection
                 direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                 if( nullptr != direct_instance )
                  {
-                  // TODO output_param << "\""<<  direct_instance->disclose() << "\"";
+                  auto data = reinterpret_cast< const char * > ( direct_instance->disclose().data() );
+                  output_param.write( data, direct_instance->disclose().size() * sizeof( wstring_type::value_type ) );
                   return report_type( true );
                  }
                }
@@ -320,7 +317,7 @@ namespace reflection
 
                 if( true == pass )
                  {
-                   context_param->m_remark.single( output_param, context_param->m_messageCNRV );
+                  context_param->m_remark.single( output_param, context_param->m_messageCNRV );
                  }
 
                 return report_type( true );

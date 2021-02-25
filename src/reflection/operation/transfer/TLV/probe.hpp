@@ -18,6 +18,7 @@ namespace reflection
         template
          <
            typename  identifier_name = std::string
+          ,typename         key_name = std::string
           ,typename      report_name = bool
          >
          class probe_class
@@ -25,11 +26,11 @@ namespace reflection
           {
            public:
              typedef  identifier_name     identifier_type;
+             typedef  key_name                   key_type;
              typedef  std::istream             input_type;
              typedef  report_name             report_type;
 
              typedef  std::size_t             size_type;
-             typedef  std::string             key_type;
 
              typedef ::reflection::type::name::identificatorX< identifier_name > identificator_type;
 
@@ -51,6 +52,8 @@ namespace reflection
              probe_class()
               {
                this->push();
+               m_eos.first  = "EOS";
+               m_eos.second = "EOS";
               }
 
              ~probe_class()
@@ -130,9 +133,8 @@ namespace reflection
               return true;
              }
            public:
-            report_type eof( input_type & input_param )
+            report_type eos( input_type & input_param )
              {
-
               if( true == input_param.eof() )
                {
                 return true;
@@ -142,40 +144,34 @@ namespace reflection
                 return true;
                }
 
+              auto stream_begin = input_param.tellg();
               {
-               auto stream_begin = input_param.tellg();
-               size_type size=3;
-               if( stream_begin == get_size( m_context, size, input_param ) )
+               for( int count =0; count < 2 ; ++count )
                 {
-                 return true;
+                 if( false == get_chunk( input_param ) )
+                  {
+                   goto label_not_eos;
+                  }
+                 if( m_eos.first.size() != this->cache().m_size )
+                  {
+                   goto label_not_eos;
+                  }
+                 if(    ( this->cache().m_buffer[0] != m_eos.first[0] )
+                     || ( this->cache().m_buffer[1] != m_eos.first[1] )
+                     || ( this->cache().m_buffer[2] != m_eos.first[2] )
+                   )
+                  {
+                   goto label_not_eos;
+                  }
                 }
-               if( 3 != size )
-                {
-                 input_param.seekg( stream_begin, std::ios_base::beg );
-                 return false;
-                }
-               this->cache().m_size  = 3;
-               this->cache().m_buffer.resize(  this->cache().m_size );
-               input_param.read( const_cast<char*>( reinterpret_cast< const char*>( this->cache().m_buffer.data() ) ), this->cache().m_size );
-               if(     ( this->cache().m_buffer[0] == 'E' ) 
-                    && ( this->cache().m_buffer[1] == 'O' ) 
-                    && ( this->cache().m_buffer[2] == 'F' ) )
-                {
-                 return true;
-                }
-               input_param.seekg( stream_begin, std::ios_base::beg );
-               return false;
+                return true;
               }
+              label_eos: ;
 
-              if( true == this->cache().m_valid )
-               {
-                if( "EOF" == this->cache().m_type )
-                 {
-                  return true;
-                 }
-               }
-
-              return false;
+              label_not_eos:
+                this->cache().m_valid = false;
+                input_param.seekg( stream_begin, std::ios_base::beg );
+                return false;
              }
            public:
              void push()
@@ -206,10 +202,13 @@ namespace reflection
               }
 
            public:
-             typedef std::pair<identifier_type, key_type> EOF_type;
-             //EOF_type const& EOF( )const;//{ return m_eof; }
+             typedef std::pair<identifier_type, key_type> EOS_type;
+             //EOS_type const& eos( )const
+             // {
+             //  return m_eos; 
+             // }
            private:
-              EOF_type m_eof;
+              EOS_type m_eos;
 
            public:
              cache_struct const  & cache()const{ return m_cache.back(); }

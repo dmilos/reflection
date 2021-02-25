@@ -4,7 +4,6 @@
 // ::reflection::operation::scan::parser_class< pile_name, input_name, identifier_name, report_name>
 
 #include "./accumulator.hpp"
-#include "./sentinel.hpp"
 #include "../factory/facility.hpp"
 
 namespace reflection
@@ -37,72 +36,65 @@ namespace reflection
 
              typedef ::reflection::operation::factory::facility_class<identifier_name,report_name>  facility_type;
 
-             typedef ::reflection::operation::scan::sentinel_class< pile_name, input_name, identifier_name, report_name  > sentinel_type;
-             typedef ::std::shared_ptr<sentinel_type>       sentinel_pointer_type;
-
              typedef ::reflection::operation::scan::accumulator::pure_class< pile_name, input_name, identifier_name, report_name > accumulator_type;
              typedef ::std::shared_ptr<accumulator_type>       accumulator_pointer_type;
 
            public:
-             report_type parse( pile_type &pile_param, input_name &input_param ) const
+             report_type parse( pile_type &pile_param, input_name &input_param, bool const& persistency = true ) const
               {
                identifier_type  identifier;
                auto & probe       = *(m_probe.get() );
-               auto & sentinel    = *(m_sentinel.get() );
                auto & accumulator = *(m_accumulator.get() );
+               report_type result = true;
 
-               if( false == sentinel.prepare( pile_param, input_param, probe ) )
+               while( false == probe.eos( input_param ) )
                 {
-                 return false;
-                }
 
-               while( false == probe.eof( input_param ) )
-                {
                  if( false == probe.poke( identifier, input_param ) )
                   {
                    if( false == probe.skip( input_param ) )
                     {
-                     sentinel.clean( pile_param, input_param );
-                     return false;
+                     result = false;
+                     break;
                     }
                    continue;
                   }
 
-                 auto proprty = m_facility.template create<input_name&>( identifier, input_param );
-                 if( nullptr == proprty )
+                 if( true == accumulator.attach( pile_param, identifier, input_param, probe ) )
+                  {
+                   continue;
+                  }
+
+                 auto property = m_facility.template create<input_name&>( identifier, input_param );
+                 if( nullptr == property )
                   {
                    if( false == probe.skip( input_param ) )
                     {
-                     sentinel.clean( pile_param, input_param );
-                     return false;
+                     result = false;
+                     break;
                     }
-                   continue;
+                  }
+                 else
+                  {
+                   if( true == accumulator.attach( pile_param, identifier, property, probe ) )
+                    {
+                     continue;
+                    }
                   }
 
-                 if( false == accumulator.attach( pile_param, proprty, probe ) )
+                 if( true == persistency )
                   {
+                   continue;
+                  }
+                 if( false == persistency )
+                  {
+                   result = false;
                    break;
                   }
                 }
 
-               return sentinel.finish( pile_param, input_param );
+               return result;
               }
-
-           public:
-             sentinel_pointer_type const& sentinel( )const
-              {
-               return m_sentinel;
-              }
-             sentinel_pointer_type & sentinel( )
-              {
-               return m_sentinel;
-              }
-             void sentinel( sentinel_pointer_type const& sentinel_param )
-              {
-               m_sentinel = sentinel_param;
-              }
-           private:
-             sentinel_pointer_type m_sentinel;
 
            public:
              probe_pointer_type const& probe( )const
@@ -133,7 +125,6 @@ namespace reflection
               {
                m_facility = facility_param;
               }
-
            private:
              facility_type        m_facility;
 
@@ -152,7 +143,6 @@ namespace reflection
               }
            private:
              accumulator_pointer_type m_accumulator;
-
           };
 
      }
