@@ -44,7 +44,7 @@ namespace reflection
              typedef std::size_t   size_type;
              typedef std::string string_type;
 
-             typedef ::reflection::operation::transfer::json::context_struct<output_name,string_type> context_type;
+             typedef ::reflection::operation::transfer::json::context_struct<output_name,key_name,string_type> context_type;
 
            public:
              typedef std::shared_ptr< context_type >  context_pointer_type;

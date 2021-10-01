@@ -135,24 +135,35 @@ void store( MyFirstClassOriginal const& instance, std::string const& fn )
 
 void load ( MyFirstClassOriginal & instance, std::string const& fn )
  {
-  typedef  ::reflection::operation::transfer::tkv::scan_struct<std::istream,std::string,std::string> scan_tlv_type;
-  typedef scan_tlv_type::parser_type  parser_tlv_type;
+  typedef  ::reflection::operation::transfer::tkv::scan_struct<std::istream,std::string,std::string> scan_type;
+  typedef scan_type::parser_type  parser_type;
 
-  parser_tlv_type c;
-  auto context = scan_tlv_type::context();
-  scan_tlv_type stlv( c, context );
+  parser_type parser;
+  auto context = scan_type::context();
+  scan_type scan( parser, context );
 
-  scan_tlv_type::register_class< MySubClassOriginal, MySubClassReflectionModify>( context, c );
+  scan_type::register_class< MySubClassOriginal,  MySubClassReflectionModify >( parser, context );
 
   MyClassReflectionModify r( & instance );
 
   auto f =  std::ifstream( fn, std::ios_base::binary );
-  std::cout << "Parse result: " <<  c.parse( r, f ) << std::endl;
+  std::cout << "Parse result: " <<  parser.parse( r, f ) << std::endl;
  }
 
 int main( int argc, char *argv[] )
  {
   std::cout << "Hello World" << std::endl;
+
+// ::reflection::property::trinity::simple_struct<float> aa;
+ auto d0 = ::reflection::property::direct::simple<float>( ); 
+ auto d1 = ::reflection::property::guarded::simple<float>( ); 
+ auto d2 = ::reflection::property::inspect::simple<float>( ); 
+
+ auto d3 = ::reflection::property::variable::simple<float, float&, float const&>( ); 
+ auto d4 = ::reflection::property::mutate::simple<float, bool>( ); 
+ auto d5 = ::reflection::property::exposed::simple<float, float&, float const&, bool>( );
+ auto d6 = ::reflection::property::trinity::simple<float>( ); 
+
   MyFirstClassOriginal original;
 
   store( original, "0-initial" );
@@ -172,4 +183,3 @@ int main( int argc, char *argv[] )
   std::cin.get();
   return EXIT_SUCCESS;
  }
-

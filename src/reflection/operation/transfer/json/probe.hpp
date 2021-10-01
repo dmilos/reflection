@@ -46,7 +46,7 @@ namespace reflection
              struct cache_struct
               {
                bool            m_valid;
-               identifier_type m_type;
+               identifier_type m_identifier;
                key_type        m_key;
               };
 
@@ -84,8 +84,8 @@ namespace reflection
                if( false == character( context(), input_param, ':'           ) ){ goto label_fail; } space( context(), input_param );
 
                item.m_key = keyV ;
-               indetifier_param = item.m_type = typeV;
-               std::cout <<  " - " << __func__ <<"K: \"" << keyV << "\"; " << "type: \"" << typeV << "\""<< std::endl;
+               indetifier_param = item.m_identifier = typeV;
+               //std::cout <<  " - " << __func__ <<"K: \"" << keyV << "\"; " << "type: \"" << typeV << "\""<< std::endl;
                return item.m_valid = true;
 
                label_fail:
@@ -94,7 +94,7 @@ namespace reflection
               }
 
             report_type skip( input_type & input_param )override
-             {
+             {  //std::cout<<  " - " << __func__ <<  "-"  << std::endl;
               /*
                 - todo
                -- find { then enclosed }
@@ -103,13 +103,13 @@ namespace reflection
              }
            public:
             report_type eos( input_type & input_param )override
-             {  std::cout<<  " - " << __func__ <<  "-"  << " begin " << std::endl;
+             {  //std::cout<<  " - " << __func__ <<  "-"  << " begin " << std::endl;
               if( true == input_param.eof() )
-               { std::cout<<  " - " << __func__ <<  "-"  << " EOF " << std::endl;
+               { //std::cout<<  " - " << __func__ <<  "-"  << " EOF " << std::endl;
                 return true;
                }
               if( false == (bool) input_param )
-               { std::cout<<  " - " << __func__ <<  "-"  << " EOF " << std::endl;
+               { //std::cout<<  " - " << __func__ <<  "-"  << " EOF " << std::endl;
                 return true;
                }
               auto & item = this->cache();
@@ -118,7 +118,7 @@ namespace reflection
 
               space( context(), input_param );
               if( false == character( context(), input_param, '}' ) )
-               { std::cout<<  " - " << __func__ <<  "-"  << "no } " << std::endl;
+               { //std::cout<<  " - " << __func__ <<  "-"  << "no } " << std::endl;
                 input_param.seekg( stream_begin, std::ios_base::beg );
                 return false;
                }
@@ -129,12 +129,16 @@ namespace reflection
                 return false;
                } space( context(), input_param );
 
-              std::cout<<  " - " << __func__<< " - " << "it is EOS" << std::endl;
+              //std::cout<<  " - " << __func__<< " - " << "it is EOS" << std::endl;
 
               return true;
              }
 
            public:
+            identifier_type const&   identifier()const override
+             {
+              return this->cache().m_identifier;
+             }
             key_type const&   key()const override
              {
               return this->cache().m_key;
@@ -153,7 +157,7 @@ namespace reflection
               }
 
            public:
-            static bool space(     context_input_type const& contect_param ,input_type & input_param )
+            static bool space(    context_input_type const& contect_param ,input_type & input_param )
              {
                while( true )
                 {
@@ -171,6 +175,8 @@ namespace reflection
                 }
               return true;
              }
+
+           public:
             static bool character( context_input_type const& contect_param, input_type & input_param, char_type const & char_param )
              {
               stream_position_type stream_begin = input_param.tellg();
@@ -181,44 +187,162 @@ namespace reflection
               char_type  current;
               input_param.get( current );
               if( char_param == current )
-               { std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " have: " << char_param << std::endl;
+               { //std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " have: " << char_param << std::endl;
                 return true;
                }
-              std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " found: " << current << ";" << "expect: " << char_param <<    std::endl;
+              //std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " found: " << current << ";" << "expect: " << char_param <<    std::endl;
               input_param.seekg( stream_begin, std::ios_base::beg );
               return false;
              }
-            static bool quoted(    context_input_type const& contect_param, input_type & input_param, string_type & value_param, char_type const& quote_param )
+
+
+           public:
+            static bool null(     context_input_type const& contect_param ,input_type & input_param )
              {
+              // TODO
+              return false;
+             }
+
+            static bool boolean(  context_input_type const& contect_param ,input_type & input_param, bool & value_param )
+             {
+              // TODO
+              return false;
+             }
+
+           public:
+             template < typename data_name >
+              static  bool read_integral( context_input_type &context_param, input_type& input_param, data_name & value_param )
+               { //std::cout << __func__ << " - "<< __LINE__ << std::endl;
+                typedef char char_type;
+                bool succes = false;
+                auto start_position = input_param.tellg();
+                data_name signum = 1;
+
+                if( true == character( context_param, input_param, '+' ) )
+                 {
+                  signum = +1; space( context_param, input_param );
+                 }
+                else
+                 if( true == character( context_param, input_param, '-' ) )
+                  {
+                   signum = -1; space( context_param, input_param );
+                  }
+
+                data_name value = 0;
+                data_name power = 1;
+                while( true )
+                 {
+                  if( true == input_param.eof() ){ break; }
+                  char_type  current;
+                  input_param.get( current );
+                  if( 0 != isdigit( current ) )
+                   {
+                    value = value * 10 + ( current - '0' );
+                    succes = true;
+                    continue;
+                   }
+                  input_param.unget();
+                  break;
+                 }
+
+                if( false == succes )
+                 {
+                  return false;
+                 }
+                 value_param = signum * value;
+                //std::cout << __func__ << " - "<< __LINE__ << " - " << signum * value << std::endl;
+                return true;
+               }
+
+           public:
+             template < typename data_name >
+              static  bool read_decimal( context_input_type &context_param, input_type& input_param, data_name & value_param )
+               {  //std::cout << __func__ << " - "<< __LINE__ << std::endl;
+                typedef char char_type;
+                bool succes = false;
+                auto start_position = input_param.tellg();
+                data_name signum = 1;
+
+                if( true == character( context_param, input_param, '+' ) )
+                 {
+                  signum = +1; space( context_param, input_param );
+                 }
+                else
+                 if( true == character( context_param, input_param, '-' ) )
+                  {
+                   signum = -1;  space( context_param, input_param );
+                  }
+
+                data_name value = 0;
+                data_name integral = 10;
+                data_name decimal = 1;
+                data_name direction = 1;
+                while( true )
+                 {
+                  if( true == input_param.eof() ){ break; }
+                  char_type current;
+                  input_param.get( current );
+                  if( 0 != isdigit( current ) )
+                   {
+                    value  = value * integral +  ( current - '0' ) * decimal;
+                    decimal *= direction;
+                    succes = true;
+                    continue;
+                   }
+                  if( '.' == current )
+                   {
+                    integral = 1;
+                    decimal = 0.1;
+                    direction = 0.1;
+                    continue;
+                   }
+                  input_param.unget();
+                  break;
+                 }
+
+                if( false == succes )
+                 {
+                  input_param.seekg( start_position, std::ios_base::beg );
+                  //std::cout << __func__ << " - "<< __LINE__ << " - "<< "found nothing" << std::endl;
+                  return false;
+                 }
+                 value_param = signum * value;
+                //std::cout << __func__ << " - "<< __LINE__<< " - " << "value: " << signum * value << std::endl;
+                return true;
+               }
+
+           public:
+             static bool quoted(         context_input_type const& contect_param, input_type & input_param, string_type & value_param, char_type const& quote_param )
+              {
                if( true == input_param.eof() )
                {
                 return false;
                }
-              stream_position_type stream_begin = input_param.tellg();
+               stream_position_type stream_begin = input_param.tellg();
 
-              char_type  quote;
-              input_param.get( quote );
-              if( quote_param != quote ){ goto label_fail; }
-              value_param.clear();
-              while( true )
-               {
-                if( true == input_param.eof() ){ goto label_fail; }
-                char_type  current;
-                input_param.get( current );
-                if( quote_param == current )
-                 {
-                  break;
-                 }
-                value_param.push_back( current );
-               }
-              std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " have: \"" << value_param << "\"" << std::endl;
-              return true;
-
-              label_fail:
-                 std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " Fail to get quoted string" << std::endl;
-                input_param.seekg( stream_begin, std::ios_base::beg );
-                return false;
-             }
+               char_type  quote;
+               input_param.get( quote );
+               if( quote_param != quote ){ goto label_fail; }
+               value_param.clear();
+               while( true )
+                {
+                 if( true == input_param.eof() ){ goto label_fail; }
+                 char_type  current;
+                 input_param.get( current );
+                 if( quote_param == current )
+                  {
+                   break;
+                  }
+                 value_param.push_back( current );
+                }
+               //std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " have: \"" << value_param << "\"" << std::endl;
+               return true;
+               
+               label_fail:
+                  //std::cout <<  " - " << __func__ << " - " << " - "<< __LINE__ << " - " << " Fail to get quoted string" << std::endl;
+                 input_param.seekg( stream_begin, std::ios_base::beg );
+                 return false;
+              }
 
            public:
              cache_struct const  & cache()const{ return m_cache.back(); }

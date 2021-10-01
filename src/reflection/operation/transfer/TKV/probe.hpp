@@ -42,7 +42,7 @@ namespace reflection
               {
                bool m_valid;
                size_type   m_size=0;
-               identifier_type m_type;
+               identifier_type m_identifier;
                key_type        m_key;
                stream_position_type   m_streamBegin;
                std::vector<std::uint8_t>   m_buffer;
@@ -72,9 +72,9 @@ namespace reflection
                  this->cache().m_valid = false;
                  return this->cache().m_valid;
                 }
-               this->cache().m_type.resize( this->cache().m_size );
-               this->cache().m_type.assign( this->cache().m_buffer.begin(), this->cache().m_buffer.end() );
-               indetifier_param = this->cache().m_type;
+               this->cache().m_identifier.resize( this->cache().m_size );
+               this->cache().m_identifier.assign( this->cache().m_buffer.begin(), this->cache().m_buffer.end() );
+               indetifier_param = this->cache().m_identifier;
 
                if( false == get_chunk( input_param ) )
                 {
@@ -158,6 +158,11 @@ namespace reflection
             key_type const&   key()const override
              {
               return this->cache().m_key;
+             }
+
+            identifier_type const&   identifier()const override
+             {
+              return this->cache().m_identifier;
              }
 
            public:

@@ -29,10 +29,10 @@ namespace reflection
         ,typename report_name
        >
        class basic_class
-        :  virtual public ::reflection::property::trinity::pure_class<  original_name, model_name, image_name, report_name >
-        ,          public ::reflection::property::direct::basic_class<   original_name, storage_name, extractor_name >
-        ,          public ::reflection::property::mutate::basic_class<      model_name, storage_name, assigner_name, report_name >
-        ,          public ::reflection::property::inspect::basic_class<     image_name, storage_name, retriever_name >
+        :  virtual public ::reflection::property::trinity::pure_class<   original_name, model_name, image_name, report_name >
+        ,          public ::reflection::property::direct::basic_class<   original_name,                         storage_name, extractor_name >
+        ,          public ::reflection::property::mutate::basic_class<                  model_name,             storage_name, assigner_name, report_name >
+        ,          public ::reflection::property::inspect::basic_class<                             image_name, storage_name, retriever_name >
         {
          public:
            typedef original_name    original_type;
@@ -46,12 +46,11 @@ namespace reflection
 
            typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
 
-           typedef ::reflection::property::trinity::pure_class< original_name, model_name, image_name,report_name>       pure_type;
+           typedef ::reflection::property::trinity::pure_class< original_name, model_name, image_name, report_name>       pure_type;
 
            typedef ::reflection::property::direct::basic_class< original_name, storage_name, extractor_name >             direct_type;
            typedef ::reflection::property::mutate::basic_class< model_name,storage_name, assigner_name, report_name  >   mutate_type;
            typedef ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name >             inspect_type;
-
 
                     basic_class()
                      {
@@ -59,13 +58,13 @@ namespace reflection
 
            explicit basic_class
              (
-               extractor_type     const&  extractor_param  =   extractor_type()
-              ,assigner_type      const&  assigner_param   =    assigner_type()
-              ,retriever_type     const& retriever_param   =   retriever_type()
+               extractor_type     const&  extractor_param  //=   extractor_type()
+              ,assigner_type      const&  assigner_param   //=    assigner_type()
+              ,retriever_type     const& retriever_param   //=   retriever_type()
              )
-             : direct_type(    extractor_param )
-             , mutate_type(  assigner_param )
-             ,inspect_type( retriever_param )
+             : direct_type(  extractor_param )
+             , mutate_type(   assigner_param )
+             ,inspect_type(  retriever_param )
              {
              }
 
@@ -73,8 +72,8 @@ namespace reflection
             (
               storage_type   const&    storage_param
              ,extractor_type const&  extractor_param   =  extractor_type()
-             ,assigner_type  const&  assigner_param   =    assigner_type()
-             ,retriever_type const& retriever_param   =   retriever_type()
+             ,assigner_type  const&   assigner_param   =   assigner_type()
+             ,retriever_type const&  retriever_param   =  retriever_type()
             )
             : direct_type(    extractor_param )
             , mutate_type(     assigner_param )

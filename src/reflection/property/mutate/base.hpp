@@ -33,7 +33,7 @@ namespace reflection
             typedef storage_name        storage_type;
             typedef report_name          report_type;
 
-            typedef base_type const&   model_type;
+            typedef base_type const&   model_type;  //!< by design
 
             typedef class assigner_class
              {

@@ -29,16 +29,17 @@ namespace reflection
          struct  common_struct
           {
            public:
-           typedef data_name           data_type;
-             typedef original_name original_type;
-             typedef model_name       model_type;
-             typedef image_name       image_type;
-             typedef class_name       class_type;
-             typedef report_name     report_type;
+             typedef data_name           data_type;
+             typedef original_name   original_type;
+             typedef model_name         model_type;
+             typedef image_name         image_type;
+             typedef class_name         class_type;
+             typedef report_name       report_type;
 
-             typedef ::reflection::property::direct::_internal::common_struct<data_type,original_type,class_type>          direct_type;
-             typedef ::reflection::property::inspect::_internal::common_struct<data_type,image_type,class_type>           inspect_type;
-             typedef ::reflection::property::mutate::_internal::common_struct<data_type,model_type,class_type,report_type> mutate_type;
+             typedef ::reflection::property::direct::_internal::common_struct<data_name,original_name,class_name>          direct_type;
+             typedef ::reflection::property::mutate::_internal::common_struct<data_name,model_name,class_name,report_name> mutate_type;
+             typedef ::reflection::property::inspect::_internal::common_struct<data_name,image_name,class_name>           inspect_type;
+
 
              typedef typename  direct_type::storage_type   storage_type;
 
@@ -46,7 +47,7 @@ namespace reflection
              typedef typename  mutate_type::assigner_class      assigner_type;
              typedef typename inspect_type::retriever_class    retriever_type;
 
-             typedef ::reflection::property::trinity::basic_class <original_type,model_name, image_name, storage_type, extractor_type, assigner_type, retriever_type, report_name>      typedef_type;
+             typedef ::reflection::property::trinity::basic_class< original_name, model_name, image_name, storage_type, extractor_type, assigner_type, retriever_type, report_name>      typedef_type;
 
 
              static typedef_type make( storage_type const& carrier_param )

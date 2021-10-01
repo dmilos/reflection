@@ -76,7 +76,6 @@ namespace reflection
 
              typedef ::reflection::operation::transfer::equalizer_class<identifier_name,report_name> equalizer_type;
 
-
            public:
              simple_class()
               {
@@ -89,7 +88,7 @@ namespace reflection
            public:
              virtual report_type attach( pile_type & pile_param, identifier_name const& identifier, property_pointer_type const& pointer, probe_pure_type const& probe_param ) const override
               {
-               auto const& key = dynamic_cast<  probe_base_type const& >( probe_param ).key(); 
+               auto const& key = dynamic_cast<  probe_base_type const& >( probe_param ).key();
                auto iterator = pile_param.find( key );
                if( pile_param.end() == iterator )
                 {
@@ -100,15 +99,15 @@ namespace reflection
                  // }
                  return report_type( false );
                 }
-               auto      &  left = * pile_param.data( iterator ).get(); 
-               auto const& right =*pointer; 
+               auto      &  left = * pile_param.data( iterator ).get();
+               auto const& right =*pointer;
                return m_equalizer.align( left, right );
               }
 
            public:
              virtual report_type attach( pile_type & pile_param, identifier_name const& identifier, input_type & input_param,             probe_pure_type const& probe_param ) const override
               {
-               auto const& key = dynamic_cast<  probe_base_type const& >( probe_param ).key(); 
+               auto const& key = dynamic_cast<  probe_base_type const& >( probe_param ).key();
                auto iterator = pile_param.find( key );
                if( pile_param.end() == iterator )
                 {

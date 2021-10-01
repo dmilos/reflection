@@ -26,8 +26,8 @@ namespace reflection
         ,          public ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name >
         {
          public:
-           typedef original_name   original_type;
-           typedef storage_name    storage_type;
+           typedef original_name    original_type;
+           typedef storage_name      storage_type;
            typedef extractor_name  extractor_type;
            typedef retriever_name  retriever_type;
 

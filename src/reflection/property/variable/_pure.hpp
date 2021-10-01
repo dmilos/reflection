@@ -40,7 +40,11 @@ namespace reflection
            using inspect_type::present;
         };
 
-      template< typename original_name, typename image_name >
+      template
+       <
+          typename original_name
+         ,typename image_name 
+       >
        inline bool check( ::reflection::property::pure_class const& property_param )
         {
          typedef ::reflection::property::variable::pure_class<original_name,image_name> variable_type;

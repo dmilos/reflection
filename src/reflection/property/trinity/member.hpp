@@ -1,6 +1,7 @@
 #ifndef reflection_property_trinity_member
 #define reflection_property_trinity_member
-// ::reflection::property::trinity::member_struct<model_name,class_name,carrier_name,report_name>
+// ::reflection::property::trinity::member_struct<original_name,model_name,image_name,class_name,storage_name,report_name>
+// ::reflection::property::trinity::member( carrier_param, traitor_param,writer_param, reader_param )
 
  #include "./basic.hpp"
 
@@ -36,9 +37,9 @@
               typedef storage_name   storage_type;
               typedef report_name     report_type;
 
-              typedef ::reflection::property::direct::_internal::member_struct<original_type,class_type,storage_type>          direct_type;
-              typedef ::reflection::property::inspect::_internal::member_struct<image_type,class_type,storage_type>           inspect_type;
-              typedef ::reflection::property::mutate::_internal::member_struct<model_type,class_type,storage_type,report_type> mutate_type;
+              typedef ::reflection::property::direct::_internal::member_struct<original_name,class_name,storage_name>            direct_type;
+              typedef ::reflection::property::inspect::_internal::member_struct<image_name,class_name,storage_name>             inspect_type;
+              typedef ::reflection::property::mutate::_internal::member_struct<model_name,class_name,storage_name,report_name>   mutate_type;
 
               typedef typename  direct_type::extractor_class   extractor_type;
               typedef typename  mutate_type::assigner_class      assigner_type;
@@ -102,6 +103,7 @@
           using  base_type::present; 
          };
 
+
        template
         <
           typename  original_name
@@ -116,13 +118,13 @@
        member
         (
           storage_name const& carrier_param
-          ,original_name    (class_name::*traitor_param)(  )
+          ,original_name    (class_name::*traitor_param)( void )
           ,report_name      (class_name::*writer_param)( model_name )
           ,image_name       (class_name::*reader_param)( void )const
         )
         {
          typedef ::reflection::property::trinity::member_class<original_name,model_name,image_name,class_name,storage_name,report_name> member_type;
-         return member_type( carrier_param, writer_param, reader_param );
+         return member_type( carrier_param, traitor_param, writer_param, reader_param );
         }
 
      }

@@ -46,7 +46,7 @@ namespace reflection
               typedef typename inspect_type::retriever_class    retriever_type;
 
 
-            typedef ::reflection::property::trinity::basic_class <original_type,model_type, image_type, storage_type, extractor_type, assigner_type,retriever_type,report_name>      typedef_type;
+            typedef ::reflection::property::trinity::basic_class< original_type, model_type, image_type, storage_type, extractor_type, assigner_type, retriever_type, report_name>      typedef_type;
 
             static typedef_type make( storage_type const& carrier_param )
              {

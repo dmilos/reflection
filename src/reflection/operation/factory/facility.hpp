@@ -31,12 +31,11 @@ namespace reflection
            typedef      report_name        report_type;
 
 
-           typedef ::reflection::property::pure_class                        property_type;
-           typedef  std::shared_ptr<property_type>       property_pointer_type;
+           typedef ::reflection::property::pure_class          property_type;
+           typedef  std::shared_ptr<property_type>             property_pointer_type;
 
            typedef  ::reflection::utility::function::pure_class< property_pointer_type >  constructor_type;
-
-           typedef  std::shared_ptr<constructor_type> constructor_pointer_type;
+           typedef  std::shared_ptr<constructor_type>                                     constructor_pointer_type;
 
            typedef std::map<identifier_type, constructor_pointer_type > container_type;
 
@@ -107,7 +106,7 @@ namespace reflection
            void insert( identifier_type const& identifier_param, constructor_pointer_type const& constructor_pram )
             {
              this->m_container.emplace( identifier_param, constructor_pram );
-              this->m_container[ identifier_param ] = constructor_pram ;
+             this->m_container[ identifier_param ] = constructor_pram ;
             }
 
            template< typename data_name >

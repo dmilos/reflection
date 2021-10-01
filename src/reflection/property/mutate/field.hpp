@@ -5,6 +5,13 @@
 
  #include "./basic.hpp"
 
+ #include "../../ornament/relation.hpp"
+ #include "../../ornament/accessibility.hpp"
+ #include "../../ornament/linkage.hpp"
+ #include "../../ornament/qualification.hpp"
+
+
+
  namespace reflection
   {
    namespace property
@@ -100,6 +107,7 @@
 
           using base_type::process;
          };
+
 
        template
         <

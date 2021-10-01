@@ -42,7 +42,10 @@ namespace reflection
            typedef ::reflection::property::variable::basic_class<original_name,image_name,storage_type,extractor_type,retriever_type > typedef_type;
 
            static typedef_type make( void )                 { return typedef_type(); }
-           static typedef_type make( data_type const& value_param ){ return typedef_type( value_param ); }
+           static typedef_type make( data_type const& value_param )
+            {
+             return typedef_type( value_param ); 
+            }
         };
 
       template

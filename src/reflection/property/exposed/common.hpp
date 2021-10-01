@@ -19,21 +19,23 @@ namespace reflection
 
         template
           <
-           typename data_name
+           typename     data_name
           ,typename original_name
-          ,typename model_name
-          ,typename class_name
-          ,typename report_name
+          ,typename    model_name
+          ,typename    class_name
+          ,typename   report_name
           >
          struct  common_struct
           {
-           typedef original_name    original_type;
-           typedef model_name    model_type;
-           typedef class_name    class_type;
-           typedef report_name     report_type;
+           public:
+             typedef data_name           data_type;
+             typedef original_name   original_type;
+             typedef model_name         model_type;
+             typedef class_name         class_type;
+             typedef report_name       report_type;
 
-           typedef ::reflection::property::direct::_internal::common_struct<data_name,original_type,class_type>          direct_type;
-           typedef ::reflection::property::mutate::_internal::common_struct<data_name,model_type,class_type,report_type> mutate_type;
+             typedef ::reflection::property::direct::_internal::common_struct<data_name,original_name,class_name>          direct_type;
+             typedef ::reflection::property::mutate::_internal::common_struct<data_name,model_name,class_name,report_name> mutate_type;
 
            typedef typename  direct_type::storage_type   storage_type;
 

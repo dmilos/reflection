@@ -31,7 +31,6 @@ namespace reflection
            typedef model_name       model_type;
            typedef report_name     report_type;
 
-           typedef ::reflection::property::pure_class  pure_type;
            typedef  ::reflection::property::direct::pure_class<original_name>  direct_type;
            typedef  ::reflection::property::mutate::pure_class<model_name, report_name>    mutate_type;
 

@@ -9,6 +9,7 @@
 #include "../../../content/guarded/simple.hpp"
 #include "../../../utility/function/stdo.hpp"
 
+#include "./parser.hpp"
 #include "./probe.hpp"
 
 namespace reflection
@@ -61,6 +62,7 @@ namespace reflection
 
              typedef  ::reflection::operation::transfer::json::parser_type<input_name,identifier_name,key_name,container_name,report_name> parser_type;
              typedef typename parser_type::facility_type::property_pointer_type    property_pointer_type;
+
              typedef typename parser_type::facility_type::constructor_pointer_type  constructor_pointer_type;
 
              typedef ::reflection::operation::scan::probe::base_class< input_name, identifier_name, key_name, report_name >    probe_base_type;
@@ -76,83 +78,92 @@ namespace reflection
 
                using namespace std::placeholders;
 
-               this_type::template register_bool< bool          >(  context_param, parser_param );
+               this_type::template register_bool< bool              >( parser_param, context_param );
 
-               this_type::template register_integral< char          >(  context_param, parser_param );
-               this_type::template register_natural< unsigned char >(  context_param, parser_param );
-               this_type::template register_integral< wchar_t       >(  context_param, parser_param );
-               this_type::template register_integral< std::wint_t   >(  context_param, parser_param );
-               this_type::template register_integral< char16_t      >(  context_param, parser_param );
-               this_type::template register_integral< char32_t      >(  context_param, parser_param );
+               this_type::template register_integral< char          >( parser_param, context_param );
+               this_type::template register_natural< unsigned char  >( parser_param, context_param );
+               this_type::template register_integral< wchar_t       >( parser_param, context_param );
+               this_type::template register_integral< std::wint_t   >( parser_param, context_param );
+               this_type::template register_integral< char16_t      >( parser_param, context_param );
+               this_type::template register_integral< char32_t      >( parser_param, context_param );
 
-               this_type::template register_natural<std::uint8_t >(  context_param, parser_param );
-               this_type::template register_natural<std::uint16_t>(  context_param, parser_param );
-               this_type::template register_natural<std::uint32_t>(  context_param, parser_param );
-               this_type::template register_natural<std::uint64_t>(  context_param, parser_param );
+               this_type::template register_natural<std::uint8_t >( parser_param, context_param );
+               this_type::template register_natural<std::uint16_t>( parser_param, context_param );
+               this_type::template register_natural<std::uint32_t>( parser_param, context_param );
+               this_type::template register_natural<std::uint64_t>( parser_param, context_param );
 
-               this_type::template register_integral<std::int8_t >(   context_param, parser_param );
-               this_type::template register_integral<std::int16_t>(   context_param, parser_param );
-               this_type::template register_integral<std::int32_t>(   context_param, parser_param );
-               this_type::template register_integral<std::int64_t>(   context_param, parser_param );
+               this_type::template register_integral<std::int8_t >( parser_param, context_param );
+               this_type::template register_integral<std::int16_t>( parser_param, context_param );
+               this_type::template register_integral<std::int32_t>( parser_param, context_param );
+               this_type::template register_integral<std::int64_t>( parser_param, context_param );
 
-               this_type::template register_decimal<float>(       context_param, parser_param );
-               this_type::template register_decimal<double>(      context_param, parser_param );
-               this_type::template register_decimal<long double>( context_param, parser_param );
+               this_type::template register_decimal<float>(        parser_param, context_param );
+               this_type::template register_decimal<double>(       parser_param, context_param );
+               this_type::template register_decimal<long double>(  parser_param, context_param );
 
-               // TODO this_type::template register_integral<void*              >(  context_param, parser_param );
-               this_type::template register_integral<short              >(  context_param, parser_param );
-               this_type::template register_natural<unsigned short     >(  context_param, parser_param );
-               this_type::template register_integral<int                >(  context_param, parser_param );
-               this_type::template register_natural<unsigned           >(  context_param, parser_param );
-               this_type::template register_integral<long               >(  context_param, parser_param );
-               this_type::template register_integral<long long          >(  context_param, parser_param );
-               this_type::template register_natural<unsigned long      >(  context_param, parser_param );
-               this_type::template register_natural<unsigned long long >(  context_param, parser_param );
+               // TODO this_type::template register_integral<void*      >(   parser_param, context_param  );
+               this_type::template register_integral<short              >(   parser_param, context_param  );
+               this_type::template register_natural<unsigned short     >(    parser_param, context_param  );
+               this_type::template register_integral<int                >(   parser_param, context_param  );
+               this_type::template register_natural<unsigned           >(    parser_param, context_param  );
+               this_type::template register_integral<long               >(   parser_param, context_param  );
+               this_type::template register_integral<long long          >(   parser_param, context_param  );
+               this_type::template register_natural<unsigned long      >(    parser_param, context_param  );
+               this_type::template register_natural<unsigned long long >(    parser_param, context_param  );
 
-               this_type::register_string< char     >(   context_param, parser_param );
-               //  TODO this_type::register_string< wchar_t  >(   context_param, parser_param );
-               //  TODO this_type::register_string< char16_t >(   context_param, parser_param );
-               //  TODO this_type::register_string< char32_t >(   context_param, parser_param );
+               this_type::register_string< char     >(  parser_param, context_param  );
+               //  TODO this_type::register_string< wchar_t  >(  parser_param, context_param  );
+               //  TODO this_type::register_string< char16_t >(  parser_param, context_param  );
+               //  TODO this_type::register_string< char32_t >(  parser_param, context_param  );
               }
 
            private:
-             template < typename data_name >
               static  property_pointer_type read_bool( context_input_pointer_type &context_param, input_type& input_param )
-               { std::cout << __func__ << " - "<< __LINE__ << std::endl;
+               { //std::cout << __func__ << " - "<< __LINE__ << std::endl;
                 typedef char char_type;
-                typedef typename ::reflection::content::guarded::simple_struct<identifier_type,data_name>::typedef_type simple_type;
+                typedef typename ::reflection::content::guarded::simple_struct<identifier_type,bool>::typedef_type simple_type;
 
                 string_type true_string="true", false_string="true";
                 auto current_position = input_param.tellg();
 
                 // TODO take first char, check against T or F,
                 // TODO parse rest of characters.
-                data_name value = true;
+
+                bool value = true;
 
                 return property_pointer_type( new simple_type( value ) );
                }
 
            public:
-             template < typename simple_name >
-              static void register_bool( context_input_pointer_type &context_param, parser_type &  parser_param )
+
+           public:
+             template < typename data_name, typename function_name >
+              static void register__any( function_name const& function_param, parser_type &  parser_param )
                {
-                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
                 auto & facility = parser_param.facility();
 
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_bool< simple_name>, context_param, std::placeholders::_1 );
+                typedef std::function< property_pointer_type ( input_name& ) > constructor_input_type;
+                constructor_input_type constructor_wrapped = std::bind( function_param, std::placeholders::_1 );
 
-                auto constructor = constructor_pointer_type( new overload_type( f ) );
-
-                facility.template insert<simple_name>( constructor );
+                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
+                auto constructor_pointer = constructor_pointer_type( new overload_type( constructor_wrapped ) );
+                facility.template insert<data_name>( constructor_pointer );
 
                 auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
-                accumulator.equalizer().template register_default<simple_name>();
+                accumulator.equalizer().template register_default<data_name>();
+               }
+
+           public:
+             template < typename simple_name >
+              static void register_bool( parser_type & parser_param, context_input_pointer_type &context_param )
+               {
+                return register__any<bool>( std::bind( &this_type::read_bool, context_param, std::placeholders::_1 ), parser_param );
                }
 
            private:
              template < typename data_name >
               static  property_pointer_type read_natural( context_input_pointer_type &context_param, input_type& input_param )
-               { std::cout << __func__ << " - "<< __LINE__ << std::endl;
+               { //std::cout << __func__ << " - "<< __LINE__ << std::endl;
                 typedef char char_type;
                 typedef typename ::reflection::content::guarded::simple_struct<identifier_type,data_name>::typedef_type simple_type;
                 bool succes = false;
@@ -180,166 +191,68 @@ namespace reflection
                   input_param.seekg( start_position, std::ios_base::beg );
                   return property_pointer_type( nullptr );
                  }
-                std::cout << __func__ << " - "<< __LINE__ << " - " << value << std::endl;
+                //std::cout << __func__ << " - "<< __LINE__ << " - " << value << std::endl;
                 return property_pointer_type( new simple_type( value ) );
                }
 
            public:
              template < typename simple_name >
-              static void register_natural( context_input_pointer_type &context_param, parser_type &  parser_param )
+              static void register_natural( parser_type &  parser_param, context_input_pointer_type &context_param )
                {
-                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = parser_param.facility();
-
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_natural<simple_name>, context_param, std::placeholders::_1 );
-
-                auto constructor = constructor_pointer_type( new overload_type( f ) );
-
-                facility.template insert<simple_name>( constructor );
-
-                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
-                accumulator.equalizer().template register_default<simple_name>();
+                return register__any<simple_name>( std::bind( &this_type::read_natural<simple_name>, context_param, std::placeholders::_1 ), parser_param );
                }
 
            private:
              template < typename data_name >
               static  property_pointer_type read_integral( context_input_pointer_type &context_param, input_type& input_param )
-               { std::cout << __func__ << " - "<< __LINE__ << std::endl;
-                typedef char char_type;
-                typedef typename ::reflection::content::guarded::simple_struct<identifier_type,data_name>::typedef_type simple_type;
-                bool succes = false;
-                auto start_position = input_param.tellg();
-                data_name signum = 1;
+              {  //std::cout << __func__ << " - "<< __LINE__ << std::endl;
 
-                if( true == probe_json_type::character( *context_param, input_param, '+' ) )
-                 {
-                  signum = +1; probe_json_type::space( *context_param, input_param );
-                 }
-                else
-                 if( true == probe_json_type::character( *context_param, input_param, '-' ) )
-                  {
-                   signum = -1;  probe_json_type::space( *context_param, input_param );
-                  }
+               auto current_position = input_param.tellg();
+               data_name value;
+               if( false == probe_json_type::read_integral( *context_param, input_param, value  ) )
+                {
+                 return property_pointer_type( nullptr );
+                }
 
-                data_name value = 0;
-                data_name power = 1;
-                while( true )
-                 {
-                  if( true == input_param.eof() ){ break; }
-                  char_type  current;
-                  input_param.get( current );
-                  if( 0 != isdigit( current ) )
-                   {
-                    value = value * 10 + ( current - '0' );
-                    succes = true;
-                    continue;
-                   }
-                  input_param.unget();
-                  break;
-                 }
-
-                if( false == succes )
-                 {
-                  input_param.seekg( start_position, std::ios_base::beg );
-                  return property_pointer_type( nullptr );
-                 }
-                std::cout << __func__ << " - "<< __LINE__ << " - " << signum * value << std::endl;
-                return property_pointer_type( new simple_type( signum * value ) );
-               }
+               //std::cout << __func__ << " - "<< __LINE__ << " - \"" << value << "\"" << std::endl;
+               typedef typename ::reflection::content::guarded::simple_struct<identifier_type,data_name>::typedef_type simple_type;
+               return property_pointer_type( new simple_type( value ) );
+              }
 
            public:
              template < typename simple_name >
-              static void register_integral( context_input_pointer_type &context_param, parser_type &  parser_param )
+              static void register_integral( parser_type &  parser_param, context_input_pointer_type &context_param )
                {
-                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = parser_param.facility();
-
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_integral< simple_name>, context_param, std::placeholders::_1 );
-
-                auto constructor = constructor_pointer_type( new overload_type( f ) );
-
-                facility.template insert<simple_name>( constructor );
-
-                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
-                accumulator.equalizer().template register_default<simple_name>();
+                return register__any<simple_name>( std::bind( &this_type::read_integral<simple_name>, context_param, std::placeholders::_1 ), parser_param );
                }
 
-           private:
+           public:
              template < typename data_name >
               static  property_pointer_type read_decimal( context_input_pointer_type &context_param, input_type& input_param )
-               {  std::cout << __func__ << " - "<< __LINE__ << std::endl;
-                typedef char char_type;
-                typedef typename ::reflection::content::guarded::simple_struct<identifier_type,data_name>::typedef_type simple_type;
-                bool succes = false;
-                auto start_position = input_param.tellg();
-                data_name signum = 1;
+              {  //std::cout << __func__ << " - "<< __LINE__ << std::endl;
+               auto current_position = input_param.tellg();
+               data_name value;
+               if( false == probe_json_type::read_decimal( *context_param, input_param, value  ) )
+                {
+                 return property_pointer_type( nullptr );
+                }
 
-                if( true == probe_json_type::character( *context_param, input_param, '+' ) )
-                 {
-                  signum = +1; probe_json_type::space( *context_param, input_param );
-                 }
-                else
-                 if( true == probe_json_type::character( *context_param, input_param, '-' ) )
-                  {
-                   signum = -1;  probe_json_type::space( *context_param, input_param );
-                  }
-
-                data_name value = 0;
-                data_name power = 1;
-                data_name direction = 10;
-                while( true )
-                 {
-                  if( true == input_param.eof() ){ break; }
-                  char_type current;
-                  input_param.get( current );
-                  if( 0 != isdigit( current ) )
-                   {
-                    value +=  ( current - '0' ) * power;
-                    power *= direction;
-                    succes = true;
-                    continue;
-                   }
-                  if( '.' == current )
-                   {
-                    direction = 0.1;
-                    power = 0.1;
-                    continue;
-                   }
-                  input_param.unget();
-                  break;
-                 }
-
-                if( false == succes )
-                 {
-                  input_param.seekg( start_position, std::ios_base::beg );
-                  std::cout << __func__ << " - "<< __LINE__ << " - "<< "found nothing" << std::endl;
-                  return property_pointer_type( nullptr );
-                 }
-                std::cout << __func__ << " - "<< __LINE__<< " - " << "value: " << signum * value << std::endl;
-                return property_pointer_type( new simple_type( signum * value ) );
-               }
+               //std::cout << __func__ << " - "<< __LINE__ << " - \"" << value << "\"" << std::endl;
+               typedef typename ::reflection::content::guarded::simple_struct<identifier_type,data_name>::typedef_type simple_type;
+               return property_pointer_type( new simple_type( value ) );
+              }
 
            public:
              template < typename simple_name >
-              static void register_decimal( context_input_pointer_type &context_param, parser_type &  parser_param )
+              static void register_decimal( parser_type &  parser_param, context_input_pointer_type &context_param )
                {
-                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = parser_param.facility();
-
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_decimal< simple_name>, context_param, std::placeholders::_1 );
-
-                auto constructor = constructor_pointer_type( new overload_type( f ) );
-
-                facility.template insert<simple_name>( constructor );
-
-                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
-                accumulator.equalizer().template register_default<simple_name>();
+                return register__any<simple_name>( std::bind( &this_type::read_decimal<simple_name>, context_param, std::placeholders::_1 ), parser_param );
                }
 
            private:
              template < typename char_name >
               static property_pointer_type read_string( context_input_pointer_type &context_param, input_name & input_param  )
-              {  std::cout << __func__ << " - "<< __LINE__ << std::endl;
+              {  //std::cout << __func__ << " - "<< __LINE__ << std::endl;
                typedef std::basic_string<char_name> string_local_type;
 
                auto current_position = input_param.tellg();
@@ -349,26 +262,15 @@ namespace reflection
                  return property_pointer_type( nullptr );
                 }
 
-               std::cout << __func__ << " - "<< __LINE__ << " - \"" << value << "\"" << std::endl;
+               //std::cout << __func__ << " - "<< __LINE__ << " - \"" << value << "\"" << std::endl;
                typedef typename ::reflection::content::guarded::simple_struct<identifier_type,string_local_type>::typedef_type simple_type;
                return property_pointer_type( new simple_type( value ) );
               }
            public:
              template < typename char_name >
-              static void register_string( context_input_pointer_type &context_param, parser_type &  parser_param )
+              static void register_string( parser_type &  parser_param, context_input_pointer_type &context_param )
                {
-                typedef std::basic_string<char_name> string_type;
-                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = parser_param.facility();
-
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::read_string< char_name >, context_param, std::placeholders::_1 );
-
-                auto constructor = constructor_pointer_type( new overload_type( f ) );
-
-                facility.template insert<string_type>( constructor );
-
-                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
-                accumulator.equalizer().template register_default<string_type>();
+                return register__any< std::basic_string<char_name> >( std::bind( &this_type::read_string<char_name>, context_param, std::placeholders::_1 ), parser_param );
                }
 
            private:
@@ -382,7 +284,7 @@ namespace reflection
                 view_name view;
                 view.pointer( &( pile->disclose()) );
 
-                std::cout << __func__ << " - "<< __LINE__ << " - " << "begin" << std::endl;
+                //std::cout << __func__ << " - "<< __LINE__ << " - " << "begin" << std::endl;
 
                 auto start_position = input_param.tellg();
 
@@ -402,60 +304,56 @@ namespace reflection
                   return property_pointer_type( nullptr );
                  } probe_json_type::space( *context_param, input_param );
 
-                std::cout << __func__ << " - "<< __LINE__ << " - " << "end" << std::endl;
+                //std::cout << __func__ << " - "<< __LINE__ << " - " << "end" << std::endl;
                 return property_pointer_type( pile );
                }
 
            public:
              template < typename class_name, typename view_name >
-              static void register_class( context_input_pointer_type &context_param, parser_type &  parser_param )
+              static void register_class( parser_type &  parser_param, context_input_pointer_type &context_param )
                {
-                typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
-                auto & facility = parser_param.facility();
-
-                std::function< property_pointer_type ( input_name& ) > f = std::bind( &this_type::template read_class<class_name, view_name>, std::ref(parser_param), context_param, std::placeholders::_1 );
-                auto constructor = constructor_pointer_type( new overload_type( f ) );
-
-                facility.template insert<class_name>( constructor );
-
-                auto & accumulator = dynamic_cast< accumulator_type & >( *parser_param.accumulator() );
-                accumulator.equalizer().template register_default<class_name>();
+                return register__any<class_name>( std::bind( &this_type::template read_class<class_name, view_name>, std::ref(parser_param), context_param, std::placeholders::_1 ), parser_param );
                }
 
            private:
-             template < typename class_name, typename view_name >
+             template < typename value_name >
               static  property_pointer_type read_vector( parser_type &  parser_param, context_input_pointer_type &context_param, input_type& input_param )
-              {  std::cout << __func__ << " - "<< __LINE__ << std::endl;
-/*
+              {  //std::cout << __func__ << " - "<< __LINE__ << std::endl;
+               typedef  value_name value_type;
+               typedef  std::vector<value_name> vector_type;
+               typedef typename ::reflection::property::inspect::pure_class<value_name const&> inspect_type;
+               typedef typename ::reflection::property::trinity::simple_struct<vector_type>::typedef_type trinity_type;
+
                 probe_json_type::space( *context_param, input_param );
                 if( false == probe_json_type::character( *context_param, input_param, '[' ) )
                  { // TODO input_param.seekg( current_position )
                   return property_pointer_type( nullptr );
                  } probe_json_type::space( *context_param, input_param );
 
+                auto trinity_ptr = new trinity_type;
+                vector_type & vector = trinity_ptr->disclose();
+                auto trinity_peoperty = property_pointer_type( trinity_ptr );
+
                 while( true )
                  {
                   probe_json_type::space( *context_param, input_param );
-                  if( false == probe_json_type::character( *context_param, input_param, '{' ) )
-                   { // TODO input_param.seekg( current_position )
-                    return property_pointer_type( nullptr );
-                   } probe_json_type::space( *context_param, input_param );
 
-                  parser_param.probe()->push();
-                  parser_param.parse( view, input_param );
-                  parser_param.probe()->pop();
+                  auto item_property = parser_param.facility().template create<input_type&>( identificator_type::template get<value_type>(), input_param );
+                  if( nullptr == item_property )
+                   {
+                    break;
+                   }probe_json_type::space( *context_param, input_param );
+                  auto item_inspect = std::dynamic_pointer_cast< inspect_type >( item_property );
+                  if( nullptr == item_inspect )
+                   {
+                    break;
+                   }
 
-                  probe_json_type::space( *context_param, input_param );
-                  if( false == probe_json_type::character( *context_param, input_param, '}' ) )
-                   { // TODO input_param.seekg( current_position )
-                    return property_pointer_type( nullptr );
-                   } probe_json_type::space( *context_param, input_param );
-
-                  // TODO push_back
+                  vector.push_back( item_inspect->present() );
 
                   if( false == probe_json_type::character( *context_param, input_param, ',' ) )
                    {
-                     continue;
+                     break;
                    } probe_json_type::space( *context_param, input_param );
                  }
 
@@ -463,11 +361,17 @@ namespace reflection
                 if( false == probe_json_type::character( *context_param, input_param, ']' ) )
                  { // TODO input_param.seekg( current_position )
                   return property_pointer_type( nullptr );
-                 } probe_json_type::space( *context_param, input_param );
-*/
-               return property_pointer_type( nullptr );
+                 }
+
+               return trinity_peoperty;
               }
 
+           public:
+             template < typename value_name >
+              static void register_vector( parser_type &  parser_param, context_input_pointer_type &context_param )
+               {
+                return register__any< std::vector<value_name> >( std::bind( &read_vector<value_name>, std::ref( parser_param ), context_param, std::placeholders::_1  ) , parser_param );
+               }
           };
 
        }

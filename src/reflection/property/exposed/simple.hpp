@@ -55,7 +55,7 @@ namespace reflection
          typename data_name
         ,typename original_name  //=  data_name &
         ,typename model_name     //=  data_name const&
-        ,typename report_name    //=  data_name const&
+        ,typename report_name    //=  bool
        >
        inline
        typename ::reflection::property::exposed::simple_struct<data_name, original_name, model_name, report_name >::typedef_type
@@ -68,9 +68,9 @@ namespace reflection
       template
        <
          typename data_name
-        ,typename original_name  =  data_name &
-        ,typename model_name     =  data_name const&
-        ,typename report_name    //=  data_name const&
+        ,typename original_name  //=  data_name &
+        ,typename model_name     //=  data_name const&
+        ,typename report_name    //=  bool
        >
        inline
        typename ::reflection::property::exposed::simple_struct<data_name, original_name, model_name, report_name >::typedef_type

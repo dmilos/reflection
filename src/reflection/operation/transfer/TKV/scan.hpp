@@ -5,8 +5,9 @@
 
 #include "../../../type/name/id.hpp"
 
-#include "../../../content/guarded/simple.hpp"
 #include "./context.hpp"
+#include "./probe.hpp"
+#include "../../../content/guarded/simple.hpp"
 #include "../../../utility/function/stdo.hpp"
 
 namespace reflection
@@ -74,43 +75,43 @@ namespace reflection
 
                using namespace std::placeholders;
 
-               this_type::template register_fundamental< bool          >(  context_param, parser_param );
+               this_type::template register_fundamental< bool          >(  parser_param, context_param  );
 
-               this_type::template register_fundamental< char          >(  context_param, parser_param );
-               this_type::template register_fundamental< unsigned char >(  context_param, parser_param );
-               this_type::template register_fundamental< wchar_t       >(  context_param, parser_param );
-               this_type::template register_fundamental< std::wint_t   >(  context_param, parser_param );
-               this_type::template register_fundamental< char16_t      >(  context_param, parser_param );
-               this_type::template register_fundamental< char32_t      >(  context_param, parser_param );
+               this_type::template register_fundamental< char          >(  parser_param, context_param  );
+               this_type::template register_fundamental< unsigned char >(  parser_param, context_param  );
+               this_type::template register_fundamental< wchar_t       >(  parser_param, context_param  );
+               this_type::template register_fundamental< std::wint_t   >(  parser_param, context_param  );
+               this_type::template register_fundamental< char16_t      >(  parser_param, context_param  );
+               this_type::template register_fundamental< char32_t      >(  parser_param, context_param  );
 
-               this_type::template register_fundamental<std::uint8_t >(  context_param, parser_param );
-               this_type::template register_fundamental<std::uint16_t>(  context_param, parser_param );
-               this_type::template register_fundamental<std::uint32_t>(  context_param, parser_param );
-               this_type::template register_fundamental<std::uint64_t>(  context_param, parser_param );
+               this_type::template register_fundamental<std::uint8_t >(  parser_param, context_param  );
+               this_type::template register_fundamental<std::uint16_t>(  parser_param, context_param  );
+               this_type::template register_fundamental<std::uint32_t>(  parser_param, context_param  );
+               this_type::template register_fundamental<std::uint64_t>(  parser_param, context_param  );
 
-               this_type::template register_fundamental<std::int8_t >(   context_param, parser_param );
-               this_type::template register_fundamental<std::int16_t>(   context_param, parser_param );
-               this_type::template register_fundamental<std::int32_t>(   context_param, parser_param );
-               this_type::template register_fundamental<std::int64_t>(   context_param, parser_param );
+               this_type::template register_fundamental<std::int8_t >(  parser_param, context_param  );
+               this_type::template register_fundamental<std::int16_t>(  parser_param, context_param  );
+               this_type::template register_fundamental<std::int32_t>(  parser_param, context_param  );
+               this_type::template register_fundamental<std::int64_t>(  parser_param, context_param  );
 
-               this_type::template register_fundamental<float>(       context_param, parser_param );
-               this_type::template register_fundamental<double>(      context_param, parser_param );
-               this_type::template register_fundamental<long double>( context_param, parser_param );
+               this_type::template register_fundamental<float>(        parser_param, context_param  );
+               this_type::template register_fundamental<double>(       parser_param, context_param  );
+               this_type::template register_fundamental<long double>(  parser_param, context_param  );
 
-               this_type::template register_fundamental<void*              >(  context_param, parser_param );
-               this_type::template register_fundamental<short              >(  context_param, parser_param );
-               this_type::template register_fundamental<unsigned short     >(  context_param, parser_param );
-               this_type::template register_fundamental<int                >(  context_param, parser_param );
-               this_type::template register_fundamental<unsigned           >(  context_param, parser_param );
-               this_type::template register_fundamental<long               >(  context_param, parser_param );
-               this_type::template register_fundamental<long long          >(  context_param, parser_param );
-               this_type::template register_fundamental<unsigned long      >(  context_param, parser_param );
-               this_type::template register_fundamental<unsigned long long >(  context_param, parser_param );
+               this_type::template register_fundamental<void*              >(  parser_param, context_param  );
+               this_type::template register_fundamental<short              >(  parser_param, context_param  );
+               this_type::template register_fundamental<unsigned short     >(  parser_param, context_param  );
+               this_type::template register_fundamental<int                >(  parser_param, context_param  );
+               this_type::template register_fundamental<unsigned           >(  parser_param, context_param  );
+               this_type::template register_fundamental<long               >(  parser_param, context_param  );
+               this_type::template register_fundamental<long long          >(  parser_param, context_param  );
+               this_type::template register_fundamental<unsigned long      >(  parser_param, context_param  );
+               this_type::template register_fundamental<unsigned long long >(  parser_param, context_param  );
 
-               this_type::register_string< char     >(   context_param, parser_param );
-               this_type::register_string< wchar_t  >(   context_param, parser_param );
-               this_type::register_string< char16_t >(   context_param, parser_param );
-               this_type::register_string< char32_t >(   context_param, parser_param );
+               this_type::register_string< char     >(  parser_param, context_param  );
+               this_type::register_string< wchar_t  >(  parser_param, context_param  );
+               this_type::register_string< char16_t >(  parser_param, context_param  );
+               this_type::register_string< char32_t >(  parser_param, context_param  );
               }
 
            private:
@@ -133,7 +134,7 @@ namespace reflection
 
            public:
              template < typename simple_name >
-              static void register_fundamental ( context_pointer_type &context_param, parser_type &  parser_param )
+              static void register_fundamental ( parser_type &  parser_param, context_pointer_type &context_param )
                {
                 typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
                 auto & facility = parser_param.facility();
@@ -173,7 +174,7 @@ namespace reflection
               }
            public:
              template < typename char_name >
-              static void register_string( context_pointer_type &context_param, parser_type &  parser_param )
+              static void register_string( parser_type &  parser_param,  context_pointer_type &context_param)
                {
                 typedef std::basic_string<char_name> string_type;
                 typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
@@ -189,7 +190,7 @@ namespace reflection
                 accumulator.equalizer().template register_default<string_type>();
                }
 
-           private:
+           public:
              template < typename class_name, typename view_name >
               static  property_pointer_type read_class( parser_type &  parser_param, context_pointer_type &context_param, input_type& input_param )
                {
@@ -209,7 +210,7 @@ namespace reflection
 
            public:
              template < typename class_name, typename view_name >
-              static void register_class( context_pointer_type &context_param, parser_type &  parser_param )
+              static void register_class( parser_type &  parser_param, context_pointer_type &context_param)
                {
                 typedef ::reflection::utility::function::std_overload_class<property_pointer_type,input_name&> overload_type;
                 auto & facility = parser_param.facility();

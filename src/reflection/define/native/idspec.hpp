@@ -46,24 +46,52 @@ reflection__IDSPEC( std::string, "std::wstring",            std::wstring )
 reflection__IDSPEC( std::string, "std::wstring const",      std::wstring const )
 reflection__IDSPEC( std::string, "std::wstring const &",    std::wstring const & )
 
-reflection__IDSPEC( std::string, "std::vector<int>",            std::vector<int> )
-reflection__IDSPEC( std::string, "std::vector<unsigned>",       std::vector<unsigned> )
+reflection__IDSPEC( std::string, "std::vector<std::uint8_t>",   std::vector<std::uint8_t>  )
+reflection__IDSPEC( std::string, "std::vector<std::uint16_t>",  std::vector<std::uint16_t> )
+reflection__IDSPEC( std::string, "std::vector<std::uint32_t>",  std::vector<std::uint32_t> )
+reflection__IDSPEC( std::string, "std::vector<std::uint64_t>",  std::vector<std::uint64_t> )
+
+reflection__IDSPEC( std::string, "std::vector<std::int8_t>",        std::vector<std::int8_t> )
+reflection__IDSPEC( std::string, "std::vector<std::int16_t>",       std::vector<std::int16_t> )
+reflection__IDSPEC( std::string, "std::vector<std::int32_t>",       std::vector<std::int32_t> )
+reflection__IDSPEC( std::string, "std::vector<std::int64_t>",       std::vector<std::int64_t> )
+
 reflection__IDSPEC( std::string, "std::vector<float>",          std::vector<float> )
 reflection__IDSPEC( std::string, "std::vector<double>",         std::vector<double> )
+reflection__IDSPEC( std::string, "std::vector<long double>",    std::vector<long double> )
+
 reflection__IDSPEC( std::string, "std::vector<std::string>",    std::vector<std::string> )
 reflection__IDSPEC( std::string, "std::vector<std::wstring>",   std::vector<std::wstring> )
 
-reflection__IDSPEC( std::string, "std::list<int>",           std::list<int> )
-reflection__IDSPEC( std::string, "std::list<unsigned>",      std::list<unsigned> )
+reflection__IDSPEC( std::string, "std::list<std::uint8_t>",     std::list<std::uint8_t>  )
+reflection__IDSPEC( std::string, "std::list<std::uint16_t>",    std::list<std::uint16_t> )
+reflection__IDSPEC( std::string, "std::list<std::uint32_t>",    std::list<std::uint32_t> )
+reflection__IDSPEC( std::string, "std::list<std::uint64_t>",    std::list<std::uint64_t> )
+
+reflection__IDSPEC( std::string, "std::list<std::int8_t>",     std::list<std::int8_t>  )
+reflection__IDSPEC( std::string, "std::list<std::int16_t>",    std::list<std::int16_t> )
+reflection__IDSPEC( std::string, "std::list<std::int32_t>",    std::list<std::int32_t> )
+reflection__IDSPEC( std::string, "std::list<std::int64_t>",    std::list<std::int64_t> )
+
 reflection__IDSPEC( std::string, "std::list<float>",         std::list<float> )
 reflection__IDSPEC( std::string, "std::list<double>",        std::list<double> )
+reflection__IDSPEC( std::string, "std::list<long double>",   std::list<long double> )
 reflection__IDSPEC( std::string, "std::list<std::string>",   std::list<std::string> )
 reflection__IDSPEC( std::string, "std::list<std::wstring>",  std::list<std::wstring> )
 
-reflection__IDSPEC( std::string, "std::set<int>",           std::set<int> )
-reflection__IDSPEC( std::string, "std::set<unsigned>",      std::set<unsigned> )
+reflection__IDSPEC( std::string, "std::set<std::uint8_t>",     std::set<std::uint8_t>  )
+reflection__IDSPEC( std::string, "std::set<std::uint16_t>",    std::set<std::uint16_t> )
+reflection__IDSPEC( std::string, "std::set<std::uint32_t>",    std::set<std::uint32_t> )
+reflection__IDSPEC( std::string, "std::set<std::uint64_t>",    std::set<std::uint64_t> )
+
+reflection__IDSPEC( std::string, "std::set<std::int8_t>",     std::set<std::int8_t>  )
+reflection__IDSPEC( std::string, "std::set<std::int16_t>",    std::set<std::int16_t> )
+reflection__IDSPEC( std::string, "std::set<std::int32_t>",    std::set<std::int32_t> )
+reflection__IDSPEC( std::string, "std::set<std::int64_t>",    std::set<std::int64_t> )
+
 reflection__IDSPEC( std::string, "std::set<float>",         std::set<float> )
 reflection__IDSPEC( std::string, "std::set<double>",        std::set<double> )
+reflection__IDSPEC( std::string, "std::set<long double>",   std::set<long double> )
 reflection__IDSPEC( std::string, "std::set<std::string>",   std::set<std::string> )
 reflection__IDSPEC( std::string, "std::set<std::wstring>",  std::set<std::wstring> )
 
@@ -152,4 +180,3 @@ reflection__IDSPEC( std::string, "std::pair<const std::wstring, std::wstring>", 
 #undef COMMA
 
 #endif
-

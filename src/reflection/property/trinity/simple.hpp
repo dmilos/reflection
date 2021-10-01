@@ -65,10 +65,10 @@ namespace reflection
         ,typename report_name   = bool
        >
        inline
-       typename ::reflection::property::trinity::simple_struct<orginal_name,data_name, model_name, image_name, report_name >::typedef_type
+       typename ::reflection::property::trinity::simple_struct<data_name,orginal_name, model_name, image_name, report_name >::typedef_type
        simple()
         {
-         typedef ::reflection::property::trinity::simple_struct<orginal_name,data_name, model_name, image_name, report_name> simple_type;
+         typedef ::reflection::property::trinity::simple_struct<data_name,orginal_name, model_name, image_name, report_name> simple_type;
          return simple_type::make();
         }
 

@@ -50,16 +50,18 @@ namespace reflection
         template
          <
            typename      output_name //!< conect operator << ()
+          ,typename         key_name //!< conect operator << ()
           ,typename      string_name //!< conect operator << ()
          >
         struct context_struct
          {
           public:
 
-            typedef      output_name        output_type;
+            typedef output_name output_type;
+            typedef key_name       key_type;
+            typedef string_name string_type;
 
             typedef std::size_t size_type;
-            typedef string_name string_type;
 
             typedef ::reflection::operation::transfer::_common::indenting_class<output_type, string_type>        indent_type;
 
@@ -86,8 +88,9 @@ namespace reflection
              }m_message;
 
            public:
-             bool   m_skip=false;
+             bool        m_skip=false;
              indent_type m_indent;
+             key_type    m_invisibleKey = "$<<internal-invisible-key>>$";
          };
 
        }

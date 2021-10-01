@@ -24,13 +24,26 @@ namespace reflection
          public:
            typedef original_name original_type; //!< Expect to be reference
 
-           typedef ::reflection::property::pure_class  pure_type;
-
                     pure_class(){}
            virtual ~pure_class(){}
 
            virtual original_type disclose()=0;
         };
+
+      template
+       <
+       >
+       class pure_class< void >
+        : virtual public ::reflection::property::pure_class
+        {
+         public:
+
+                    pure_class(){}
+           virtual ~pure_class(){}
+
+           virtual void disclose()=0;
+        };
+
 
       template< typename original_name >
        inline bool check( ::reflection::property::pure_class const& property_param )
@@ -40,7 +53,9 @@ namespace reflection
         }
 
       template< typename original_name >
-       inline original_name disclose( ::reflection::property::pure_class & property_param )
+       inline 
+       original_name 
+       disclose( ::reflection::property::pure_class & property_param )
         {
          typedef ::reflection::property::direct::pure_class<original_name> direct_type;
          return dynamic_cast< direct_type &>( property_param ).disclose();

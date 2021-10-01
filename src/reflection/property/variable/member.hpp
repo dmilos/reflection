@@ -47,8 +47,8 @@
               return typedef_type( carrier_param, extractor_type( traitor_param ), retriever_type( reader_param ) );
              }
            };
-
         }
+
 
        template
          <

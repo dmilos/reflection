@@ -30,7 +30,6 @@ namespace reflection
            virtual report_name process( model_type model_param )=0;
         };
 
-
       template
        <
         typename report_name
