@@ -1,7 +1,7 @@
 #ifndef reflection_content_guarded_void_hpp
 #define reflection_content_guarded_void_hpp
 
- // ::reflection::content::guarded::void_class<report_name,report_name >
+ // ::reflection::content::guarded::void_class<identifier_name,report_name >
 
 #include "../../property/guarded/void.hpp"
 

@@ -1,7 +1,7 @@
 #ifndef reflection_property_inspect_void
 #define reflection_property_inspect_void
 
-// ::reflection::property::inspect::void_class<report_name>
+// ::reflection::property::inspect::void_class
 
 #include "../void.hpp"
 #include "./_pure.hpp"

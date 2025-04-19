@@ -1,8 +1,7 @@
 #ifndef type_ornament_category_pure_hpp
  #define type_ornament_category_pure_hpp
 
-// ::reflection::ornament::category::pure_class<identificator_name>
-// ::reflection::ornament::category::pure()
+// ::reflection::ornament::category_class<identifier_name>
 
 #include "../property/_pure.hpp"
 #include "../type/name/id.hpp"

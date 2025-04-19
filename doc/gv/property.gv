@@ -1,0 +1,53 @@
+digraph property{
+
+
+        property__pure_class -> property__direct__pure_class;
+        property__pure_class -> property__mutate__pure_class;
+        property__pure_class -> property__inspect__pure_class;
+ 
+        property__pure_class          ->  property__guarded__pure_class;
+        property__mutate__pure_class  ->  property__guarded__pure_class;
+        property__inspect__pure_class ->  property__guarded__pure_class;
+
+        property__pure_class          -> property__variable__pure_class;
+        property__direct__pure_class   -> property__variable__pure_class;
+        property__inspect__pure_class  -> property__variable__pure_class;
+
+        property__pure_class          -> property__exposed__pure_class;
+        property__direct__pure_class  -> property__exposed__pure_class;
+        property__mutate__pure_class  -> property__exposed__pure_class;
+
+        property__pure_class           -> property__trinity__pure_class;
+        property__direct__pure_class   -> property__trinity__pure_class;
+        property__mutate__pure_class   -> property__trinity__pure_class;
+        property__inspect__pure_class  -> property__trinity__pure_class;
+
+        //property__exposed__pure_class  -> property__trinity__pure_class;
+        //property__guarded__pure_class  -> property__trinity__pure_class;
+        //property__variable__pure_class -> property__trinity__pure_class;
+
+     subgraph cluster_property
+     {
+         rank    = same;
+         rankdir =   TB;
+         node [] property__pure_class
+         node [] property__direct__pure_class
+         node [] property__mutate__pure_class
+         node [] property__inspect__pure_class
+         node [] property__exposed__pure_class
+         node [] property__guarded__pure_class
+         node [] property__variable__pure_class
+         node [] property__trinity__pure_class
+     };
+
+
+
+}
+
+
+
+
+
+
+
+

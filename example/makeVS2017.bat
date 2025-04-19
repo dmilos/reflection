@@ -5,7 +5,7 @@
 @rem  One line one example
 @rem  Designed for easy copy/paste
 @
-@rem  TODO MATH_USE_PP2FILE
+@rem  TODO REFLECTION_USE_PP2FILE
 @
 @
 @cls

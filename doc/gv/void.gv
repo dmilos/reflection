@@ -1,0 +1,70 @@
+digraph void{
+
+    content__direct__void_class     [shape = box, label="content__direct__void_class"];
+     content__void_class            [shape = box, label="content__void_class"];
+    property__void_class            [shape = box, label="property__void_class"];
+    property__direct__void_class    [shape = box, label="property__direct__void_class"];
+
+    content__void_class          -> content__direct__void_class;
+    property__direct__void_class -> content__direct__void_class;
+
+
+    property__void_class -> content__void_class;
+
+
+      property__pure_class  -> content__pure_class;
+      ornament__category_class -> content__pure_class;
+
+       property__void_class          -> property__direct__void_class;
+       property__direct__pure_class  -> property__direct__void_class;
+
+
+         content__direct__pure_class  -> content__direct__void_class;
+
+       content__pure_class           -> content__direct__pure_class;
+       property__direct__pure_class  -> content__direct__pure_class;
+
+
+
+
+        property__pure_class -> property__direct__pure_class;
+        property__pure_class -> property__void_class;
+
+
+
+
+
+     subgraph cluster_property
+     {
+         rank    = same;
+         rankdir =   TB;
+         node [ ] property__pure_class
+         node [ ] property__direct__pure_class
+     };
+
+     subgraph cluster_content
+     {
+         rank    = same;
+         rankdir =   TB;
+         node [ ] content__pure_class
+         node [ ] content__direct__pure_class
+     };
+
+     subgraph cluster_property_void
+     {
+         rank    = same;
+         rankdir =   TB;
+         node [ ] property__void_class
+         node [ ] property__direct__void_class
+     };
+
+
+     subgraph cluster_content_void
+     {
+         rank    = same;
+         rankdir =   TB;
+         node [ ] content__void_class          ;
+         node [ ] content__direct__void_class  ;
+     }
+
+}

@@ -22,3 +22,5 @@
 /example/test/msvc/2015/Release
 /tmp/*.pyd
 /example/test/msvc/2015/Debug3
+/example/test/msvc/2022/.vs
+/example/test/msvc/2022/x64

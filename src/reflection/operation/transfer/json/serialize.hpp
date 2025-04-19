@@ -373,7 +373,8 @@ namespace reflection
 
                 {
                  auto const & note_string = context_param->m_key.m_note;
-                 output_param<< "{ " << "\""<< note_string << "\" : " << "\"Can not retrieve value.\"" << "}"; //context_param->m_indent.newl(output_param);
+                 auto const& CnRtV_string = context_param->m_message.m_CnRtV;
+                 output_param<< "{ " << "\""<< note_string << "\" : " << "\"" << CnRtV_string << "\"" << "}"; //context_param->m_indent.newl(output_param);
                 }
 
                 return report_type( true );
@@ -447,7 +448,8 @@ namespace reflection
 
                 if( true == pass )
                  {
-                  output_param << "Can not retrieve value.";
+                  auto const& CnRtV_string = context_param->m_message.m_CnRtV;
+                  output_param << CnRtV_string;
                  }
 
                 return report_type( true );

@@ -70,6 +70,7 @@ namespace reflection
              ,recover_action_acquisition_index
              ,recover_action_fail_index
              ,recover_null_pointer_index
+             // ,recover_view_index //!< Already handled with recover_action_fail_index 
              ,recover__end
              };
 
@@ -106,6 +107,7 @@ namespace reflection
              this->recover( recover_action_acquisition_index , action_type::always_true() );
              this->recover( recover_action_fail_index        , action_type::always_true() );
              this->recover( recover_null_pointer_index       , action_type::always_true() );
+           //this->recover( recover_view_index               , action_type::always_true() );
 
              this->stage( stage_introductum_index      , action_type::always_true() );
              this->stage( stage_exodus_index           , action_type::always_true() );

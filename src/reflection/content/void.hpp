@@ -18,7 +18,7 @@ namespace reflection
      >
     class void_class
      : virtual public ::reflection::content::pure_class< identifier_name >
-     ,         public ::reflection::property::void_class
+     , virtual public ::reflection::property::void_class
      {
       public:
         typedef identifier_name    identifier_type;

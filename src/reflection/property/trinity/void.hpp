@@ -26,7 +26,7 @@ namespace reflection
        >
        class void_class
         : virtual public ::reflection::property::void_class
-        , virtual public ::reflection::property::trinity::pure_class<  void, void, void, report_name >
+        , virtual public ::reflection::property::trinity::pure_class< void, void, void, report_name >
         ,         public ::reflection::property::direct::void_class
         ,         public ::reflection::property::mutate::void_class< report_name >
         ,         public ::reflection::property::inspect::void_class

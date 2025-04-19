@@ -26,7 +26,7 @@ namespace reflection
        >
        class void_class
         :virtual public ::reflection::content::void_class< identifier_name >
-        ,virtual public ::reflection::content::trinity::pure_class<  identifier_name, void, void, void,void,report_name>
+        ,virtual public ::reflection::content::trinity::pure_class<  identifier_name, void, void, void, void, report_name >
         ,        public ::reflection::property::trinity::void_class< report_name >
         {
          public:
