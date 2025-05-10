@@ -14,7 +14,7 @@
         ::reflection::content::variable::field          \
          <identifier_type>                              \
          (                                              \
-           (pointer_type)(nullptr)              \
+           (pointer_type)(nullptr)                      \
           ,&class_symbolic_name::field_symbolic_name    \
          );                                                                                                     \
   /* TODO instance.linkage(    ::reflection::ornament::linkage_class::member_index   ); */ \
@@ -24,7 +24,7 @@
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
   instance.relation(      ::reflection::ornament::relation_class::field_index );              \
-  insert                                                       \
+  this->insert                                                       \
    (                                                           \
      member_string_name                                        \
     ,item_type( ::memory::pointer::make( instance ) )          \
@@ -46,7 +46,7 @@
         ::reflection::ornament::accessibility_class::variable_index                            \
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
-  insert                                                       \
+  this->insert                                                       \
    (                                                           \
      member_string_name                                        \
     ,item_type( ::memory::pointer::make( instance ) )          \
@@ -61,7 +61,7 @@
         ::reflection::content::variable::member                \
          <identifier_type>                                     \
          (                                                     \
-           (pointer_type)(nullptr)                     \
+           (pointer_type)(nullptr)                             \
           ,&class_symbolic_name::traitor_symbolic_name         \
           ,&class_symbolic_name::reader_symbolic_name          \
          );                                                    \
@@ -73,7 +73,7 @@
   instance.relation(      ::reflection::ornament::relation_class::member_index );              \
   /*instance.meta( "traitor", #traitor_symbolic_name ); */ \
   /*instance.meta( "reader",  #reader_symbolic_name  ); */ \
-  insert                                                       \
+  this->insert                                                       \
    (                                                           \
      member_string_name                                        \
     ,item_type( ::memory::pointer::make( instance ) )          \
@@ -83,7 +83,7 @@
 #define reflection__CLASS_SIMPLE_variable( member_string_name, type_symbolic_name, value_instance )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
-  insert                                                \
+  this->insert                                                \
    (                                                    \
      member_string_name                                 \
     ,item_type                                          \

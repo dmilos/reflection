@@ -17,7 +17,7 @@ namespace reflection
        <
          typename identifier_name
         ,typename data_name       //!< mutablize before use!
-        ,typename image_name   //!< mutablize before use!
+        ,typename image_name      //!< mutablize before use!
         ,typename storage_name    //= data_name
         ,typename retriever_name  //= stl_ext::identity_cast<  data_name const&, storage_name const& >
        >
@@ -32,7 +32,7 @@ namespace reflection
            typedef retriever_name  retriever_type;
 
            typedef ::reflection::content::inspect::pure_class<identifier_name,data_name,image_name > pure_type;
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
            typedef::reflection::property::inspect::basic_class<image_name,storage_name,retriever_name> base_type;
 

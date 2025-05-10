@@ -2,6 +2,8 @@
 #define reflection_property_mutate_pure
 
 // ::reflection::property::mutate::pure_class<model_name,report_name>
+// ::reflection::property::mutate::check<model_name,report_name>( property )
+// ::reflection::property::mutate::process<model_name,report_name>( property, model )
 
 #include "../_pure.hpp"
 
@@ -61,6 +63,15 @@ namespace reflection
         {
          typedef ::reflection::property::mutate::pure_class<model_name,report_name> mutate_type;
          return dynamic_cast< mutate_type &>( property_param ).process( model_param );
+        }
+
+      template< typename report_name = bool >
+       inline
+       report_name
+       process( ::reflection::property::pure_class & property_param )
+        {
+         typedef ::reflection::property::mutate::pure_class<void,report_name> mutate_type;
+         return dynamic_cast< mutate_type &>( property_param ).process( );
         }
 
      }

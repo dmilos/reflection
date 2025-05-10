@@ -38,7 +38,7 @@ namespace reflection
            typedef ::reflection::content::variable::pure_class<identifier_name, data_name,original_name,image_name> pure_type;
            typedef ::reflection::property::variable::basic_class< original_name, image_name, storage_name,extractor_name, retriever_name> base_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
                     basic_class()
                      : basic_class( storage_type{}, extractor_type{}, retriever_type{} )

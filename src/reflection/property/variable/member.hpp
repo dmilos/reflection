@@ -31,13 +31,13 @@
             typedef class_name    class_type;
             typedef storage_name  storage_type;
 
-            typedef ::reflection::property::direct::_internal::member_struct<original_type,class_type,storage_type> direct_type;
+            typedef ::reflection::property::direct::_internal::member_struct< original_type,class_type,storage_type> direct_type;
             typedef ::reflection::property::inspect::_internal::member_struct<image_name,class_name,storage_type> inspect_type;
 
             typedef typename  direct_type::extractor_type   extractor_type;
             typedef typename inspect_type::retriever_type   retriever_type;
 
-            typedef ::reflection::property::variable::basic_class <original_name, image_name, storage_name, extractor_type, retriever_type>      typedef_type;
+            typedef ::reflection::property::variable::basic_class < original_name, image_name, storage_name, extractor_type, retriever_type>      typedef_type;
 
             typedef typename  direct_type::traitor_type   traitor_type;
             typedef typename inspect_type::reader_type     reader_type;

@@ -3,7 +3,8 @@
 
 // ::reflection::utility::function::std_overload_class<return_name, first_name>
 
-#include "./std.hpp"
+//#include "./std.hpp"
+#include "./standard.hpp"
 #include "./overload.hpp"
 
 namespace reflection
@@ -22,16 +23,16 @@ namespace reflection
        >
        class std_overload_class
        : virtual public ::reflection::utility::function::overload_class<return_name,first_name,second_name,third_name>
-       ,         public ::reflection::utility::function::std_class<return_name>
-       ,         public ::reflection::utility::function::std_class<return_name,first_name>
-       ,         public ::reflection::utility::function::std_class<return_name,first_name,second_name>
-       ,         public ::reflection::utility::function::std_class<return_name,first_name,second_name,third_name>
+       ,         public ::reflection::utility::function::standard_class<return_name>
+       ,         public ::reflection::utility::function::standard_class<return_name,first_name>
+       ,         public ::reflection::utility::function::standard_class<return_name,first_name,second_name>
+       ,         public ::reflection::utility::function::standard_class<return_name,first_name,second_name,third_name>
        {
         public:
-          typedef ::reflection::utility::function::std_class<return_name>  generator_type;
-          typedef ::reflection::utility::function::std_class<return_name,first_name >unary_type;
-          typedef ::reflection::utility::function::std_class<return_name,first_name,second_name >binary_type;
-          typedef ::reflection::utility::function::std_class<return_name,first_name,second_name,third_name >ternary_type;
+          typedef ::reflection::utility::function::standard_class<return_name>  generator_type;
+          typedef ::reflection::utility::function::standard_class<return_name,first_name >unary_type;
+          typedef ::reflection::utility::function::standard_class<return_name,first_name,second_name >binary_type;
+          typedef ::reflection::utility::function::standard_class<return_name,first_name,second_name,third_name >ternary_type;
 
         public:
           std_overload_class( ):generator_type(nullptr), unary_type(nullptr), binary_type(nullptr), ternary_type(nullptr){ }
@@ -46,12 +47,12 @@ namespace reflection
        <
          typename return_name
        >
-       class std_overload_class< return_name, void, void, void >
+       class std_overload_class< return_name >
        : virtual public ::reflection::utility::function::overload_class<return_name>
-       ,         public ::reflection::utility::function::std_class<return_name>
+       ,         public ::reflection::utility::function::standard_class<return_name>
        {
         public:
-          typedef ::reflection::utility::function::std_class<return_name>  generator_type;
+          typedef ::reflection::utility::function::standard_class<return_name>  generator_type;
 
         public:
           std_overload_class( ):generator_type(nullptr){ }
@@ -64,14 +65,14 @@ namespace reflection
          typename return_name
         ,typename first_name 
        >
-       class std_overload_class< return_name, first_name, void, void >
+       class std_overload_class< return_name, first_name >
        : virtual public ::reflection::utility::function::overload_class<return_name,first_name>
-       ,         public ::reflection::utility::function::std_class<return_name>
-       ,         public ::reflection::utility::function::std_class<return_name,first_name>
+       ,         public ::reflection::utility::function::standard_class<return_name>
+       ,         public ::reflection::utility::function::standard_class<return_name,first_name>
        {
         public:
-          typedef ::reflection::utility::function::std_class<return_name>  generator_type;
-          typedef ::reflection::utility::function::std_class<return_name,first_name >unary_type;
+          typedef ::reflection::utility::function::standard_class<return_name>  generator_type;
+          typedef ::reflection::utility::function::standard_class<return_name,first_name >unary_type;
 
         public:
           std_overload_class( ):generator_type(nullptr),unary_type(nullptr){ }
@@ -86,16 +87,16 @@ namespace reflection
         ,typename first_name 
         ,typename second_name
        >
-       class std_overload_class< return_name, first_name, second_name, void >
-       : virtual public ::reflection::utility::function::overload_class<return_name,first_name,second_name,void,void>
-       ,         public ::reflection::utility::function::std_class<return_name>
-       ,         public ::reflection::utility::function::std_class<return_name,first_name>
-       ,         public ::reflection::utility::function::std_class<return_name,first_name,second_name>
+       class std_overload_class< return_name, first_name, second_name >
+       : virtual public ::reflection::utility::function::overload_class<return_name,first_name,second_name>
+       ,         public ::reflection::utility::function::standard_class<return_name>
+       ,         public ::reflection::utility::function::standard_class<return_name,first_name>
+       ,         public ::reflection::utility::function::standard_class<return_name,first_name,second_name>
        {
         public:
-          typedef ::reflection::utility::function::std_class<return_name>  generator_type;
-          typedef ::reflection::utility::function::std_class<return_name,first_name >unary_type;
-          typedef ::reflection::utility::function::std_class<return_name,first_name,second_name >binary_type;
+          typedef ::reflection::utility::function::standard_class<return_name>  generator_type;
+          typedef ::reflection::utility::function::standard_class<return_name,first_name >unary_type;
+          typedef ::reflection::utility::function::standard_class<return_name,first_name,second_name >binary_type;
 
         public:
           std_overload_class( ):generator_type(nullptr),unary_type(nullptr),binary_type(nullptr){ }

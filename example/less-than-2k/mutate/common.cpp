@@ -36,7 +36,7 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
   typedef ::reflection::operation::transfer::json::print_struct<std::ostream> json_type;
 
-  MyStructOriginal o;
+  //MyStructOriginal o;
   MyStructReflection   r;
 
   observe_type observe;

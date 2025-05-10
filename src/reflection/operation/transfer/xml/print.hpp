@@ -196,6 +196,7 @@ namespace reflection
            private:
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
+             typedef    int              integer_type;
 
              static report_type recover(     context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
@@ -421,36 +422,49 @@ namespace reflection
              template< typename simple_name >
               static report_type primitive(   context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
-                boolean_type pass = true;
+                integer_type pass = 0;
 
-                if( true == pass )
+                if( 0 == pass )
+                 {
+                  typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+                  auto carrier_instance = dynamic_cast<carrie_type const* >( &property_param );
+                  if( nullptr != carrier_instance )
+                   {
+                    if( false == carrier_instance->valid() )
+                     {
+                      pass = -1;
+                     }
+                   }
+                 }
+
+                if( 0 == pass )
                  {
                   typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
                   auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
                   if( nullptr != inspect_instance )
                    {
                     output_param << inspect_instance->present();
-                    pass = false;
+                    pass = +1;
                    }
                  }
 
-                if( true == pass )
+                if( 0 == pass )
                  {
                   typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
                   direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                   if( nullptr != direct_instance )
                    {
                     output_param << direct_instance->disclose();
-                    pass = false;
+                    pass = +1;
                    }
                  }
 
-                if( true == pass )
+                if( +1 != pass )
                  {
-                  context_param->m_remark.single( output_param, context_param->m_messageCNRV );
+                  context_param->m_remark.single( output_param, context_param->m_messageCNRV /* + "\"reason: " + std::to_string(pass) + "\""*/ );
                  }
 
-                return report_type( true );
+                return report_type( +1 == pass );
                }
 
             private:
@@ -708,7 +722,7 @@ namespace reflection
                 boolean_type pass = true;
 
                 if( true == pass )
-                {
+                 {
                   typedef ::reflection::property::inspect::pure_class<complex_type const& > inspect_type;
                   auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
                   if( nullptr != inspect_instance )
@@ -716,10 +730,10 @@ namespace reflection
                     output_param << inspect_instance->present().real() << "," << inspect_instance->present().imag();
                     pass = false;
                   }
-                }
+                 }
 
                 if( true == pass )
-                {
+                 {
                   typedef  ::reflection::property::direct::pure_class<complex_type &>         direct_type;
                   direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                   if( nullptr != direct_instance )
@@ -727,7 +741,7 @@ namespace reflection
                     output_param << direct_instance->disclose().real() << "," << direct_instance->disclose().imag();
                     pass = false;
                   }
-                }
+                 }
 
                 if( true == pass )
                  {
@@ -750,9 +764,22 @@ namespace reflection
              template< typename data_name, typename view_name>
               static void register_class(      observe_type & observe_param, context_pointer_type &context_param )
                {
-                using namespace std::placeholders;
-                auto f = std::bind( &observe_type::template view_custom<data_name, view_name>, std::ref(observe_param), _1, _2, _3 );
-                observe_param.template register__any< data_name >( f );
+                return observe_param. template register_class< data_name, view_name >();
+               }
+             template< typename data_name, typename view_name>
+              static void register_class_pointer(      observe_type & observe_param, context_pointer_type &context_param )
+               {
+                return observe_param. template register_class_pointer< data_name, view_name >();
+               }
+             template< typename data_name, typename view_name>
+              static void register_class_inherit(      observe_type & observe_param, context_pointer_type &context_param )
+               {
+                return observe_param. template register_class_inherit< data_name, view_name >();
+               }
+             template< typename data_name, typename view_name>
+              static void register_class_reference(      observe_type & observe_param, context_pointer_type &context_param )
+               {
+                return observe_param. template register_class_reference< data_name, view_name >();
                }
 
          };

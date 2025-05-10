@@ -26,7 +26,7 @@ class MyClassOriginal
  };
 
 // Reflect to reflection
-reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
+reflection__CLASS_BEGIN_pointer( MyClassReflection, public, MyClassOriginal, std::shared_ptr<MyClassOriginal> )
 
   reflection__CLASS_ENUM_begin( "enum-for-something", MyClassOriginal::Enumerator );
     reflection__CLASS_ENUM_value( "enum1", MyClassOriginal::enum1 )
@@ -48,7 +48,7 @@ reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClas
 
   reflection__CLASS_MEMBER_exposed(   "asasd2", MyClassOriginal, traitor,  writer )
 
-reflection__CLASS_END_view( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_pointer( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )
@@ -60,7 +60,8 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::json::print_struct<std::ostream> json_type;
 
   MyClassOriginal o;
-  MyClassReflection r( &o );  //!< Set pointer to some existing instance.
+  std::shared_ptr<MyClassOriginal> pointer( &o, [](void*) {});
+  MyClassReflection r( pointer );  //!< Set pointer to some existing instance.
 
   observe_type observe;
 

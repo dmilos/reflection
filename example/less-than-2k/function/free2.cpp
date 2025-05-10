@@ -51,6 +51,7 @@ int main( int argc, char *argv[] )
   ::reflection::property::function::execute< int, int, std::string const& >( r.get("free_int_int_string"), i, "aaa" )
   // << std::endl
   ;
+  ::reflection::utility::function::free(&free_int_int_string).execute( i, std::string("aaa") );
 
   return EXIT_SUCCESS;
  }

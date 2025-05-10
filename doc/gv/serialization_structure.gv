@@ -18,31 +18,28 @@ digraph stages_of_serialization{
 
     begin->prolog[ label = "" , dir=forward ];
     introductum -> prolog [ label = "Success" , dir=forward, weight="1000" ];
-    introductum  -> exodus      [ label = "fail" , dir=forward ];
+    introductum  -> exodus      [ label = "fail" , dir=forward , constraint=false ];
 
     prolog -> acquisition[ label = "Success", dir=forward, weight="2000"  ];
-    prolog -> epilog[ label = "fail", dir=forward  ];
+    prolog -> epilog[ label = "fail", dir=forward,  constraint=false ];
 
-    acquisition ->fail_null  [ label = "fail", dir=forward  ];
     acquisition ->WIEW[ label = "Success", dir=forward  ];
     acquisition ->epilog[ label = "end", dir=forward  ];
+    acquisition ->fail_null  [ label = "fail", dir=forward,  constraint=false ];
 
-    WIEW  -> epilog  [ label = "fail", dir=forward  ];
     WIEW  -> stasimon  [ label = "Success", dir=forward  ];
+    WIEW  -> epilog  [ label = "fail", dir=forward  constraint=false ];
 
-    stasimon  -> acquisition  [ label = "", dir=forward  ];
+    stasimon  -> acquisition  [ label = "", dir=forward,  constraint=false ];
 
     epilog -> exodus[ label = "", dir=forward  ];
 
     fail_null-> stasimon[ label = "Success", dir=forward  ];
-    fail_null-> epilog[ label = "fail", dir=forward  ];
+    fail_null-> epilog[ label = "fail", dir=forward  constraint=false ];
 
     exodus->end[ label = "" , dir=forward ];
 
-    subgraph cluster_ALL
-    {
-        rankdir=TB;
-        rank=source;
+
     subgraph cluster_center
     {
         rankdir=TB
@@ -67,7 +64,7 @@ digraph stages_of_serialization{
         node [ ] prolog
     }
 
-    }
+
 
 }
 

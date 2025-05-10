@@ -24,3 +24,4 @@
 #include "./trinity/trinity.hpp"
 
 #include "./reset/reset.hpp"
+#include "./valid/valid.hpp"

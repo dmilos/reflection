@@ -50,6 +50,7 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
+reflection__IDSPEC( std::string, "MyClassOriginal", MyClassOriginal );
 
 int main( int argc, char *argv[] )
  {

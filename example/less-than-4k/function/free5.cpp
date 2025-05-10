@@ -19,6 +19,19 @@ class MyClassOriginal
       m_int  = i; 
       return true; 
      }
+
+    void none()
+     {
+     }
+
+    void one( int i )
+     {
+     }
+
+    void two( int i, std::string const& s)
+    {
+    }
+
     int       const&  reader_int() const{ return m_int; }
   private:
     int m_int;
@@ -60,8 +73,57 @@ reflection__CLASS_BEGIN_inherit( MyClassReflection, public, MyClassOriginal )
 reflection__CLASS_END_inherit( MyClassReflection, MyClassOriginal );
 
 
+void test_none()
+{
+    std::cout << __FUNCTION__ << std::endl;
+}
+void test_one( int i )
+{
+    std::cout << __FUNCTION__ << std::endl;
+}
+void test_two( float f, std::string const s )
+{
+    std::cout << __FUNCTION__ << std::endl;
+}
+
+void test_standard( )
+ { 
+    using namespace std::placeholders;
+    std::function< void( ) > f0 = std::bind(&test_none);
+    auto s0 = ::reflection::utility::function::standard( f0 );
+    s0.execute();
+
+    using namespace std::placeholders;
+    std::function< void( int ) > f1 = std::bind(&test_one, _1 );
+    auto s1 = ::reflection::utility::function::standard( f1 );
+    s1.execute(1);
+
+    using namespace std::placeholders;
+    std::function< void(float f, std::string const s) > f2 = std::bind(&test_two, _1, _2 );
+    auto s2 = ::reflection::utility::function::standard( f2 );
+    s2.execute(1, "" );
+
+
+ }
+void test_member( )
+ { 
+    //  reflection::property::function::member( storage_param , member_function )
+    MyClassOriginal instance;
+
+    auto s0 = ::reflection::utility::function::member<MyClassOriginal>( &instance, &MyClassOriginal::none );
+    s0.execute();
+
+    auto s1 = ::reflection::utility::function::member( &instance, &MyClassOriginal::one );
+    s1.execute(1);
+
+    auto s2 = ::reflection::utility::function::member(&instance, &MyClassOriginal::two);
+    s2.execute(1, "" );
+ }
+
 int main( int argc, char *argv[] )
  {
+  test_standard();
+  test_member();
   MyClassReflection r;  //!< Reflection of Original
 
   int i=20;

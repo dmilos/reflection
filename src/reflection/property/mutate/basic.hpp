@@ -22,7 +22,7 @@
         >
         class basic_class
          : virtual public ::reflection::property::mutate::pure_class<model_name,report_name>
-         , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+         , virtual public ::reflection::property::_internal::proxy_class<storage_name>
          {
           public:
 
@@ -31,7 +31,7 @@
             typedef assigner_name  assigner_type;
             typedef report_name    report_type;
 
-            typedef ::reflection::property::_internal::carrier_class<storage_name>  carrier_type;
+            typedef ::reflection::property::_internal::proxy_class<storage_name>  carrier_type;
 
             explicit basic_class
               (

@@ -19,8 +19,8 @@ namespace reflection
 
         template
          <
-          typename image_name
-         ,typename storage_name // = Anything that have: operator image_name*, Can be smart pointer too.
+           typename image_name
+          ,typename storage_name // = Anything that have: operator image_name*, Can be smart pointer too.
          >
          struct pointer_struct
           {
@@ -49,7 +49,7 @@ namespace reflection
         : public ::reflection::property::inspect::_internal::pointer_struct<image_type,storage_name>::typedef_type
         {
          public:
-           typedef typename ::reflection::property::inspect::_internal::pointer_struct<image_type,storage_name>  basic_type;
+           typedef typename ::reflection::property::inspect::_internal::pointer_struct< image_type,storage_name>  basic_type;
            typedef typename basic_type::typedef_type  base_type;
 
            typedef typename basic_type::retriever_type retriever_type;
@@ -79,7 +79,7 @@ namespace reflection
          typedef image_name   image_type;
          typedef storage_name storage_type;
 
-         typedef ::reflection::property::inspect::pointer_class<image_type, storage_type> pointer_type;
+         typedef ::reflection::property::inspect::pointer_class< image_type, storage_type> pointer_type;
          return pointer_type( storage_param );
         }
 

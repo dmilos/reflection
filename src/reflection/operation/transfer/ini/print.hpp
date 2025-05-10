@@ -269,6 +269,20 @@ namespace reflection
              template< typename simple_name >
               static report_type fundamental(  output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
+
+                {
+                 typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+                 auto carrier_instance = dynamic_cast<carrie_type const* >( &property_param );
+                 if( nullptr != carrier_instance )
+                  {
+                   if( false == carrier_instance->valid() )
+                    {
+                     return report_type( false );
+                    }
+                  }
+                }
+
+
                 {
                  typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
                  auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );

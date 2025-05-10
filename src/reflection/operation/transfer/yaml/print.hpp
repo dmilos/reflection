@@ -141,10 +141,11 @@ namespace reflection
              typedef    std::string       string_type;
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
+             typedef    int                  int_type;
 
              static report_type recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
-               output_param << "<message content=\"Continue like nothing happen.\" /> ";
+               output_param << "<message content=\"Continue like nothing happen. ????\" /> << std::flush ";
 
                return report_type( true );
               }
@@ -224,7 +225,7 @@ namespace reflection
                }
                {
                 typedef  ::reflection::property::direct::pure_class<string_type &>         direct_type;
-                direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+                auto direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                 if( nullptr != direct_instance )
                  {
                   output_param << "    \"" <<  direct_instance->disclose() << "\"";
@@ -248,7 +249,7 @@ namespace reflection
                }
                {
                 typedef  ::reflection::property::direct::pure_class<string_type &>         direct_type;
-                direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+                auto direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                 if( nullptr != direct_instance )
                  {
                   // TODO output_param << "    \"" <<  direct_instance->disclose() << "\"";
@@ -263,36 +264,49 @@ namespace reflection
              template< typename simple_name >
               static report_type primitive( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
-                boolean_type pass = true;
+                int_type pass = 0;
 
-                if( true == pass )
+                if( 0 == pass )
+                 {
+                  typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+                  auto carrier_instance = dynamic_cast<carrie_type const* >( &property_param );
+                  if( nullptr != carrier_instance )
+                   {
+                    if( false == carrier_instance->valid() )
+                     {
+                      pass = -1;
+                     }
+                   }
+                 }
+
+                if( 0 == pass )
                  {
                   typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
                   auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
                   if( nullptr != inspect_instance )
                    {
                     output_param << inspect_instance->present();
-                    pass = false;
+                    pass = +1;
                    }
                  }
 
-                if( true == pass )
+                if( 0 == pass )
                  {
                   typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
-                  direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+                  auto direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                   if( nullptr != direct_instance )
                    {
                     output_param << direct_instance->disclose();
-                    pass = false;
+                    pass = +1;
                    }
                  }
 
-                if( true == pass )
+                if( true == -1 )
                  {
                   output_param << "   # Note: Can not retrieve value.";
                  }
 
-                return report_type( true );
+                return report_type( +1 == pass );
                }
 
              static report_type enumeration( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
@@ -387,7 +401,7 @@ namespace reflection
                if( true == pass )
                 {
                  typedef  ::reflection::property::direct::pure_class<structure_type &>         direct_type;
-                 direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+                 auto direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                  if( nullptr != direct_instance )
                   {
                    observe_param.view( output_param, direct_instance->disclose() );

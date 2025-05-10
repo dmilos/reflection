@@ -43,7 +43,7 @@ namespace reflection
            typedef ::reflection::content::guarded::pure_class<identifier_name,data_name,model_name,image_name,report_name> pure_type;
            typedef ::reflection::property::guarded::basic_class< model_name, image_name,  storage_name,assigner_name, retriever_name, report_name > base_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
                     basic_class()
                      :basic_class( storage_type{}, assigner_type{}, retriever_type{} )

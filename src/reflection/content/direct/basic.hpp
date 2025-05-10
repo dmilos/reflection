@@ -32,7 +32,7 @@ namespace reflection
            typedef extractor_name  extractor_type;
 
            typedef ::reflection::content::direct::pure_class<identifier_name,data_name,original_name > pure_type;
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
            typedef::reflection::property::direct::basic_class<original_name,storage_name,extractor_name> base_type;
 

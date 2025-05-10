@@ -35,9 +35,9 @@ class MyMainClass //!< Original condition. Not bloated with any other code.
     int m_int;
  };
 
-reflection__CLASS_BEGIN_view( MyBaseClasssReflectionView, public, MyBaseClass, MyBaseClass* )
+reflection__CLASS_BEGIN_pointer( MyBaseClasssReflectionView, public, MyBaseClass, MyBaseClass* )
    reflection__CLASS_MEMBER_exposed(   "number-float", MyBaseClass, traitor, writer )
-reflection__CLASS_END_view( MyBaseClasssReflectionView, MyBaseClass );
+reflection__CLASS_END_pointer( MyBaseClasssReflectionView, MyBaseClass );
 
 
 // Reflect to reflection

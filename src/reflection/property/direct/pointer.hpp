@@ -19,8 +19,8 @@ namespace reflection
 
         template
          <
-          typename original_name
-         ,typename storage_name // = Anything that have: operator original_name*, Can be smart pointer too.
+          typename original_name    //!< usually reference
+         ,typename storage_name     //! = Anything that have: original_name operator*(), Can be smart pointer too.
          >
          struct pointer_struct
           {
@@ -65,9 +65,9 @@ namespace reflection
 
       template
        <
-          typename   data_name
-         ,typename   original_name = data_name &
-         ,typename   storage_name  = data_name *
+         typename   data_name
+        ,typename   original_name = data_name &
+        ,typename   storage_name  = data_name *
        >
        inline
        typename ::reflection::property::direct::pointer_class<original_name, storage_name>

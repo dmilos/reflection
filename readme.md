@@ -115,7 +115,7 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
   typedef ::reflection::operation::transfer::json::print_struct<std::ostream> json_type;
 
-  MyClassReflection r;  //!< Reflection of Original
+  MyClassReflection r;  //!< Reflection of Original and original
 
   observe_type observe; //!< Have generalized serialization algorithm
 
@@ -145,7 +145,5 @@ int main( int argc, char *argv[] )
 
 ### Note:
 Tested against :
- - gcc 7.3.0
- - gcc 9.3.0
- - MSVC 2015 14.0 Update 3
- - MSVC 2017 15.5.6
+ - gcc (GCC) 12.4.0
+ - Version 17.14.9 (July 2025)

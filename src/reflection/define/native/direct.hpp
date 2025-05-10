@@ -23,7 +23,7 @@
      ));                                                        \
   instance.qualification( ::reflection::ornament::qualification_class::get< decltype(class_symbolic_name::field_symbolic_name) >( ) ); \
   instance.relation(      ::reflection::ornament::relation_class::field_index );                     \
-  insert                                                                                             \
+  this->insert                                                                                             \
    (                                                                                                 \
      member_string_name                                                                              \
     ,item_type( ::memory::pointer::make( instance ) )                                                \
@@ -46,7 +46,7 @@
       | ::reflection::ornament::accessibility_class::from_string( #accessibility_name  )      \
      ));                                                        \
   instance.linkage(    ::reflection::ornament::linkage_class::static_index   );                           \
-  insert                                                                                                  \
+  this->insert                                                                                                  \
    (                                                                                                      \
      member_string_name                                                                                   \
     ,item_type( ::memory::pointer::make( instance ) )                                                     \
@@ -70,7 +70,7 @@
       | ::reflection::ornament::accessibility_class::public_index         \
      ));                                                        \
   instance.relation(      ::reflection::ornament::relation_class::member_index      );   \
-  insert                                                       \
+  this->insert                                                       \
    (                                                           \
      member_string_name                                        \
     ,item_type( ::memory::pointer::make( instance ) )          \
@@ -80,7 +80,7 @@
 #define reflection__CLASS_SIMPLE_direct0( member_string_name, type_symbolic_name )\
  {                                                      \
   typedef /*decltype( member_string_name )*/ std::string identifier_type;     \
-  insert                                                \
+  this->insert                                                \
    (                                                    \
      member_string_name                                 \
     ,item_type                                          \

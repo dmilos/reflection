@@ -13,9 +13,9 @@ struct MyStructOriginal // Struct with several static members
     static std::string  m_string;
  };
 
-int          MyStructOriginal::m_int;
-float        MyStructOriginal::m_float;
-std::string  MyStructOriginal::m_string;
+int          MyStructOriginal::m_int=1;
+float        MyStructOriginal::m_float=1.2f;
+std::string  MyStructOriginal::m_string="hjhjkhjk";
 
 
 // Reflect to reflection
@@ -26,6 +26,9 @@ reflection__CLASS_BEGIN_inherit( MyStructReflection, public, MyStructOriginal )
   reflection__CLASS_STATIC_direct(   "standard-string",  MyStructOriginal, public, m_string  )
 
 reflection__CLASS_END_inherit( MyStructReflection, MyStructOriginal );
+
+
+reflection__IDSPEC( std::string, "MyStructOriginal", MyStructOriginal );
 
 
 int main( int argc, char *argv[] )

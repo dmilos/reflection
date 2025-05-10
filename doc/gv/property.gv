@@ -5,19 +5,19 @@ digraph property{
         property__pure_class -> property__mutate__pure_class;
         property__pure_class -> property__inspect__pure_class;
  
-        property__pure_class          ->  property__guarded__pure_class;
+        //property__pure_class          ->  property__guarded__pure_class;
         property__mutate__pure_class  ->  property__guarded__pure_class;
         property__inspect__pure_class ->  property__guarded__pure_class;
 
-        property__pure_class          -> property__variable__pure_class;
+        //property__pure_class          -> property__variable__pure_class;
         property__direct__pure_class   -> property__variable__pure_class;
         property__inspect__pure_class  -> property__variable__pure_class;
 
-        property__pure_class          -> property__exposed__pure_class;
+        //property__pure_class          -> property__exposed__pure_class;
         property__direct__pure_class  -> property__exposed__pure_class;
         property__mutate__pure_class  -> property__exposed__pure_class;
 
-        property__pure_class           -> property__trinity__pure_class;
+        //property__pure_class           -> property__trinity__pure_class;
         property__direct__pure_class   -> property__trinity__pure_class;
         property__mutate__pure_class   -> property__trinity__pure_class;
         property__inspect__pure_class  -> property__trinity__pure_class;

@@ -72,7 +72,7 @@ namespace reflection
        typename ::reflection::content::inspect::member_class<identifier_name,data_name,data_name const&,class_name,storage_name>
        member
         (
-          storage_name const&             storage_param
+          storage_name const&                  storage_param
          ,data_name const&       ( class_name::*reader_param )( )const
         )
         {

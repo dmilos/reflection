@@ -20,7 +20,7 @@ namespace reflection
 
         template
          <
-           typename original_name  //!< Expect : reference
+           typename original_name    //!< Expect : reference
           ,typename class_name
           ,typename storage_name
          >
@@ -41,10 +41,15 @@ namespace reflection
                 }
                original_type operator()( storage_type & carrier_param )const
                 {
-                 if( NULL == m_traitor )
+                 if( nullptr == m_traitor )
                   {
                    throw (void*)NULL;
                   }
+                 if( nullptr == carrier_param )
+                  {
+                   throw (void*)NULL;
+                  }
+
                  return  ((*carrier_param).*m_traitor)(); //!< By design
                 }
 
@@ -52,7 +57,7 @@ namespace reflection
                traitor_type  m_traitor;
             } extractor_type;
 
-           typedef ::reflection::property::direct::basic_class< original_name, storage_name, extractor_type>      typedef_type;
+           typedef ::reflection::property::direct::basic_class<  original_name, storage_name, extractor_type>      typedef_type;
 
            static typedef_type make(  storage_type const& carrier_param, traitor_type const& traitor_param )
             {

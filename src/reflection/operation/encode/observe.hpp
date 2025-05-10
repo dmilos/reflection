@@ -161,20 +161,45 @@ namespace reflection
              protocol_type::insert( this->menu(), identifier, function_param );
             }
 
-          template < typename data_name >
-           void register__any( function_type const& f )
-            {
-             auto i = identificator_type::template get<data_name>();
-             this->register__any( i , f );
-            }
+           template < typename data_name >
+            void register__any( function_type const& f )
+             {
+              auto i = identificator_type::template get<data_name>();
+              this->register__any( i , f );
+             }
 
-          template < typename data_name, typename view_name >
-           void register_class()
-            {
-             using namespace std::placeholders;
-             auto f = std::bind( &this_type::view_custom<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
-             this->register__any< data_name >( f );
-            }
+           template < typename data_name, typename view_name >
+            void register_class()
+             {
+              using namespace std::placeholders;
+              auto f = std::bind( &this_type::template view_custom<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
+              this->register__any< data_name >( f );
+             }
+
+           template < typename data_name, typename view_name >
+            void register_class_inherit()
+             {
+              using namespace std::placeholders;
+              auto f = std::bind( &this_type::template view_custom_inherit<data_name, view_name>, std::ref(*this), _1, _2, _3);
+              this->register__any< data_name >(f);
+             }
+
+           template < typename data_name, typename view_name >
+            void register_class_pointer()
+             {
+              using namespace std::placeholders;
+              auto f = std::bind( &this_type::template view_custom_pointer<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
+              this->register__any< data_name >( f );
+             }
+
+           template < typename data_name, typename view_name >
+            void register_class_reference()
+             {
+              using namespace std::placeholders;
+              auto f = std::bind( &this_type::view_custom_reference<data_name, view_name>, std::ref(*this) , _1, _2, _3 );
+              this->register__any< data_name >( f );
+             }
+
 
          public:
            mutable std::size_t m_pass;
@@ -311,7 +336,7 @@ namespace reflection
                 {
                  {
                   auto report = this->view( output_param, key, *property );
-                  if( report = report_type( false ) )
+                  if( report_type( false ) == report )
                    {
                     goto label_epilog;
                    }
@@ -349,20 +374,120 @@ namespace reflection
             }
 
          public:
+           template < typename userType_name, typename reflection_name >
+            report_type view_custom //!< obsolete
+             (
+               output_type                       &   output_param
+              ,key_type                     const&      key_param
+             ,property_qualified_reference_type   property_param
+            )
+           {
+            {
+             typedef  ::reflection::property::direct::pure_class<userType_name &>         direct_type;
+             direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+             if( nullptr != direct_instance )
+              {  
+               reflection_name view;
+               view.pointer( &direct_instance->disclose() );
+               return this->view( output_param, view );
+              }
+            }
+
+            {
+             typedef ::reflection::property::inspect::pure_class<userType_name const& > inspect_type;
+             auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+             if( nullptr != inspect_instance )
+              {
+               reflection_name view;
+               view.pointer( & const_cast<userType_name&>( inspect_instance->present() ) );
+               return this->view( output_param, view );
+              }
+            }
+
+            return report_type( false );
+           }
+
+           template < typename userType_name, typename reflection_name >
+            report_type view_custom_inherit
+             (
+               output_type                       &   output_param
+              ,key_type                     const&      key_param
+              ,property_qualified_reference_type   property_param
+             )
+             {
+              {
+               typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+               auto carrier_instance = dynamic_cast<carrie_type const* >( &property_param );
+               if( nullptr != carrier_instance )
+                {
+                 if( false == carrier_instance->valid() )
+                  {
+                   return false;
+                  }
+                }
+              }
+
+              {
+               typedef  ::reflection::property::direct::pure_class<userType_name &>         direct_type;
+               direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+               if( nullptr != direct_instance )
+                {
+                 userType_name & user_instance = direct_instance->disclose();
+                 return this->view( output_param, (reflection_name&) user_instance );
+                }
+              }
+
+              {
+               typedef   reflection::property::_internal::carrier::pure_class    carrier_class;
+               auto carrier_instance = dynamic_cast<carrier_class const* >( &property_param );
+               if( nullptr != carrier_instance )
+                {
+                 if( false == carrier_instance->valid() )
+                  {
+                   return report_type(false);
+                  }
+                }
+              
+               typedef ::reflection::property::inspect::pure_class<userType_name const& > inspect_type;
+               auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+              
+               if( nullptr != inspect_instance )
+                {
+                 auto & user_instance = inspect_instance->present();
+                 return this->view( output_param, (reflection_name&)user_instance );
+                }
+              }
+
+             return report_type( false );
+            }
+
           template < typename userType_name, typename reflection_name >
-           report_type view_custom
+           report_type view_custom_pointer
             (
               output_type                       &   output_param
              ,key_type                     const&      key_param
              ,property_qualified_reference_type   property_param
             )
-           {
-            reflection_name view;
+            {
+               
+             {
+              typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+              auto carrier_instance = dynamic_cast<carrie_type const* >( &property_param );
+              if( nullptr != carrier_instance )
+               {
+                if( false == carrier_instance->valid() )
+                 {
+                  return false;
+                 }
+               }
+             }
+             
              {
               typedef  ::reflection::property::direct::pure_class<userType_name &>         direct_type;
               direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
               if( nullptr != direct_instance )
                {
+                reflection_name view;
                 view.pointer( &direct_instance->disclose() );
                 return this->view( output_param, view );
                }
@@ -373,13 +498,62 @@ namespace reflection
               auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
               if( nullptr != inspect_instance )
                {
-                view.pointer( const_cast< userType_name * >( &inspect_instance->present() ) );
+                reflection_name view;
+                view.pointer( &const_cast<userType_name&>( inspect_instance->present() ) );
                 return this->view( output_param, view );
                }
              }
 
              return report_type( false );
-           }
+            }
+
+          template < typename userType_name, typename reflection_name >
+           report_type view_custom_reference
+            (
+              output_type                       &   output_param
+             ,key_type                     const&      key_param
+             ,property_qualified_reference_type   property_param
+            )
+            {
+             {
+              typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+              auto carrier_instance = dynamic_cast< carrie_type const* >( &property_param );
+              if( nullptr != carrier_instance )
+               {
+                if( false == carrier_instance->valid() )
+                 {
+                  return false;
+                 }
+               }
+             }
+    
+             {
+              typedef  ::reflection::property::direct::pure_class<userType_name &>         direct_type;
+              direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
+              if( nullptr != direct_instance )
+               {
+                 // std::cout << __func__ << ": " << typeid (userType_name).name() << std::endl;
+                 // std::cout << __func__ << ": " << typeid (decltype (direct_instance->disclose())).name() << std::endl;
+                reflection_name view( direct_instance->disclose() );
+                return this->view( output_param, view );
+               }
+             }
+
+             {
+              typedef ::reflection::property::inspect::pure_class<userType_name const& > inspect_type;
+              auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
+              if( nullptr != inspect_instance )
+               {
+                inspect_instance = inspect_instance;
+                //std::cout << __func__ << ": " << typeid (userType_name).name() << std::endl;
+                //std::cout << __func__ << ": " << typeid (decltype (inspect_instance->present())).name() << std::endl;
+                reflection_name view( inspect_instance->present() );
+                return this->view( output_param, view );
+               }
+             }
+
+             return report_type( false );
+            }
 
        };
 

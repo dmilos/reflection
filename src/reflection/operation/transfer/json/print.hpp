@@ -142,6 +142,7 @@ namespace reflection
            private:
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
+             typedef    int              integer_type;
 
              static report_type recover( context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
@@ -431,6 +432,21 @@ namespace reflection
              template< typename simple_name >
               static report_type primitive(      context_pointer_type &context_param, output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
+                integer_type pass = 0;
+
+                {
+                 typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+                 auto carrier_instance = dynamic_cast<carrie_type const* >( &property_param );
+                 if( nullptr != carrier_instance )
+                  {
+                   if( false == carrier_instance->valid() )
+                    {
+                      pass = -1;
+                    }
+                  }
+                }
+
+                if( 0 == pass )
                 {
                  typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
                  auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
@@ -438,27 +454,39 @@ namespace reflection
                   {
                    output_param << inspect_instance->present();
                    //context_param->m_indent.newl(output_param);
-                   return report_type( true );
+                   pass = +1;
                   }
                 }
 
+                if( 0 == pass )
                 {
                  typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
                  direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                  if( nullptr != direct_instance )
                   {
                    output_param << direct_instance->disclose(); // context_param->m_indent.newl(output_param);
-                   return report_type( true );
+                   pass = +1;
                   }
                 }
 
-                {
-                 auto const & note_string = context_param->m_key.m_note;
-                 auto const& CnRtV_string = context_param->m_message.m_CnRtV;
-                 output_param<< "{ " << "\"" << note_string << "\" : " << "\"" << CnRtV_string << "\"" << "}"; //context_param->m_indent.newl(output_param);
-                }
+                switch( pass )
+                 {
+                  case( +1 ): return report_type( true ); 
+                  case(  0 ): 
+                   {
+                    auto const & note_string = context_param->m_key.m_note;
+                    auto const& CnRtV_string = context_param->m_message.m_CnRtV;
+                    output_param<< "{ " << "\"" << note_string << "\" : " << "\"" << CnRtV_string << "\"" << "}"; //context_param->m_indent.newl(output_param);
+                   }break;
+                  case( -1 ): 
+                   {
+                    auto const & note_string = context_param->m_key.m_note;
+                    auto const& SnV_string = "Storage not valid";
+                    output_param<< "{ " << "\"" << note_string << "\" : " << "\"" << SnV_string << "\"" << "}"; //context_param->m_indent.newl(output_param);
+                   }break;
+                 }
 
-                return report_type( true );
+                return report_type( false );
                }
            public:
              template< typename      enum_name>

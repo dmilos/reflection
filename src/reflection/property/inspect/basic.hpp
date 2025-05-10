@@ -19,14 +19,14 @@ namespace reflection
        >
        class basic_class
         : virtual public ::reflection::property::inspect::pure_class< image_name >
-        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::property::_internal::proxy_class<storage_name>
         {
          public:
            typedef image_name        image_type;
            typedef storage_name    storage_type;
            typedef retriever_name  retriever_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name>  carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name>  carrier_type;
 
             explicit basic_class
              (

@@ -20,15 +20,15 @@ namespace reflection
         {
          public:
            typedef return_name    return_type;
-        //typedef argument_name...    ...argument_type;
+         //typedef argument_name...     argument_type...;
 
          public:
                     pure_class(){}
            virtual ~pure_class(){}
 
          public:
-           virtual return_name execute( argument_name ...args )const=0;
-         //virtual return_name execute( argument_name ...args )const=0;
+           virtual return_name execute( argument_name ... )const=0;
+         //virtual return_name execute( argument_name ... )=0;
         };
 
       template

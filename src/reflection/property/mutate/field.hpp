@@ -53,6 +53,10 @@
                    {
                     return false; //throw (void*)NULL;
                    }
+                  if( NULL == carrier_param )
+                   {
+                    return false; //throw (void*)NULL;
+                   }
 
                   (*carrier_param).*m_pointer = model_param;
                   return  report_type( true );

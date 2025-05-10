@@ -42,7 +42,7 @@ namespace reflection
             typedef typename  mutate_type::assigner_type   assigner_type;
             typedef typename inspect_type::retriever_type retriever_type;
 
-            typedef ::reflection::property::guarded::basic_class <model_type, image_type, storage_type,assigner_type,retriever_type,report_name>      typedef_type;
+            typedef ::reflection::property::guarded::basic_class < model_type, image_type, storage_type,assigner_type,retriever_type,report_name>      typedef_type;
 
             static typedef_type make( storage_type const& carrier_param )
              {

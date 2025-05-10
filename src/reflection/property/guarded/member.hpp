@@ -39,7 +39,7 @@
             typedef typename  mutate_type::assigner_type   assigner_type;
             typedef typename inspect_type::retriever_type retriever_type;
 
-            typedef ::reflection::property::guarded::basic_class <model_name, image_name, storage_name, assigner_type, retriever_type, report_name>      typedef_type;
+            typedef ::reflection::property::guarded::basic_class < model_name, image_name, storage_name, assigner_type, retriever_type, report_name>      typedef_type;
 
             typedef typename  mutate_type::writer_type   writer_type;
             typedef typename inspect_type::reader_type     reader_type;

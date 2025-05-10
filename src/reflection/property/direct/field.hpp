@@ -47,10 +47,15 @@ namespace reflection
                 }
                original_type operator()( storage_type & carrier_param )const
                 {
-                 if( NULL == m_pointer )
+                 if( nullptr == m_pointer )
                   {
                    throw (void*)NULL;
                   }
+                 if( nullptr == carrier_param )
+                  {
+                   throw (void*)NULL;
+                  }
+
                  return  (*carrier_param).*m_pointer; //!< By design
                 }
 

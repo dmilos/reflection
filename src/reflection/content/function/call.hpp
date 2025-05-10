@@ -3,8 +3,10 @@
 
 // ::reflection::content::function::unpack_struct<data_name>
 
-#include "./unpack.hpp"
 #include "../../property/function/_pure.hpp"
+
+#include "../../property/dispatch.hpp"
+#include "../../property/retrieve.hpp"
 
 
 namespace reflection
@@ -14,7 +16,7 @@ namespace reflection
     namespace function
      {
 
-       template 
+       template
         <
           typename return_name   = void
          ,typename first_name    = void
@@ -28,81 +30,84 @@ namespace reflection
           public:
             typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,fifth_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<return_name>       u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
-            typedef  ::reflection::content::function::unpack_struct<third_name>        u3_type;
-            typedef  ::reflection::content::function::unpack_struct<fourth_name>       u4_type;
-            typedef  ::reflection::content::function::unpack_struct<fifth_name>        u5_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<return_name>          result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>      g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name>     g2_type;
+            typedef ::reflection::content::function::retrieve_class<third_name>      g3_type;
+            typedef ::reflection::content::function::retrieve_class<fourth_name>     g4_type;
+            typedef ::reflection::content::function::retrieve_class<fifth_name>      g5_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-            typedef typename u3_type::parameter_type    p3_type;
-            typedef typename u4_type::parameter_type    p4_type;
-            typedef typename u5_type::parameter_type    p5_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2, p3_type & p3, p4_type & p4, p4_type & p5 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2, property_type& p3, property_type& p4, property_type& p5 )
              {
-              p0.disclose( f.execute( u1_type::value( p1 ), u1_type::value( p2 ), u1_type::value( p3 ), u1_type::value( p4 ), u1_type::value( p5 ) ) );
+              result_type result( p0 ); if( false == result.valid() ) return false;
+                      g1_type r1( p1 ); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2 ); if( false ==     r2.valid() ) return false;
+                      g3_type r3( p3 ); if( false ==     r3.valid() ) return false;
+                      g4_type r4( p4 ); if( false ==     r4.valid() ) return false;
+                      g5_type r5( p5 ); if( false ==     r5.valid() ) return false;
+
+              result.set( f.execute(  r1.get(), r2.get(), r3.get(), r4.get(), r5.get() ) );
              }
          };
 
-       template 
+       template
         <
-          typename first_name   
-         ,typename second_name  
-         ,typename third_name   
-         ,typename fourth_name  
-         ,typename fifth_name   
+          typename first_name
+         ,typename second_name
+         ,typename third_name
+         ,typename fourth_name
+         ,typename fifth_name
         >
         struct call_struct< void,first_name,second_name,third_name,fourth_name,fifth_name >
          {
           public:
             typedef ::reflection::property::function::pure_class<void,first_name,second_name,third_name,fourth_name,fifth_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<void>              u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
-            typedef  ::reflection::content::function::unpack_struct<third_name>        u3_type;
-            typedef  ::reflection::content::function::unpack_struct<fourth_name>       u4_type;
-            typedef  ::reflection::content::function::unpack_struct<fifth_name>        u5_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<void>          result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>      g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name>     g2_type;
+            typedef ::reflection::content::function::retrieve_class<third_name>      g3_type;
+            typedef ::reflection::content::function::retrieve_class<fourth_name>     g4_type;
+            typedef ::reflection::content::function::retrieve_class<fifth_name>      g5_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-            typedef typename u3_type::parameter_type    p3_type;
-            typedef typename u4_type::parameter_type    p4_type;
-            typedef typename u5_type::parameter_type    p5_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2, p3_type & p3, p4_type & p4, p4_type & p5 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2, property_type& p3, property_type& p4, property_type& p5 )
              {
-              f.execute( u1_type::value( p1 ), u2_type::value( p2 ), u3_type::value( p3 ), u4_type::value( p4 ), u5_type::value( p5 ) );
+              result_type result( p0 ); if( false == result.valid() ) return false;
+                      g1_type r1( p1 ); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2 ); if( false ==     r2.valid() ) return false;
+                      g3_type r3( p3 ); if( false ==     r3.valid() ) return false;
+                      g4_type r4( p4 ); if( false ==     r4.valid() ) return false;
+                      g5_type r5( p5 ); if( false ==     r5.valid() ) return false;
+
+               f.execute(  r1.get(), r2.get(), r3.get(), r4.get(), r5.get() ); result.set();
              }
          };
-
 
        template<   typename return_name, typename first_name, typename second_name, typename third_name, typename fourth_name >
         struct call_struct< return_name,          first_name,          second_name,          third_name,          fourth_name,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name,void>    function_type;
+            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,fourth_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<return_name>       u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
-            typedef  ::reflection::content::function::unpack_struct<third_name>        u3_type;
-            typedef  ::reflection::content::function::unpack_struct<fourth_name>       u4_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<return_name>          result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>      g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name>     g2_type;
+            typedef ::reflection::content::function::retrieve_class<third_name>      g3_type;
+            typedef ::reflection::content::function::retrieve_class<fourth_name>     g4_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-            typedef typename u3_type::parameter_type    p3_type;
-            typedef typename u4_type::parameter_type    p4_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2, p3_type & p3, p4_type & p4)
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2, property_type& p3, property_type& p4 )
              {
-              p0.process( f.execute( u1_type::value( p1 ), u2_type::value( p2 ), u3_type::value( p3 ), u4_type::value( p4 ) ) );
+              result_type result( p0 ); if( false == result.valid() ) return false;
+                      g1_type r1( p1 ); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2 ); if( false ==     r2.valid() ) return false;
+                      g3_type r3( p3 ); if( false ==     r3.valid() ) return false;
+                      g4_type r4( p4 ); if( false ==     r4.valid() ) return false;
+
+              result.set( f.execute(  r1.get(), r2.get(), r3.get(), r4.get() ) );
+              return true;
              }
          };
 
@@ -110,46 +115,49 @@ namespace reflection
         struct call_struct< void,                 first_name,          second_name,          third_name,          fourth_name,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<void,first_name,second_name,third_name,fourth_name,void>    function_type;
+            typedef ::reflection::property::function::pure_class<void,first_name,second_name,third_name,fourth_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<void>              u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
-            typedef  ::reflection::content::function::unpack_struct<third_name>        u3_type;
-            typedef  ::reflection::content::function::unpack_struct<fourth_name>       u4_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<void>          result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>      g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name>     g2_type;
+            typedef ::reflection::content::function::retrieve_class<third_name>      g3_type;
+            typedef ::reflection::content::function::retrieve_class<fourth_name>     g4_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-            typedef typename u3_type::parameter_type    p3_type;
-            typedef typename u4_type::parameter_type    p4_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2, p3_type & p3, p4_type & p4)
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2, property_type& p3, property_type& p4 )
              {
-              f.execute( u1_type::value( p1 ), u2_type::value( p2 ), u3_type::value( p3 ), u4_type::value( p4 ) );
+              result_type result( p0 ); if( false == result.valid() ) return false;
+                      g1_type r1( p1 ); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2 ); if( false ==     r2.valid() ) return false;
+                      g3_type r3( p3 ); if( false ==     r3.valid() ) return false;
+                      g4_type r4( p4 ); if( false ==     r4.valid() ) return false;
+
+              f.execute(  r1.get(), r2.get(), r3.get(), r4.get() ); result.set();
+              return true;
              }
          };
-
 
        template<   typename return_name, typename first_name, typename second_name, typename third_name >
         struct call_struct< return_name,          first_name,          second_name,          third_name,void,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name,void,void>    function_type;
+            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,third_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<return_name>       u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
-            typedef  ::reflection::content::function::unpack_struct<third_name>        u3_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<return_name>          result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>  g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name> g2_type;
+            typedef ::reflection::content::function::retrieve_class<third_name>  g3_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-            typedef typename u3_type::parameter_type    p3_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2, p3_type & p3 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2, property_type& p3 )
              {
-              p0.process( f.execute( u1_type::value( p1 ), u2_type::value( p2 ), u3_type::value( p3 ) ) );
+              result_type result( p0); if( false == result.valid() ) return false;
+                      g1_type r1( p1); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2); if( false ==     r2.valid() ) return false;
+                      g3_type r3( p3); if( false ==     r3.valid() ) return false;
+
+              result.set( f.execute(  r1.get(), r2.get(), r3.get() ) );
+              return true;
              }
          };
 
@@ -157,42 +165,46 @@ namespace reflection
         struct call_struct< void,                 first_name,          second_name,          third_name,void,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<void,first_name,second_name,third_name,void,void>    function_type;
+            typedef ::reflection::property::function::pure_class<void,first_name,second_name,third_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<void>              u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
-            typedef  ::reflection::content::function::unpack_struct<third_name>        u3_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<void>                 result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>      g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name>     g2_type;
+            typedef ::reflection::content::function::retrieve_class<third_name>      g3_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-            typedef typename u3_type::parameter_type    p3_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2, p3_type & p3 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2, property_type& p3 )
              {
-              f.execute( u1_type::value( p1 ), u2_type::value( p2 ), u3_type::value( p3 ) );
-             }
-         };
+              result_type result( p0); if( false == result.valid() ) return false;
+                      g1_type r1( p1); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2); if( false ==     r2.valid() ) return false;
+                      g3_type r3( p3); if( false ==     r3.valid() ) return false;
 
+              f.execute(  r1.get(), r2.get(), r3.get() );result.set();
+              return true;
+             }
+
+         };
 
        template<   typename return_name, typename first_name, typename second_name >
         struct call_struct< return_name,          first_name,          second_name,void,void,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name,void,void,void>    function_type;
+            typedef ::reflection::property::function::pure_class<return_name,first_name,second_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<return_name>       u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<return_name>          result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>  g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name> g2_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2 )
              {
-              p0.process( f.execute( u1_type::value( p1 ), u2_type::value( p2 ) ) );
+              result_type result( p0); if( false == result.valid() ) return false;
+                      g1_type r1( p1); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2); if( false ==     r2.valid() ) return false;
+
+              result.set( f.execute(  r1.get(), r2.get() ) );
+              return true;
              }
          };
 
@@ -200,38 +212,42 @@ namespace reflection
         struct call_struct< void,                 first_name,          second_name,void,void,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<void,first_name,second_name,void,void,void>    function_type;
+            typedef ::reflection::property::function::pure_class<void,first_name,second_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<void>              u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
-            typedef  ::reflection::content::function::unpack_struct<second_name>       u2_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<void>                 result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>      g1_type;
+            typedef ::reflection::content::function::retrieve_class<second_name>     g2_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-            typedef typename u2_type::parameter_type    p2_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1, p2_type & p2 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1, property_type& p2 )
              {
-              f.execute( u1_type::value( p1 ), u2_type::value( p2 ) );
-             }
-         };
+              result_type result( p0 ); if( false == result.valid() ) return false;
+                      g1_type r1( p1 ); if( false ==     r1.valid() ) return false;
+                      g2_type r2( p2 ); if( false ==     r2.valid() ) return false;
 
+              f.execute(  r1.get(), r2.get() );  result.set();
+              return true;
+             }
+
+         };
 
        template<   typename return_name, typename first_name >
         struct call_struct< return_name,          first_name, void,void,void,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<return_name,first_name,void,void,void,void>    function_type;
+            typedef ::reflection::property::function::pure_class<return_name,first_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<return_name>       u0_type;
-            typedef  ::reflection::content::function::unpack_struct<first_name>        u1_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<return_name>          result_type;
+            typedef ::reflection::content::function::retrieve_class<first_name>  g1_type;
 
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-
-            static void process( function_type const&f, p0_type & p0, p1_type & p1 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1 )
              {
-              p0.process( f.execute( u1_type::value( p1 ) ) );
+              result_type result( p0); if( false == result.valid() ) return false;
+                      g1_type r1( p1); if( false ==     r1.valid() ) return false;
+
+              result.set( f.execute(  r1.get() ) );
+              return true;
              }
          };
 
@@ -241,53 +257,57 @@ namespace reflection
           public:
             typedef ::reflection::property::function::pure_class<void, first_name>    function_type;
 
-            typedef typename ::reflection::type::trait<void>::image_type image_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef    ::reflection::property::dispatch_class<void>                 result_type;
+            typedef    ::reflection::content::function::retrieve_class<first_name>      g1_type;
 
-            typedef typename ::reflection::content::function::unpack_struct<image_type>     u0_type;
-            typedef typename ::reflection::content::function::unpack_struct<first_name>     u1_type;
-
-            typedef typename u0_type::return_type       p0_type;
-            typedef typename u1_type::parameter_type    p1_type;
-
-            static void process( function_type const&f,  p0_type & p0 ,  p1_type & p1 )
+            static bool process( function_type const&f, property_type& p0, property_type& p1 )
              {
-              f.execute( u1_type::value( p1 ) );
-             }
-         };
+              result_type result( p0); if( false == result.valid() ) return false;
+                      g1_type r1( p1); if( false ==     r1.valid() ) return false;
 
+              f.execute( r1.get() );result.set();
+              return true;
+             }
+
+         };
 
        template<   typename return_name >
         struct call_struct< return_name, void, void,void,void,void >
          {
           public:
-            typedef ::reflection::property::function::pure_class<return_name,void,void,void,void,void>    function_type;
+            typedef ::reflection::property::function::pure_class<return_name>    function_type;
 
-            typedef  ::reflection::content::function::unpack_struct<return_name>       u0_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<return_name>          result_type;
 
-            typedef typename u0_type::return_type       p0_type;
-
-            static void process( function_type const&f, p0_type & p0 )
+            static bool process( function_type const&f, property_type& p0 )
              {
-              p0.process( f.execute() );
+              result_type result( p0); if( false == result.valid() ) return false;
+
+              result.set( f.execute( ) );
+              return true;
              }
+
          };
 
        template < >
         struct call_struct<void,void,void,void,void,void>
          {
           public:
-            typedef ::reflection::property::function::pure_class<void, void,void,void,void,void>    function_type;
+            typedef ::reflection::property::function::pure_class<void>    function_type;
 
-            typedef typename ::reflection::type::trait<void>::image_type image_type;
+            typedef ::reflection::property::pure_class  property_type;
+            typedef ::reflection::property::dispatch_class<void>                 result_type;
 
-            typedef typename ::reflection::content::function::unpack_struct<image_type>     u0_type;
-
-            typedef typename u0_type::return_type       p0_type;
-
-            static void process( function_type const&f,  p0_type & p0 )
+            static bool process( function_type const&f, property_type& p0 )
              {
-              f.execute();
+              result_type result( p0); if( false == result.valid() ) return false;
+
+              f.execute(); result.set();
+              return true;
              }
+
          };
 
      }

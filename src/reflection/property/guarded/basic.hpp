@@ -21,9 +21,9 @@ namespace reflection
         ,typename report_name
        >
        class basic_class
-        :  virtual public ::reflection::property::guarded::pure_class<model_name,image_name,report_name>
-        ,          public ::reflection::property::mutate::basic_class< model_name, storage_name, assigner_name, report_name >
-        ,          public ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name >
+        :  virtual public ::reflection::property::guarded::pure_class<   model_name,image_name,report_name>
+        ,          public ::reflection::property::mutate::basic_class<   model_name,            storage_name, assigner_name, report_name >
+        ,          public ::reflection::property::inspect::basic_class<             image_name, storage_name, retriever_name >
         {
          public:
            typedef model_name          model_type;
@@ -32,7 +32,7 @@ namespace reflection
            typedef retriever_name  retriever_type;
            typedef report_name        report_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
            typedef ::reflection::property::mutate::basic_class< model_name,storage_name, assigner_name, report_name  > mutate_type;
            typedef ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name > inspect_type;

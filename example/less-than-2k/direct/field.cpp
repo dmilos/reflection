@@ -22,6 +22,8 @@ reflection__CLASS_BEGIN_inherit( MyStructReflection, public, MyStructOriginal )
 
 reflection__CLASS_END_inherit( MyStructReflection, MyStructOriginal );
 
+reflection__IDSPEC(std::string, "MyStructOriginal", MyStructOriginal);
+
 
 int main( int argc, char *argv[] )
  {

@@ -85,6 +85,7 @@ namespace reflection
               string_type  m_NaS   = "Not a structure.";
               string_type  m_CnDT  = "Can not detect type" ;
               string_type  m_GR    = "General recovery.";
+              string_type  m_SnV   = "Storage not Valid.";
              }m_message;
 
            public:

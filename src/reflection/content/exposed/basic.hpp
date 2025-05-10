@@ -39,7 +39,7 @@ namespace reflection
            typedef assigner_name    assigner_type;
            typedef report_name        report_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
            typedef ::reflection::content::exposed::pure_class<identifier_name,data_name,original_name,model_name,report_name> pure_type;
            typedef ::reflection::property::exposed::basic_class< original_name, model_name, storage_name, extractor_name, assigner_name, report_name > base_type;

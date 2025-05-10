@@ -44,6 +44,11 @@ namespace reflection
                   {
                    throw (void*)NULL;
                   }
+                 if( NULL == carrier_param )
+                  {
+                   throw (void*)NULL;
+                  }
+
                  return (*carrier_param).*m_pointer;
                 }
 

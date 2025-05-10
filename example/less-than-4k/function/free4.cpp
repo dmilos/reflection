@@ -10,6 +10,7 @@ class MyClassOriginal
   public:
 
     MyClassOriginal()
+     :m_int( 15 )
      {
      }
 

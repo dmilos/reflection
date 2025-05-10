@@ -195,7 +195,7 @@ class MyClass
        std::cout << ::reflection::property::inspect::check<int const&>(  ::reflection::property::inspect::member(  this, &MyClass::inspector ) ) << std::endl;
        std::cout << ::reflection::property::mutate::check<int const&>(   ::reflection::property::mutate::member(   this, &MyClass::writer   ) ) << std::endl;
 
-       std::cout << ::reflection::property::function::check<>(           ::reflection::property::function::member( this, &MyClass::a         ) ) << std::endl;
+       std::cout << ::reflection::property::function::check<void>(           ::reflection::property::function::member( this, &MyClass::a         ) ) << std::endl;
        std::cout << ::reflection::property::function::check<int>(        ::reflection::property::function::member( this, &MyClass::a         ) ) << std::endl;
 
         auto f0 = ::reflection::property::function::member( this, &MyClass::a ); ::reflection::property::function::execute<void>(        f0     );

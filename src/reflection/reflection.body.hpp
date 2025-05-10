@@ -11,3 +11,6 @@
 #include "./define/define.hpp"
 
 #include "./ornament/ornament.hpp"
+
+#include "./utility/function/function.hpp"
+

@@ -31,7 +31,7 @@ namespace reflection
            typedef extractor_name  extractor_type;
            typedef retriever_name  retriever_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
            typedef ::reflection::property::direct::basic_class< original_name,storage_name, extractor_name > direct_type;
            typedef ::reflection::property::inspect::basic_class< image_name, storage_name, retriever_name > inspect_type;

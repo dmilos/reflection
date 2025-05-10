@@ -23,11 +23,11 @@ class MyClassOriginal
  };
 
 // Reflect to reflection
-reflection__CLASS_BEGIN_view( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
+reflection__CLASS_BEGIN_pointer( MyClassReflection, public, MyClassOriginal, MyClassOriginal* )
 
   reflection__CLASS_friend( "friend-class", MyClassOriginal, MyClassFriend );
 
-reflection__CLASS_END_view( MyClassReflection, MyClassOriginal );
+reflection__CLASS_END_pointer( MyClassReflection, MyClassOriginal );
 
 
 int main( int argc, char *argv[] )

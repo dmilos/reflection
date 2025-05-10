@@ -39,7 +39,7 @@ namespace reflection
           typedef typename  direct_type::extractor_class   extractor_type;
           typedef typename inspect_type::retriever_type   retriever_type;
 
-          typedef ::reflection::property::variable::basic_class <original_name, image_name, storage_type, extractor_type, retriever_type >      typedef_type;
+          typedef ::reflection::property::variable::basic_class < original_name, image_name, storage_type, extractor_type, retriever_type >      typedef_type;
 
 
           static typedef_type make( storage_type const& carrier_param )

@@ -19,7 +19,7 @@ class MyClassA
        reflection__CLASS_SIMPLE_guarded(  "extra2",         int, 123  )
        reflection__CLASS_SIMPLE_guarded(  "extra3",         float, 123  )
        reflection__CLASS_SIMPLE_guarded(  "extra4",         std::string, "asdfg"  )
-       ::reflection::operation::reroute< MyClassA* >( *this, this );
+       ::reflection::operation::reroute::set< MyClassA* >( *this, this );
 
       }
  };
@@ -88,7 +88,7 @@ class MyClass
        reflection__CLASS_SIMPLE_direct(    "extra1", int, 10   ) ;
        reflection__CLASS_SIMPLE_guarded(   "extra2", int, 1024 );
        reflection__CLASS_MEMBER_variable(  "v1",      MyClass, traitor, inspector );
-       ::reflection::operation::reroute< MyClass* >( *this, this );
+       ::reflection::operation::reroute::set< MyClass* >( *this, this );
 
       }
 

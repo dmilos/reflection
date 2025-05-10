@@ -19,14 +19,14 @@ namespace reflection
        >
        class basic_class
         : virtual public ::reflection::property::reset::pure_class< report_name >
-        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::property::_internal::proxy_class<storage_name>
         {
          public:
            typedef report_name   report_type;
            typedef storage_name    storage_type;
            typedef agent_name  agent_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
                      basic_class(){ }
 

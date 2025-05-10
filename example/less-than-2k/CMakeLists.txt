@@ -1,0 +1,13 @@
+#cmake_minimum_required(VERSION 2.8)
+
+add_subdirectory( big )
+add_subdirectory( direct )
+add_subdirectory( enum )
+add_subdirectory( exposed )
+add_subdirectory( function )
+add_subdirectory( guarded )
+add_subdirectory( inspect )
+add_subdirectory( mutate )
+add_subdirectory( reset )
+add_subdirectory( trinity )
+add_subdirectory( variable )

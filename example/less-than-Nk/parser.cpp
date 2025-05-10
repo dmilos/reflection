@@ -76,29 +76,29 @@ class MyFirstClassOriginal //!< Original condition. Not bloated with any other c
 reflection__IDSPEC( std::string, "MyFirstClassOriginal",  MyFirstClassOriginal )
 reflection__IDSPEC( std::string, "MySubClassOriginal",  MySubClassOriginal )
 
-reflection__CLASS_BEGIN_view( MySubClassReflectionModify, public, MySubClassOriginal, MySubClassOriginal * )
+reflection__CLASS_BEGIN_pointer( MySubClassReflectionModify, public, MySubClassOriginal, MySubClassOriginal * )
    reflection__CLASS_MEMBER_guarded(   "INT",  MySubClassOriginal, write_int, read_int)
-reflection__CLASS_END_view( MySubClassReflectionModify, MySubClassOriginal );
+reflection__CLASS_END_pointer( MySubClassReflectionModify, MySubClassOriginal );
 
-reflection__CLASS_BEGIN_view( MySubClassReflectionView, public, MySubClassOriginal, MySubClassOriginal const * )
+reflection__CLASS_BEGIN_pointer( MySubClassReflectionView, public, MySubClassOriginal, MySubClassOriginal const * )
    reflection__CLASS_MEMBER_inspect(   "INT", MySubClassOriginal, read_int    )
-reflection__CLASS_END_view( MySubClassReflectionView, MySubClassOriginal );
+reflection__CLASS_END_pointer( MySubClassReflectionView, MySubClassOriginal );
 
-reflection__CLASS_BEGIN_view( MyClassReflectionModify, public, MyFirstClassOriginal, MyFirstClassOriginal * )
+reflection__CLASS_BEGIN_pointer( MyClassReflectionModify, public, MyFirstClassOriginal, MyFirstClassOriginal * )
    reflection__CLASS_MEMBER_guarded(   "sub",        MyFirstClassOriginal, write_sub, read_sub)
    reflection__CLASS_MEMBER_guarded(   "number",     MyFirstClassOriginal, write_float, read_float  )
    reflection__CLASS_MEMBER_guarded(   "integer",    MyFirstClassOriginal, write_int, read_int )
    reflection__CLASS_MEMBER_guarded(   "string",     MyFirstClassOriginal, write_string, read_string )
    reflection__CLASS_MEMBER_guarded(   "wstring",    MyFirstClassOriginal, write_wstring, read_wstring )
-reflection__CLASS_END_view( MyClassReflectionModify, MyFirstClassOriginal );
+reflection__CLASS_END_pointer( MyClassReflectionModify, MyFirstClassOriginal );
 
-reflection__CLASS_BEGIN_view( MyClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal const* )
+reflection__CLASS_BEGIN_pointer( MyClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal const* )
    reflection__CLASS_MEMBER_inspect(   "sub",  MyFirstClassOriginal, read_sub )
    reflection__CLASS_MEMBER_inspect(   "number",  MyFirstClassOriginal, read_float  )
    reflection__CLASS_MEMBER_inspect(   "integer", MyFirstClassOriginal, read_int    )
    reflection__CLASS_MEMBER_inspect(   "string",   MyFirstClassOriginal, read_string )
    reflection__CLASS_MEMBER_inspect(   "wstring",   MyFirstClassOriginal, read_wstring )
-reflection__CLASS_END_view( MyClassReflectionView, MyFirstClassOriginal );
+reflection__CLASS_END_pointer( MyClassReflectionView, MyFirstClassOriginal );
 
 
 void store( MyFirstClassOriginal const& instance, std::string const& fn )

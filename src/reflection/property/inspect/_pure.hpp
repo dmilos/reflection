@@ -2,8 +2,8 @@
 #define reflection_property_inspect_pure
 
 // ::reflection::property::inspect::pure_class<image_name>
-// ::reflection::property::inspect::present
 // ::reflection::property::inspect::check
+// ::reflection::property::inspect::present
 
 #include "../_pure.hpp"
 

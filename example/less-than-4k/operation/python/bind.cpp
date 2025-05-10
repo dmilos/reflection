@@ -140,26 +140,26 @@ std::string MyMainClass::m_static="blahblahfoofoo";
 
 reflection__IDSPEC( std::string, "MyBaseClass", MyBaseClass );
 
-reflection__CLASS_BEGIN_view( MyBaseClassReflectionView, public, MyBaseClass, MyBaseClass* )
+reflection__CLASS_BEGIN_pointer( MyBaseClassReflectionView, public, MyBaseClass, MyBaseClass* )
    reflection__CLASS_MEMBER_exposed(   "number-float", MyBaseClass, traitor, writer )
-reflection__CLASS_END_view( MyBaseClassReflectionView, MyBaseClass );
+reflection__CLASS_END_pointer( MyBaseClassReflectionView, MyBaseClass );
 
 
 reflection__IDSPEC( std::string, "MyFoundationClass", MyFoundationClass );
 
-reflection__CLASS_BEGIN_view( MyFoundationClassReflectionView, public, MyFoundationClass, MyFoundationClass* )
+reflection__CLASS_BEGIN_pointer( MyFoundationClassReflectionView, public, MyFoundationClass, MyFoundationClass* )
    reflection__CLASS_MEMBER_exposed(   "number-float", MyFoundationClass, traitor, writer )
-reflection__CLASS_END_view( MyFoundationClassReflectionView, MyFoundationClass );
+reflection__CLASS_END_pointer( MyFoundationClassReflectionView, MyFoundationClass );
 
 
 reflection__IDSPEC( std::string, "MyFirstClassOriginal", MyFirstClassOriginal );
 
-reflection__CLASS_BEGIN_view( MyFirstClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal* )
+reflection__CLASS_BEGIN_pointer( MyFirstClassReflectionView, public, MyFirstClassOriginal, MyFirstClassOriginal* )
 
    reflection__CLASS_BASE_direct(  "1base-something", MyFirstClassOriginal, public, default, MyBaseClass );
    reflection__CLASS_MEMBER_exposed(   "number", MyFirstClassOriginal, traitor, writer )
 
-reflection__CLASS_END_view( MyFirstClassReflectionView, MyFirstClassOriginal );
+reflection__CLASS_END_pointer( MyFirstClassReflectionView, MyFirstClassOriginal );
 
 
 reflection__IDSPEC( std::string, "MyMainClass", MyMainClass);

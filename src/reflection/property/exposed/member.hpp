@@ -37,9 +37,9 @@
          
             typedef typename  direct_type::extractor_class   extractor_type;
             typedef typename mutate_type::assigner_class   assigner_type;
-         
+
             typedef ::reflection::property::exposed::basic_class <original_name, model_name, storage_name, extractor_type, assigner_type, report_name>      typedef_type;
-         
+
             typedef typename  direct_type::traitor_type   traitor_type;
             typedef typename mutate_type::writer_type     writer_type;
 

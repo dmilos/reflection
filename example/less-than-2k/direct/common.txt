@@ -1,0 +1,38 @@
+main
+
+<xml >
+    <e >
+        <i k="float-point" i="float" accessibility="public"  l="static"   relation="member"  >1.2
+        </i>
+        <i k="integer" i="int" accessibility="public"  l="static"   relation="member"  >1
+        </i>
+        <i k="standard-string" i="std::string" accessibility="public"  l="static"   relation="member"  >hjhjkhjk
+        </i>
+    </e>
+</xml>
+{
+    "float-point":
+    {
+        "type" : "float",
+        "accessibility": "public",
+        "linkage": "static",
+        "relation": "member",
+        "value" : 1.2
+    },
+    "integer":
+    {
+        "type" : "int",
+        "accessibility": "public",
+        "linkage": "static",
+        "relation": "member",
+        "value" : 1
+    },
+    "standard-string":
+    {
+        "type" : "std::string",
+        "accessibility": "public",
+        "linkage": "static",
+        "relation": "member",
+        "value" : "hjhjkhjk"
+    }
+}

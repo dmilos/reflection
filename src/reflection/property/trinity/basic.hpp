@@ -29,10 +29,10 @@ namespace reflection
         ,typename report_name
        >
        class basic_class
-        :  virtual public ::reflection::property::trinity::pure_class<   original_name, model_name, image_name, report_name >
-        ,          public ::reflection::property::direct::basic_class<   original_name,                         storage_name, extractor_name >
-        ,          public ::reflection::property::mutate::basic_class<                  model_name,             storage_name, assigner_name, report_name >
-        ,          public ::reflection::property::inspect::basic_class<                             image_name, storage_name, retriever_name >
+        :  virtual public ::reflection::property::trinity::pure_class< original_name, model_name, image_name, report_name >
+        ,          public ::reflection::property::direct::basic_class< original_name,                         storage_name, extractor_name >
+        ,          public ::reflection::property::mutate::basic_class<                model_name,             storage_name, assigner_name, report_name >
+        ,          public ::reflection::property::inspect::basic_class<                           image_name, storage_name, retriever_name >
         {
          public:
            typedef original_name    original_type;
@@ -44,7 +44,7 @@ namespace reflection
            typedef retriever_name  retriever_type;
            typedef report_name        report_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
            typedef ::reflection::property::trinity::pure_class< original_name, model_name, image_name, report_name>       pure_type;
 

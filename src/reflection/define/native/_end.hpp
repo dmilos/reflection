@@ -3,25 +3,32 @@
 
 
 
-#define reflection__CLASS_END_member(class_member_reflected,class_original) \
-        ::reflection::operation::reroute< class_original* >( *this, &this->original() ); \
+#define reflection__CLASS_END_member(class_reflected,class_original) \
+        ::reflection::operation::reroute::set< class_original* >( *this, &this->original() ); \
         return;            \
        } \
-    }
+     }
 
-#define reflection__CLASS_END_inherit(class_inherit_reflected,class_original) \
-        ::reflection::operation::reroute< class_original* >( *this, this ); \
+#define reflection__CLASS_END_inherit(class_reflected,class_original) \
+        ::reflection::operation::reroute::set< class_original* >( *this, this ); \
         return;            \
        } \
-    }
+     }
 
-#define reflection__CLASS_END_view(class_view,class_original) \
-        if( nullptr != this->pointer() ) \
-         {\
-          ::reflection::operation::reroute< class_view::pointer_type >( *this, this->pointer() );\
-         } \
-        return;            \
+#define reflection__CLASS_END_pointer(class_reflected,class_original) \
+      if( nullptr != this->pointer() ) \
+       {\
+        ::reflection::operation::reroute::set< class_reflected::pointer_type >( *this, this->pointer() );\
        } \
-    }
+       return;            \
+      } \
+     }
+
+#define reflection__CLASS_END_reference(class_reflected,class_original) \
+       ::reflection::operation::reroute::set< class_reflected::pointer_type >( *this, &( this->reference() ) );\
+       return;            \
+      } \
+     }
+
 
 #endif

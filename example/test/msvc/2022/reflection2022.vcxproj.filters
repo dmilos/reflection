@@ -23,7 +23,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\less-than-4k\function\free0.cpp">
+    <ClCompile Include="..\..\..\wb-small.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

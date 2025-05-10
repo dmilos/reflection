@@ -20,10 +20,11 @@ namespace reflection
          public:
            typedef identifier_name identifier_type;
 
-           typedef ::reflection::property::pure_class                            propert_type;
-           typedef ::reflection::ornament::category_class<identifier_type> category_type;
+           typedef ::reflection::property::pure_class                                 property_type;
+           typedef property_type *                                            property_pointer_type;
+           typedef ::reflection::ornament::category_class<identifier_type>            category_type;
 
-           typedef std::vector<  propert_type * > container_type;
+           typedef std::vector< property_pointer_type  > container_type;
 
            typedef typename ::reflection::content::function::signature_struct<identifier_type>::container_type   signature_type;
 

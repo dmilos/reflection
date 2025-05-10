@@ -22,14 +22,14 @@ namespace reflection
        >
        class basic_class //! Generalization of all classe
         : virtual public ::reflection::property::direct::pure_class< original_name >
-        , virtual public ::reflection::property::_internal::carrier_class<storage_name>
+        , virtual public ::reflection::property::_internal::proxy_class<storage_name>
         {
          public:
            typedef original_name   original_type;
            typedef storage_name    storage_type;
            typedef extractor_name  extractor_type;
 
-           typedef ::reflection::property::_internal::carrier_class<storage_name> carrier_type;
+           typedef ::reflection::property::_internal::proxy_class<storage_name> carrier_type;
 
                      basic_class(){ }
 

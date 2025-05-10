@@ -134,6 +134,7 @@ namespace reflection
              typedef    std::string       string_type;
              typedef    std::wstring     wstring_type;
              typedef    bool             boolean_type;
+             typedef    int              integer_type;
 
              static report_type recover( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
               {
@@ -309,36 +310,57 @@ namespace reflection
              template< typename simple_name >
               static report_type primitive( output_type & output_param, key_type const& key_param, property_qualified_reference_type property_param )
                {
-                boolean_type pass = true;
+                integer_type pass = 0;
 
                 output_param << key_param <<" " ;
 
-                if( true == pass )
+                if( 0 == pass )
+                 {
+                  typedef ::reflection::property::_internal::carrier::pure_class carrie_type;
+                  auto carrier_instance = dynamic_cast<carrie_type const* >( &property_param );
+                  if( nullptr != carrier_instance )
+                   {
+                    if( false == carrier_instance->valid() )
+                     {
+                      pass = -1;
+                     }
+                   }
+                 }
+
+                if( 0 == pass )
                  {
                   typedef ::reflection::property::inspect::pure_class<simple_name const& > inspect_type;
                   auto inspect_instance = dynamic_cast< inspect_type const* >( &property_param );
                   if( nullptr != inspect_instance )
                    {
                     output_param << " = " << inspect_instance->present();
-                    pass = false;
+                    pass = +1;
                    }
                  }
 
-                if( true == pass )
+                if( 0 == pass )
                  {
                   typedef  ::reflection::property::direct::pure_class<simple_name &>         direct_type;
                   direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                   if( nullptr != direct_instance )
                    {
                     output_param << " = " << direct_instance->disclose();
-                    pass = false;
+                    pass = +1;
                    }
                  }
 
-                if( true == pass )
+                switch( pass )
                  {
-                  output_param << "  /*!< @note: \"Can not retrieve value\" */ ";
+                  case(  0 ):
+                   {
+                     output_param << "  /*!< @note: \"Can not retrieve value\"; reason: " + std::to_string( pass ) + "; */ "; 
+                   } break;
+                  case( -1 ) :
+                   {
+                    output_param << "  /*!< @note: \"Invalid storage\"; reason: " + std::to_string( pass ) + "; */ "; 
+                   } break;
                  }
+
 
                 return report_type( true );
                }
