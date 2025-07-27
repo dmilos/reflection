@@ -5,7 +5,7 @@
 
  #include "../../property/variable/_pure.hpp"
 
- #include "../_pure.hpp"
+ #include "../_base.hpp"
 
 namespace reflection
  {
@@ -22,7 +22,7 @@ namespace reflection
         ,typename       image_name
        >
        class pure_class
-        : virtual public ::reflection::content::pure_class< identifier_name >
+        : virtual public ::reflection::content::base_class< identifier_name, data_name >
         , virtual public ::reflection::property::variable::pure_class<original_name,image_name>
         {
          public:
@@ -35,12 +35,6 @@ namespace reflection
            typedef ::reflection::property::variable::pure_class<original_name,image_name>   property_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
-
-           pure_class()
-            :content_type( identificator_type::template get<data_type>() )
-            {
-             this->identifier( identificator_type::template get<data_type>() );
-            }
 
            using property_type::disclose;
            using property_type::present;

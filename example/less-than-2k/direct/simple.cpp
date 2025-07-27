@@ -32,6 +32,8 @@ int main( int argc, char *argv[] )
 
   std::cout <<  ::reflection::property::direct::disclose< int & >( r.get("integer") ) << std::endl;
   ::reflection::property::direct::disclose< int & >( r.get("integer") ) =  2424;
+
+  ::reflection::property::direct::check< int& >( r.get("integer") );
   std::cout <<  ::reflection::property::direct::disclose< int& >( r.get("integer") ) << std::endl;
 
   std::cout <<  ::reflection::property::direct::disclose< float& >( r.get("float-point") ) << std::endl;

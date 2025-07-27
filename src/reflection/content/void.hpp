@@ -5,7 +5,7 @@
 
  #include "../property/void.hpp"
 
- #include "./_pure.hpp"
+ #include "./_base.hpp"
 
 namespace reflection
  {
@@ -17,7 +17,7 @@ namespace reflection
        typename  identifier_name
      >
     class void_class
-     : virtual public ::reflection::content::pure_class< identifier_name >
+     : virtual public ::reflection::content::base_class< identifier_name, void >
      , virtual public ::reflection::property::void_class
      {
       public:
@@ -28,12 +28,6 @@ namespace reflection
         typedef ::reflection::property::void_class                               property_type;
 
         typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
-
-        void_class()
-         :content_type( identificator_type::template get<data_type>() )
-         {
-          this->identifier( identificator_type::template get<data_type>() );
-         }
 
      };
 

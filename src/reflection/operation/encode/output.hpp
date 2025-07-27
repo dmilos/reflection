@@ -34,16 +34,17 @@ namespace reflection
            typename key_name
          >
          class base_class 
-          : virtual public ::reflection::operation::output::pure_class
+          : virtual public ::reflection::operation::encode::output::pure_class
           {
            public:
              typedef key_name key_type;
+             typedef ::reflection::operation::encode::output::pure_class  pure_type;
              typedef ::reflection::property::pure_class  property_type;
-             pure_class( )
+             base_class( )
               {
               }
 
-             virtual ~pure_class()
+             virtual ~base_class()
               {
               }
            public:

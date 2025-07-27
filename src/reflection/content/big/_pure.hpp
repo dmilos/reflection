@@ -5,7 +5,7 @@
 
  #include "../../property/big/_pure.hpp"
 
- #include "../_pure.hpp"
+ #include "../_base.hpp"
 
 namespace reflection
  {
@@ -22,7 +22,7 @@ namespace reflection
       //,typename copy_name = std::vector< std::uint8_t >
        >
        class pure_class
-        : virtual public ::reflection::content::pure_class< identifier_name >
+        : virtual public ::reflection::content::base_class< identifier_name, data_name >
         , virtual public ::reflection::property::big::pure_class<size_name,data_name>
         {
          public:
@@ -35,12 +35,6 @@ namespace reflection
 
            typedef ::reflection::content::pure_class< identifier_name >            content_type;
            typedef ::reflection::property::big::pure_class<size_name,data_name>   property_type;
-
-           pure_class()
-            :content_type( identificator_type::template get<data_type>() )
-            {
-             this->identifier( identificator_type::template get<data_type>() );
-            }
 
            using property_type::size;
            using property_type::get;

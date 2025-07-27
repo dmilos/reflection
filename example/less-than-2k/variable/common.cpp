@@ -38,6 +38,11 @@ int main( int argc, char *argv[] )
 
   MyStructReflection   r;
 
+
+  //::reflection::property::variable::get<int, int const&>( r.get("integer") );
+  ::reflection::property::variable::check<int, int const&>(r.get("integer") );
+  ::reflection::property::variable::check_weak<int, int const&>(r.get("integer") );
+
   observe_type observe;
 
   xml_type xml( observe );// XMLize for example

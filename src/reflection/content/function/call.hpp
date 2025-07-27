@@ -1,7 +1,7 @@
 #ifndef reflection_content_function_call
 #define reflection_content_function_call
 
-// ::reflection::content::function::unpack_struct<data_name>
+// ::reflection::content::function::call_struct<data_name>
 
 #include "../../property/function/_pure.hpp"
 

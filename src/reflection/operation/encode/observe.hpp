@@ -40,8 +40,8 @@ namespace reflection
 
            typedef ::reflection::operation::encode::observe_class<output_name,key_name,identifier_name,report_name,qualificator_name, container_name> this_type;
 
-           typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::pure_class                                 property_type;
+           typedef ::reflection::ornament::category_class<identifier_type>            category_type;
            typedef ::reflection::property::structure_class<key_type,container_name>  structure_type;
 
            typedef ::reflection::type::name::identificatorX< identifier_name  > identificator_type;
@@ -281,7 +281,6 @@ namespace reflection
                auto report = this->stage()[stage_suffix_index]( output_param, key_param, property_param );
                return report;
               }
-
             }
 
          public:
@@ -432,8 +431,8 @@ namespace reflection
                direct_type *direct_instance = dynamic_cast< direct_type * >( &const_cast< property_type &>( property_param ) );
                if( nullptr != direct_instance )
                 {
-                 userType_name & user_instance = direct_instance->disclose();
-                 return this->view( output_param, (reflection_name&) user_instance );
+                 reflection_name  view( direct_instance->disclose() );
+                 return this->view( output_param, view );
                 }
               }
 
@@ -453,8 +452,8 @@ namespace reflection
               
                if( nullptr != inspect_instance )
                 {
-                 auto & user_instance = inspect_instance->present();
-                 return this->view( output_param, (reflection_name&)user_instance );
+                 reflection_name  view( inspect_instance->present() );
+                 return this->view( output_param, view );
                 }
               }
 

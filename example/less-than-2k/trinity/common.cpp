@@ -38,6 +38,12 @@ int main( int argc, char *argv[] )
 
   MyStructReflection   r;
 
+  //::reflection::property::variable::get<int, int const&>( r.get("integer") );
+  ::reflection::property::trinity::check<int&, int const&, int const&, bool>(r.get("integer"));
+  ::reflection::property::trinity::check_weak<int&, int const&, int const&, bool>(r.get("integer"));
+  ::reflection::property::trinity::check_any<int&, int const&, int const&, bool>(r.get("integer"));
+
+
   observe_type observe;
 
   xml_type xml( observe );// XMLize for example

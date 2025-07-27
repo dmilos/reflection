@@ -13,7 +13,7 @@ struct MyStructOriginal // Struct with several static members
     static std::string  m_string;
  };
 
-int          MyStructOriginal::m_int;
+int          MyStructOriginal::m_int=15;
 float        MyStructOriginal::m_float;
 std::string  MyStructOriginal::m_string;
 
@@ -47,6 +47,18 @@ int main( int argc, char *argv[] )
 
   json_type json( observe ); // JSONize also
   observe.view( std::cout, r );
+
+  ::reflection::property::exposed::check< int&, int const&, bool >(r.get("integer"));
+  ::reflection::property::exposed::check_weak< int&, int const&, bool >(r.get("integer"));
+  ::reflection::property::exposed::check_any< int&, int const&, bool >(r.get("integer"));
+  ::reflection::property::exposed::dispatch< int&, int const&, bool >(r.get("integer"), 10 );
+
+  ::reflection::property::direct::pure_class<int&>            * director;
+  ::reflection::property::mutate::pure_class<int const&, bool>* mutator;
+
+  ::reflection::property::exposed::unpack< int&, int const&, bool >( r.get("integer"), &director, &mutator );
+
+  ::reflection::property::exposed::dispatch< int&, int const&, bool >( director, mutator, 10 );
 
   return EXIT_SUCCESS;
  }

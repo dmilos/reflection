@@ -36,7 +36,18 @@ int main( int argc, char *argv[] )
   typedef ::reflection::operation::transfer::xml::print_struct<std::ostream> xml_type;
   typedef ::reflection::operation::transfer::json::print_struct<std::ostream> json_type;
 
+
+
   MyStructReflection   r;
+  ::reflection::property::guarded::check< int&, int const&, bool >( r.get("integer") );
+  ::reflection::property::guarded::check_weak< int&, int const&, bool >( r.get("integer") );
+  ::reflection::property::guarded::check_any< int&, int const&, bool >( r.get("integer") );
+
+  ::reflection::property::mutate::pure_class<int const&, bool>* director;
+  ::reflection::property::inspect::pure_class<int const&>* inspector;
+
+  ::reflection::property::guarded::unpack< int const&, int const&, bool >( r.get("integer"), &director, &inspector );
+
 
   observe_type observe;
 
