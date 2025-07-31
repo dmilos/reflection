@@ -27,6 +27,7 @@ namespace reflection
 
          typedef parameter_name const& model_type;
          typedef ::reflection::property::mutate::pure_class<model_type, report_name>  mutate_type;
+
        public:
          dispatch_class( property_type & property_instance )
           {
@@ -41,7 +42,7 @@ namespace reflection
 
          bool set( model_type model )
           {
-           return ::reflection::property::exposed::dispatch<original_type, model_type/*, report_name*/>( m_director, m_mutator, model);
+           return ::reflection::property::exposed::dispatch<original_type, model_type/*, report_name*/>( m_director, m_mutator, model );
           }
        private:
          direct_type   * m_director;
@@ -67,6 +68,7 @@ namespace reflection
        public:
          dispatch_class( property_type & property_instance )
           {
+           ::reflection::property::exposed::unpack/*< original_type, model_type, report_name >*/(property_instance, &m_director, &m_mutator);
           }
 
        public:

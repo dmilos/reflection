@@ -34,7 +34,6 @@ namespace reflection
            signature_type      & signature(){ return m_signature; }
          private:
            signature_type m_signature;
-
         };
 
      }
